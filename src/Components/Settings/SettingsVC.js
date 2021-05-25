@@ -1,6 +1,9 @@
 import React from 'react';
 
 import {SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, Text} from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
 
 const styles = StyleSheet.create({
 	cell: {
