@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
+import Realm from 'realm'
 
 import {Alert, SafeAreaView, StyleSheet, Text, View} from 'react-native';
-
 import {RNCamera} from 'react-native-camera';
+import {BLEPrinter} from "react-native-thermal-receipt-printer";
+
 import {Header} from '../Header/Header.js'
 
-import Realm from 'realm'
 
 const PlateData = {
 	name: "Plate",
@@ -100,8 +101,9 @@ export class ScanVC extends React.Component {
 			checkOut: false,
 			checkIn: false
 		};
+		BLEPrinter.init()
 	}
-	
+
 	componentDidMount() {
 		this.state = {
 			checkOut: false,
@@ -140,7 +142,8 @@ export class ScanVC extends React.Component {
 	}
 
 	onTextRecognized(text) {
-		const regEx = /[0-9]{2}\-?[A-Z][A-Z0-9]?\n[0-9]{3}([0-9]|(\.|\-)[0-9]{2})/
+		const regEx = /[1-9][0-9]\-?[A-Z][A-Z0-9]?\n[0-9]{3}([0-9]|(\.|\-)[0-9]{2})/
+		this.printTicket("3eestt")
 
 		if (!this.state.checkIn && !this.state.checkOut) {
 			const block = text.textBlocks.map(e => e.value)
@@ -175,6 +178,51 @@ export class ScanVC extends React.Component {
 		}
 	}
 	
+	printTicket(plate) {
+		var printers = []
+		BLEPrinter.init().then(()=> {
+			BLEPrinter.getDeviceList().then(printers)
+		})
+
+		console.log(printers)
+
+		_connectPrinter => (printer) => {
+			BLEPrinter.connectPrinter(printer.inner_mac_address).then(
+			  setCurrentPrinter,
+			  error => console.warn(error))
+		}
+	}
+
+	async processCheckin(plate) {
+		const realm = await Realm.open({
+			schema: [PlateData],
+		})
+
+		realm.write(() => {
+			realm.create("Plate", {
+				id: 1950,
+				plateId: plate,
+				code: "234fsdhjfsdfsak23k4jsdakchjas",
+				checkinDate: Date().toString(),
+				checkoutDate: "",
+			});
+		});
+
+		console.log("oops")
+		this.printTicket(plate)
+	}
+
+	async processCheckout(plate) {
+		const realm = await Realm.open({
+			schema: [PlateData],
+		})
+
+		const obj = realm.objects("Plate").filtered(`plateId == \"${plate}\"`)
+		realm.write(() => {
+			realm.delete(obj)
+		})
+	}
+
 	render() {
 		data = this.props.data
 
@@ -210,33 +258,6 @@ export class ScanVC extends React.Component {
 		)
 
 		return view
-	}
-
-	async processCheckin(plate) {
-		const realm = await Realm.open({
-			schema: [PlateData],
-		})
-
-		realm.write(() => {
-			realm.create("Plate", {
-				id: 1950,
-				plateId: plate,
-				code: "234fsdhjfsdfsak23k4jsdakchjas",
-				checkinDate: Date().toString(),
-				checkoutDate: "",
-			});
-		});
-	}
-
-	async processCheckout(plate) {
-		const realm = await Realm.open({
-			schema: [PlateData],
-		})
-
-		const obj = realm.objects("Plate").filtered(`plateId == \"${plate}\"`)
-		realm.write(() => {
-			realm.delete(obj)
-		})
 	}
 }
 
