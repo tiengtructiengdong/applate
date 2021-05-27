@@ -22,6 +22,11 @@ const PlateData = {
 const style = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: "#323232"
+	},
+	body: {
+		height: '100%', 
+		backgroundColor: "#121212"
 	},
 	sectionContainer: {
 		marginTop: 32,
@@ -227,9 +232,9 @@ export class ScanVC extends React.Component {
 		data = this.props.data
 
 		const view =  (
-			<SafeAreaView style={{ flex: 1 , backgroundColor: "#323232"}}>
+			<SafeAreaView style={style.container}>
 				<Header title="Scan plate or QR ticket" bgColor="#323232" titleColor="#ffffff"></Header>
-				<View style={[{height: '100%', backgroundColor: "#121212"}]}>
+				<View style={style.body}>
 					<View style={[
 						style.cameraView,
 						{borderColor: (this.state.checkIn||this.state.checkOut) ? "#17db3c" : "#ffc500"}
