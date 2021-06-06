@@ -11,3 +11,6 @@ int main(int argc, char * argv[]) {
     return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
   }
 }
+
+// Error in didUpdateNotificationStateForCharacteristic: Error Domain=CBATTErrorDomain Code=6 "The request is not supported." UserInfo={NSLocalizedDescription=The request is not supported.}
+

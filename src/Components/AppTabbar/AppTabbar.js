@@ -17,7 +17,7 @@ const style = StyleSheet.create({
     },
 
     buttonLeft: {
-        height: 67,
+        height: 100,
         position: 'absolute',
         left: 45,
         alignContent: 'center',
@@ -25,7 +25,6 @@ const style = StyleSheet.create({
     },
 
     buttonMiddle: {
-        height: 67,
         position: 'relative',
         alignSelf: 'center',
         alignContent: 'center',
@@ -33,7 +32,6 @@ const style = StyleSheet.create({
     },
 
     buttonRight: {
-        height: 67,
         position: 'absolute',
         right: 45,
         alignContent: 'center',

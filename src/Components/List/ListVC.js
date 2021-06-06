@@ -25,6 +25,10 @@ const style = StyleSheet.create({
 
 	scrollContainer: {
 		marginTop: 15
+	},
+
+	scrollPadding: {
+		height: 180
 	}
 });
 
@@ -73,6 +77,7 @@ export class ListVC extends React.Component {
 
 				<ScrollView style={style.scrollView} contentContainerStyle={style.scrollContainer}>
 					{this.listContent(this.state.realm)}
+					<View style={style.scrollPadding}></View>
 				</ScrollView>
   
 			</SafeAreaView>

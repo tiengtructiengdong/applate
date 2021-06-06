@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {Alert, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
 const styles = StyleSheet.create({
 	cell: {
@@ -43,7 +43,25 @@ const styles = StyleSheet.create({
 });
 
 export class ListCell extends React.Component {
-
+	onPressCell() {
+		Alert.alert(this.props.plate, "Please report the issue here.", 
+		[
+			{ 	
+				text: "Report lost ticket", 
+				onPress: () => {
+					
+				}
+			},
+			{ 	
+				text: "Cancel", 
+				onPress: () => {
+					
+				},
+				style: "cancel"
+			},
+		])
+	}
+	
 	render() {
 		const plate = this.props.plate
 		const datetime = new Date(this.props.datetime)
@@ -52,7 +70,7 @@ export class ListCell extends React.Component {
 		const time = `${datetime.getHours()}:${datetime.getMinutes()}` 
 
 		return (
-			<TouchableOpacity style={styles.cell}>
+			<TouchableOpacity style={styles.cell} onPress={this.onPressCell.bind(this)}>
 				<Text style={styles.plate}>{plate}</Text>
 				<Text style={styles.time}>{time}</Text>
 				<Text style={styles.date}>{date}</Text>
