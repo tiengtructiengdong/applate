@@ -146,6 +146,8 @@ export class ScanVC extends React.Component {
 							}
 						}
 					])
+				} else {
+					Alert.alert("Invalid ticket!", "The vehicle may have checked out.", [{text: "OK", onPress: () => {}}])
 				}
 			})
 		}
@@ -188,10 +190,16 @@ export class ScanVC extends React.Component {
 		}
 	}
 	
-	printTicket(uuid) {
+	printTicket(plate,uuid) {
 		BluetoothEscposPrinter.printerInit().then(()=>{
-			BluetoothEscposPrinter.printQRCode(uuid, 360, BluetoothEscposPrinter.ERROR_CORRECTION.L).then(()=>{
-				console.log("PRINTED!")
+			BluetoothEscposPrinter.printText("Park:  TESTING TICKET\n", {}).then(()=>{
+				BluetoothEscposPrinter.printText("Plate: " + plate + "\n", {}).then(()=>{
+					BluetoothEscposPrinter.printQRCode(uuid, 360, BluetoothEscposPrinter.ERROR_CORRECTION.L).then(()=>{
+						BluetoothEscposPrinter.printText("Powered by Applate\n\n\n\n", {}).then(()=>{
+							console.log("PRINTED!")
+						})
+					})
+				})
 			})
 		})
 	}
@@ -210,7 +218,7 @@ export class ScanVC extends React.Component {
 				});
 			});
 	
-			this.printTicket(uuid_code)
+			this.printTicket(plate, uuid_code)
 		})	
 	}
 
