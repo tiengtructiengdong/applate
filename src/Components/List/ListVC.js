@@ -29,6 +29,25 @@ const style = StyleSheet.create({
 
 	scrollPadding: {
 		height: 180
+	},
+
+	noVehicle: {
+		alignItems: 'center',
+		marginTop: '50%'
+	},
+
+	noVehicleLine: {
+		fontWeight: '600',
+		fontSize: 20,
+		height: 35,
+		color: '#787878'
+	},
+
+	noVehicleSubline: {
+		fontWeight: '400',
+		fontSize: 16,
+		height: 35,
+		color: '#787878'
 	}
 });
 
@@ -86,7 +105,16 @@ export class ListVC extends React.Component {
 
 	listContent(realm) {
 		if (realm) {
-			return (<ListContent plateData={this.state.realm.objects("Plate")}/>)
+			const data = realm.objects("Plate")
+			if (data.length > 0) {
+				return (<ListContent plateData={data}/>)
+			}
+			return (
+				<View style={style.noVehicle}>
+					<Text style={style.noVehicleLine}>No vehicles on the park!</Text>
+					<Text style={style.noVehicleSubline}>Wait for some customers.</Text>
+				</View>
+			)
 		}
 		return null
 	}

@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Allow Bluetooth</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>NSCameraUsageDescription</key>
@@ -47,14 +49,14 @@
 	<array>
 		<string>armv7</string>
 	</array>
-  <key>UIAppFonts</key>
-  <array>
-    <string>fonts/FontAwesome.ttf</string>
-    <string>fonts/Ionicons.ttf</string>
-    <string>fonts/Foundation.ttf</string>
-    <string>fonts/MaterialCommunityIcons.ttf</string>
-    <string>fonts/MaterialIcons.ttf</string>
-  </array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>fonts/FontAwesome.ttf</string>
+		<string>fonts/Ionicons.ttf</string>
+		<string>fonts/Foundation.ttf</string>
+		<string>fonts/MaterialCommunityIcons.ttf</string>
+		<string>fonts/MaterialIcons.ttf</string>
+	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

@@ -216,6 +216,7 @@ export default class BluetoothSelector extends React.Component {
                             loading:false
                         })
                         alert(err)
+                        console.log(err)
                     });
                 }
             }}/>

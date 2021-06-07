@@ -9,6 +9,7 @@ import {BleManager} from "react-native-ble-plx"
 import {Header} from '../Header/Header'
 import {BluetoothEscposPrinter} from "react-native-bluetooth-escpos-printer";
 
+import uuid from 'react-native-uuid'
 
 const PlateData = {
 	name: "Plate",
@@ -116,76 +117,39 @@ export class ScanVC extends React.Component {
 			checkOut: false,
 			checkIn: false
 		};
-		const subscription = this.manager.onStateChange((state) => {
-			if (state === 'PoweredOn') {
-				this.scanAndConnect();
-				subscription.remove();
-			}
-		}, true);
-	}
-
-	scanAndConnect() {
-		this.manager.startDeviceScan(null, null, (error, device) => {
-			console.log(device);
-	  
-			if (error) {
-			  this.error(error.message);
-			  return
-			}
-	  
-			if (device.name ==='GB01') {
-			  this.info("Connecting to Tappy");
-			  this.manager.stopDeviceScan();
-	  
-			  device.connect()
-				.then((device) => {
-				  this.info("Discovering services and characteristics");
-				  return device.discoverAllServicesAndCharacteristics()
-				})
-				.then((device) => {
-				  this.info(device.id);
-				  device.writeCharacteristicWithResponseForService('12ab', '34cd', 'aGVsbG8gbWlzcyB0YXBweQ==')
-					.then((characteristic) => {
-					  this.info(characteristic.value);
-					  return 
-					})
-				})
-				.catch((error) => {
-				  this.error(error.message)
-				})
-			 }
-		 });
 	}
 
 	onBarCodeRead(scanResult) {
-		const regEx = /[0-9]{2}[A-Z][A-Z0-9]\-[0-9]{3}([0-9]|(\.|\-)[0-9]{2})/
-		console.log("yes")
-
 		if (!this.state.checkOut && !this.state.checkIn) {
-			const plate = scanResult.data.match(regEx)
 
-			if (plate) {
-				this.setState({checkOut: true})
-				
-				Alert.alert("Checkout", scanResult.data, 
-				[
-					{ 	
-						text: "Cancel", 
-						onPress: () => {
-							this.setState({checkOut: false})
+			Realm.open({schema: [PlateData]}).then((realm)=> {
+				const obj = realm.objects("Plate").filtered(`code == \"${scanResult.data}\"`)[0]
+
+				if (obj) {
+					this.setState({checkOut: true})
+					const plate = obj.plateId
+					
+					Alert.alert("Checkout", plate, 
+					[
+						{ 	
+							text: "Cancel", 
+							onPress: () => {
+								this.setState({checkOut: false})
+							},
+							style: "cancel"
 						},
-						style: "cancel"
-					},
-					{ 	
-						text: "OK", 
-						onPress: () => {
-							this.setState({checkOut: false})
-							this.processCheckout(scanResult.data)
+						{ 	
+							text: "OK", 
+							onPress: () => {
+								this.setState({checkOut: false})
+								this.processCheckout(plate)
+							}
 						}
-					}
-				])
-			}
+					])
+				}
+			})
 		}
+		
 	}
 
 	onTextRecognized(text) {
@@ -224,41 +188,38 @@ export class ScanVC extends React.Component {
 		}
 	}
 	
-	printTicket(plate) {
+	printTicket(uuid) {
 		BluetoothEscposPrinter.printerInit().then(()=>{
-			BluetoothEscposPrinter.printQRCode(plate, 360, BluetoothEscposPrinter.ERROR_CORRECTION.L).then(()=>{
-				console.log("PRINTED!", plate)
+			BluetoothEscposPrinter.printQRCode(uuid, 360, BluetoothEscposPrinter.ERROR_CORRECTION.L).then(()=>{
+				console.log("PRINTED!")
 			})
 		})
 	}
 
-	async processCheckin(plate) {
-		const realm = await Realm.open({
-			schema: [PlateData],
-		})
+	processCheckin(plate) {
+		Realm.open({schema: [PlateData]}).then(realm => {
+			var uuid_code = uuid.v4()
 
-		realm.write(() => {
-			realm.create("Plate", {
-				id: 1950,
-				plateId: plate,
-				code: "234fsdhjfsdfsak23k4jsdakchjas",
-				checkinDate: Date().toString(),
-				checkoutDate: "",
+			realm.write(() => {
+				realm.create("Plate", {
+					id: 1950,
+					plateId: plate,
+					code: uuid_code,
+					checkinDate: Date().toString(),
+					checkoutDate: "",
+				});
 			});
-		});
-
-		console.log("oops")
-		this.printTicket(plate)
+	
+			this.printTicket(uuid_code)
+		})	
 	}
 
-	async processCheckout(plate) {
-		const realm = await Realm.open({
-			schema: [PlateData],
-		})
-
-		const obj = realm.objects("Plate").filtered(`plateId == \"${plate}\"`)
-		realm.write(() => {
-			realm.delete(obj)
+	processCheckout(plate) {
+		Realm.open({schema: [PlateData]}).then(realm =>{
+			const obj = realm.objects("Plate").filtered(`plateId == \"${plate}\"`)
+			realm.write(() => {
+				realm.delete(obj)
+			})
 		})
 	}
 
@@ -271,7 +232,7 @@ export class ScanVC extends React.Component {
 				<View style={style.body}>
 					<View style={[
 						style.cameraView,
-						{borderColor: (this.state.checkIn||this.state.checkOut) ? "#17db3c" : "#ffc500"}
+						{borderColor: this.state.checkIn ? "#07e722" : this.state.checkOut ? "#ff3511" : "#ffc500"}
 					]}>
 						<View style={style.cameraContent}>
 							<RNCamera 
