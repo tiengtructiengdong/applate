@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, Text, View} from 'react-native';
+import BluetoothSelector from './BluetoothSelector'
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
@@ -58,7 +59,7 @@ export class SettingsVC extends React.Component {
 						<Text style={style.cellText}>Data settings</Text>
 					</TouchableOpacity>
 
-					<TouchableOpacity style={style.cell}>
+					<TouchableOpacity style={style.cell} onPress={() => navigation.navigate('Bluetooth')}>
 						<Text style={style.cellText}>Bluetooth printer</Text>
 					</TouchableOpacity>
 				</ScrollView>
@@ -79,10 +80,17 @@ export class SettingsVC extends React.Component {
 		)
 	}
 
+	Bluetooth({navigation}) {
+		return (
+			<BluetoothSelector navigation={navigation}></BluetoothSelector>
+		)
+	}
+
 	render() {
 		return (
 			<Stack.Navigator headerMode='none'>
 				<Stack.Screen name="SettingsList" component={this.SettingsList} navigation={this.props.navigation}/>
+				<Stack.Screen name="Bluetooth" component={this.Bluetooth} navigation={this.props.navigation}/>
 				<Stack.Screen name="About" component={this.About} navigation={this.props.navigation}/>
 			</Stack.Navigator>
 		) 

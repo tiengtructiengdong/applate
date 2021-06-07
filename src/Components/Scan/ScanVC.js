@@ -7,7 +7,7 @@ import {RNCamera} from 'react-native-camera';
 import {BleManager} from "react-native-ble-plx"
 
 import {Header} from '../Header/Header'
-import {EscPos} from '../../Model/EscPos'
+import {BluetoothEscposPrinter} from "react-native-bluetooth-escpos-printer";
 
 
 const PlateData = {
@@ -159,6 +159,7 @@ export class ScanVC extends React.Component {
 
 	onBarCodeRead(scanResult) {
 		const regEx = /[0-9]{2}[A-Z][A-Z0-9]\-[0-9]{3}([0-9]|(\.|\-)[0-9]{2})/
+		console.log("yes")
 
 		if (!this.state.checkOut && !this.state.checkIn) {
 			const plate = scanResult.data.match(regEx)
@@ -189,7 +190,6 @@ export class ScanVC extends React.Component {
 
 	onTextRecognized(text) {
 		const regEx = /[1-9][0-9]\-?[A-Z][A-Z0-9]?\n[0-9]{3}([0-9]|(\.|\-)[0-9]{2})/
-		this.printTicket("3eestt")
 
 		if (!this.state.checkIn && !this.state.checkOut) {
 			const block = text.textBlocks.map(e => e.value)
@@ -225,38 +225,10 @@ export class ScanVC extends React.Component {
 	}
 	
 	printTicket(plate) {
-		var esc = '\x1B'; //ESC byte in hex notation
-		var newLine = '\x0A'; //LF byte in hex notation
-	
-		var cmds = esc + "@"; //Initializes the printer (ESC @)
-		cmds += esc + '!' + '\x38'; //Emphasized + Double-height + Double-width mode selected (ESC ! (8 + 16 + 32)) 56 dec => 38 hex
-		cmds += 'BEST DEAL STORES'; //text to print
-		cmds += newLine + newLine;
-		cmds += esc + '!' + '\x00'; //Character font A selected (ESC ! 0)
-		cmds += 'COOKIES                   5.00'; 
-		cmds += newLine;
-		cmds += 'MILK 65 Fl oz             3.78';
-		cmds += newLine + newLine;
-		cmds += 'SUBTOTAL                  8.78';
-		cmds += newLine;
-		cmds += 'TAX 5%                    0.44';
-		cmds += newLine;
-		cmds += 'TOTAL                     9.22';
-		cmds += newLine;
-		cmds += 'CASH TEND                10.00';
-		cmds += newLine;
-		cmds += 'CASH DUE                  0.78';
-		cmds += newLine + newLine;
-		cmds += esc + '!' + '\x18'; //Emphasized + Double-height mode selected (ESC ! (16 + 8)) 24 dec => 18 hex
-		cmds += '# ITEMS SOLD 2';
-		cmds += esc + '!' + '\x00'; //Character font A selected (ESC ! 0)
-		cmds += newLine + newLine;
-		cmds += '11/03/13  19:53:17';
-
-		console.log(cmds)
-		
-		this.manager.connectedDevices(["E0A4D442-2DAA-9FC7-B3AE-B9F17035BE57"]).then((device)=>{
-			device.writeCharacteristicWithResponseForService(cmds)
+		BluetoothEscposPrinter.printerInit().then(()=>{
+			BluetoothEscposPrinter.printQRCode(plate, 360, BluetoothEscposPrinter.ERROR_CORRECTION.L).then(()=>{
+				console.log("PRINTED!", plate)
+			})
 		})
 	}
 
@@ -312,7 +284,6 @@ export class ScanVC extends React.Component {
 								defaultTouchToFocus
 								style={[{flex: 1, borderRadius: 10, zIndex: 3}]}
 								onBarCodeRead={this.onBarCodeRead.bind(this)}
-
 								onTextRecognized={this.onTextRecognized.bind(this)}
 							>
 							</RNCamera>
