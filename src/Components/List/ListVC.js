@@ -59,12 +59,6 @@ export class ListVC extends React.Component {
 		}
 	}
 
-	static getDerivedStateFromProps(props, current_state) {
-		return {
-			plates: props.data.plates
-		}
-	}
-
 	componentDidMount() {
 		const navigation = this.props.navigation
 		

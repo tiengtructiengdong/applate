@@ -11,28 +11,24 @@ import {ListVC} from './Components/List/ListVC.js'
 import {ScanVC} from './Components/Scan/ScanVC.js'
 import {SettingsVC} from './Components/Settings/SettingsVC.js'
 
-import {AppData} from "./Model/AppData.js"
-
 import {AppTabbar} from "./Components/AppTabbar/AppTabbar.js"
-
-var appData = new AppData()
 
 
 function List({navigation}) {
 	return (
-		<ListVC data={appData} navigation={navigation}></ListVC>
+		<ListVC navigation={navigation}></ListVC>
 	)
 }
 
 function Scan({navigation}) {
 	return (
-		<ScanVC data={appData} navigation={navigation}></ScanVC>
+		<ScanVC navigation={navigation}></ScanVC>
 	)
 }
 
 function Settings({navigation}) {
 	return (
-		<SettingsVC data={appData} navigation={navigation}></SettingsVC>
+		<SettingsVC navigation={navigation}></SettingsVC>
 	)
 }
 
