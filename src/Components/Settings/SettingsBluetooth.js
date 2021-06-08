@@ -20,7 +20,7 @@ import {BluetoothEscposPrinter, BluetoothManager} from "react-native-bluetooth-e
 
 var {height, width} = Dimensions.get('window');
 
-export default class BluetoothSelector extends React.Component {
+export default class SettingsBluetooth extends React.Component {
 
 
     _listeners = [];

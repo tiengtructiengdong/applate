@@ -4,12 +4,12 @@ import Realm from 'realm'
 import {Alert, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 
-import {BleManager} from "react-native-ble-plx"
-
 import {Header} from '../Header/Header'
 import {BluetoothEscposPrinter} from "react-native-bluetooth-escpos-printer";
 
 import uuid from 'react-native-uuid'
+import DefaultPreference from 'react-native-default-preference';
+
 
 const PlateData = {
 	name: "Plate",
@@ -108,8 +108,7 @@ export class ScanVC extends React.Component {
 		this.state = {
 			checkOut: false,
 			checkIn: false
-		};
-		this.manager = new BleManager();
+		}
 	}
 
 	componentDidMount() {
@@ -191,12 +190,14 @@ export class ScanVC extends React.Component {
 	}
 	
 	printTicket(plate,uuid) {
-		BluetoothEscposPrinter.printerInit().then(()=>{
-			BluetoothEscposPrinter.printText("Park:  TESTING TICKET\n", {}).then(()=>{
-				BluetoothEscposPrinter.printText("Plate: " + plate + "\n", {}).then(()=>{
-					BluetoothEscposPrinter.printQRCode(uuid, 360, BluetoothEscposPrinter.ERROR_CORRECTION.L).then(()=>{
-						BluetoothEscposPrinter.printText("Powered by Applate\n\n\n\n", {}).then(()=>{
-							console.log("PRINTED!")
+		DefaultPreference.get("name").then((name)=>{
+			BluetoothEscposPrinter.printerInit().then(()=>{
+				BluetoothEscposPrinter.printText("Park:  " + name + "\n", {}).then(()=>{
+					BluetoothEscposPrinter.printText("Plate: " + plate + "\n", {}).then(()=>{
+						BluetoothEscposPrinter.printQRCode(uuid, 360, BluetoothEscposPrinter.ERROR_CORRECTION.L).then(()=>{
+							BluetoothEscposPrinter.printText("Powered by Applate\n\n\n\n", {}).then(()=>{
+								console.log("PRINTED!")
+							})
 						})
 					})
 				})

@@ -411,6 +411,8 @@ PODS:
     - React
   - RNBluetoothEscposPrinter (0.0.5):
     - React
+  - RNDefaultPreference (1.4.3):
+    - React
   - RNFBApp (6.7.1):
     - Firebase/Core (~> 6.13.0)
     - React
@@ -460,6 +462,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RealmJS (from `../node_modules/realm`)
   - RNBluetoothEscposPrinter (from `../node_modules/react-native-bluetooth-escpos-printer`)
+  - RNDefaultPreference (from `../node_modules/react-native-default-preference`)
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -558,6 +561,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/realm"
   RNBluetoothEscposPrinter:
     :path: "../node_modules/react-native-bluetooth-escpos-printer"
+  RNDefaultPreference:
+    :path: "../node_modules/react-native-default-preference"
   RNFBApp:
     :path: "../node_modules/@react-native-firebase/app"
   RNGestureHandler:
@@ -625,6 +630,7 @@ SPEC CHECKSUMS:
   ReactCommon: bedc99ed4dae329c4fcf128d0c31b9115e5365ca
   RealmJS: 8a51eff2b9eaabf78b53a6819da6da6edde27467
   RNBluetoothEscposPrinter: a16afa2948dd2649beb151b239c62683e07df1be
+  RNDefaultPreference: 2f8d6d54230edbd78708ada8d63bb275e5a8415b
   RNFBApp: 7b539bb25520fa73d6a240f5c6ea569e27683645
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNScreens: bf59f17fbf001f1025243eeed5f19419d3c11ef2

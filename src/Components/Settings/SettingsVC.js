@@ -1,8 +1,11 @@
 import React from 'react';
 
 import {SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, Text, View} from 'react-native';
-import BluetoothSelector from './BluetoothSelector'
+import SettingsBluetooth from './SettingsBluetooth'
+import SettingsInformation from './SettingsInformation'
 import { createStackNavigator } from '@react-navigation/stack';
+
+import {Header} from '../Header/Header.js'
 
 const Stack = createStackNavigator();
 
@@ -41,7 +44,6 @@ const style = StyleSheet.create({
 	}
 });
 
-import {Header} from '../Header/Header.js'
 
 export class SettingsVC extends React.Component {
 	title = ""
@@ -55,12 +57,12 @@ export class SettingsVC extends React.Component {
 						<Text style={style.cellText}>About</Text>
 					</TouchableOpacity>
 
-					<TouchableOpacity style={style.cell}>
-						<Text style={style.cellText}>Data settings</Text>
+					<TouchableOpacity style={style.cell} onPress={() => navigation.navigate('Information')}>
+						<Text style={style.cellText}>Information Settings</Text>
 					</TouchableOpacity>
 
 					<TouchableOpacity style={style.cell} onPress={() => navigation.navigate('Bluetooth')}>
-						<Text style={style.cellText}>Bluetooth printer</Text>
+						<Text style={style.cellText}>Printer</Text>
 					</TouchableOpacity>
 				</ScrollView>
 			</SafeAreaView>
@@ -82,7 +84,13 @@ export class SettingsVC extends React.Component {
 
 	Bluetooth({navigation}) {
 		return (
-			<BluetoothSelector navigation={navigation}></BluetoothSelector>
+			<SettingsBluetooth navigation={navigation}></SettingsBluetooth>
+		)
+	}
+
+	Information({navigation}) {
+		return (
+			<SettingsInformation navigation={navigation}></SettingsInformation>
 		)
 	}
 
@@ -90,8 +98,9 @@ export class SettingsVC extends React.Component {
 		return (
 			<Stack.Navigator headerMode='none'>
 				<Stack.Screen name="SettingsList" component={this.SettingsList} navigation={this.props.navigation}/>
-				<Stack.Screen name="Bluetooth" component={this.Bluetooth} navigation={this.props.navigation}/>
 				<Stack.Screen name="About" component={this.About} navigation={this.props.navigation}/>
+				<Stack.Screen name="Information" component={this.Information} navigation={this.props.navigation}/>
+				<Stack.Screen name="Bluetooth" component={this.Bluetooth} navigation={this.props.navigation}/>
 			</Stack.Navigator>
 		) 
 	}
