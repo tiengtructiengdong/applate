@@ -5,10 +5,13 @@ import {Alert, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 
 import {Header} from '../Header/Header'
-import {BluetoothEscposPrinter} from "react-native-bluetooth-escpos-printer";
+import {BluetoothEscposPrinter, BluetoothManager} from "react-native-bluetooth-escpos-printer";
 
 import uuid from 'react-native-uuid'
 import DefaultPreference from 'react-native-default-preference';
+
+import { createStackNavigator } from '@react-navigation/stack';
+const Stack = createStackNavigator();
 
 
 const PlateData = {
@@ -85,6 +88,11 @@ const style = StyleSheet.create({
 		elevation:5,
 		width: '100%',
 		height: '100%'
+	},
+	cameraContentText: {
+		color: '#ffffff',
+		fontSize: 15,
+		transform: [{translateY: 130}],
 	}
 });
 
@@ -107,15 +115,18 @@ export class ScanVC extends React.Component {
 		super(props)
 		this.state = {
 			checkOut: false,
-			checkIn: false
+			checkIn: false,
+			connected: false
 		}
 	}
 
 	componentDidMount() {
-		this.state = {
-			checkOut: false,
-			checkIn: false
-		};
+		const navigation = this.props.navigation
+		
+		this._unsubscribe = navigation.addListener('focus', () => {
+			this.forceUpdate()
+		});
+		
 	}
 
 	onBarCodeRead(scanResult) {
@@ -123,9 +134,9 @@ export class ScanVC extends React.Component {
 
 			Realm.open({schema: [PlateData]}).then((realm)=> {
 				const obj = realm.objects("Plate").filtered(`code == \"${scanResult.data}\"`)[0]
-
+				this.setState({checkOut: true})
+				
 				if (obj) {
-					this.setState({checkOut: true})
 					const plate = obj.plateId
 					
 					Alert.alert("Checkout", plate, 
@@ -146,7 +157,9 @@ export class ScanVC extends React.Component {
 						}
 					])
 				} else {
-					Alert.alert("Invalid ticket!", "The vehicle may have checked out.", [{text: "OK", onPress: () => {}}])
+					Alert.alert("Invalid ticket!", "The vehicle may have checked out.", [{text: "OK", onPress: () => {
+						this.setState({checkOut: false})
+					}}])
 				}
 			})
 		}
@@ -190,13 +203,14 @@ export class ScanVC extends React.Component {
 	}
 	
 	printTicket(plate,uuid) {
+
 		DefaultPreference.get("name").then((name)=>{
 			BluetoothEscposPrinter.printerInit().then(()=>{
 				BluetoothEscposPrinter.printText("Park:  " + name + "\n", {}).then(()=>{
 					BluetoothEscposPrinter.printText("Plate: " + plate + "\n", {}).then(()=>{
 						BluetoothEscposPrinter.printQRCode(uuid, 360, BluetoothEscposPrinter.ERROR_CORRECTION.L).then(()=>{
 							BluetoothEscposPrinter.printText("Powered by Applate\n\n\n\n", {}).then(()=>{
-								console.log("PRINTED!")
+								console.log('343')
 							})
 						})
 					})
@@ -208,7 +222,8 @@ export class ScanVC extends React.Component {
 	processCheckin(plate) {
 		Realm.open({schema: [PlateData]}).then(realm => {
 			var uuid_code = uuid.v4()
-
+	
+			this.printTicket(plate, uuid_code)
 			realm.write(() => {
 				realm.create("Plate", {
 					id: 1950,
@@ -216,10 +231,8 @@ export class ScanVC extends React.Component {
 					code: uuid_code,
 					checkinDate: Date().toString(),
 					checkoutDate: "",
-				});
-			});
-	
-			this.printTicket(plate, uuid_code)
+				})
+			})
 		})	
 	}
 
@@ -235,28 +248,48 @@ export class ScanVC extends React.Component {
 	render() {
 		data = this.props.data
 
+		// not implemented on Android yet
+		BluetoothManager.isConnected().then((connect)=>{
+			this.setState({
+				connected: connect=="true" ? true : false
+			})
+		})
+
+		let camera
+		
+		if (this.state.connected) {
+			camera = (
+				<RNCamera 
+					ref = {(cam)=>this.camera = cam}
+					
+					captureAudio={false} 
+					ref={ref => {
+						this.camera = ref;
+					}}
+					defaultTouchToFocus
+					style={[{flex: 1, borderRadius: 10, zIndex: 3}]}
+					onBarCodeRead={this.onBarCodeRead.bind(this)}
+					onTextRecognized={this.onTextRecognized.bind(this)}
+				/>
+			)
+		} else {
+			camera = (
+				<View style={[{alignSelf: 'center'}]}>
+					<Text style={style.cameraContentText}>No printer is connected.</Text>
+				</View>
+			)
+		}
+
 		const view =  (
 			<SafeAreaView style={style.container}>
 				<Header title="Scan plate or QR ticket" bgColor="#323232" titleColor="#ffffff"></Header>
 				<View style={style.body}>
 					<View style={[
 						style.cameraView,
-						{borderColor: this.state.checkIn ? "#07e722" : this.state.checkOut ? "#ff3511" : "#ffc500"}
+						{borderColor: !this.state.connected ? "#ff3511" : (this.state.checkOut || this.state.checkIn) ? "#07e722" : "#ffc500"}
 					]}>
 						<View style={style.cameraContent}>
-							<RNCamera 
-								ref = {(cam)=>this.camera = cam}
-								
-								captureAudio={false} 
-								ref={ref => {
-									this.camera = ref;
-								}}
-								defaultTouchToFocus
-								style={[{flex: 1, borderRadius: 10, zIndex: 3}]}
-								onBarCodeRead={this.onBarCodeRead.bind(this)}
-								onTextRecognized={this.onTextRecognized.bind(this)}
-							>
-							</RNCamera>
+							{camera}
 						</View>
 					</View>
 

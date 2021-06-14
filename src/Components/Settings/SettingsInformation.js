@@ -18,7 +18,7 @@ const style = StyleSheet.create({
 	cellLabel: {
 		fontWeight: '700',
 		fontSize: 17,
-		margin: 18,
+		margin: 22,
 		marginLeft: 25,
         position: 'absolute',
 	},

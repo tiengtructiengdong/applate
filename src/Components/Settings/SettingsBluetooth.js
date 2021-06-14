@@ -1,7 +1,3 @@
-/**
- * Created by januslo on 2018/12/27.
- */
-
 import React, {Component} from 'react';
 import {ActivityIndicator,
     Platform,
@@ -9,7 +5,7 @@ import {ActivityIndicator,
     Text,
     View,
     Button,
-    ScrollView,
+    SafeAreaView,
     DeviceEventEmitter,
     NativeEventEmitter,
     Switch,
@@ -17,12 +13,11 @@ import {ActivityIndicator,
     Dimensions,
     ToastAndroid} from 'react-native';
 import {BluetoothEscposPrinter, BluetoothManager} from "react-native-bluetooth-escpos-printer";
+import {Header} from '../Header/Header'
 
 var {height, width} = Dimensions.get('window');
 
 export default class SettingsBluetooth extends React.Component {
-
-
     _listeners = [];
 
     constructor() {
@@ -49,11 +44,7 @@ export default class SettingsBluetooth extends React.Component {
         });
 
         if (Platform.OS === 'ios') {
-            let bluetoothManagerEmitter = new NativeEventEmitter(BluetoothManager);
-            this._listeners.push(bluetoothManagerEmitter.addListener(BluetoothManager.EVENT_DEVICE_ALREADY_PAIRED,
-                (rsp)=> {
-                    this._deviceAlreadPaired(rsp)
-                }));
+            let bluetoothManagerEmitter = new NativeEventEmitter(BluetoothManager)
             this._listeners.push(bluetoothManagerEmitter.addListener(BluetoothManager.EVENT_DEVICE_FOUND, (rsp)=> {
                 this._deviceFoundEvent(rsp)
             }));
@@ -64,10 +55,6 @@ export default class SettingsBluetooth extends React.Component {
                 });
             }));
         } else if (Platform.OS === 'android') {
-            this._listeners.push(DeviceEventEmitter.addListener(
-                BluetoothManager.EVENT_DEVICE_ALREADY_PAIRED, (rsp)=> {
-                    this._deviceAlreadPaired(rsp)
-                }));
             this._listeners.push(DeviceEventEmitter.addListener(
                 BluetoothManager.EVENT_DEVICE_FOUND, (rsp)=> {
                     this._deviceFoundEvent(rsp)
@@ -94,32 +81,15 @@ export default class SettingsBluetooth extends React.Component {
         //}
     }
 
-    _deviceAlreadPaired(rsp) {
-        var ds = null;
-        if (typeof(rsp.devices) == 'object') {
-            ds = rsp.devices;
-        } else {
-            try {
-                ds = JSON.parse(rsp.devices);
-            } catch (e) {
-            }
-        }
-        if(ds && ds.length) {
-            let pared = this.state.pairedDs;
-            pared = pared.concat(ds||[]);
-            this.setState({
-                pairedDs:pared
-            });
-        }
-    }
-
     _deviceFoundEvent(rsp) {//alert(JSON.stringify(rsp))
         var r = null;
         try {
             if (typeof(rsp.device) == "object") {
                 r = rsp.device;
+                console.log(r)
             } else {
                 r = JSON.parse(rsp.device);
+                console.log(r)
             }
         } catch (e) {//alert(e.message);
             //ignore
@@ -148,7 +118,7 @@ export default class SettingsBluetooth extends React.Component {
             let row = rows[i];
             if(row.address) {
                 items.push(
-                    <TouchableOpacity key={new Date().getTime()+i} style={styles.wtf} onPress={()=>{
+                    <TouchableOpacity key={new Date().getTime()+i} style={style.wtf} onPress={()=>{
                     this.setState({
                         loading:true
                     });
@@ -166,8 +136,8 @@ export default class SettingsBluetooth extends React.Component {
                             alert(e);
                         })
 
-                }}><Text style={styles.name}>{row.name || "UNKNOWN"}</Text><Text
-                        style={styles.address}>{row.address}</Text></TouchableOpacity>
+                }}><Text style={style.name}>{row.name || "UNKNOWN"}</Text><Text
+                        style={style.address}>{row.address}</Text></TouchableOpacity>
                 );
             }
         }
@@ -176,11 +146,14 @@ export default class SettingsBluetooth extends React.Component {
 
     render() {
         return (
-            <ScrollView style={styles.container}>
-                <Text>{this.state.debugMsg}</Text>
-                <Text style={styles.title}>Blutooth Opended:{this.state.bleOpend?"true":"false"} <Text>Open BLE Before Scanning</Text> </Text>
-                <View>
-                <Switch value={this.state.bleOpend} onValueChange={(v)=>{
+            <SafeAreaView style={style.container}>
+                <Header bgColor='#ffb500' 
+                    title="Bluetooth" 
+                    goBack={()=>this.props.navigation.goBack()} 
+                    goRight={()=>this._scan()}
+                    iconRight="print-outline"
+                />
+                {/* <Switch value={this.state.bleOpend} onValueChange={(v)=>{
                 this.setState({
                     loading:true
                 })
@@ -219,27 +192,15 @@ export default class SettingsBluetooth extends React.Component {
                         console.log(err)
                     });
                 }
-            }}/>
-                    <Button disabled={this.state.loading || !this.state.bleOpend} onPress={()=>{
-                        this._scan();
-                    }} title="Scan"/>
-                </View>
-                <Text  style={styles.title}>Connected:<Text style={{color:"blue"}}>{!this.state.name ? 'No Devices' : this.state.name}</Text></Text>
-                <Text  style={styles.title}>Found(tap to connect):</Text>
-                {this.state.loading ? (<ActivityIndicator animating={true}/>) : null}
-                <View style={{flex:1,flexDirection:"column"}}>
+                }}/> */}
+                <Text style={style.title}>Connected:<Text style={{color:"blue"}}>{!this.state.name ? 'No Devices' : this.state.name}</Text></Text>
+                <View style={{flex: 1, flexDirection:"column", backgroundColor: '#ffffff'}}>
                 {
                     this._renderRow(this.state.foundDs)
                 }
                 </View>
-                <Text  style={styles.title}>Paired:</Text>
-                {this.state.loading ? (<ActivityIndicator animating={true}/>) : null}
-                <View style={{flex:1,flexDirection:"column"}}>
-                {
-                    this._renderRow(this.state.pairedDs)
-                }
-                </View>
-            </ScrollView>
+                <View style={{height: 200, flex: 1}}></View>
+            </SafeAreaView>
         );
     }
 
@@ -288,12 +249,11 @@ export default class SettingsBluetooth extends React.Component {
 
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#F5FCFF',
-    },
-
+const style = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: '#ffb500'
+	},
     title:{
         width:width,
         backgroundColor:"#eee",
@@ -315,5 +275,6 @@ const styles = StyleSheet.create({
     address:{
         flex:1,
         textAlign:"right"
-    }
+    },
+
 });
