@@ -31,7 +31,30 @@ local.properties
 
 # node.js
 #
-node_modules/
+node_modules/*
+!node_modules/react-native-bluetooth-escpos-printer
+node_modules/react-native-bluetooth-escpos-printer/*
+!node_modules/react-native-bluetooth-escpos-printer/android
+node_modules/react-native-bluetooth-escpos-printer/android/*
+!node_modules/react-native-bluetooth-escpos-printer/android/src
+node_modules/react-native-bluetooth-escpos-printer/android/src/*
+!node_modules/react-native-bluetooth-escpos-printer/android/src/main
+node_modules/react-native-bluetooth-escpos-printer/android/src/main/*
+!node_modules/react-native-bluetooth-escpos-printer/android/src/main/java
+node_modules/react-native-bluetooth-escpos-printer/android/src/main/java/*
+!node_modules/react-native-bluetooth-escpos-printer/android/src/main/java/cn
+node_modules/react-native-bluetooth-escpos-printer/android/src/main/java/cn/*
+!node_modules/react-native-bluetooth-escpos-printer/android/src/main/java/cn/jystudio
+node_modules/react-native-bluetooth-escpos-printer/android/src/main/java/cn/jystudio/*
+!node_modules/react-native-bluetooth-escpos-printer/android/src/main/java/cn/jystudio/bluetooth
+node_modules/react-native-bluetooth-escpos-printer/android/src/main/java/cn/jystudio/bluetooth/*
+!node_modules/react-native-bluetooth-escpos-printer/android/src/main/java/cn/jystudio/bluetooth/RNBluetoothManagerModule.java
+
+!node_modules/react-native-bluetooth-escpos-printer/ios
+node_modules/react-native-bluetooth-escpos-printer/ios/*
+!node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.m
+!node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothManager.m
+
 npm-debug.log
 yarn-error.log
 
