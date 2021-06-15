@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "18474919407",
+    "project_id": "applate",
+    "storage_bucket": "applate.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18474919407:android:eeacbfd7df1be25aae821a",
+        "android_client_info": {
+          "package_name": "com.platev16"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "18474919407-97i9cmc9eme7f34if475ql6k949mgjvo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC06yjr2pxHPnIB4BixbQg2wnjpbm9fE8Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "18474919407-97i9cmc9eme7f34if475ql6k949mgjvo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "18474919407-15sddjndivpl42h0s85cj99ueph3r38r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.applate"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

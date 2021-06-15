@@ -66,7 +66,7 @@ const style = StyleSheet.create({
 		height: 350,
 		aspectRatio: 1,
 		alignSelf: 'center',
-		transform: [{translateY: '100%'}],
+		transform: [{translateY: 100}],
 		borderRadius: 27,
 		overflow: 'hidden'
 	},
