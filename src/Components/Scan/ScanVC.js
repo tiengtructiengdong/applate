@@ -250,7 +250,6 @@ export class ScanVC extends React.Component {
 	render() {
 		data = this.props.data
 
-		// not implemented on Android yet
 		BluetoothManager.isConnected().then((connect)=>{
 			this.setState({
 				connected: connect=="true" ? true : false
@@ -258,8 +257,8 @@ export class ScanVC extends React.Component {
 		})
 
 		let camera
-		
-		if (true/*this.state.connected*/) {
+
+		if (this.state.connected) {
 			camera = (
 				<RNCamera 
 					ref = {(cam)=>this.camera = cam}
