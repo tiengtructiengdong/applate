@@ -13,20 +13,20 @@ const style = StyleSheet.create({
 		borderBottomWidth: 1,
 		borderTopWidth: 0,
 		borderBottomColor: "#d0d0d0",
-		backgroundColor: '#ffffff'
+		backgroundColor: '#ffffff',
+        justifyContent: 'center'
 	},
 	cellLabel: {
 		fontWeight: '700',
 		fontSize: 17,
-		margin: 22,
 		marginLeft: 25,
         position: 'absolute',
 	},
     cellText: {
 		fontWeight: '400',
 		fontSize: 17,
-		margin: 18,
         marginLeft: 120,
+        marginRight: 16,
 		textAlign: 'right',
         //backgroundColor: '#ff505050',
 	},

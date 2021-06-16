@@ -15,15 +15,12 @@ const styles = StyleSheet.create({
 		height: 85,
 		shadowOpacity: 0.2,
 		shadowRadius:1,
-		shadowOffset: {width: 0, height: 2}
+		shadowOffset: {width: 0, height: 2},
+		justifyContent: 'center'
 	},
 	plate: {
 		textAlign: 'left',
-		textAlignVertical: 'center',
 		position: 'absolute',
-
-		height: 100,
-		top: 28,
 		left: 20,
 
 		fontSize: 24,
@@ -31,13 +28,11 @@ const styles = StyleSheet.create({
 	},
 	time: {
 		textAlign: 'right',
-		top: 21,
 		fontSize: 18,
 		fontWeight: '600',
 	},
 	date: {
 		textAlign: 'right',
-		top: 22,
 		fontSize: 15,
 	}
 });

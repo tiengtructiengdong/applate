@@ -53,7 +53,7 @@ export class AppTabbar extends React.Component {
 
                 <View style={[
                     style.container, 
-                    {backgroundColor: this.state.activeTab == 1 ? "#121212" : "#ffffff"}
+                    {backgroundColor: this.state.activeTab == 1 ? "#00000000" : "#ffffff"}
                 ]}>
                     <TouchableOpacity style={style.buttonLeft} onPress={this.navigateList}>
                         <Icon name="list" size={36} color={this.state.activeTab == 0 ? "#000000" : "#777777"}/>

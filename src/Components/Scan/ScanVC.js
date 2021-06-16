@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Realm from 'realm'
 
-import {Alert, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {Alert, Dimensions, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 
 import {Header} from '../Header/Header'
@@ -31,8 +31,10 @@ const style = StyleSheet.create({
 		backgroundColor: "#323232"
 	},
 	body: {
+		flex: 1,
 		height: '100%', 
-		backgroundColor: "#121212"
+		backgroundColor: "#121212",
+		justifyContent: 'center'
 	},
 	sectionContainer: {
 		marginTop: 32,
@@ -63,19 +65,20 @@ const style = StyleSheet.create({
 	},
 	cameraView: {
 		borderWidth: 2,
-		height: 350,
+		padding: 20,
 		aspectRatio: 1,
 		alignSelf: 'center',
-		transform: [{translateY: 100}],
+		justifyContent: 'center',
 		borderRadius: 27,
-		overflow: 'hidden'
+		overflow: 'hidden',
+		top: -30
 	},
 	cameraContent: {
 		backgroundColor: '#353535',
-		height: 300,
+		width: Dimensions.get('window').width - 100,
 		aspectRatio: 1,
 		alignSelf: 'center',
-		transform: [{translateY: 23}],
+		justifyContent: 'center',
 		borderRadius: 10,
 		overflow: 'hidden'
 	},
@@ -91,8 +94,7 @@ const style = StyleSheet.create({
 	},
 	cameraContentText: {
 		color: '#ffffff',
-		fontSize: 15,
-		transform: [{translateY: 130}],
+		fontSize: 15
 	}
 });
 
@@ -257,7 +259,7 @@ export class ScanVC extends React.Component {
 
 		let camera
 		
-		if (this.state.connected) {
+		if (true/*this.state.connected*/) {
 			camera = (
 				<RNCamera 
 					ref = {(cam)=>this.camera = cam}
