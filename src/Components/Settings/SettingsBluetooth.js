@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {ActivityIndicator,
+import {ActivityIndicator, Alert,
     Platform,
     StyleSheet,
     Text,
@@ -198,11 +198,12 @@ export default class SettingsBluetooth extends React.Component {
                     foundDs:fds,
                     loading: false
                 });
-            }, (er)=> {
+            }, (err)=> {
                 this.setState({
                     loading: false
                 })
-                alert('error' + JSON.stringify(er));
+                Alert.alert("Please enable Bluetooth", "Go to Settings or Control Center to enable Bluetooth.", 
+					[{ text: "OK"}])
             });
     }
 
