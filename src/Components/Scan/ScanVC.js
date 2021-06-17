@@ -268,9 +268,11 @@ export class ScanVC extends React.Component {
 						this.camera = ref;
 					}}
 					defaultTouchToFocus
-					style={[{flex: 1, borderRadius: 10, zIndex: 3}]}
+					style={{flex: 1, borderRadius: 10, zIndex: 3}}
 					onBarCodeRead={this.onBarCodeRead.bind(this)}
 					onTextRecognized={this.onTextRecognized.bind(this)}
+					autoFocus='on'
+					autoFocusPointOfInterest={{x:0.5, y:0.5}}
 				/>
 			)
 		} else {

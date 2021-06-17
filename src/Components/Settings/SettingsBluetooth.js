@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 import {ActivityIndicator,
     Platform,
     StyleSheet,
@@ -11,8 +11,8 @@ import {ActivityIndicator,
     Switch,
     TouchableOpacity,
     Dimensions,
-    ToastAndroid} from 'react-native';
-import {BluetoothEscposPrinter, BluetoothManager} from "react-native-bluetooth-escpos-printer";
+    ToastAndroid} from 'react-native'
+import {BluetoothEscposPrinter, BluetoothManager} from "react-native-bluetooth-escpos-printer"
 import {Header} from '../Header/Header'
 
 var {height, width} = Dimensions.get('window');
@@ -153,46 +153,6 @@ export default class SettingsBluetooth extends React.Component {
                     goRight={()=>this._scan()}
                     iconRight="print-outline"
                 />
-                {/* <Switch value={this.state.bleOpend} onValueChange={(v)=>{
-                this.setState({
-                    loading:true
-                })
-                if(!v){
-                    BluetoothManager.disableBluetooth().then(()=>{
-                        this.setState({
-                            bleOpend:false,
-                            loading:false,
-                            foundDs:[],
-                            pairedDs:[]
-                        });
-                    },(err)=>{alert(err)});
-
-                }else{
-                    BluetoothManager.enableBluetooth().then((r)=>{
-                        var paired = [];
-                        if(r && r.length>0){
-                            for(var i=0;i<r.length;i++){
-                                try{
-                                    paired.push(JSON.parse(r[i]));
-                                }catch(e){
-                                    //ignore
-                                }
-                            }
-                        }
-                        this.setState({
-                            bleOpend:true,
-                            loading:false,
-                            pairedDs:paired
-                        })
-                    },(err)=>{
-                        this.setState({
-                            loading:false
-                        })
-                        alert(err)
-                        console.log(err)
-                    });
-                }
-                }}/> */}
                 <Text style={style.title}>Connected:<Text style={{color:"blue"}}>{!this.state.name ? 'No Devices' : this.state.name}</Text></Text>
                 <View style={{flex: 1, flexDirection:"column", backgroundColor: '#ffffff'}}>
                 {
