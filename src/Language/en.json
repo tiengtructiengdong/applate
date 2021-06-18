@@ -1,0 +1,22 @@
+{
+    "header_list": "Plate list",
+    
+    "no_vehicle": "No vehicles on the park!",
+    "no_vehicle_desc": "Waiting for some customers.",
+
+    "ticket_loss": "Report ticket loss",
+
+    "header_scan": "Scan QR code or plate",
+
+    "no_printer": "No Bluetooth printer is connected.",
+    "checkin": "Checkin",
+    "checkout": "Checkout",
+    
+    "invalid_qr": "Invalid ticket!",
+    "invalid_qr_desc": "The vehicle may have been checked out.",
+
+    "header_settings": "Settings",
+
+    "settings_info": "Information settings",
+    "bluetooth": "Bluetooth"
+}
