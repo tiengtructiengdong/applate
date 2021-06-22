@@ -17,6 +17,13 @@
 
     "header_settings": "Cài đặt",
 
-    "settings_info": "Thông tin người dùng",
-    "bluetooth": "Bluetooth"
+    "settings_info": "Cài đặt thông tin",
+    "bluetooth": "Bluetooth",
+
+    "info_name": "Tên",
+    "info_price": "Phí giữ xe (VNĐ)",
+
+    "info_price_fixed": "Giá cố định",
+    "info_price_hourly": "Giá theo giờ",
+    "info_price_daily": "Giá theo ngày"
 }

@@ -12,8 +12,22 @@ export class ListContent extends React.Component {
         var content = []
         
         for (data of plateData) {
-            content.push(<ListCell plate={data.plateId} datetime={data.checkinDate}></ListCell>)
+            content.push(
+                <ListCell plate={data.plateId} datetime={data.checkinDate} 
+                    reportTicketLoss={(()=>this.props.navigation.navigate('ListReport', {
+                        plateId: data.plateId,
+                        datetime: data.datetime
+                    }))} />
+            )
         }
+
+        content.push(
+            <ListCell plate="52N4-9898" datetime="LOL" 
+                reportTicketLoss={(()=>this.props.navigation.navigate('ListReport', {
+                    plateId: "52N4-9898",
+                    datetime: "1995-12-17T03:24:00"
+                }))} />
+        )
         return (content)
 	}
 }

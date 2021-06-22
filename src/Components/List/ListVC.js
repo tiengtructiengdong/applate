@@ -2,8 +2,12 @@ import React from 'react'
 
 import {SafeAreaView, StyleSheet, ScrollView, Text, View} from 'react-native'
 
-import {Header} from '../Header/Header.js'
-import {ListContent} from './ListContent/ListContent.js'
+import {Header} from '../Header/Header'
+import {ListContent} from './ListContent/ListContent'
+import {ListReport} from './ListReport'
+
+import { createStackNavigator } from '@react-navigation/stack';
+const Stack = createStackNavigator();
 
 import Realm from 'realm'
 const PlateData = {
@@ -68,40 +72,55 @@ export class ListVC extends React.Component {
 		this.LoadData()
 	}
 
-	async LoadData() {
-		const realm = await Realm.open({
-			schema: [PlateData],
+	LoadData() {
+		Realm.open({schema: [PlateData]}).then((realm)=>{
+			this.setState({
+				plates: realm.objects("Plate")[0],
+				realm: realm
+			})
+			this.forceUpdate()
 		})
-		this.setState({
-			plates: realm.objects("Plate")[0],
-			realm: realm
-		})
-		this.forceUpdate()
 	}
 
 	componentWillUnmount() {
 		this._unsubscribe();
 	}
 	
-	render() {
+	Home({navigation}) {
 		return (
 			<SafeAreaView style={[{backgroundColor: '#ffb500'}]}>
 				<Header title="Plate list" bgColor="#ffb500"></Header>
 
 				<ScrollView style={style.scrollView} contentContainerStyle={style.scrollContainer}>
-					{this.listContent(this.state.realm)}
+					{this.listContent(this.state.realm, navigation)}
 					<View style={style.scrollPadding}></View>
 				</ScrollView>
   
 			</SafeAreaView>
+		)
+	}
+
+	ListReport({route, navigation}) {
+        const { plateId, datetime } = route.params
+		return (
+			<ListReport navigation={navigation} plateId={plateId} datetime={datetime}></ListReport>
+		)
+	}
+
+	render() {
+		return (
+			<Stack.Navigator headerMode='none'>
+				<Stack.Screen name="Home" component={this.Home.bind(this)} navigation={this.props.navigation}/>
+				<Stack.Screen name="ListReport" component={this.ListReport.bind(this)} navigation={this.props.navigation}/>
+			</Stack.Navigator>
 		) 
 	}
 
-	listContent(realm) {
+	listContent(realm, navigation) {
 		if (realm) {
 			const data = realm.objects("Plate")
-			if (data.length > 0) {
-				return (<ListContent plateData={data}/>)
+			if (true/*data.length > 0*/) {
+				return (<ListContent plateData={data} navigation={navigation}/>)
 			}
 			return (
 				<View style={style.noVehicle}>

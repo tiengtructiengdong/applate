@@ -3,10 +3,10 @@ import React from 'react';
 import {SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, Text, View} from 'react-native';
 import SettingsBluetooth from './SettingsBluetooth'
 import SettingsInformation from './SettingsInformation'
+
+import {Header} from '../Header/Header'
+
 import { createStackNavigator } from '@react-navigation/stack';
-
-import {Header} from '../Header/Header.js'
-
 const Stack = createStackNavigator();
 
 const style = StyleSheet.create({

@@ -18,5 +18,12 @@
     "header_settings": "Settings",
 
     "settings_info": "Information settings",
-    "bluetooth": "Bluetooth"
+    "bluetooth": "Bluetooth",
+
+    "info_name": "Name",
+    "info_price": "Parking Price (VND)",
+
+    "info_price_fixed": "Fixed price",
+    "info_price_hourly": "Hourly",
+    "info_price_daily": "Daily"
 }

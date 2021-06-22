@@ -405,12 +405,16 @@ PODS:
     - React
   - RNBluetoothEscposPrinter (0.0.5):
     - React
+  - RNCPicker (1.16.1):
+    - React-Core
   - RNDefaultPreference (1.4.3):
     - React
   - RNFBApp (6.7.1):
     - Firebase/Core (~> 6.13.0)
     - React
   - RNGestureHandler (1.10.3):
+    - React-Core
+  - RNLocalize (2.1.1):
     - React-Core
   - RNScreens (3.3.0):
     - React-Core
@@ -454,9 +458,11 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RealmJS (from `../node_modules/realm`)
   - RNBluetoothEscposPrinter (from `../node_modules/react-native-bluetooth-escpos-printer`)
+  - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - RNDefaultPreference (from `../node_modules/react-native-default-preference`)
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNLocalize (from `../node_modules/react-native-localize`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -548,12 +554,16 @@ EXTERNAL SOURCES:
     :path: "../node_modules/realm"
   RNBluetoothEscposPrinter:
     :path: "../node_modules/react-native-bluetooth-escpos-printer"
+  RNCPicker:
+    :path: "../node_modules/@react-native-picker/picker"
   RNDefaultPreference:
     :path: "../node_modules/react-native-default-preference"
   RNFBApp:
     :path: "../node_modules/@react-native-firebase/app"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNLocalize:
+    :path: "../node_modules/react-native-localize"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   RNVectorIcons:
@@ -614,9 +624,11 @@ SPEC CHECKSUMS:
   ReactCommon: bedc99ed4dae329c4fcf128d0c31b9115e5365ca
   RealmJS: 8a51eff2b9eaabf78b53a6819da6da6edde27467
   RNBluetoothEscposPrinter: a16afa2948dd2649beb151b239c62683e07df1be
+  RNCPicker: 61c7a0645b9e4ac67960aa7f22a3effcecfdfb8d
   RNDefaultPreference: 2f8d6d54230edbd78708ada8d63bb275e5a8415b
   RNFBApp: 7b539bb25520fa73d6a240f5c6ea569e27683645
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
+  RNLocalize: 82a569022724d35461e2dc5b5d015a13c3ca995b
   RNScreens: bf59f17fbf001f1025243eeed5f19419d3c11ef2
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   Yoga: a7de31c64fe738607e7a3803e3f591a4b1df7393

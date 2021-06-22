@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-
-import {SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, Text, TextInput, View} from 'react-native';
 import DefaultPreference from 'react-native-default-preference';
 
-import {Header} from '../Header/Header.js'
+import {SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, Text, TextInput, View} from 'react-native';
+import {Picker} from '@react-native-picker/picker'
+import {Header} from '../Header/Header'
+
 
 const style = StyleSheet.create({
 	container: {
@@ -14,7 +15,9 @@ const style = StyleSheet.create({
 		borderTopWidth: 0,
 		borderBottomColor: "#d0d0d0",
 		backgroundColor: '#ffffff',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        minHeight: 50,
+        overflow: 'hidden'
 	},
 	cellLabel: {
 		fontWeight: '700',
@@ -50,22 +53,44 @@ export default class SettingsInformation extends React.Component {
     constructor() {
         super()
         this.state = {
-            name: ""
+            name: "",
+            price: 0,
+            carPrice: 0,
+            priceMode: "fixed"
         }
         DefaultPreference.get("name").then((name)=>{
             this.getName(name)
+        })
+        DefaultPreference.get("price").then((price)=>{
+            this.getPrice(price)
+        })
+        DefaultPreference.get("carPrice").then((price)=>{
+            this.getCarPrice(price)
+        })
+        DefaultPreference.get("priceMode").then((priceMode)=>{
+            this.getPriceMode(priceMode)
         })
     }
     
     getName(name) {
         this.setState({name: name})
     }
+    getPrice(price) {
+        this.setState({price: price})
+    }
+    getCarPrice(price) {
+        this.setState({carPrice: price})
+    }
+    getPriceMode(priceMode) {
+        this.setState({priceMode: priceMode})
+        console.log(priceMode)
+    }
 
     render() {
         return (
             <SafeAreaView style={style.container}>
                 <Header bgColor='#ffb500' title="Information" goBack={this.submit.bind(this)}></Header>
-                <ScrollView style={style.scrollView}>
+                <ScrollView style={style.scrollView} scrollEnabled={false}>
                     <View style={style.cell}>
                         <Text style={style.cellLabel}>Name</Text>
                         
@@ -73,23 +98,71 @@ export default class SettingsInformation extends React.Component {
                             placeholder='APPLATE' 
                             returnKeyType='done' multiline={true}
                             onChangeText={this.getName.bind(this)}
-                            onEndEditing={this.update.bind(this)}
+                            onEndEditing={this.updateName.bind(this)}
                         >
                             {this.state.name}
                         </TextInput>
+                    </View>
+                    <View style={style.cell}>
+                        <Text style={style.cellLabel}>Parking fee - Bikes</Text>
+                        
+                        <TextInput style={style.cellText} 
+                            placeholder='0,000' 
+                            returnKeyType='done' multiline={true}
+                            onChangeText={this.getPrice.bind(this)}
+                            onEndEditing={this.updatePrice.bind(this)}
+                        >
+                            {this.state.price}
+                        </TextInput>
+                    </View>
+                    
+                    <View style={style.cell}>
+                        <Text style={style.cellLabel}>Parking fee - Cars</Text>
+                        
+                        <TextInput style={style.cellText} 
+                            placeholder='0,000' 
+                            returnKeyType='done' multiline={true}
+                            onChangeText={this.getCarPrice.bind(this)}
+                            onEndEditing={this.updateCarPrice.bind(this)}
+                        >
+                            {this.state.carPrice}
+                        </TextInput>
+                    </View>
+
+                    <View style={[style.cell, {height: 50}]}>
+                        <Picker
+                        selectedValue={this.state.priceMode} onValueChange={this.updatePriceMode.bind(this)}>
+                            <Picker.Item label="Fixed price" value="fixed" />
+                            <Picker.Item label="Hourly" value="hour" />
+                            <Picker.Item label="Day" value="day" />
+                        </Picker>
                     </View>
                 </ScrollView>
             </SafeAreaView>
         )
     }
 
-    update() {
-        DefaultPreference.set("name", this.state.name).then(()=>{
-            console.log("Updated name=",this.state.name)
-        })
-    }
-
     submit() {
         this.props.navigation.goBack()
+    }
+
+    updateName() {
+        DefaultPreference.set("name", this.state.name).then(()=>{})
+    }
+
+    updatePrice() {
+        DefaultPreference.set("price", this.state.price).then(()=>{})
+    }
+
+    updateCarPrice() {
+        DefaultPreference.set("carPrice", this.state.carPrice).then(()=>{})
+    }
+
+    updatePriceMode(val) {
+        this.setState({priceMode: val})
+        
+        DefaultPreference.set("priceMode", this.state.priceMode).then(()=>{
+            console.log(this.state.priceMode)
+        })
     }
 }
