@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
 		textAlign: 'right',
 		fontSize: 18,
 		fontWeight: '700',
+		color: '#0067d4'
 	},
 	datetime: {
 		textAlign: 'right',
@@ -80,33 +81,36 @@ export class ListCell extends React.Component {
 	render() {
 		const plate = this.props.plate
 
-		const datetime = new Date() //new Date(this.props.datetime)
-		const datetimeStr = `${datetime.getDate()}/${datetime.getUTCMonth()+1}/${datetime.getUTCFullYear()} ${datetime.getHours()}:${datetime.getMinutes()}`
+		const datetime = new Date(2018,5,8)
 
-		const diffDate = Date() - datetime
-		const diffHour = diffDate.getHours
-		const diffDay = diffDate.getDate
+		const dateStr = `${datetime.getDate()}/${datetime.getUTCMonth()+1}/${datetime.getUTCFullYear()}`
+		const timeStr = `${String(datetime.getHours()).padStart(2, '0')}:${String(datetime.getMinutes()).padStart(2, '0')}` 
 
-		var price
+		const diff = new Date((new Date()) - datetime)
+		const diffHour = parseInt(diff/1000/60/60)
+		const diffDay =  parseInt(diffHour/24)
+
+		var price = parseInt(this.state.price)
+
 		switch (this.state.priceMode) {
-			case 'fixed':
-				price = this.state.price
-				break
 			case 'hour':
-				price = this.state.price * (diffHour + 1)
+				price *= (diffHour + 1)
 				break
 			case 'day':
-				price = this.state.price * (diffDate + 1)
+				price *= (diffDay + 1)
 				break
 			default:
 				break
 		}
 
+		const format = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' })
+
 		return (
 			<TouchableOpacity style={styles.cell} onPress={this.onPressCell.bind(this)}>
 				<Text style={styles.plate}>{plate}</Text>
-				<Text style={styles.price}>{price}đ</Text>
-				<Text style={styles.datetime}>{datetimeStr}</Text>
+				<Text style={styles.price}>{format.format(price)}</Text>
+				<Text style={styles.datetime}>{timeStr}</Text>
+				<Text style={styles.datetime}>{dateStr}</Text>
 			</TouchableOpacity>
 		)
 	}

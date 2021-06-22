@@ -83,7 +83,6 @@ export default class SettingsInformation extends React.Component {
     }
     getPriceMode(priceMode) {
         this.setState({priceMode: priceMode})
-        console.log(priceMode)
     }
 
     render() {
@@ -130,8 +129,7 @@ export default class SettingsInformation extends React.Component {
                     </View>
 
                     <View style={[style.cell, {height: 50}]}>
-                        <Picker
-                        selectedValue={this.state.priceMode} onValueChange={this.updatePriceMode.bind(this)}>
+                        <Picker selectedValue={this.state.priceMode} onValueChange={this.updatePriceMode.bind(this)}>
                             <Picker.Item label="Fixed price" value="fixed" />
                             <Picker.Item label="Hourly" value="hour" />
                             <Picker.Item label="Day" value="day" />
@@ -159,10 +157,10 @@ export default class SettingsInformation extends React.Component {
     }
 
     updatePriceMode(val) {
-        this.setState({priceMode: val})
-        
-        DefaultPreference.set("priceMode", this.state.priceMode).then(()=>{
-            console.log(this.state.priceMode)
+        DefaultPreference.set("priceMode", val).then(()=>{
+            DefaultPreference.get("priceMode").then((priceMode)=>{
+                this.getPriceMode(priceMode)
+            })
         })
     }
 }
