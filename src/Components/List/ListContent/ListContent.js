@@ -20,13 +20,13 @@ export class ListContent extends React.Component {
                     }))} />
             )
         }
-        content.push(
-            <ListCell plate="52N4-9898" datetime="LOL" 
-                reportTicketLoss={(()=>this.props.navigation.navigate('ListReport', {
-                    plateId: "52N4-9898",
-                    datetime: "1995-12-17T03:24:00"
-                }))} />
-        )
+        // content.push(
+        //     <ListCell plate="52N4-9898" datetime="LOL" 
+        //         reportTicketLoss={(()=>this.props.navigation.navigate('ListReport', {
+        //             plateId: "52N4-9898",
+        //             datetime: "1995-12-17T03:24:00"
+        //         }))} />
+        // )
         return (content)
 	}
 }

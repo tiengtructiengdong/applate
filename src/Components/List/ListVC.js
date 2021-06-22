@@ -128,7 +128,7 @@ export class ListVC extends React.Component {
 	listContent(realm, navigation) {
 		if (realm) {
 			const data = realm.objects("Plate")
-			if (true/*data.length > 0*/) {
+			if (data.length > 0) {
 				return (<ListContent plateData={data} navigation={navigation}/>)
 			}
 			return (
