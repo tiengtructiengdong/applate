@@ -416,6 +416,8 @@ PODS:
     - React-Core
   - RNLocalize (2.1.1):
     - React-Core
+  - RNReactNativePdfLib (1.0.0):
+    - React
   - RNScreens (3.3.0):
     - React-Core
     - React-RCTImage
@@ -463,6 +465,7 @@ DEPENDENCIES:
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNLocalize (from `../node_modules/react-native-localize`)
+  - RNReactNativePdfLib (from `../node_modules/react-native-pdf-lib/ios`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -564,6 +567,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-gesture-handler"
   RNLocalize:
     :path: "../node_modules/react-native-localize"
+  RNReactNativePdfLib:
+    :path: "../node_modules/react-native-pdf-lib/ios"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   RNVectorIcons:
@@ -629,6 +634,7 @@ SPEC CHECKSUMS:
   RNFBApp: 7b539bb25520fa73d6a240f5c6ea569e27683645
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
   RNLocalize: 82a569022724d35461e2dc5b5d015a13c3ca995b
+  RNReactNativePdfLib: 73633bcab7d415850e8bd2d7d2c05098f68a5d4e
   RNScreens: bf59f17fbf001f1025243eeed5f19419d3c11ef2
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   Yoga: a7de31c64fe738607e7a3803e3f591a4b1df7393

@@ -94,35 +94,42 @@ export default class SettingsInformation extends React.Component {
                         <Text style={style.cellLabel}>Name</Text>
                         
                         <TextInput style={style.cellText} 
-                            placeholder='APPLATE' 
+                            placeholder="Park owner's name" 
                             returnKeyType='done' multiline={true}
                             onChangeText={this.getName.bind(this)}
                             onEndEditing={this.updateName.bind(this)}
+                            blurOnSubmit={true}
                         >
                             {this.state.name}
                         </TextInput>
                     </View>
                     <View style={style.cell}>
-                        <Text style={style.cellLabel}>Parking fee - Bikes</Text>
+                        <Text style={style.cellLabel}>Bike fee (VND)</Text>
                         
                         <TextInput style={style.cellText} 
-                            placeholder='0,000' 
+                            placeholder='0' 
+                            placeholderTextColor='#000000'
                             returnKeyType='done' multiline={true}
                             onChangeText={this.getPrice.bind(this)}
                             onEndEditing={this.updatePrice.bind(this)}
+                            keyboardType='numeric'
+                            blurOnSubmit={true}
                         >
                             {this.state.price}
                         </TextInput>
                     </View>
                     
                     <View style={style.cell}>
-                        <Text style={style.cellLabel}>Parking fee - Cars</Text>
+                        <Text style={style.cellLabel}>Car fee (VND)</Text>
                         
                         <TextInput style={style.cellText} 
-                            placeholder='0,000' 
+                            placeholder='0' 
+                            placeholderTextColor='#000000'
                             returnKeyType='done' multiline={true}
                             onChangeText={this.getCarPrice.bind(this)}
                             onEndEditing={this.updateCarPrice.bind(this)}
+                            keyboardType='numeric'
+                            blurOnSubmit={true}
                         >
                             {this.state.carPrice}
                         </TextInput>
@@ -149,11 +156,13 @@ export default class SettingsInformation extends React.Component {
     }
 
     updatePrice() {
-        DefaultPreference.set("price", this.state.price).then(()=>{})
+        const price = this.state.price
+        DefaultPreference.set("price", price == "" ? "0": price).then(()=>{})
     }
 
     updateCarPrice() {
-        DefaultPreference.set("carPrice", this.state.carPrice).then(()=>{})
+        const carPrice = this.state.carPrice
+        DefaultPreference.set("carPrice", carPrice == "" ? "0": carPrice).then(()=>{})
     }
 
     updatePriceMode(val) {

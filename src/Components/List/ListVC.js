@@ -5,6 +5,7 @@ import {SafeAreaView, StyleSheet, ScrollView, Text, View} from 'react-native'
 import {Header} from '../Header/Header'
 import {ListContent} from './ListContent/ListContent'
 import {ListReport} from './ListReport'
+import {ListReportPDFView} from './ListReportPDFView'
 
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
@@ -101,9 +102,16 @@ export class ListVC extends React.Component {
 	}
 
 	ListReport({route, navigation}) {
-        const { plateId, datetime } = route.params
+        const {plateId, datetime} = route.params
 		return (
-			<ListReport navigation={navigation} plateId={plateId} datetime={datetime}></ListReport>
+			<ListReport navigation={navigation} plateId={plateId} datetime={datetime} />
+		)
+	}
+
+	ListReportPDFView({route, navigation}) {
+        const {plateId, datetime} = route.params
+		return (
+			<ListReportPDFView navigation={navigation} plateId={plateId} datetime={datetime} />
 		)
 	}
 
@@ -112,6 +120,7 @@ export class ListVC extends React.Component {
 			<Stack.Navigator headerMode='none'>
 				<Stack.Screen name="Home" component={this.Home.bind(this)} navigation={this.props.navigation}/>
 				<Stack.Screen name="ListReport" component={this.ListReport.bind(this)} navigation={this.props.navigation}/>
+				<Stack.Screen name="ListReportPDFView" component={this.ListReportPDFView.bind(this)} navigation={this.props.navigation}/>
 			</Stack.Navigator>
 		) 
 	}
@@ -119,7 +128,7 @@ export class ListVC extends React.Component {
 	listContent(realm, navigation) {
 		if (realm) {
 			const data = realm.objects("Plate")
-			if (data.length > 0) {
+			if (true/*data.length > 0*/) {
 				return (<ListContent plateData={data} navigation={navigation}/>)
 			}
 			return (

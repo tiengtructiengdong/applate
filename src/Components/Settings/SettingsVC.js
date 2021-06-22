@@ -1,50 +1,11 @@
 import React from 'react';
 
-import {SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, Text, View} from 'react-native';
+import SettingsList from './SettingsList'
 import SettingsBluetooth from './SettingsBluetooth'
 import SettingsInformation from './SettingsInformation'
 
-import {Header} from '../Header/Header'
-
-import { createStackNavigator } from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 const Stack = createStackNavigator();
-
-const style = StyleSheet.create({
-	container: {
-		backgroundColor: '#ffb500'
-	},
-	cell: {
-		borderBottomWidth: 1,
-		borderTopWidth: 0,
-		borderBottomColor: "#d0d0d0",
-		backgroundColor: '#ffffff'
-	},
-	cellText: {
-		fontWeight: '400',
-		fontSize: 17,
-		margin: 18,
-		marginLeft: 25
-	},
-	scrollView: {
-		height: '100%',
-		backgroundColor: "#ffffff"
-	},
-	about: {
-		padding: 25
-	},
-	bold: {
-		fontSize: 14,
-		fontWeight: '400',
-		paddingBottom: 3,
-		color: '#909090'
-	},
-	regular: {
-		fontSize: 12,
-		fontWeight: '400',
-		paddingBottom: 4,
-		color: '#aeaeae'
-	}
-});
 
 
 export class SettingsVC extends React.Component {
@@ -52,36 +13,19 @@ export class SettingsVC extends React.Component {
 
 	SettingsList({navigation}) {
 		return (
-			<SafeAreaView style={style.container}>
-				<Header bgColor='#ffb500' title="Settings"></Header>
-				<ScrollView style={style.scrollView}>
-					<TouchableOpacity style={style.cell} onPress={() => navigation.navigate('Information')}>
-						<Text style={style.cellText}>Parker Information</Text>
-					</TouchableOpacity>
-
-					<TouchableOpacity style={style.cell} onPress={() => navigation.navigate('Bluetooth')}>
-						<Text style={style.cellText}>Bluetooth</Text>
-					</TouchableOpacity>
-
-					<View style={style.about}>
-						<Text style={style.regular}>This project is for educational purposes only.</Text>
-						<Text style={style.bold}>applate v0.16</Text>
-					</View>
-				</ScrollView>
-			</SafeAreaView>
+			<SettingsList navigation={navigation} />
 		)
 	}
 
-
 	Bluetooth({navigation}) {
 		return (
-			<SettingsBluetooth navigation={navigation}></SettingsBluetooth>
+			<SettingsBluetooth navigation={navigation} />
 		)
 	}
 
 	Information({navigation}) {
 		return (
-			<SettingsInformation navigation={navigation}></SettingsInformation>
+			<SettingsInformation navigation={navigation} />
 		)
 	}
 

@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-import {SafeAreaView, StyleSheet, ScrollView, TouchableOpacity, Text, TextInput, View} from 'react-native';
+import {SafeAreaView, StyleSheet, ScrollView, Text, TextInput, View} from 'react-native';
 import {Header} from '../Header/Header.js'
 
 const style = StyleSheet.create({
@@ -69,12 +69,15 @@ export class ListReport extends React.Component {
     getId(id) {
         this.setState({id: id})
     }
+    generatePDF() {
+        
+    }
 
     render() {
         return (
             <SafeAreaView style={style.container}>
                 <Header bgColor='#ffb500' title="Report ticket loss" goBack={()=>this.props.navigation.goBack()}
-				goRight={this.proceed} iconRight='albums-outline' />
+				goRight={this.proceed.bind(this)} iconRight='albums-outline' />
                 <ScrollView style={style.scrollView}>
                     
                     <View style={style.cell}>
@@ -90,7 +93,8 @@ export class ListReport extends React.Component {
                         <TextInput style={style.cellText} 
                         placeholder='Name' 
                         returnKeyType='done' multiline={true}
-                        onChangeText={this.getOwner.bind(this)}>
+                        onChangeText={this.getOwner.bind(this)}
+                        blurOnSubmit={true}>
                             {this.state.owner}
                         </TextInput>
                     </View>
@@ -101,7 +105,9 @@ export class ListReport extends React.Component {
                         <TextInput style={style.cellText} 
                         placeholder='ID number' 
                         returnKeyType='done' multiline={true}
-                        onChangeText={this.getId.bind(this)}>
+                        onChangeText={this.getId.bind(this)}
+                        keyboardType='numeric'
+                        blurOnSubmit={true}>
                             {this.state.price}
                         </TextInput>
                     </View>
@@ -112,5 +118,11 @@ export class ListReport extends React.Component {
     }
 
     proceed() {
+        this.props.navigation.navigate('ListReportPDFView', {
+            plateId: this.state.plateId,
+            owner: this.state.owner,
+            id: this.state.id,
+            deviceOwner: this.state.deviceOwner
+        })
     }
 }

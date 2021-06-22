@@ -13,6 +13,8 @@ import {SettingsVC} from './Components/Settings/SettingsVC.js'
 
 import {AppTabbar} from "./Components/AppTabbar/AppTabbar.js"
 
+import DefaultPreference from 'react-native-default-preference';
+
 
 function List({navigation}) {
 	return (
@@ -34,6 +36,32 @@ function Settings({navigation}) {
 
 function App() {
 	const isDarkMode = useColorScheme() === 'dark';
+
+	DefaultPreference.get("price").then((price)=>{
+		if (price == null) {
+			DefaultPreference.set("price", "0").then((language)=>{
+				console.log("set")
+			}).catch((err)=> {
+				console.log(err)
+			})
+			DefaultPreference.set("carPrice", "0").then((language)=>{
+				console.log("set")
+			}).catch((err)=> {
+				console.log(err)
+			})
+		}
+	}).catch((err)=> {
+		console.log(err)
+	})
+
+	DefaultPreference.get("language").then((language)=>{
+		DefaultPreference.set("language", "en").then((language)=>{
+			console.log("set")
+		}).catch((err)=> {
+			console.log(err)
+		})
+	})
+	
 
 	return (
 		<NavigationContainer>
