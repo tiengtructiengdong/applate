@@ -1,4 +1,5 @@
 import React from 'react'
+import DefaultPreference from 'react-native-default-preference';
 
 import {SafeAreaView, StyleSheet, ScrollView, Text, View} from 'react-native'
 
@@ -18,7 +19,8 @@ const PlateData = {
 		plateId: {type : 'string'},
 		code: {type : 'string'},
 		checkinDate: {type : 'string'},
-		checkoutDate: "string"
+		checkoutDate: {type : 'string'},
+		state: {type : 'string'}
 	}
 }
 
@@ -60,7 +62,8 @@ export class ListVC extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			realm: null
+			realm: null,
+			appMode: ''
 		}
 	}
 
@@ -68,6 +71,11 @@ export class ListVC extends React.Component {
 		const navigation = this.props.navigation
 		
 		this._unsubscribe = navigation.addListener('focus', () => {
+			DefaultPreference.get("appMode").then((mode)=>{
+				this.setState({appMode: mode})
+			}).catch((err)=> {
+				console.log(err)
+			})
 			this.forceUpdate()
 		});
 		this.LoadData()
@@ -90,7 +98,7 @@ export class ListVC extends React.Component {
 	Home({navigation}) {
 		return (
 			<SafeAreaView style={[{backgroundColor: '#ffb500'}]}>
-				<Header title="Plate list" bgColor="#ffb500"></Header>
+				<Header title={this.state.appMode == 'parking' ? "Parking lot" : "Repair shop"} bgColor="#ffb500"></Header>
 
 				<ScrollView style={style.scrollView} contentContainerStyle={style.scrollContainer}>
 					{this.listContent(this.state.realm, navigation)}
@@ -128,7 +136,7 @@ export class ListVC extends React.Component {
 	listContent(realm, navigation) {
 		if (realm) {
 			const data = realm.objects("Plate")
-			if (data.length > 0) {
+			if (true/*data.length > 0*/) {
 				return (<ListContent plateData={data} navigation={navigation}/>)
 			}
 			return (

@@ -55,13 +55,22 @@ function App() {
 	})
 
 	DefaultPreference.get("language").then((language)=>{
-		DefaultPreference.set("language", "en").then((language)=>{
-			console.log("set")
-		}).catch((err)=> {
-			console.log(err)
-		})
+		if (language == null)
+			DefaultPreference.set("language", "en").then((language)=>{
+				console.log("set")
+			}).catch((err)=> {
+				console.log(err)
+			})
 	})
 	
+	DefaultPreference.get("appMode").then((mode)=>{
+		if (mode == null)
+			DefaultPreference.set("appMode", "parking").then((mode)=>{
+				console.log("modeset")
+			}).catch((err)=> {
+				console.log(err)
+			})
+	})
 
 	return (
 		<NavigationContainer>

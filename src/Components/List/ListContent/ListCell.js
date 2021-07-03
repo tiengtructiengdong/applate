@@ -44,7 +44,8 @@ export class ListCell extends React.Component {
 		super()
 		this.state = {
 			price: 0,
-			priceMode: ''
+			priceMode: '',
+			appMode: ''
 		}
 	}
 
@@ -54,33 +55,69 @@ export class ListCell extends React.Component {
         })
         DefaultPreference.get("priceMode").then((priceMode)=>{
             this.setState({priceMode: priceMode})
-            console.log(priceMode)
+        })
+        DefaultPreference.get("appMode").then((appMode)=>{
+            this.setState({appMode: appMode})
         })
 	}
 	
 	onPressCell() {
-		Alert.alert(this.props.plate, "Please report the issue here.", 
-		[
-			{ 	
-				text: "Report ticket loss", 
-				onPress: () => {
-					this.props.reportTicketLoss()
+		var cmds
+		if (this.state.appMode == 'parking') {
+			cmds = [
+				{ 	
+					text: "Report ticket loss", 
+					onPress: () => {
+						this.props.reportTicketLoss()
+					},
+					style: "destructive"
 				},
-				style: "destructive"
-			},
-			{ 	
-				text: "Cancel", 
-				onPress: () => {
-					
+				{ 	
+					text: "Cancel", 
+					onPress: () => {
+						
+					},
+					style: "cancel"
 				},
-				style: "cancel"
-			},
-		])
+			]
+		}
+		else {
+			cmds = [
+				{ 	
+					text: "Vehicle under repair", 
+					onPress: () => {
+						
+					},
+					style: "cancel"
+				},
+				{ 	
+					text: "Repaired", 
+					onPress: () => {
+						
+					},
+					style: "cancel"
+				},
+				{ 	
+					text: "Report ticket loss", 
+					onPress: () => {
+						this.props.reportTicketLoss()
+					},
+					style: "destructive"
+				},
+				{ 	
+					text: "Cancel", 
+					onPress: () => {
+						
+					},
+					style: "cancel"
+				},
+			]
+		}
+		Alert.alert(this.props.plate, '', cmds)
 	}
 	
 	render() {
 		const plate = this.props.plate
-
 		const datetime = new Date(2018,5,8)
 
 		const dateStr = `${datetime.getDate()}/${datetime.getUTCMonth()+1}/${datetime.getUTCFullYear()}`
@@ -90,28 +127,40 @@ export class ListCell extends React.Component {
 		const diffHour = parseInt(diff/1000/60/60)
 		const diffDay =  parseInt(diffHour/24)
 
-		var price = parseInt(this.state.price)
+		if (this.state.appMode == 'parking') {
+			var price = parseInt(this.state.price)
 
-		switch (this.state.priceMode) {
-			case 'hour':
-				price *= (diffHour + 1)
-				break
-			case 'day':
-				price *= (diffDay + 1)
-				break
-			default:
-				break
+			switch (this.state.priceMode) {
+				case 'hour':
+					price *= (diffHour + 1)
+					break
+				case 'day':
+					price *= (diffDay + 1)
+					break
+				default:
+					break
+			}
+
+			const format = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' })
+
+			return (
+				<TouchableOpacity style={styles.cell} onPress={this.onPressCell.bind(this)}>
+					<Text style={styles.plate}>{plate}</Text>
+					<Text style={styles.price}>{format.format(price)}</Text>
+					<Text style={styles.datetime}>{timeStr}</Text>
+					<Text style={styles.datetime}>{dateStr}</Text>
+				</TouchableOpacity>
+			)
+		} else {
+			const state = this.props.state
+			return (
+				<TouchableOpacity style={styles.cell} onPress={this.onPressCell.bind(this)}>
+					<Text style={styles.plate}>{plate}</Text>
+					<Text style={styles.price}>{state}</Text>
+					<Text style={styles.datetime}>{timeStr}</Text>
+					<Text style={styles.datetime}>{dateStr}</Text>
+				</TouchableOpacity>
+			)
 		}
-
-		const format = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' })
-
-		return (
-			<TouchableOpacity style={styles.cell} onPress={this.onPressCell.bind(this)}>
-				<Text style={styles.plate}>{plate}</Text>
-				<Text style={styles.price}>{format.format(price)}</Text>
-				<Text style={styles.datetime}>{timeStr}</Text>
-				<Text style={styles.datetime}>{dateStr}</Text>
-			</TouchableOpacity>
-		)
 	}
 }

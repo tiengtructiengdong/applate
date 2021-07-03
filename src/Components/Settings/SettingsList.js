@@ -62,7 +62,6 @@ export default class SettingsList extends React.Component {
 		this.state = {
 			language: ''
 		}
-		console.log("const",this.state)
 	}
 
 	componentDidMount() {

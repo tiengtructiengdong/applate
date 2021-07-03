@@ -21,7 +21,8 @@ const PlateData = {
 		plateId: {type : 'string'},
 		code: {type : 'string'},
 		checkinDate: {type : 'string'},
-		checkoutDate: "string"
+		checkoutDate: {type : 'string'},
+		state: {type : 'string'}
 	}
 }
 
@@ -233,6 +234,7 @@ export class ScanVC extends React.Component {
 					code: uuid_code,
 					checkinDate: Date().toString(),
 					checkoutDate: "",
+					state: "New"
 				})
 			})
 		})	

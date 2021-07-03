@@ -33,6 +33,14 @@ const style = StyleSheet.create({
 		textAlign: 'right',
         //backgroundColor: '#ff505050',
 	},
+    selectorRight: {
+		fontWeight: '400',
+		fontSize: 17,
+        marginLeft: 120,
+        marginRight: 0,
+		textAlign: 'right',
+        //backgroundColor: '#ff505050',
+	},
 	scrollView: {
 		height: '100%',
 		backgroundColor: "#ffffff"
@@ -56,7 +64,8 @@ export default class SettingsInformation extends React.Component {
             name: "",
             price: 0,
             carPrice: 0,
-            priceMode: "fixed"
+            priceMode: "fixed",
+            appMode: ''
         }
         DefaultPreference.get("name").then((name)=>{
             this.getName(name)
@@ -70,6 +79,9 @@ export default class SettingsInformation extends React.Component {
         DefaultPreference.get("priceMode").then((priceMode)=>{
             this.getPriceMode(priceMode)
         })
+		DefaultPreference.get("appMode").then((appMode)=>{
+			this.setState({appMode: appMode})
+		})
     }
     
     getName(name) {
@@ -86,23 +98,10 @@ export default class SettingsInformation extends React.Component {
     }
 
     render() {
-        return (
-            <SafeAreaView style={style.container}>
-                <Header bgColor='#ffb500' title="Information" goBack={this.submit.bind(this)}></Header>
-                <ScrollView style={style.scrollView} scrollEnabled={false}>
-                    <View style={style.cell}>
-                        <Text style={style.cellLabel}>Name</Text>
-                        
-                        <TextInput style={style.cellText} 
-                            placeholder="Park owner's name" 
-                            returnKeyType='done' multiline={true}
-                            onChangeText={this.getName.bind(this)}
-                            onEndEditing={this.updateName.bind(this)}
-                            blurOnSubmit={true}
-                        >
-                            {this.state.name}
-                        </TextInput>
-                    </View>
+        var parkingLotInfo
+        if (this.state.appMode == 'parking') {
+            parkingLotInfo = (
+                <View>
                     <View style={style.cell}>
                         <Text style={style.cellLabel}>Bike fee (VND)</Text>
                         
@@ -142,6 +141,40 @@ export default class SettingsInformation extends React.Component {
                             <Picker.Item label="Day" value="day" />
                         </Picker>
                     </View>
+                </View>
+            )
+        }
+
+        return (
+            <SafeAreaView style={style.container}>
+                <Header bgColor='#ffb500' title="Information" goBack={this.submit.bind(this)}></Header>
+                <ScrollView style={style.scrollView} scrollEnabled={false}>
+
+
+					<View style={[style.cell, {height: 50}]}>
+                        <Text style={style.cellLabel}>App Mode</Text>
+						<Picker style={style.selectorRight} selectedValue={this.state.appMode} onValueChange={this.updateAppMode.bind(this)}>
+							<Picker.Item label="🅿️ Parking lot" value="parking" />
+							<Picker.Item label="🔧 Repair shop" value="repair" />
+						</Picker>
+					</View>
+                    
+                    <View style={style.cell}>
+                        <Text style={style.cellLabel}>Name</Text>
+                        
+                        <TextInput style={style.cellText} 
+                            placeholder="Park owner's name" 
+                            returnKeyType='done' multiline={true}
+                            onChangeText={this.getName.bind(this)}
+                            onEndEditing={this.updateName.bind(this)}
+                            blurOnSubmit={true}
+                        >
+                            {this.state.name}
+                        </TextInput>
+                    </View>
+
+                    {parkingLotInfo}
+                    
                 </ScrollView>
             </SafeAreaView>
         )
@@ -163,6 +196,14 @@ export default class SettingsInformation extends React.Component {
     updateCarPrice() {
         const carPrice = this.state.carPrice
         DefaultPreference.set("carPrice", carPrice == "" ? "0": carPrice).then(()=>{})
+    }
+
+	updateAppMode(val) {
+        DefaultPreference.set("appMode", val).then(()=>{
+            DefaultPreference.get("appMode").then((appMode)=>{
+                this.setState({appMode: appMode})
+            })
+        })
     }
 
     updatePriceMode(val) {
