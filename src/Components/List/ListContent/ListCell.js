@@ -156,7 +156,7 @@ export class ListCell extends React.Component {
 	
 	render() {
 		const plate = this.props.plate
-		const datetime = new Date(2018,5,8)
+		const datetime = new Date(this.props.datetime)
 
 		const dateStr = `${datetime.getDate()}/${datetime.getUTCMonth()+1}/${datetime.getUTCFullYear()}`
 		const timeStr = `${String(datetime.getHours()).padStart(2, '0')}:${String(datetime.getMinutes()).padStart(2, '0')}` 
