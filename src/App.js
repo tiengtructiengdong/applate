@@ -12,6 +12,7 @@ import {ScanVC} from './Components/Scan/ScanVC.js'
 import {SettingsVC} from './Components/Settings/SettingsVC.js'
 
 import {AppTabbar} from "./Components/AppTabbar/AppTabbar.js"
+import { useIsFocused } from "@react-navigation/native"; 
 
 import DefaultPreference from 'react-native-default-preference';
 
@@ -23,9 +24,14 @@ function List({navigation}) {
 }
 
 function Scan({navigation}) {
-	return (
-		<ScanVC navigation={navigation}></ScanVC>
-	)
+	const isFocused = useIsFocused()
+
+	if (isFocused) {
+		return (
+			<ScanVC navigation={navigation}></ScanVC>
+		)
+	}
+	return (<View style={{flex: 1, backgroundColor: '#121212'}}></View>)
 }
 
 function Settings({navigation}) {

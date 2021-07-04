@@ -34,7 +34,7 @@ const style = StyleSheet.create({
 	},
 	body: {
 		flex: 1,
-		height: '100%', 
+		height: '110%', 
 		backgroundColor: "#121212",
 		justifyContent: 'center'
 	},
@@ -95,7 +95,7 @@ const style = StyleSheet.create({
 		height: '100%'
 	},
 	cameraContentText: {
-		color: '#ffffff',
+		color: '#636363',
 		fontSize: 15
 	}
 });
@@ -120,7 +120,8 @@ export class ScanVC extends React.Component {
 		this.state = {
 			checkOut: false,
 			checkIn: false,
-			connected: false
+			connected: false,
+			mounted: false
 		}
 	}
 
@@ -131,6 +132,15 @@ export class ScanVC extends React.Component {
 			this.forceUpdate()
 		});
 		
+		this.setState({
+			mounted: true
+		})
+	}
+
+	componentWillUnmount() {
+		this.setState({
+			mounted: false
+		})
 	}
 
 	onBarCodeRead(scanResult) {
