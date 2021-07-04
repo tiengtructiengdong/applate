@@ -20,7 +20,8 @@ const PlateData = {
 		code: {type : 'string'},
 		checkinDate: {type : 'string'},
 		checkoutDate: {type : 'string'},
-		state: {type : 'string'}
+		state: {type : 'string'},
+		mobile: {type : 'string'}
 	}
 }
 

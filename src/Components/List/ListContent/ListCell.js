@@ -3,6 +3,20 @@ import DefaultPreference from 'react-native-default-preference';
 
 import {Alert, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
+import Realm from 'realm'
+const PlateData = {
+	name: "Plate",
+	properties: {
+		id: {type : 'int'},
+		plateId: {type : 'string'},
+		code: {type : 'string'},
+		checkinDate: {type : 'string'},
+		checkoutDate: {type : 'string'},
+		state: {type : 'string'},
+		mobile: {type : 'string'}
+	}
+}
+
 const styles = StyleSheet.create({
 	cell: {
 		paddingHorizontal: 24,
@@ -45,7 +59,8 @@ export class ListCell extends React.Component {
 		this.state = {
 			price: 0,
 			priceMode: '',
-			appMode: ''
+			appMode: '',
+			vehicleState: ''
 		}
 	}
 
@@ -59,8 +74,24 @@ export class ListCell extends React.Component {
         DefaultPreference.get("appMode").then((appMode)=>{
             this.setState({appMode: appMode})
         })
+		this.setState({
+			vehicleState: this.props.state
+		})
 	}
 	
+	changeVehicleState(newState) {
+		Realm.open({schema: [PlateData]}).then((realm)=>{
+			var obj = realm.objects("Plate").filtered("plateId == '99H7-7060'")[0]
+			console.log(obj)
+			realm.write(()=>{
+				obj.state = newState
+				this.setState({
+					vehicleState: newState
+				})
+			})
+		})
+	}
+
 	onPressCell() {
 		var cmds
 		if (this.state.appMode == 'parking') {
@@ -86,12 +117,19 @@ export class ListCell extends React.Component {
 				{ 	
 					text: "Vehicle under repair", 
 					onPress: () => {
-						
+						this.changeVehicleState('underRepair')
 					},
 					style: "cancel"
 				},
 				{ 	
 					text: "Repaired", 
+					onPress: () => {
+						this.changeVehicleState('repaired')
+					},
+					style: "cancel"
+				},
+				{ 	
+					text: "Save mobile phone number", 
 					onPress: () => {
 						
 					},
@@ -152,7 +190,7 @@ export class ListCell extends React.Component {
 				</TouchableOpacity>
 			)
 		} else {
-			const state = this.props.state
+			const state = this.state.vehicleState
 			return (
 				<TouchableOpacity style={styles.cell} onPress={this.onPressCell.bind(this)}>
 					<Text style={styles.plate}>{plate}</Text>
