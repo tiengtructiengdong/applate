@@ -81,7 +81,7 @@ export class ListCell extends React.Component {
 	
 	changeVehicleState(newState) {
 		Realm.open({schema: [PlateData]}).then((realm)=>{
-			var obj = realm.objects("Plate").filtered("plateId == '99H7-7060'")[0]
+			var obj = realm.objects("Plate").filtered(`plateId == '${this.props.plate}'`)[0]
 			console.log(obj)
 			realm.write(()=>{
 				obj.state = newState
