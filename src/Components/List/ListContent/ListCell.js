@@ -138,7 +138,7 @@ export class ListCell extends React.Component {
 					style: "cancel"
 				},
 				{ 	
-					text: "Save mobile phone number", 
+					text: this.state.mobile ? `Mobile phone: ${this.state.mobile}` : "Add mobile phone number", 
 					onPress: () => {
 						this.addMobile()
 					},
@@ -209,8 +209,11 @@ export class ListCell extends React.Component {
 				</TouchableOpacity>,
 				
 				<DialogInput isDialogVisible={this.state.isEditingMobile}
-					title={"Enter new mobile phone number"}
-					hintInput ={"Mobile phone"}
+					title={"Enter new phone number"}
+					hintInput={"Mobile phone"}
+					textInputProps={{
+						keyboardType: 'numeric'
+					}}
 					submitInput={ (inputMobile) => {
 						Realm.open({schema: [parkingLot]}).then((realm)=>{
 							var obj = realm.objects("parkingLot").filtered(`plateId == '${this.props.plate}'`)[0]
@@ -218,11 +221,14 @@ export class ListCell extends React.Component {
 							realm.write(()=>{
 								obj.mobile = inputMobile
 							})
-							this.setState({
-								mobile: inputMobile
-							})
+						})
+						this.setState({
+							mobile: inputMobile
 						})
 						this.setState({isEditingMobile: false})
+					}}
+					dialogStyle={{
+						marginTop: -90
 					}}
 					closeDialog={ () => {
 						this.setState({isEditingMobile: false})
