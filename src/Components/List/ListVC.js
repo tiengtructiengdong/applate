@@ -12,8 +12,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
 import Realm from 'realm'
-const PlateData = {
-	name: "Plate",
+const parkingLot = {
+	name: "parkingLot",
 	properties: {
 		id: {type : 'int'},
 		plateId: {type : 'string'},
@@ -83,9 +83,9 @@ export class ListVC extends React.Component {
 	}
 
 	LoadData() {
-		Realm.open({schema: [PlateData]}).then((realm)=>{
+		Realm.open({schema: [parkingLot]}).then((realm)=>{
 			this.setState({
-				plates: realm.objects("Plate")[0],
+				plates: realm.objects("parkingLot")[0],
 				realm: realm
 			})
 			this.forceUpdate()
@@ -136,7 +136,7 @@ export class ListVC extends React.Component {
 
 	listContent(realm, navigation) {
 		if (realm) {
-			const data = realm.objects("Plate")
+			const data = realm.objects("parkingLot")
 			if (true/*data.length > 0*/) {
 				return (<ListContent plateData={data} navigation={navigation}/>)
 			}

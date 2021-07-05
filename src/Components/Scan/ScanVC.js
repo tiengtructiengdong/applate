@@ -14,8 +14,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
 
-const PlateData = {
-	name: "Plate",
+const parkingLot = {
+	name: "parkingLot",
 	properties: {
 		id: {type : 'int'},
 		plateId: {type : 'string'},
@@ -146,8 +146,8 @@ export class ScanVC extends React.Component {
 	onBarCodeRead(scanResult) {
 		if (!this.state.checkOut && !this.state.checkIn) {
 
-			Realm.open({schema: [PlateData]}).then((realm)=> {
-				const obj = realm.objects("Plate").filtered(`code == \"${scanResult.data}\"`)[0]
+			Realm.open({schema: [parkingLot]}).then((realm)=> {
+				const obj = realm.objects("parkingLot").filtered(`code == \"${scanResult.data}\"`)[0]
 				this.setState({checkOut: true})
 				
 				if (obj) {
@@ -234,12 +234,12 @@ export class ScanVC extends React.Component {
 	}
 
 	processCheckin(plate) {
-		Realm.open({schema: [PlateData]}).then(realm => {
+		Realm.open({schema: [parkingLot]}).then(realm => {
 			var uuid_code = uuid.v4()
 	
 			this.printTicket(plate, uuid_code)
 			realm.write(() => {
-				realm.create("Plate", {
+				realm.create("parkingLot", {
 					id: 1950,
 					plateId: plate,
 					code: uuid_code,
@@ -253,8 +253,8 @@ export class ScanVC extends React.Component {
 	}
 
 	processCheckout(plate) {
-		Realm.open({schema: [PlateData]}).then(realm =>{
-			const obj = realm.objects("Plate").filtered(`plateId == \"${plate}\"`)
+		Realm.open({schema: [parkingLot]}).then(realm =>{
+			const obj = realm.objects("parkingLot").filtered(`plateId == \"${plate}\"`)
 			realm.write(() => {
 				realm.delete(obj)
 			})

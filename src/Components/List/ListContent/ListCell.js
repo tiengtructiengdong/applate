@@ -2,10 +2,11 @@ import React from 'react';
 import DefaultPreference from 'react-native-default-preference';
 
 import {Alert, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import DialogInput from 'react-native-dialog-input';
 
 import Realm from 'realm'
-const PlateData = {
-	name: "Plate",
+const parkingLot = {
+	name: "parkingLot",
 	properties: {
 		id: {type : 'int'},
 		plateId: {type : 'string'},
@@ -60,11 +61,11 @@ export class ListCell extends React.Component {
 			price: 0,
 			priceMode: '',
 			appMode: '',
-			vehicleState: ''
+			vehicleState: '',
+			mobile: '',
+			isEditingMobile: false
 		}
-	}
 
-	componentDidMount() {
         DefaultPreference.get("price").then((price)=>{
             this.setState({price: price})
         })
@@ -74,14 +75,18 @@ export class ListCell extends React.Component {
         DefaultPreference.get("appMode").then((appMode)=>{
             this.setState({appMode: appMode})
         })
+	}
+
+	componentDidMount() {
 		this.setState({
-			vehicleState: this.props.state
+			vehicleState: this.props.state,
+			mobile: this.props.mobile
 		})
 	}
 	
 	changeVehicleState(newState) {
-		Realm.open({schema: [PlateData]}).then((realm)=>{
-			var obj = realm.objects("Plate").filtered(`plateId == '${this.props.plate}'`)[0]
+		Realm.open({schema: [parkingLot]}).then((realm)=>{
+			var obj = realm.objects("parkingLot").filtered(`plateId == '${this.props.plate}'`)[0]
 			console.log(obj)
 			realm.write(()=>{
 				obj.state = newState
@@ -90,6 +95,10 @@ export class ListCell extends React.Component {
 				})
 			})
 		})
+	}
+
+	addMobile() {
+		this.setState({isEditingMobile: true})
 	}
 
 	onPressCell() {
@@ -131,7 +140,7 @@ export class ListCell extends React.Component {
 				{ 	
 					text: "Save mobile phone number", 
 					onPress: () => {
-						
+						this.addMobile()
 					},
 					style: "cancel"
 				},
@@ -191,14 +200,35 @@ export class ListCell extends React.Component {
 			)
 		} else {
 			const state = this.state.vehicleState
-			return (
+			return ([
 				<TouchableOpacity style={styles.cell} onPress={this.onPressCell.bind(this)}>
 					<Text style={styles.plate}>{plate}</Text>
 					<Text style={styles.price}>{state}</Text>
 					<Text style={styles.datetime}>{timeStr}</Text>
 					<Text style={styles.datetime}>{dateStr}</Text>
-				</TouchableOpacity>
-			)
+				</TouchableOpacity>,
+				
+				<DialogInput isDialogVisible={this.state.isEditingMobile}
+					title={"Enter new mobile phone number"}
+					hintInput ={"Mobile phone"}
+					submitInput={ (inputMobile) => {
+						Realm.open({schema: [parkingLot]}).then((realm)=>{
+							var obj = realm.objects("parkingLot").filtered(`plateId == '${this.props.plate}'`)[0]
+							console.log(obj)
+							realm.write(()=>{
+								obj.mobile = inputMobile
+							})
+							this.setState({
+								mobile: inputMobile
+							})
+						})
+						this.setState({isEditingMobile: false})
+					}}
+					closeDialog={ () => {
+						this.setState({isEditingMobile: false})
+					}} 
+				/>
+			])
 		}
 	}
 }
