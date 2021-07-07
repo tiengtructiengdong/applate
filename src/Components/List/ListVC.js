@@ -89,6 +89,17 @@ export class ListVC extends React.Component {
 				plates: realm.objects("parkingLot")[0],
 				realm: realm
 			})
+
+			fetch('https://cloud.mongodb.com/api/atlas/v1.0/groups/60e305202ae0b86829857edc/clusters/Cluster0', {
+				method: 'GET',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json'
+				}
+			}).then((response)=>console.log("(response)\n",response))
+			.then((json)=>console.log("(json)\n",json))
+			.catch((err)=>console.log(err))
+
 			this.forceUpdate()
 		})
 	}
