@@ -8,12 +8,12 @@ import {ListContent} from './ListContent/ListContent'
 import {ListReport} from './ListReport'
 import {ListReportPDFView} from './ListReportPDFView'
 
-import { createStackNavigator } from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
-import Realm from 'realm'
+import Realm from 'realm';
 const parkingLot = {
-	name: "parkingLot",
+	name: 'parkingLot',
 	properties: {
 		id: {type : 'int'},
 		plateId: {type : 'string'},
@@ -21,7 +21,8 @@ const parkingLot = {
 		checkinDate: {type : 'string'},
 		checkoutDate: {type : 'string'},
 		state: {type : 'string'},
-		mobile: {type : 'string'}
+		mobile: {type : 'string'},
+		updateOnlineLater: {type : 'string'},
 	}
 }
 

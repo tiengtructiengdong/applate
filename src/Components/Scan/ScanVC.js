@@ -23,7 +23,8 @@ const parkingLot = {
 		checkinDate: {type : 'string'},
 		checkoutDate: {type : 'string'},
 		state: {type : 'string'},
-		mobile: {type : 'string'}
+		mobile: {type : 'string'},
+		updateOnlineLater: {type : 'string'},
 	}
 }
 
