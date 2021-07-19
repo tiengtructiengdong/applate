@@ -91,13 +91,9 @@ export default class SettingsList extends React.Component {
 						<Text style={style.cellText}>Bluetooth</Text>
 					</TouchableOpacity>
 
-					<View style={[style.cell, {height: 50}]}>
-						<Text style={style.cellText}>Language</Text>
-						<Picker style={style.languageSwitch} selectedValue={this.state.language} onValueChange={this.updateLanguage.bind(this)}>
-                            <Picker.Item label="🇺🇸 English" value="en" />
-                            <Picker.Item label="🇻🇳 Tiếng Việt" value="vi" />
-                        </Picker>
-					</View>
+					<TouchableOpacity style={style.cell} onPress={() => {}}>
+						<Text style={style.cellText}>Login to online account</Text>
+					</TouchableOpacity>
 
 					<View style={style.about}>
 						<Text style={style.regular}>This project is for educational purposes only.</Text>

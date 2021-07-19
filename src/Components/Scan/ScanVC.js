@@ -5,6 +5,7 @@ import {Alert, Dimensions, SafeAreaView, StyleSheet, Text, View} from 'react-nat
 import {RNCamera} from 'react-native-camera';
 
 import {Header} from '../Header/Header'
+import {Picker} from '@react-native-picker/picker'
 import {BluetoothEscposPrinter, BluetoothManager} from "react-native-bluetooth-escpos-printer";
 
 import uuid from 'react-native-uuid'
@@ -21,23 +22,24 @@ const parkingLot = {
 		plateId: {type : 'string'},
 		code: {type : 'string'},
 		checkinDate: {type : 'string'},
-		checkoutDate: {type : 'string'},
 		state: {type : 'string'},
-		mobile: {type : 'string'},
-		updateOnlineLater: {type : 'string'},
+		updateOnlineLater: {type : 'bool'},
+		isCheckedOut: {type : 'bool'},
 	}
 }
 
 const style = StyleSheet.create({
 	container: {
 		flex: 1,
+		marginBottom: -40,
 		backgroundColor: "#323232"
 	},
 	body: {
 		flex: 1,
-		height: '110%', 
+		height: '100%', 
 		backgroundColor: "#121212",
-		justifyContent: 'center'
+		paddingVertical: 20,
+		flexDirection: 'column'
 	},
 	sectionContainer: {
 		marginTop: 32,
@@ -66,6 +68,11 @@ const style = StyleSheet.create({
 		alignSelf: 'center',
 		margin: 20
 	},
+	cameraArea: {
+		flex: 1,
+		justifyContent: 'center',
+		paddingBottom: 70
+	},
 	cameraView: {
 		borderWidth: 2,
 		padding: 20,
@@ -74,7 +81,7 @@ const style = StyleSheet.create({
 		justifyContent: 'center',
 		borderRadius: 27,
 		overflow: 'hidden',
-		top: -30
+		top: -80
 	},
 	cameraContent: {
 		backgroundColor: '#353535',
@@ -98,7 +105,23 @@ const style = StyleSheet.create({
 	cameraContentText: {
 		color: '#636363',
 		fontSize: 15
-	}
+	},
+	selectorArea: {
+		height: 50,
+		marginBottom: 100,
+		marginHorizontal: 25,
+		flexDirection: 'row',
+		overflow: 'hidden',
+		borderColor: '#555555',
+		borderWidth: 1,
+		borderRadius: 10
+	},
+    selector: {
+		fontWeight: '400',
+		fontSize: 17,
+        flex: 1,
+        alignSelf: 'center'
+	},
 });
 
 const popupStyle = StyleSheet.create({
@@ -245,9 +268,9 @@ export class ScanVC extends React.Component {
 					plateId: plate,
 					code: uuid_code,
 					checkinDate: Date().toString(),
-					checkoutDate: "",
 					state: "new",
-					mobile: ""
+					updateOnlineLater: false,
+					isCheckedOut: false,
 				})
 			})
 		})	
@@ -302,12 +325,20 @@ export class ScanVC extends React.Component {
 			<SafeAreaView style={style.container}>
 				<Header title="Scan plate or QR ticket" bgColor="#323232" titleColor="#ffffff"></Header>
 				<View style={style.body}>
-					<View style={[
-						style.cameraView,
-						{borderColor: !this.state.connected ? "#ff3511" : (this.state.checkOut || this.state.checkIn) ? "#07e722" : "#ffc500"}
-					]}>
-						<View style={style.cameraContent}>
-							{camera}
+					<View style={style.selectorArea}>
+						<Picker style={style.selector}>
+							<Picker.Item label="Parking Lot ABC" value="fixed" color={'#ffffff'}/>
+                            <Picker.Item label="Repair Shop DX" value="hour" color={'#ffffff'} />
+						</Picker>
+					</View>
+					<View style={style.cameraArea}>
+						<View style={[
+							style.cameraView,
+							{borderColor: !this.state.connected ? "#ff3511" : (this.state.checkOut || this.state.checkIn) ? "#07e722" : "#ffc500"}
+						]}>
+							<View style={style.cameraContent}>
+								{camera}
+							</View>
 						</View>
 					</View>
 

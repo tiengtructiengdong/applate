@@ -1,6 +1,19 @@
 import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 
 import {ListCell} from './ListCell.js'
+
+const styles = StyleSheet.create({
+	header: {
+		height: 40,
+        paddingHorizontal: 25,
+        justifyContent: 'center'
+	},
+    headerText: {
+        fontSize: 18,
+        fontWeight: '300',
+    }
+})
 
 export class ListContent extends React.Component {
     constructor(props) {
@@ -12,6 +25,12 @@ export class ListContent extends React.Component {
 
         var content = []
         
+        content.push(
+            <View style={styles.header}>
+                <Text style={styles.headerText}>My Location</Text>
+            </View>
+        )
+
         for (data of plateData) {
             content.push(
                 <ListCell 
@@ -24,9 +43,9 @@ export class ListContent extends React.Component {
             )
         }
         // content.push(
-        //     <ListCell plate="52N4-9898" datetime="LOL" state="Repaired"
+        //     <ListCell plate="52LD-9898" datetime="LOL" state="Repaired"
         //         reportTicketLoss={(()=>this.props.navigation.navigate('ListReport', {
-        //             plateId: "52N4-9898",
+        //             plateId: "52LD-9898",
         //             datetime: "2018-12-17T03:24:00"
         //         }))} />
         // )

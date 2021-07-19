@@ -17,13 +17,15 @@ const style = StyleSheet.create({
 		backgroundColor: '#ffffff',
         justifyContent: 'center',
         minHeight: 50,
-        overflow: 'hidden'
+        overflow: 'hidden',
+        flexDirection: 'row',
+        alignItems: 'center'
 	},
 	cellLabel: {
 		fontWeight: '700',
 		fontSize: 17,
 		marginLeft: 25,
-        position: 'absolute',
+        alignSelf: 'center'
 	},
     cellText: {
 		fontWeight: '400',
@@ -31,15 +33,14 @@ const style = StyleSheet.create({
         marginLeft: 120,
         marginRight: 16,
 		textAlign: 'right',
-        //backgroundColor: '#ff505050',
+        flex: 1,
+        alignSelf: 'center'
 	},
     selectorRight: {
 		fontWeight: '400',
 		fontSize: 17,
-        marginLeft: 120,
-        marginRight: 0,
-		textAlign: 'right',
-        //backgroundColor: '#ff505050',
+        flex: 1,
+        alignSelf: 'center'
 	},
 	scrollView: {
 		height: '100%',
@@ -135,7 +136,7 @@ export default class SettingsInformation extends React.Component {
                     </View>
 
                     <View style={[style.cell, {height: 50}]}>
-                        <Picker selectedValue={this.state.priceMode} onValueChange={this.updatePriceMode.bind(this)}>
+                        <Picker style={style.selectorRight} selectedValue={this.state.priceMode} onValueChange={this.updatePriceMode.bind(this)}>
                             <Picker.Item label="Fixed price" value="fixed" />
                             <Picker.Item label="Hourly" value="hour" />
                             <Picker.Item label="Day" value="day" />
@@ -152,7 +153,7 @@ export default class SettingsInformation extends React.Component {
 
 
 					<View style={[style.cell, {height: 50}]}>
-                        <Text style={style.cellLabel}>App Mode</Text>
+                        <Text style={style.cellLabel}>Legacy Location Type</Text>
 						<Picker style={style.selectorRight} selectedValue={this.state.appMode} onValueChange={this.updateAppMode.bind(this)}>
 							<Picker.Item label="🅿️ Parking lot" value="parking" />
 							<Picker.Item label="🔧 Repair shop" value="repair" />
@@ -160,10 +161,10 @@ export default class SettingsInformation extends React.Component {
 					</View>
                     
                     <View style={style.cell}>
-                        <Text style={style.cellLabel}>Name</Text>
+                        <Text style={style.cellLabel}>Location Name</Text>
                         
                         <TextInput style={style.cellText} 
-                            placeholder="Park owner's name" 
+                            placeholder="Location name" 
                             returnKeyType='done' multiline={true}
                             onChangeText={this.getName.bind(this)}
                             onEndEditing={this.updateName.bind(this)}

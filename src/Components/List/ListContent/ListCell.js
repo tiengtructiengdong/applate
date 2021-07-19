@@ -12,10 +12,9 @@ const parkingLot = {
 		plateId: {type : 'string'},
 		code: {type : 'string'},
 		checkinDate: {type : 'string'},
-		checkoutDate: {type : 'string'},
 		state: {type : 'string'},
-		mobile: {type : 'string'},
-		updateOnlineLater: {type : 'string'},
+		updateOnlineLater: {type : 'bool'},
+		isCheckedOut: {type : 'bool'},
 	}
 }
 
@@ -60,15 +59,17 @@ export class ListCell extends React.Component {
 		super()
 		this.state = {
 			price: 0,
+			carPrice: 0,
 			priceMode: '',
 			appMode: '',
 			vehicleState: '',
-			mobile: '',
-			isEditingMobile: false
 		}
 
         DefaultPreference.get("price").then((price)=>{
             this.setState({price: price})
+        })
+        DefaultPreference.get("carPrice").then((price)=>{
+            this.setState({carPrice: price})
         })
         DefaultPreference.get("priceMode").then((priceMode)=>{
             this.setState({priceMode: priceMode})
@@ -80,8 +81,7 @@ export class ListCell extends React.Component {
 
 	componentDidMount() {
 		this.setState({
-			vehicleState: this.props.state,
-			mobile: this.props.mobile
+			vehicleState: this.props.state
 		})
 	}
 	
@@ -96,10 +96,6 @@ export class ListCell extends React.Component {
 				})
 			})
 		})
-	}
-
-	addMobile() {
-		this.setState({isEditingMobile: true})
 	}
 
 	onPressCell() {
@@ -139,13 +135,6 @@ export class ListCell extends React.Component {
 					style: "cancel"
 				},
 				{ 	
-					text: this.state.mobile ? `Mobile phone: ${this.state.mobile}` : "Add mobile phone number", 
-					onPress: () => {
-						this.addMobile()
-					},
-					style: "cancel"
-				},
-				{ 	
 					text: "Report ticket loss", 
 					onPress: () => {
 						this.props.reportTicketLoss()
@@ -176,7 +165,16 @@ export class ListCell extends React.Component {
 		const diffDay =  parseInt(diffHour/24)
 
 		if (this.state.appMode == 'parking') {
-			var price = parseInt(this.state.price)
+			const carRegex = /[1-9][0-9](NN|LD|NG|[A-Z])\-[0-9]{3}([0-9]|(\.|\-)[0-9]{2})/
+
+			var price 
+			if (plate.match(carRegex)) {
+				price = parseInt(this.state.carPrice)
+			} else {
+				price = parseInt(this.state.price)
+			}
+			
+
 
 			switch (this.state.priceMode) {
 				case 'hour':
@@ -201,41 +199,14 @@ export class ListCell extends React.Component {
 			)
 		} else {
 			const state = this.state.vehicleState
-			return ([
+			return (
 				<TouchableOpacity style={styles.cell} onPress={this.onPressCell.bind(this)}>
 					<Text style={styles.plate}>{plate}</Text>
 					<Text style={styles.price}>{state}</Text>
 					<Text style={styles.datetime}>{timeStr}</Text>
 					<Text style={styles.datetime}>{dateStr}</Text>
-				</TouchableOpacity>,
-				
-				<DialogInput isDialogVisible={this.state.isEditingMobile}
-					title={"Enter new phone number"}
-					hintInput={"Mobile phone"}
-					textInputProps={{
-						keyboardType: 'numeric'
-					}}
-					submitInput={ (inputMobile) => {
-						Realm.open({schema: [parkingLot]}).then((realm)=>{
-							var obj = realm.objects("parkingLot").filtered(`plateId == '${this.props.plate}'`)[0]
-							console.log(obj)
-							realm.write(()=>{
-								obj.mobile = inputMobile
-							})
-						})
-						this.setState({
-							mobile: inputMobile
-						})
-						this.setState({isEditingMobile: false})
-					}}
-					dialogStyle={{
-						marginTop: -90
-					}}
-					closeDialog={ () => {
-						this.setState({isEditingMobile: false})
-					}} 
-				/>
-			])
+				</TouchableOpacity>
+			)
 		}
 	}
 }

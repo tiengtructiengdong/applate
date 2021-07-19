@@ -19,10 +19,9 @@ const parkingLot = {
 		plateId: {type : 'string'},
 		code: {type : 'string'},
 		checkinDate: {type : 'string'},
-		checkoutDate: {type : 'string'},
 		state: {type : 'string'},
-		mobile: {type : 'string'},
-		updateOnlineLater: {type : 'string'},
+		updateOnlineLater: {type : 'bool'},
+		isCheckedOut: {type : 'bool'},
 	}
 }
 
@@ -111,7 +110,7 @@ export class ListVC extends React.Component {
 	Home({navigation}) {
 		return (
 			<SafeAreaView style={[{backgroundColor: '#ffb500'}]}>
-				<Header title={this.state.appMode == 'parking' ? "Parking lot" : "Repair shop"} bgColor="#ffb500"></Header>
+				<Header title={"My Locations"} bgColor="#ffb500"></Header>
 
 				<ScrollView style={style.scrollView} contentContainerStyle={style.scrollContainer}>
 					{this.listContent(this.state.realm, navigation)}
@@ -150,6 +149,7 @@ export class ListVC extends React.Component {
 		if (realm) {
 			const data = realm.objects("parkingLot")
 			if (true/*data.length > 0*/) {
+				console.log(data)
 				return (<ListContent plateData={data} navigation={navigation}/>)
 			}
 			return (
