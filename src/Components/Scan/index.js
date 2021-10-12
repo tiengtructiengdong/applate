@@ -147,7 +147,7 @@ const popupStyle = StyleSheet.create({
   },
 });
 
-export class ScanVC extends React.Component {
+export default class ScanVC extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

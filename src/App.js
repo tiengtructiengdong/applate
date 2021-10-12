@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {
   SafeAreaView,
@@ -7,6 +7,8 @@ import {
   Text,
   useColorScheme,
   View,
+  TextInput,
+  TouchableOpacity,
 } from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -14,10 +16,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 const Tab = createBottomTabNavigator();
 
-import {Auth} from './Components/Auth';
-import {ListVC} from './Components/List';
-import {ScanVC} from './Components/Scan';
-import {SettingsVC} from './Components/Settings';
+import Register from './Components/Register';
+import ListVC from './Components/List';
+import ScanVC from './Components/Scan';
+import SettingsVC from './Components/Settings';
 
 import {AppTabbar} from './Components/AppTabbar';
 import {useIsFocused} from '@react-navigation/native';
@@ -43,6 +45,23 @@ function Settings({navigation}) {
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
+  const {token, setToken} = useState('');
+  const {username, setUsername} = useState('');
+  const {password, setPassword} = useState('');
+
+  const login = () => {
+    fetch('https://theserverwearewaitingfor', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    });
+  };
 
   DefaultPreference.get('price')
     .then(price => {
@@ -89,16 +108,40 @@ function App() {
         });
   });
 
-  DefaultPreference.get('token').then(token => {
-    if (token == null) {
-      return (
-        <SafeAreaView>
-          <Auth />
-        </SafeAreaView>
-      );
+  DefaultPreference.get('token').then(t => {
+    if (t) {
+      setToken(t); /// WHY CAN'T WE DO THIS
     }
   });
 
+  if (token == null) {
+    return (
+      <NavigationContainer>
+        <View style={styles.field}>
+          <Text style={styles.label}>Username</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setUsername(text)}
+          />
+          <Text style={styles.label}>Password</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setPassword(text)}
+          />
+          <View style={styles.buttonArea}>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.label} onPress={login}>
+                Login
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.label}>Register</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </NavigationContainer>
+    );
+  }
   return (
     <NavigationContainer>
       <Tab.Navigator tabBar={props => <AppTabbar {...props} />}>
@@ -128,6 +171,31 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: '700',
+  },
+  field: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 30,
+    width: 250,
+    marginTop: 200,
+  },
+  label: {
+    fontSize: 20,
+  },
+  input: {
+    height: 50,
+    fontSize: 20,
+    borderRadius: 3,
+    backgroundColor: '#eeeeee',
+  },
+  button: {
+    backgroundColor: '#ffb500',
+    flex: 1,
+    margin: 5,
+  },
+  buttonArea: {
+    height: 50,
+    flexDirection: 'row',
   },
 });
 

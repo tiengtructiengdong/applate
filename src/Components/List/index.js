@@ -59,7 +59,7 @@ const style = StyleSheet.create({
   },
 });
 
-export class ListVC extends React.Component {
+export default class ListVC extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

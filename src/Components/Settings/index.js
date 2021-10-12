@@ -7,7 +7,7 @@ import SettingsInformation from './SettingsInformation';
 import {createStackNavigator} from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
-export class SettingsVC extends React.Component {
+export default class SettingsVC extends React.Component {
   title = '';
 
   SettingsList({navigation}) {

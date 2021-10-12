@@ -13,16 +13,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export class ListContent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <View style={styles.header}>
-        <Text style={styles.headerText}>My Location</Text>
-      </View>
-    );
-  }
+function Register(
+  {
+    /*props*/
+  },
+) {
+  return <></>;
 }
+
+export default Register;
