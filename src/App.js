@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 
 import {
+  Alert,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
   useColorScheme,
@@ -45,12 +45,12 @@ function Settings({navigation}) {
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
-  const {token, setToken} = useState('');
-  const {username, setUsername} = useState('');
-  const {password, setPassword} = useState('');
+  const [token, setToken] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const login = () => {
-    fetch('https://theserverwearewaitingfor', {
+    fetch('https://www.google.com/', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -60,7 +60,22 @@ function App() {
         username: username,
         password: password,
       }),
-    });
+    })
+      .then(response => {
+        if (response.status !== 200) {
+          response
+            .json()
+            .then(data => {
+              console.log(data);
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   DefaultPreference.get('price')
@@ -109,12 +124,12 @@ function App() {
   });
 
   DefaultPreference.get('token').then(t => {
-    if (t) {
-      setToken(t); /// WHY CAN'T WE DO THIS
+    if (t && (token == null || token == '')) {
+      setToken(t);
     }
   });
 
-  if (token == null) {
+  if (token == null || token == '') {
     return (
       <NavigationContainer>
         <View style={styles.field}>
@@ -127,6 +142,7 @@ function App() {
           <TextInput
             style={styles.input}
             onChangeText={text => setPassword(text)}
+            secureTextEntry
           />
           <View style={styles.buttonArea}>
             <TouchableOpacity style={styles.button}>
@@ -134,6 +150,7 @@ function App() {
                 Login
               </Text>
             </TouchableOpacity>
+            <View style={styles.buttonSpace} />
             <TouchableOpacity style={styles.button}>
               <Text style={styles.label}>Register</Text>
             </TouchableOpacity>
@@ -185,17 +202,25 @@ const styles = StyleSheet.create({
   input: {
     height: 50,
     fontSize: 20,
-    borderRadius: 3,
+    borderRadius: 5,
     backgroundColor: '#eeeeee',
+    padding: 10,
+    marginVertical: 12,
   },
   button: {
     backgroundColor: '#ffb500',
     flex: 1,
-    margin: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
   },
   buttonArea: {
     height: 50,
     flexDirection: 'row',
+    marginTop: 10,
+  },
+  buttonSpace: {
+    width: 10,
   },
 });
 
