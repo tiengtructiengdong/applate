@@ -3,7 +3,7 @@ import DefaultPreference from 'react-native-default-preference';
 
 import {SafeAreaView, StyleSheet, ScrollView, Text, View} from 'react-native';
 
-import {Header} from '../Header/Header';
+import {Header} from '../Header';
 import {ListContent} from './ListContent/ListContent';
 import {ListReport} from './ListReport';
 import {ListReportPDFView} from './ListReportPDFView';

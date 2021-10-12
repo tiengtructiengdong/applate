@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {RNCamera} from 'react-native-camera';
 
-import {Header} from '../Header/Header';
+import {Header} from '../Header';
 import {Picker} from '@react-native-picker/picker';
 import {
   BluetoothEscposPrinter,

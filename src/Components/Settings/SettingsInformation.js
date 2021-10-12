@@ -11,7 +11,7 @@ import {
   View,
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
-import {Header} from '../Header/Header';
+import {Header} from '../Header';
 
 const style = StyleSheet.create({
   container: {

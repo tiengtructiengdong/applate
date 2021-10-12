@@ -12,7 +12,7 @@ import {Picker} from '@react-native-picker/picker';
 
 import DefaultPreference from 'react-native-default-preference';
 
-import {Header} from '../Header/Header';
+import {Header} from '../Header';
 
 const style = StyleSheet.create({
   container: {
