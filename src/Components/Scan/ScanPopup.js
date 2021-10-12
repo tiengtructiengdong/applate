@@ -2,28 +2,23 @@ import React from 'react';
 
 import {SafeAreaView, StyleSheet, View} from 'react-native';
 
-
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
+  container: {
+    flex: 1,
+  },
 });
 
 export class ScanPopup extends React.Component {
-	qrCodeData = ""
-	plateData = ""
+  qrCodeData = '';
+  plateData = '';
 
-	constructor(props) {
-		super(props)
-	}
+  constructor(props) {
+    super(props);
+  }
 
-	render() {
-		data = this.props.data
+  render() {
+    data = this.props.data;
 
-		return (
-			<View>
-				
-			</View>
-		)
-	}
+    return <View></View>;
+  }
 }
