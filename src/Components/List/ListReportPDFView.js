@@ -8,7 +8,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import {Header} from '../Header/Header.js';
+import {Header} from '../Header';
 
 import PDFLib, {PDFDocument, PDFPage} from 'react-native-pdf-lib';
 

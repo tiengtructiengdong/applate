@@ -8,7 +8,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import {Header} from '../Header/Header.js';
+import {Header} from '../Header';
 
 const style = StyleSheet.create({
   container: {
