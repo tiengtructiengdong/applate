@@ -1,34 +1,17 @@
 import React, {useState, useNavigation} from 'react';
-import {View} from 'react-native';
+import {Alert, View} from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import DefaultPreference from 'react-native-default-preference';
-import ListVC from './Components/List';
-import ScanVC from './Components/Scan';
-import SettingsVC from './Components/Settings';
-import {AppTabbar} from './Components/AppTabbar';
+import List from '@components/List';
+import Scan from '@components/Scan';
+import Settings from '@components/Settings';
+import {AppTabbar} from '@components/AppTabbar';
 import {useIsFocused} from '@react-navigation/native';
-import {loginService, registerService} from './Services';
-import {post, get} from './Services/requests';
+import {loginService, registerService} from '@services';
+import {post, get} from '@services/requests';
 import styled from 'styled-components';
-
-function List({navigation}) {
-  return <ListVC navigation={navigation}></ListVC>;
-}
-
-function Scan({navigation}) {
-  const isFocused = useIsFocused();
-
-  if (isFocused) {
-    return <ScanVC navigation={navigation}></ScanVC>;
-  }
-  return <View style={{flex: 1, backgroundColor: '#121212'}}></View>;
-}
-
-function Settings({navigation}) {
-  return <SettingsVC navigation={navigation}></SettingsVC>;
-}
 
 const FieldArea = styled.View`
   align-self: center;
@@ -37,11 +20,9 @@ const FieldArea = styled.View`
   width: 250px;
   margin-top: 200px;
 `;
-
 const Label = styled.Text`
   font-size: 20px;
 `;
-
 const Input = styled.TextInput`
   height: 50px;
   font-size: 20px;
@@ -50,7 +31,6 @@ const Input = styled.TextInput`
   padding: 10px;
   margin-vertical: 12px;
 `;
-
 const Button = styled.TouchableOpacity`
   background-color: #ffb500;
   flex: 1;
@@ -58,7 +38,6 @@ const Button = styled.TouchableOpacity`
   justify-content: center;
   border-radius: 5px;
 `;
-
 const ButtonArea = styled.View`
   height: 50px;
   flex-direction: row;
@@ -86,9 +65,12 @@ function App() {
       },
       json => {
         console.log(json, 'successful');
+        DefaultPreference.set('token', json.token).then(() => {
+          setToken(json.token);
+        });
       },
       json => {
-        console.log(json, 'fail');
+        Alert.alert('Error', json.message);
       },
     );
   };

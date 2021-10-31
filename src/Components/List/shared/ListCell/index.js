@@ -2,7 +2,6 @@ import React from 'react';
 import DefaultPreference from 'react-native-default-preference';
 
 import {Alert, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import DialogInput from 'react-native-dialog-input';
 
 import Realm from 'realm';
 const parkingLot = {
