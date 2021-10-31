@@ -1,30 +1,17 @@
-import React, {useState} from 'react';
-
-import {
-  Alert,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
+import React, {useState, useNavigation} from 'react';
+import {View} from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
-
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-const Tab = createBottomTabNavigator();
-
-import Register from './Components/Register';
+import DefaultPreference from 'react-native-default-preference';
 import ListVC from './Components/List';
 import ScanVC from './Components/Scan';
 import SettingsVC from './Components/Settings';
-
 import {AppTabbar} from './Components/AppTabbar';
 import {useIsFocused} from '@react-navigation/native';
-
-import DefaultPreference from 'react-native-default-preference';
+import {loginService, registerService} from './Services';
+import {post, get} from './Services/requests';
+import styled from 'styled-components';
 
 function List({navigation}) {
   return <ListVC navigation={navigation}></ListVC>;
@@ -43,85 +30,68 @@ function Settings({navigation}) {
   return <SettingsVC navigation={navigation}></SettingsVC>;
 }
 
+const FieldArea = styled.View`
+  align-self: center;
+  justify-content: center;
+  margin-horizontal: 30px;
+  width: 250px;
+  margin-top: 200px;
+`;
+
+const Label = styled.Text`
+  font-size: 20px;
+`;
+
+const Input = styled.TextInput`
+  height: 50px;
+  font-size: 20px;
+  border-radius: 5px;
+  background-color: #eeeeee;
+  padding: 10px;
+  margin-vertical: 12px;
+`;
+
+const Button = styled.TouchableOpacity`
+  background-color: #ffb500;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+`;
+
+const ButtonArea = styled.View`
+  height: 50px;
+  flex-direction: row;
+  margin-top: 10px;
+`;
+const ButtonSpace = styled.View`
+  width: 10px;
+`;
+
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
   const [token, setToken] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const navigation = useNavigation;
+
   const login = () => {
-    fetch('https://www.google.com/', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+    post(
+      {
+        service: loginService,
+        body: {
+          number: username,
+          password: password,
+        },
       },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-      }),
-    })
-      .then(response => {
-        if (response.status !== 200) {
-          response
-            .json()
-            .then(data => {
-              console.log(data);
-            })
-            .catch(err => {
-              console.log(err);
-            });
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
+      json => {
+        console.log(json, 'successful');
+      },
+      json => {
+        console.log(json, 'fail');
+      },
+    );
   };
-
-  DefaultPreference.get('price')
-    .then(price => {
-      if (price == null) {
-        DefaultPreference.set('price', '0')
-          .then(language => {
-            console.log('set');
-          })
-          .catch(err => {
-            console.log(err);
-          });
-        DefaultPreference.set('carPrice', '0')
-          .then(language => {
-            console.log('set');
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      }
-    })
-    .catch(err => {
-      console.log(err);
-    });
-
-  DefaultPreference.get('language').then(language => {
-    if (language == null)
-      DefaultPreference.set('language', 'en')
-        .then(language => {
-          console.log('set');
-        })
-        .catch(err => {
-          console.log(err);
-        });
-  });
-
-  DefaultPreference.get('appMode').then(mode => {
-    if (mode == null)
-      DefaultPreference.set('appMode', 'parking')
-        .then(mode => {
-          console.log('modeset');
-        })
-        .catch(err => {
-          console.log(err);
-        });
-  });
 
   DefaultPreference.get('token').then(t => {
     if (t && (token == null || token == '')) {
@@ -132,33 +102,26 @@ function App() {
   if (token == null || token == '') {
     return (
       <NavigationContainer>
-        <View style={styles.field}>
-          <Text style={styles.label}>Username</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={text => setUsername(text)}
-          />
-          <Text style={styles.label}>Password</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={text => setPassword(text)}
-            secureTextEntry
-          />
-          <View style={styles.buttonArea}>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.label} onPress={login}>
-                Login
-              </Text>
-            </TouchableOpacity>
-            <View style={styles.buttonSpace} />
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.label}>Register</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <FieldArea>
+          <Label>Username</Label>
+          <Input onChangeText={text => setUsername(text)} />
+          <Label>Password</Label>
+          <Input onChangeText={text => setPassword(text)} secureTextEntry />
+
+          <ButtonArea>
+            <Button onPress={login}>
+              <Label>Login</Label>
+            </Button>
+            <ButtonSpace />
+            <Button>
+              <Label>Register</Label>
+            </Button>
+          </ButtonArea>
+        </FieldArea>
       </NavigationContainer>
     );
   }
+  const Tab = createBottomTabNavigator();
   return (
     <NavigationContainer>
       <Tab.Navigator tabBar={props => <AppTabbar {...props} />}>
@@ -171,57 +134,5 @@ function App() {
 }
 
 //org.reactjs.native.example.plateapp
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  field: {
-    alignSelf: 'center',
-    justifyContent: 'center',
-    marginHorizontal: 30,
-    width: 250,
-    marginTop: 200,
-  },
-  label: {
-    fontSize: 20,
-  },
-  input: {
-    height: 50,
-    fontSize: 20,
-    borderRadius: 5,
-    backgroundColor: '#eeeeee',
-    padding: 10,
-    marginVertical: 12,
-  },
-  button: {
-    backgroundColor: '#ffb500',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-  },
-  buttonArea: {
-    height: 50,
-    flexDirection: 'row',
-    marginTop: 10,
-  },
-  buttonSpace: {
-    width: 10,
-  },
-});
 
 export default App;
