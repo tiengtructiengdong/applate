@@ -4,6 +4,7 @@ import {Alert} from 'react-native';
 import DefaultPreference from 'react-native-default-preference';
 
 import styled from 'styled-components';
+import MainStack from '@components/MainStack';
 
 import {loginService} from '@services';
 import {post} from '@services/requests';
@@ -54,10 +55,22 @@ const ButtonArea = styled.View`
 const ButtonSpace = styled.View`
   width: 10px;
 `;
-const Auth = ({setToken}) => {
+const Auth = ({}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [token, setToken] = useState('');
   const navigation = useNavigation();
+
+  DefaultPreference.get('token').then(t => {
+    if (t && (token == null || token == '')) {
+      setToken(t);
+    }
+  });
+
+  // MAIN STACK
+  if (token != null && token != '') {
+    return <MainStack />;
+  }
 
   const login = () => {
     post(

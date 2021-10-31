@@ -15,6 +15,7 @@ const SafeArea = styled.SafeAreaView`
 const Container = styled.ScrollView`
   flex: 1;
   background-color: white;
+  margin-bottom: -50px;
 `;
 const SearchBar = styled.TextInput`
   height: 45px;
@@ -39,8 +40,8 @@ const List = ({}) => {
 
 const ListStack = () => {
   return (
-    <Stack.Navigator>
-      <List />
+    <Stack.Navigator headerMode="none">
+      <Stack.Screen name="List" component={List} />
     </Stack.Navigator>
   );
 };
