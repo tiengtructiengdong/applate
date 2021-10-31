@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -39,7 +39,7 @@ const style = StyleSheet.create({
   },
 });
 
-export class AppTabbar extends React.Component {
+class AppTabbar extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -111,3 +111,5 @@ export class AppTabbar extends React.Component {
     });
   };
 }
+
+export default memo(AppTabbar);
