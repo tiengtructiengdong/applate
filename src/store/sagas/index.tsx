@@ -1,6 +1,6 @@
 import {fork} from 'redux-saga/effects';
-import sessionSagas from './sessionSagas';
+//import sessionSagas from './sessionSagas';
 
 export default function* rootSaga() {
-  yield fork(sessionSagas);
+  //yield fork(sessionSagas);
 }

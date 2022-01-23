@@ -6,6 +6,7 @@ import Register from '@components/Auth/Register';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import store from './store';
+import {Provider} from 'react-redux';
 ////////////////////////////
 
 function App() {
