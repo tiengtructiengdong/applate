@@ -5,15 +5,21 @@ import Auth from '@components/Auth';
 import Register from '@components/Auth/Register';
 import {createStackNavigator} from '@react-navigation/stack';
 
+import store from './store';
+////////////////////////////
+
 function App() {
   const Stack = createStackNavigator();
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator headerMode="none">
-        <Stack.Screen name="Auth" component={Auth} />
-        <Stack.Screen name="Register" component={Register} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator headerMode="none">
+          <Stack.Screen name="Auth" component={Auth} />
+          <Stack.Screen name="Register" component={Register} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 export default App;

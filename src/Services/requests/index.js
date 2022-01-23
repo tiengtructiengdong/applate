@@ -1,11 +1,12 @@
-export const post = (param, onSuccess, onFail) =>
-  fetch(param.service, {
+export const post = (req, onSuccess, onFail) =>
+  fetch(req.service, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(param.body),
+    body: JSON.stringify(req.body),
+    param: JSON.stringify(req.param),
   })
     .then(response => {
       response
@@ -25,17 +26,14 @@ export const post = (param, onSuccess, onFail) =>
       Alert.alert('Error', string(err));
     });
 
-export const get = (param, onSuccess, onFail) =>
-  fetch(service, {
+export const get = (req, onSuccess, onFail) =>
+  fetch(req.service, {
     method: 'GET',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      number: username,
-      password: password,
-    }),
+    param: JSON.stringify(req.param),
   })
     .then(response => {
       response

@@ -1,4 +1,4 @@
-const host = 'https://academic-empire-330510.df.r.appspot.com';
+const host = 'http://192.168.1.15:1950';
 
 const auth = `${host}/auth`;
 
