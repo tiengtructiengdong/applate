@@ -48,7 +48,7 @@ const loginSaga = function* (action: AnyAction) {
         popUp('Invalid username\nor password', 'Please check again');
         return;
       default:
-        popUp('Unknown error', 'Please try again');
+        popUp('Unknown error', error.message);
         return;
     }
   } finally {

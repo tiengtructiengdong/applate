@@ -2,7 +2,7 @@ import {AnyAction} from 'redux';
 
 export type AuthState = {
   userId?: string;
-  index?: string;
+  id?: string;
   fullName?: string;
   phoneNumber?: string;
   token?: string;

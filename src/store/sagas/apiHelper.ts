@@ -21,25 +21,16 @@ export function* apiCallProxy(...args: any[]): any {
       }, 1000);
     }
 
-    const tokenExpiry = yield select(
-      (state: RootState) => state.session.tokenExpiration,
-    );
-    if (!tokenExpiry) {
+    try {
+      // Calling refresh token
+      console.log('===Start refreshing token');
+      //yield refreshToken();
+    } catch (errorRefreshToken) {
+      // Cannot refresh token => Should Logout
+      console.log(errorRefreshToken);
+      console.log('=======SHOULD LOGOUT HERE======');
+      yield put(logoutAction());
       return;
-    }
-
-    if (moment().utc().unix() + 5 * 60 > moment(tokenExpiry).unix()) {
-      try {
-        // Calling refresh token
-        console.log('===Start refreshing token');
-        //yield refreshToken();
-      } catch (errorRefreshToken) {
-        // Cannot refresh token => Should Logout
-        console.log(errorRefreshToken);
-        console.log('=======SHOULD LOGOUT HERE======');
-        yield put(logoutAction());
-        return;
-      }
     }
 
     // Call api as normal

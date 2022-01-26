@@ -8,11 +8,11 @@ export const logoutSuccessAction = makeAction('LOGOUT_SUCCESS');
 export const registerAction = makeAction('REGISTER', 'registerData');
 export const registerSuccessAction = makeAction('REGISTER_SUCCESS');
 
-export const getAppStateAction = makeAction('GET_APP_STATE');
-export const getAppStateSuccessAction = makeAction(
-  'GET_APP_STATE_SUCCESS',
-  'isLoggedIn',
-  'userData',
+// PARKING LOT
+export const getAllParkingLotsAction = makeAction('GET_ALL_PARKING_LOTS');
+export const getAllParkingLotsSuccessAction = makeAction(
+  'GET_ALL_PARKING_LOTS_SUCCESS',
+  'parkingLotData',
 );
 
 // makeAction

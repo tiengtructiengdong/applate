@@ -1,10 +1,17 @@
-import React, {memo} from 'react';
-import DefaultPreference from 'react-native-default-preference';
-
-import {Header} from '@components/Header';
+import React, {memo, useEffect} from 'react';
 import {ListCell} from './shared/ListCell';
 import {createStackNavigator} from '@react-navigation/stack';
 import styled from 'styled-components';
+
+import AddParkingLot from './AddParkingLot';
+import {ListHeader} from './shared/ListHeader';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  myParkingLotSelector,
+  workingParkingLotSelector,
+} from '@store/selectors/parkingLotSelector';
+import {useNavigation} from '@react-navigation/native';
+import {getAllParkingLotsAction} from '@store/actionTypes';
 
 const Stack = createStackNavigator();
 
@@ -27,9 +34,20 @@ const SearchBar = styled.TextInput`
 `;
 
 const List = ({}) => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  const myParkingLots = useSelector(myParkingLotSelector);
+  const workingParkingLots = useSelector(workingParkingLotSelector);
+
+  useEffect(() => {
+    console.log('start');
+    dispatch(getAllParkingLotsAction());
+  }, [dispatch]);
+
   return (
     <SafeArea>
-      <Header bgColor={'#ffb500'} title={'Vehicles'} />
+      <ListHeader bgColor={'#ffb500'} title={'Vehicles'} />
       <SearchBar placeholder={'Search vehicle...'} />
       <Container>
         <ListCell plate={'52N3-5656'} />
@@ -42,6 +60,7 @@ const ListStack = () => {
   return (
     <Stack.Navigator headerMode="none">
       <Stack.Screen name="List" component={List} />
+      <Stack.Screen name="AddParkingLot" component={AddParkingLot} />
     </Stack.Navigator>
   );
 };

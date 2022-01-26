@@ -1,21 +1,21 @@
 import {RegisterData} from '@constants/Types';
-import {register, login, logout} from '@services/authServices';
-import {loginSuccessAction, logoutSuccessAction} from '@store/actionTypes';
+import {getAllParkingLotsSuccessAction} from '@store/actionTypes';
 import {AnyAction} from 'redux';
 import {put, takeLatest, all, call, select} from 'typed-redux-saga';
 import {apiCallProxy} from './apiHelper';
 import {parseRawDataResponse, popUp} from '@constants/Utils';
+import {getAllParkingLots} from '@services/parkingLotServices';
+import {authSelector} from '@store/selectors/authSelector';
 
-const getAllParkingLotSaga = function* (action: AnyAction) {
-  const registerData: RegisterData = action.registerData;
-
+const getAllParkingLotsSaga = function* (action: AnyAction) {
   try {
     //yield* put(updateSessionAction({loading: true}));
-    const response = yield* call(register, registerData);
+    const auth = yield* select(state => authSelector(state));
+    const response = yield* call(getAllParkingLots, auth);
     const data = parseRawDataResponse(response, true);
+    console.log('yeet', data);
     if (data) {
-      //yield* put(signUpSuccessAction(result, dataToken));
-      console.log('yeet', data);
+      yield* put(getAllParkingLotsSuccessAction(data));
     } else {
       const errorMessage = response?.data?.error?.message;
       if (errorMessage) {
@@ -30,5 +30,5 @@ const getAllParkingLotSaga = function* (action: AnyAction) {
 };
 
 export default function* () {
-  yield* all([takeLatest('GET_ALL_PARKING_LOT', getAllParkingLotSaga)]);
+  yield* all([takeLatest('GET_ALL_PARKING_LOTS', getAllParkingLotsSaga)]);
 }

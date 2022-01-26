@@ -7,6 +7,7 @@ import {
 import moment from 'moment-timezone';
 
 import {HOST} from '@constants/Config';
+import {AuthState} from '@store/reducers/authReducer';
 
 const mainAxios = axios.create({
   baseURL: HOST,
@@ -42,14 +43,23 @@ export class apiClient {
   config: AxiosRequestConfig;
   headers: any;
 
-  constructor(token?: string) {
-    const authHeader =
-      token && token.length > 0 ? {Authorization: 'Bearer ' + token} : null;
-    this.config = {};
-    this.headers = {
-      ...defaultHeader,
-      ...authHeader,
-    };
+  constructor(auth?: AuthState) {
+    if (auth) {
+      const {token, id} = auth;
+      const authHeader =
+        token && token.length > 0 ? {Authorization: 'Bearer ' + token} : null;
+      this.config = {};
+      this.headers = {
+        ...defaultHeader,
+        ...authHeader,
+        id,
+      };
+    } else {
+      this.config = {};
+      this.headers = {
+        ...defaultHeader,
+      };
+    }
   }
 
   get = (url: string, body?: any, option?: any, baseUrl?: string) => {

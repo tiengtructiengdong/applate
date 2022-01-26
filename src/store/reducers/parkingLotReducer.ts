@@ -18,11 +18,10 @@ export default function authReducer(
   action: AnyAction,
 ): ParkingLotState {
   switch (action.type) {
-    case 'GET_ALL_PARKING_LOT_SUCCESS':
+    case 'GET_ALL_PARKING_LOTS_SUCCESS':
       return {
         ...state,
-        myParkingLot: action.myParkingLot,
-        workingParkingLot: action.workingParkingLot,
+        ...action.parkingLotData,
       };
 
     default:
