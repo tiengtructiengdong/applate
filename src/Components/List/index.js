@@ -1,4 +1,4 @@
-import React, {memo, useEffect} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import {ListCell} from './shared/ListCell';
 import {createStackNavigator} from '@react-navigation/stack';
 import styled from 'styled-components';
@@ -12,6 +12,7 @@ import {
 } from '@store/selectors/parkingLotSelector';
 import {useNavigation} from '@react-navigation/native';
 import {getAllParkingLotsAction} from '@store/actionTypes';
+import {ParkingLot} from '@store/reducers/parkingLotReducer';
 
 const Stack = createStackNavigator();
 
@@ -40,8 +41,9 @@ const List = ({}) => {
   const myParkingLots = useSelector(myParkingLotSelector);
   const workingParkingLots = useSelector(workingParkingLotSelector);
 
+  const [parkingLot, setParkingLot] = useState({});
+
   useEffect(() => {
-    console.log('start');
     dispatch(getAllParkingLotsAction());
   }, [dispatch]);
 
@@ -49,9 +51,7 @@ const List = ({}) => {
     <SafeArea>
       <ListHeader bgColor={'#ffb500'} title={'Vehicles'} />
       <SearchBar placeholder={'Search vehicle...'} />
-      <Container>
-        <ListCell plate={'52N3-5656'} />
-      </Container>
+      <Container>{/* <ListCell plate={'52N3-5656'} /> */}</Container>
     </SafeArea>
   );
 };
