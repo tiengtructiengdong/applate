@@ -5,7 +5,7 @@ export const responseInterceptor = (response: AxiosResponse) => {
   //   const customError = new Error('Error 404');
   //   return Promise.reject(customError);
   // }
-  console.log('Response from API: ', response);
+  //console.log('Response from API: ', response);
   return Promise.resolve(response);
 };
 

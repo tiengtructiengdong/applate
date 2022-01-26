@@ -62,7 +62,7 @@ const Auth = ({}) => {
   const dispatch = useDispatch();
   const token = useSelector(tokenSelector);
 
-  useEffect(() => {}, [dispatch]);
+  //useEffect(() => {}, [dispatch, token]);
 
   // MAIN STACK
   if (token != null && token != '') {

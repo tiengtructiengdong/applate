@@ -1,30 +1,27 @@
 import {RegisterData} from '@constants/Types';
 import {register, login, logout} from '@services/authServices';
-import {loginSuccessAction, logoutSuccessAction} from '@store/actionTypes';
+import {
+  loginAction,
+  loginSuccessAction,
+  logoutSuccessAction,
+} from '@store/actionTypes';
 import {AnyAction} from 'redux';
 import {put, takeLatest, all, call, select} from 'typed-redux-saga';
 import {apiCallProxy} from './apiHelper';
-import {parseRawDataResponse, popUp} from '@constants/Utils';
+import {errString, parseRawDataResponse, popUp} from '@constants/Utils';
 
 const registerSaga = function* (action: AnyAction) {
   const registerData: RegisterData = action.registerData;
-  console.log('regyeeet');
-
   try {
     //yield* put(updateSessionAction({loading: true}));
     const response = yield* call(register, registerData);
-    const data = parseRawDataResponse(response, true);
-    if (data) {
-      //yield* put(signUpSuccessAction(result, dataToken));
-      console.log('yeet', data);
-    } else {
-      const errorMessage = response?.data?.error?.message;
-      if (errorMessage) {
-        popUp(errorMessage);
-      }
+    if (response.status === 400) {
+      throw new Error('ID or Phone number\nis registered!');
     }
+    popUp('Registration success!', 'You can continue with the app.');
+    yield* put(loginAction(registerData.officialId, registerData.password));
   } catch (error: any) {
-    popUp(error.message);
+    popUp(error.message, 'Please try again');
   } finally {
     //yield* put(updateSessionAction({loading: false}));
   }
@@ -32,7 +29,6 @@ const registerSaga = function* (action: AnyAction) {
 
 const loginSaga = function* (action: AnyAction) {
   const {number, password} = action;
-  console.log('loginyeeet');
 
   try {
     //yield* put(updateSessionAction({loading: true}));
@@ -40,7 +36,6 @@ const loginSaga = function* (action: AnyAction) {
     const data = parseRawDataResponse(response, true);
     if (data) {
       yield* put(loginSuccessAction(data));
-      console.log('yeet', data);
     } else {
       const errorMessage = response?.data?.error?.message;
       if (errorMessage) {
@@ -48,7 +43,14 @@ const loginSaga = function* (action: AnyAction) {
       }
     }
   } catch (error: any) {
-    popUp(error.message);
+    switch (error.message) {
+      case errString(401):
+        popUp('Invalid username\nor password', 'Please check again');
+        return;
+      default:
+        popUp('Unknown error', 'Please try again');
+        return;
+    }
   } finally {
     //yield* put(updateSessionAction({loading: false}));
   }

@@ -5,13 +5,11 @@ import {RegisterData} from '@constants/Types';
 
 // register
 export function register(registerData: RegisterData) {
-  return new apiClient().post(`${HOST}auth/register`, {
-    ...registerData,
-  });
+  return new apiClient().post(`${HOST}auth/register`, registerData);
 }
 
 // login
-export function login(number: number, password: string) {
+export function login(number: string, password: string) {
   return new apiClient().post(`${HOST}auth/login`, {
     number,
     password,

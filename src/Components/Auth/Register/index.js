@@ -70,6 +70,7 @@ const Register = ({setToken}) => {
         password,
       }),
     );
+    navigation.goBack();
   };
 
   return (

@@ -2,24 +2,19 @@
 import {Alert} from 'react-native';
 
 export const parseRawDataResponse = (response: any, resultOnly?: boolean) => {
-  if (response) {
-    let {data} = response;
-    if (data) {
-      const {result: resultInResponse} = data;
-      if (resultInResponse) {
-        return resultOnly === true ? resultInResponse : resultInResponse.data;
-      }
-    }
-  }
-  return undefined;
+  return JSON.parse(response.request._response) || undefined;
 };
 
-export const popUp = (msg: string) => {
-  Alert.alert(msg, [
+export const popUp = (msg: string, subMsg?: string, onPress?: () => void) => {
+  Alert.alert(msg, subMsg, [
     {
       text: 'OK',
+      onPress: onPress,
     },
   ]);
 };
+
+export const errString = (code: number) =>
+  `Request failed with status code ${code}`;
 
 //const asyncQuery = (func) => promisify(func).bind(pool);
