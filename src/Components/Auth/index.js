@@ -6,9 +6,6 @@ import DefaultPreference from 'react-native-default-preference';
 import styled from 'styled-components';
 import MainStack from '@components/MainStack';
 
-import {loginService} from '@services';
-import {post} from '@services/requests';
-
 const Container = styled.View`
   flex: 1;
   width: 100%;
@@ -72,26 +69,7 @@ const Auth = ({}) => {
     return <MainStack />;
   }
 
-  const login = () => {
-    post(
-      {
-        service: loginService,
-        body: {
-          number: username,
-          password: password,
-        },
-      },
-      json => {
-        console.log(json, 'successful');
-        DefaultPreference.set('token', json.token).then(() => {
-          setToken(json.token);
-        });
-      },
-      json => {
-        Alert.alert('Error', json.message);
-      },
-    );
-  };
+  const login = () => {};
 
   return (
     <Container>

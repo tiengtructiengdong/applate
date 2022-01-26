@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Alert} from 'react-native';
-import DefaultPreference from 'react-native-default-preference';
 
 import styled from 'styled-components';
 import {Header} from '@components/Header';
 
-import {registerService} from '@services';
-import {post} from '@services/requests';
+import {useDispatch, useSelector} from 'react-redux';
+import {registerAction} from '@store/actionTypes';
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -52,41 +51,24 @@ const Space = styled.View`
   height: 500px;
 `;
 const Register = ({setToken}) => {
-  const [id, setId] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [officialId, setId] = useState('');
+  const [fullName, setFullName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [passwordRetype, setPasswordRetype] = useState('');
 
+  const dispatch = useDispatch();
+
   const navigation = useNavigation();
 
   const register = () => {
-    post(
-      {
-        service: registerService,
-        body: {
-          id: id,
-          firstName: firstName,
-          lastName: lastName,
-          phoneNumber: phoneNumber,
-          password: password,
-        },
-      },
-      json => {
-        Alert.alert('Successful!', 'You can login with this account.', [
-          {
-            text: 'OK',
-            onPress: () => {
-              navigation.goBack();
-            },
-          },
-        ]);
-        console.log(json);
-      },
-      json => {
-        Alert.alert('Error', json.message);
-      },
+    dispatch(
+      registerAction({
+        officialId,
+        fullName,
+        phoneNumber,
+        password,
+      }),
     );
   };
 
@@ -100,10 +82,8 @@ const Register = ({setToken}) => {
       <FieldArea>
         <Label>ID card number</Label>
         <Input onChangeText={text => setId(text)} />
-        <Label>First name</Label>
-        <Input onChangeText={text => setFirstName(text)} />
-        <Label>Last name</Label>
-        <Input onChangeText={text => setLastName(text)} />
+        <Label>Full name</Label>
+        <Input onChangeText={text => setFullName(text)} />
         <Label>Phone number</Label>
         <Input onChangeText={text => setPhoneNumber(text)} />
         <Label>Password</Label>

@@ -268,9 +268,7 @@ export default class ScanVC extends React.Component {
                   BluetoothEscposPrinter.printText(
                     'Powered by Applate\n\n\n\n',
                     {},
-                  ).then(() => {
-                    console.log('343');
-                  });
+                  ).then(() => {});
                 });
               },
             );

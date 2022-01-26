@@ -1,15 +1,11 @@
 import {AnyAction} from 'redux';
 
-export type User = {
-  userId: string;
-  index: string;
-  fullName: string;
-  phoneNumber: string;
-  token: string;
-};
-
 export type AuthState = {
-  userData?: User;
+  userId?: string;
+  index?: string;
+  fullName?: string;
+  phoneNumber?: string;
+  token?: string;
 };
 
 const initState: AuthState = {};
@@ -23,7 +19,7 @@ export default function authReducer(
     case 'LOGIN_SUCCESS':
       return {
         ...state,
-        userData: action.payload,
+        ...action.payload,
       };
 
     default:

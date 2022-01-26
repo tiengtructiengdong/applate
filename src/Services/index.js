@@ -1,7 +1,3 @@
-const host = 'http://192.168.1.15:1950';
+import {register, login, logout} from './authServices';
 
-const auth = `${host}/auth`;
-
-export const loginService = `${auth}/login`;
-export const logoutService = `${auth}/logout`;
-export const registerService = `${auth}/register`;
+export {register, login, logout};

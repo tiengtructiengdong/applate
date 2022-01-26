@@ -2,16 +2,11 @@ import * as api from '@services/index';
 import {call, put, select} from 'typed-redux-saga';
 //import {tokenSelector} from '@selectors/sessionSelectors';
 //import {updateSessionAction} from '@actionTypes/sessionActionTypes';
-//import {logoutAction} from '@actionTypes/sessionActionTypes';
+import {logoutAction} from '@store/actionTypes';
 //import {refreshToken} from './sessionSagas';
 //import {ApiParams, IBodyCreatePost} from '@constants/Types';
 import {RootState} from '@store/index';
 import moment from 'moment';
-
-//AUTH
-export function* apiPostalCode(postalCode: string): any {
-  //return yield call(api.postalCode, postalCode);
-}
 
 // UTILS
 export function* apiCallProxy(...args: any[]): any {
