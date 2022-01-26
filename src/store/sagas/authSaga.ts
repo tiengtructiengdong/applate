@@ -54,9 +54,33 @@ const loginSaga = function* (action: AnyAction) {
   }
 };
 
+const logoutSaga = function* (action: AnyAction) {
+  const {number, password} = action;
+
+  try {
+    //yield* put(updateSessionAction({loading: true}));
+    const response = yield* call(login, number, password);
+    const data = parseRawDataResponse(response, true);
+    if (data) {
+      yield* put(logoutSuccessAction(data));
+      console.log('yeet', data);
+    } else {
+      const errorMessage = response?.data?.error?.message;
+      if (errorMessage) {
+        popUp(errorMessage);
+      }
+    }
+  } catch (error: any) {
+    popUp(error.message);
+  } finally {
+    //yield* put(updateSessionAction({loading: false}));
+  }
+};
+
 export default function* () {
   yield* all([
     takeLatest('REGISTER', registerSaga),
     takeLatest('LOGIN', loginSaga),
+    takeLatest('LOGOUT', logoutSaga),
   ]);
 }
