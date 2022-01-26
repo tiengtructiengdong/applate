@@ -19,7 +19,7 @@ export default function authReducer(
     case 'LOGIN_SUCCESS':
       return {
         ...state,
-        ...action.payload,
+        ...action.userData,
       };
 
     default:
