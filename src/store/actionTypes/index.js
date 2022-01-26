@@ -5,7 +5,7 @@ export const loginSuccessAction = makeAction('LOGIN_SUCCESS', 'userData');
 export const logoutAction = makeAction('LOGOUT');
 export const logoutSuccessAction = makeAction('LOGOUT_SUCCESS');
 
-export const registerAction = makeAction('REGISTER');
+export const registerAction = makeAction('REGISTER', 'registerData');
 export const registerSuccessAction = makeAction('REGISTER_SUCCESS');
 
 export const getAppStateAction = makeAction('GET_APP_STATE');

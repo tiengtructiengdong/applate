@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {Alert} from 'react-native';
-import DefaultPreference from 'react-native-default-preference';
 
 import styled from 'styled-components';
 import MainStack from '@components/MainStack';
+
+import {useDispatch, useSelector} from 'react-redux';
+import {loginAction} from '@store/actionTypes';
+import {tokenSelector} from '@store/selectors/authSelector';
 
 const Container = styled.View`
   flex: 1;
@@ -55,21 +57,21 @@ const ButtonSpace = styled.View`
 const Auth = ({}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [token, setToken] = useState('');
   const navigation = useNavigation();
 
-  DefaultPreference.get('token').then(t => {
-    if (t && (token == null || token == '')) {
-      setToken(t);
-    }
-  });
+  const dispatch = useDispatch();
+  const token = useSelector(tokenSelector);
+
+  useEffect(() => {}, [dispatch]);
 
   // MAIN STACK
   if (token != null && token != '') {
     return <MainStack />;
   }
 
-  const login = () => {};
+  const login = () => {
+    dispatch(loginAction(username, password));
+  };
 
   return (
     <Container>

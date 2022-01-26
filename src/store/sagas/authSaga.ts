@@ -8,6 +8,7 @@ import {parseRawDataResponse, popUp} from '@constants/Utils';
 
 const registerSaga = function* (action: AnyAction) {
   const registerData: RegisterData = action.registerData;
+  console.log('regyeeet');
 
   try {
     //yield* put(updateSessionAction({loading: true}));
@@ -29,34 +30,33 @@ const registerSaga = function* (action: AnyAction) {
   }
 };
 
-// const verifyOTPSaga = function* (action: any) {
-//   const {
-//     phoneNumber,
-//     code,
-//     routeParams,
-//   }: {phoneNumber: string; code: string; routeParams: SignUpInfo} = action;
-//   try {
-//     yield* put(updateSessionAction({loading: true}));
-//     const isSocial = yield* select(state => isSocialSelector(state));
-//     const socialInfo = yield* select(state => userInfoSelector(state));
-//     const response = yield* apiCallProxy(apiVerifyOTP, phoneNumber, code);
-//     if (response && response?.data && response?.data.success) {
-//       // navigate('ReferralCode');
-//       isSocial
-//         ? yield* put(signUpSocialAction(socialInfo))
-//         : yield* put(signUpAction(routeParams));
-//     } else {
-//       const msgError = response?.data?.error?.message;
-//       console.log('msgError>>>', msgError);
-//       yield* put(addToastAction(msgError));
-//     }
-//   } catch (error: any) {
-//     yield* put(addToastAction(error.message));
-//   } finally {
-//     yield* put(updateSessionAction({loading: false}));
-//   }
-// };
+const loginSaga = function* (action: AnyAction) {
+  const {number, password} = action;
+  console.log('loginyeeet');
+
+  try {
+    //yield* put(updateSessionAction({loading: true}));
+    const response = yield* call(login, number, password);
+    const data = parseRawDataResponse(response, true);
+    if (data) {
+      yield* put(loginSuccessAction(data));
+      console.log('yeet', data);
+    } else {
+      const errorMessage = response?.data?.error?.message;
+      if (errorMessage) {
+        popUp(errorMessage);
+      }
+    }
+  } catch (error: any) {
+    popUp(error.message);
+  } finally {
+    //yield* put(updateSessionAction({loading: false}));
+  }
+};
 
 export default function* () {
-  yield* all([takeLatest('REGISTER', registerSaga)]);
+  yield* all([
+    takeLatest('REGISTER', registerSaga),
+    takeLatest('LOGIN', loginSaga),
+  ]);
 }
