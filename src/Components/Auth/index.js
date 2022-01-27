@@ -71,7 +71,7 @@ const Auth = ({}) => {
 
   // MAIN STACK
   if (token != null && token != '') {
-    if (parkingLot === undefined) {
+    if (parkingLot === {}) {
       return <AddParkingLot forced={true} />;
     }
     return <MainStack />;

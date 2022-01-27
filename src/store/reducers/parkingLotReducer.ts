@@ -1,6 +1,12 @@
 import {AnyAction} from 'redux';
 
-export type ParkingLot = {};
+export type ParkingLot = {
+  Address: string;
+  Id: number;
+  Name: string;
+  OwnerId: number;
+  SpaceCount: number;
+};
 
 export type ParkingLotState = {
   myParkingLot: ParkingLot[];

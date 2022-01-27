@@ -7,4 +7,4 @@ export const workingParkingLotSelector = (state: RootState) =>
   state.parkingLot?.workingParkingLot || [];
 
 export const currentParkingLotSelector = (state: RootState) =>
-  state.parkingLot?.currentParkingLot;
+  state.parkingLot?.currentParkingLot || {};

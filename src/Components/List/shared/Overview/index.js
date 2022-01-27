@@ -1,36 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
+import Svg, {LinearGradient} from 'react-native-svg';
 
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const CurrentParkingLot = styled.TouchableOpacity`
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
+const BG = styled.View`
+  background-color: #203a43;
+  height: 200px;
+  margin: 30px 30px;
+  border-radius: 15px;
 `;
-const Title = styled.Text`
-  font-size: 18px;
+const Select = styled.TouchableOpacity`
+  flex-direction: row;
+  margin: 25px 38px 25px 25px;
+  align-items: center;
+`;
+const Name = styled.Text`
   font-weight: 600;
-  text-align: center;
-  padding-right: 2px;
+  font-size: 25px;
+  color: white;
+  padding-right: 5px;
 `;
 
-export function ListHeader({bgColor = '#d1d1d1', onPress, title}) {
+export function Overview({parkingLot}) {
   return (
-    <View style={[style.headerBg, {backgroundColor: bgColor}]}>
-      <CurrentParkingLot onPress={onPress}>
-        <Title>{title}</Title>
-        <Icon name="chevron-down-outline" height={30} width={30} />
-      </CurrentParkingLot>
-    </View>
+    <BG>
+      <Select>
+        <Name adjustsFontSizeToFit numberOfLines={1}>
+          {parkingLot.Name}
+        </Name>
+        <Icon name="chevron-down" size={20} color="white" />
+      </Select>
+    </BG>
   );
 }
-
-const style = StyleSheet.create({
-  headerBg: {
-    height: 47,
-    margin: 0,
-  },
-});

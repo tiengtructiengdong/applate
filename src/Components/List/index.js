@@ -13,6 +13,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {getAllParkingLotsAction} from '@store/actionTypes';
 import {ParkingLot} from '@store/reducers/parkingLotReducer';
+import {Overview} from './shared/Overview';
 
 const Stack = createStackNavigator();
 
@@ -33,7 +34,6 @@ const SearchBar = styled.TextInput`
   font-size: 17px;
   border-color: #dddddd;
 `;
-const Overview = styled.View``;
 
 const List = ({}) => {
   const dispatch = useDispatch();
@@ -50,7 +50,9 @@ const List = ({}) => {
 
   return (
     <SafeArea>
-      <Container></Container>
+      <Container>
+        <Overview parkingLot={parkingLot} />
+      </Container>
     </SafeArea>
   );
 };
