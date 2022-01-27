@@ -183,6 +183,45 @@ index dd5d33e..a22918b 100644
                  Promise p = promiseMap.remove(PROMISE_CONNECT);
                  if (p == null) {
                      emitRNEvent(EVENT_UNABLE_CONNECT, null);
+diff --git a/node_modules/react-native-bluetooth-escpos-printer/ios/PrintColumnBleWriteDelegate.h b/node_modules/react-native-bluetooth-escpos-printer/ios/PrintColumnBleWriteDelegate.h
+index 8bd5024..163ed34 100644
+--- a/node_modules/react-native-bluetooth-escpos-printer/ios/PrintColumnBleWriteDelegate.h
++++ b/node_modules/react-native-bluetooth-escpos-printer/ios/PrintColumnBleWriteDelegate.h
+@@ -5,7 +5,7 @@
+ //  Created by januslo on 2018/10/6.
+ //  Copyright © 2018年 Facebook. All rights reserved.
+ //
+-#import <React/RCTBridgeModule.h>
++#import "RCTBridgeModule.h"
+ #import "RNBluetoothManager.h"
+ #import "RNBluetoothEscposPrinter.h"
+ 
+diff --git a/node_modules/react-native-bluetooth-escpos-printer/ios/PrintImageBleWriteDelegate.h b/node_modules/react-native-bluetooth-escpos-printer/ios/PrintImageBleWriteDelegate.h
+index 4b7305d..17c07c5 100644
+--- a/node_modules/react-native-bluetooth-escpos-printer/ios/PrintImageBleWriteDelegate.h
++++ b/node_modules/react-native-bluetooth-escpos-printer/ios/PrintImageBleWriteDelegate.h
+@@ -5,7 +5,7 @@
+ //  Created by januslo on 2018/10/8.
+ //  Copyright © 2018年 Facebook. All rights reserved.
+ //
+-#import <React/RCTBridgeModule.h>
++#import "RCTBridgeModule.h"
+ #import "RNBluetoothManager.h"
+ #import "RNBluetoothEscposPrinter.h"
+ @interface PrintImageBleWriteDelegate :NSObject<WriteDataToBleDelegate>
+diff --git a/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.h b/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.h
+index eb9be60..948febd 100644
+--- a/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.h
++++ b/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.h
+@@ -1,6 +1,6 @@
+ 
+-#import <React/RCTBridgeModule.h>
+-#import "RNBluetoothManager.h";
++#import "RCTBridgeModule.h"
++#import "RNBluetoothManager.h"
+ 
+ @interface RNBluetoothEscposPrinter : NSObject <RCTBridgeModule,WriteDataToBleDelegate>
+ 
 diff --git a/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.m b/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.m
 index e203a31..2397924 100644
 --- a/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.m
@@ -208,6 +247,41 @@ index e203a31..2397924 100644
          unsigned char * formatedData = [ImageUtils format_K_threshold:graImage width:size height:size];
          NSData *dataToPrint = [ImageUtils eachLinePixToCmd:formatedData nWidth:size nHeight:size nMode:0];
          PrintImageBleWriteDelegate *delegate = [[PrintImageBleWriteDelegate alloc] init];
+diff --git a/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.xcodeproj/xcuserdata/xcode.xcuserdatad/xcschemes/xcschememanagement.plist b/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.xcodeproj/xcuserdata/xcode.xcuserdatad/xcschemes/xcschememanagement.plist
+new file mode 100644
+index 0000000..d43cfb7
+--- /dev/null
++++ b/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.xcodeproj/xcuserdata/xcode.xcuserdatad/xcschemes/xcschememanagement.plist
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
++<plist version="1.0">
++<dict>
++	<key>SchemeUserState</key>
++	<dict>
++		<key>RNBluetoothEscposPrinter.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>70</integer>
++		</dict>
++	</dict>
++</dict>
++</plist>
+diff --git a/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothManager.h b/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothManager.h
+index 5b83a51..0be410f 100644
+--- a/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothManager.h
++++ b/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothManager.h
+@@ -5,8 +5,8 @@
+ //  Created by januslo on 2018/9/28.
+ //  Copyright © 2018年 Facebook. All rights reserved.
+ //
+-#import <React/RCTBridgeModule.h>
+-#import <React/RCTEventEmitter.h>
++#import "RCTBridgeModule.h"
++#import "RCTEventEmitter.h"
+ #import <CoreBluetooth/CoreBluetooth.h>
+ 
+ @protocol WriteDataToBleDelegate <NSObject>
 diff --git a/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothManager.m b/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothManager.m
 index c96d205..6701de6 100644
 --- a/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothManager.m
@@ -328,3 +402,444 @@ index c96d205..6701de6 100644
  }
  
  /*!
+diff --git a/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothTscPrinter.h b/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothTscPrinter.h
+index dc6ed53..78bda82 100644
+--- a/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothTscPrinter.h
++++ b/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothTscPrinter.h
+@@ -5,7 +5,7 @@
+ //  Created by januslo on 2018/10/1.
+ //  Copyright © 2018年 Facebook. All rights reserved.
+ //
+-#import <React/RCTBridgeModule.h>
++#import "RCTBridgeModule.h"
+ #import "RNBluetoothManager.h"
+ @interface RNBluetoothTscPrinter : NSObject <RCTBridgeModule,WriteDataToBleDelegate>
+ 
+diff --git a/node_modules/react-native-bluetooth-escpos-printer/ios/RNTscCommand.h b/node_modules/react-native-bluetooth-escpos-printer/ios/RNTscCommand.h
+index 2d00f7f..d51ff40 100644
+--- a/node_modules/react-native-bluetooth-escpos-printer/ios/RNTscCommand.h
++++ b/node_modules/react-native-bluetooth-escpos-printer/ios/RNTscCommand.h
+@@ -6,7 +6,7 @@
+ //  Copyright © 2018年 Facebook. All rights reserved.
+ //
+ #import <Foundation/Foundation.h>
+-#import <React/RCTBridgeModule.h>
++#import "RCTBridgeModule.h"
+ @interface RNTscCommand : NSObject
+ @property NSMutableData *command;
+ -(id)init;
+diff --git a/node_modules/react-native-bluetooth-escpos-printer/ios/ZXingObjC-3.2.2/ZXingObjC.xcodeproj/xcuserdata/xcode.xcuserdatad/xcschemes/xcschememanagement.plist b/node_modules/react-native-bluetooth-escpos-printer/ios/ZXingObjC-3.2.2/ZXingObjC.xcodeproj/xcuserdata/xcode.xcuserdatad/xcschemes/xcschememanagement.plist
+new file mode 100644
+index 0000000..099daf5
+--- /dev/null
++++ b/node_modules/react-native-bluetooth-escpos-printer/ios/ZXingObjC-3.2.2/ZXingObjC.xcodeproj/xcuserdata/xcode.xcuserdatad/xcschemes/xcschememanagement.plist
+@@ -0,0 +1,29 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
++<plist version="1.0">
++<dict>
++	<key>SchemeUserState</key>
++	<dict>
++		<key>OS X Framework.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>26</integer>
++		</dict>
++		<key>ZXingObjC-iOS.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>68</integer>
++		</dict>
++		<key>ZXingObjC-osx.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>69</integer>
++		</dict>
++		<key>iOS Framework.xcscheme_^#shared#^_</key>
++		<dict>
++			<key>orderHint</key>
++			<integer>24</integer>
++		</dict>
++	</dict>
++</dict>
++</plist>
+diff --git a/node_modules/react-native-bluetooth-escpos-printer/ios/ZXingObjC-3.2.2/ZXingObjC/datamatrix/decoder/ZXDataMatrixDecodedBitStreamParser.m b/node_modules/react-native-bluetooth-escpos-printer/ios/ZXingObjC-3.2.2/ZXingObjC/datamatrix/decoder/ZXDataMatrixDecodedBitStreamParser.m
+index 245b5f3..155ca31 100755
+--- a/node_modules/react-native-bluetooth-escpos-printer/ios/ZXingObjC-3.2.2/ZXingObjC/datamatrix/decoder/ZXDataMatrixDecodedBitStreamParser.m
++++ b/node_modules/react-native-bluetooth-escpos-printer/ios/ZXingObjC-3.2.2/ZXingObjC/datamatrix/decoder/ZXDataMatrixDecodedBitStreamParser.m
+@@ -24,11 +24,11 @@
+  * See ISO 16022:2006, Annex C Table C.1
+  * The C40 Basic Character Set (*'s used for placeholders for the shift values)
+  */
+-static const unichar C40_BASIC_SET_CHARS[40] = {
+-  '*', '*', '*', ' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+-  'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
+-  'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+-};
++//static const unichar C40_BASIC_SET_CHARS[40] = {
++//  '*', '*', '*', ' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
++//  'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
++//  'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
++//};
+ 
+ static const unichar C40_SHIFT2_SET_CHARS[40] = {
+   '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*',  '+', ',', '-', '.',
+@@ -39,19 +39,19 @@
+  * See ISO 16022:2006, Annex C Table C.2
+  * The Text Basic Character Set (*'s used for placeholders for the shift values)
+  */
+-static const unichar TEXT_BASIC_SET_CHARS[40] = {
+-  '*', '*', '*', ' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+-  'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+-  'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+-};
++//static const unichar TEXT_BASIC_SET_CHARS[40] = {
++//  '*', '*', '*', ' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
++//  'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
++//  'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
++//};
+ 
+ // Shift 2 for Text is the same encoding as C40
+ static unichar TEXT_SHIFT2_SET_CHARS[40];
+ 
+-static const unichar TEXT_SHIFT3_SET_CHARS[32] = {
+-  '`', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
+-  'O',  'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '{', '|', '}', '~', (unichar) 127
+-};
++//static const unichar TEXT_SHIFT3_SET_CHARS[32] = {
++//  '`', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
++//  'O',  'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '{', '|', '}', '~', (unichar) 127
++//};
+ 
+ enum {
+   PAD_ENCODE = 0, // Not really a mode
+@@ -198,82 +198,82 @@ + (BOOL)decodeC40Segment:(ZXBitSource *)bits result:(NSMutableString *)result {
+   // Three C40 values are encoded in a 16-bit value as
+   // (1600 * C1) + (40 * C2) + C3 + 1
+   // TODO(bbrown): The Upper Shift with C40 doesn't work in the 4 value scenario all the time
+-  BOOL upperShift = NO;
+-
+-  int cValues[3] = {0};
+-  int shift = 0;
+-
+-  do {
+-    // If there is only one byte left then it will be encoded as ASCII
+-    if ([bits available] == 8) {
+-      return YES;
+-    }
+-    int firstByte = [bits readBits:8];
+-    if (firstByte == 254) {  // Unlatch codeword
+-      return YES;
+-    }
+-
+-    [self parseTwoBytes:firstByte secondByte:[bits readBits:8] result:cValues];
+-
+-    for (int i = 0; i < 3; i++) {
+-      int cValue = cValues[i];
+-      switch (shift) {
+-      case 0:
+-        if (cValue < 3) {
+-          shift = cValue + 1;
+-        } else if (cValue < sizeof(C40_BASIC_SET_CHARS) / sizeof(char)) {
+-          unichar c40char = C40_BASIC_SET_CHARS[cValue];
+-          if (upperShift) {
+-            [result appendFormat:@"%C", (unichar)(c40char + 128)];
+-            upperShift = NO;
+-          } else {
+-            [result appendFormat:@"%C", c40char];
+-          }
+-        } else {
+-          return NO;
+-        }
+-        break;
+-      case 1:
+-        if (upperShift) {
+-          [result appendFormat:@"%C", (unichar)(cValue + 128)];
+-          upperShift = NO;
+-        } else {
+-          [result appendFormat:@"%C", (unichar)cValue];
+-        }
+-        shift = 0;
+-        break;
+-      case 2:
+-        if (cValue < sizeof(C40_SHIFT2_SET_CHARS) / sizeof(char)) {
+-          unichar c40char = C40_SHIFT2_SET_CHARS[cValue];
+-          if (upperShift) {
+-            [result appendFormat:@"%C", (unichar)(c40char + 128)];
+-            upperShift = NO;
+-          } else {
+-            [result appendFormat:@"%C", c40char];
+-          }
+-        } else if (cValue == 27) {  // FNC1
+-          [result appendFormat:@"%C", (unichar)29]; // translate as ASCII 29
+-        } else if (cValue == 30) {  // Upper Shift
+-          upperShift = YES;
+-        } else {
+-          return NO;
+-        }
+-        shift = 0;
+-        break;
+-      case 3:
+-        if (upperShift) {
+-          [result appendFormat:@"%C", (unichar)(cValue + 224)];
+-          upperShift = NO;
+-        } else {
+-          [result appendFormat:@"%C", (unichar)(cValue + 96)];
+-        }
+-        shift = 0;
+-        break;
+-      default:
+-        return NO;
+-      }
+-    }
+-  } while (bits.available > 0);
++//  BOOL upperShift = NO;
++//
++//  int cValues[3] = {0};
++//  int shift = 0;
++//
++//  do {
++//    // If there is only one byte left then it will be encoded as ASCII
++//    if ([bits available] == 8) {
++//      return YES;
++//    }
++//    int firstByte = [bits readBits:8];
++//    if (firstByte == 254) {  // Unlatch codeword
++//      return YES;
++//    }
++//
++//    [self parseTwoBytes:firstByte secondByte:[bits readBits:8] result:cValues];
++//
++//    for (int i = 0; i < 3; i++) {
++//      int cValue = cValues[i];
++//      switch (shift) {
++//      case 0:
++//        if (cValue < 3) {
++//          shift = cValue + 1;
++//        } else if (cValue < sizeof(C40_BASIC_SET_CHARS) / sizeof(char)) {
++//          unichar c40char = C40_BASIC_SET_CHARS[cValue];
++//          if (upperShift) {
++//            [result appendFormat:@"%C", (unichar)(c40char + 128)];
++//            upperShift = NO;
++//          } else {
++//            [result appendFormat:@"%C", c40char];
++//          }
++//        } else {
++//          return NO;
++//        }
++//        break;
++//      case 1:
++//        if (upperShift) {
++//          [result appendFormat:@"%C", (unichar)(cValue + 128)];
++//          upperShift = NO;
++//        } else {
++//          [result appendFormat:@"%C", (unichar)cValue];
++//        }
++//        shift = 0;
++//        break;
++//      case 2:
++//        if (cValue < sizeof(C40_SHIFT2_SET_CHARS) / sizeof(char)) {
++//          unichar c40char = C40_SHIFT2_SET_CHARS[cValue];
++//          if (upperShift) {
++//            [result appendFormat:@"%C", (unichar)(c40char + 128)];
++//            upperShift = NO;
++//          } else {
++//            [result appendFormat:@"%C", c40char];
++//          }
++//        } else if (cValue == 27) {  // FNC1
++//          [result appendFormat:@"%C", (unichar)29]; // translate as ASCII 29
++//        } else if (cValue == 30) {  // Upper Shift
++//          upperShift = YES;
++//        } else {
++//          return NO;
++//        }
++//        shift = 0;
++//        break;
++//      case 3:
++//        if (upperShift) {
++//          [result appendFormat:@"%C", (unichar)(cValue + 224)];
++//          upperShift = NO;
++//        } else {
++//          [result appendFormat:@"%C", (unichar)(cValue + 96)];
++//        }
++//        shift = 0;
++//        break;
++//      default:
++//        return NO;
++//      }
++//    }
++//  } while (bits.available > 0);
+ 
+   return YES;
+ }
+@@ -285,88 +285,88 @@ + (BOOL)decodeTextSegment:(ZXBitSource *)bits result:(NSMutableString *)result {
+   // Three Text values are encoded in a 16-bit value as
+   // (1600 * C1) + (40 * C2) + C3 + 1
+   // TODO(bbrown): The Upper Shift with Text doesn't work in the 4 value scenario all the time
+-  BOOL upperShift = NO;
+-
+-  int cValues[3] = {0};
+-
+-  int shift = 0;
+-  do {
+-    // If there is only one byte left then it will be encoded as ASCII
+-    if (bits.available == 8) {
+-      return YES;
+-    }
+-    int firstByte = [bits readBits:8];
+-    if (firstByte == 254) {  // Unlatch codeword
+-      return YES;
+-    }
+-
+-    [self parseTwoBytes:firstByte secondByte:[bits readBits:8] result:cValues];
+-
+-    for (int i = 0; i < 3; i++) {
+-      int cValue = cValues[i];
+-      switch (shift) {
+-      case 0:
+-        if (cValue < 3) {
+-          shift = cValue + 1;
+-        } else if (cValue < sizeof(TEXT_BASIC_SET_CHARS) / sizeof(char)) {
+-          unichar textChar = TEXT_BASIC_SET_CHARS[cValue];
+-          if (upperShift) {
+-            [result appendFormat:@"%C", (unichar)(textChar + 128)];
+-            upperShift = NO;
+-          } else {
+-            [result appendFormat:@"%C", textChar];
+-          }
+-        } else {
+-          return NO;
+-        }
+-        break;
+-      case 1:
+-        if (upperShift) {
+-          [result appendFormat:@"%C", (unichar)(cValue + 128)];
+-          upperShift = NO;
+-        } else {
+-          [result appendFormat:@"%C", (unichar)cValue];
+-        }
+-        shift = 0;
+-        break;
+-      case 2:
+-          // Shift 2 for Text is the same encoding as C40
+-        if (cValue < sizeof(TEXT_SHIFT2_SET_CHARS) / sizeof(unichar)) {
+-          unichar textChar = TEXT_SHIFT2_SET_CHARS[cValue];
+-          if (upperShift) {
+-            [result appendFormat:@"%C", (unichar)(textChar + 128)];
+-            upperShift = NO;
+-          } else {
+-            [result appendFormat:@"%C", textChar];
+-          }
+-        } else if (cValue == 27) {
+-          [result appendFormat:@"%C", (unichar)29]; // translate as ASCII 29
+-        } else if (cValue == 30) {  // Upper Shift
+-          upperShift = YES;
+-        } else {
+-          return NO;
+-        }
+-        shift = 0;
+-        break;
+-      case 3:
+-        if (cValue < sizeof(TEXT_SHIFT3_SET_CHARS) / sizeof(char)) {
+-          unichar textChar = TEXT_SHIFT3_SET_CHARS[cValue];
+-          if (upperShift) {
+-            [result appendFormat:@"%C", (unichar)(textChar + 128)];
+-            upperShift = NO;
+-          } else {
+-            [result appendFormat:@"%C", textChar];
+-          }
+-          shift = 0;
+-        } else {
+-          return NO;
+-        }
+-        break;
+-      default:
+-        return NO;
+-      }
+-    }
+-  } while (bits.available > 0);
++//  BOOL upperShift = NO;
++//
++//  int cValues[3] = {0};
++//
++//  int shift = 0;
++//  do {
++//    // If there is only one byte left then it will be encoded as ASCII
++//    if (bits.available == 8) {
++//      return YES;
++//    }
++//    int firstByte = [bits readBits:8];
++//    if (firstByte == 254) {  // Unlatch codeword
++//      return YES;
++//    }
++//
++//    [self parseTwoBytes:firstByte secondByte:[bits readBits:8] result:cValues];
++//
++//    for (int i = 0; i < 3; i++) {
++//      int cValue = cValues[i];
++//      switch (shift) {
++//      case 0:
++//        if (cValue < 3) {
++//          shift = cValue + 1;
++//        } else if (cValue < sizeof(TEXT_BASIC_SET_CHARS) / sizeof(char)) {
++//          unichar textChar = TEXT_BASIC_SET_CHARS[cValue];
++//          if (upperShift) {
++//            [result appendFormat:@"%C", (unichar)(textChar + 128)];
++//            upperShift = NO;
++//          } else {
++//            [result appendFormat:@"%C", textChar];
++//          }
++//        } else {
++//          return NO;
++//        }
++//        break;
++//      case 1:
++//        if (upperShift) {
++//          [result appendFormat:@"%C", (unichar)(cValue + 128)];
++//          upperShift = NO;
++//        } else {
++//          [result appendFormat:@"%C", (unichar)cValue];
++//        }
++//        shift = 0;
++//        break;
++//      case 2:
++//          // Shift 2 for Text is the same encoding as C40
++//        if (cValue < sizeof(TEXT_SHIFT2_SET_CHARS) / sizeof(unichar)) {
++//          unichar textChar = TEXT_SHIFT2_SET_CHARS[cValue];
++//          if (upperShift) {
++//            [result appendFormat:@"%C", (unichar)(textChar + 128)];
++//            upperShift = NO;
++//          } else {
++//            [result appendFormat:@"%C", textChar];
++//          }
++//        } else if (cValue == 27) {
++//          [result appendFormat:@"%C", (unichar)29]; // translate as ASCII 29
++//        } else if (cValue == 30) {  // Upper Shift
++//          upperShift = YES;
++//        } else {
++//          return NO;
++//        }
++//        shift = 0;
++//        break;
++//      case 3:
++//        if (cValue < sizeof(TEXT_SHIFT3_SET_CHARS) / sizeof(char)) {
++//          unichar textChar = TEXT_SHIFT3_SET_CHARS[cValue];
++//          if (upperShift) {
++//            [result appendFormat:@"%C", (unichar)(textChar + 128)];
++//            upperShift = NO;
++//          } else {
++//            [result appendFormat:@"%C", textChar];
++//          }
++//          shift = 0;
++//        } else {
++//          return NO;
++//        }
++//        break;
++//      default:
++//        return NO;
++//      }
++//    }
++//  } while (bits.available > 0);
+   return YES;
+ }
+ 

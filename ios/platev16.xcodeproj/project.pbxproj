@@ -29,6 +29,13 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = platev16;
 		};
+		AE33B59827A2803F007EBC0C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7F46959F0F2648AB94192190 /* RNBluetoothEscposPrinter.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNBluetoothEscposPrinter;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -44,10 +51,10 @@
 		416E9556FCA7C4E873B7E2C8 /* Pods-platev16-platev16Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platev16-platev16Tests.release.xcconfig"; path = "Target Support Files/Pods-platev16-platev16Tests/Pods-platev16-platev16Tests.release.xcconfig"; sourceTree = "<group>"; };
 		4972939FE78F1DBA229CE69B /* Pods-platev16.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platev16.debug.xcconfig"; path = "Target Support Files/Pods-platev16/Pods-platev16.debug.xcconfig"; sourceTree = "<group>"; };
 		6EA4C0EBA70FFEB8932A15FE /* Pods-platev16-platev16Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platev16-platev16Tests.debug.xcconfig"; path = "Target Support Files/Pods-platev16-platev16Tests/Pods-platev16-platev16Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		7F46959F0F2648AB94192190 /* RNBluetoothEscposPrinter.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNBluetoothEscposPrinter.xcodeproj; path = "../node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.xcodeproj"; sourceTree = "<group>"; };
+		7F46959F0F2648AB94192190 /* RNBluetoothEscposPrinter.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNBluetoothEscposPrinter.xcodeproj; path = "../node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.xcodeproj"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = platev16/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9B5FC0406E11D4431E6FAAFB /* libPods-platev16.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-platev16.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9CBF57ABD0A14BBCA51E4028 /* libRNBluetoothEscposPrinter.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = archive.ar; name = libRNBluetoothEscposPrinter.a; path = libRNBluetoothEscposPrinter.a; sourceTree = "<group>"; };
+		9CBF57ABD0A14BBCA51E4028 /* libRNBluetoothEscposPrinter.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNBluetoothEscposPrinter.a; sourceTree = "<group>"; };
 		AE399B3F265C9D7700A7AECB /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		AE399B40265C9D7700A7AECB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -135,6 +142,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				F285E4BE948803B85713CC8F /* Pods */,
+				AE33B59327A2803F007EBC0C /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -146,6 +154,22 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* platev16.app */,
 				00E356EE1AD99517003FC87E /* platev16Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AE33B59327A2803F007EBC0C /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				9CBF57ABD0A14BBCA51E4028 /* libRNBluetoothEscposPrinter.a */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		AE33B59527A2803F007EBC0C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AE33B59927A2803F007EBC0C /* libRNBluetoothEscposPrinter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -234,6 +258,12 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = AE33B59527A2803F007EBC0C /* Products */;
+					ProjectRef = 7F46959F0F2648AB94192190 /* RNBluetoothEscposPrinter.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* platev16 */,
@@ -241,6 +271,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		AE33B59927A2803F007EBC0C /* libRNBluetoothEscposPrinter.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNBluetoothEscposPrinter.a;
+			remoteRef = AE33B59827A2803F007EBC0C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		00E356EC1AD99517003FC87E /* Resources */ = {
