@@ -21,7 +21,15 @@ export default function authReducer(
         ...state,
         ...action.userData,
       };
-
+    case 'LOGOUT_SUCCESS':
+      return {
+        ...state,
+        userId: undefined,
+        id: undefined,
+        fullName: undefined,
+        phoneNumber: undefined,
+        token: undefined,
+      };
     default:
       return state;
   }

@@ -1,4 +1,6 @@
+import {authSelector} from '@store/selectors/authSelector';
 import React from 'react';
+import styled from 'styled-components';
 
 import {
   SafeAreaView,
@@ -8,11 +10,10 @@ import {
   Text,
   View,
 } from 'react-native';
-import {Picker} from '@react-native-picker/picker';
-
-import DefaultPreference from 'react-native-default-preference';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {Header} from '../Header';
+import {logoutAction} from '@store/actionTypes';
 
 const style = StyleSheet.create({
   container: {
@@ -24,13 +25,12 @@ const style = StyleSheet.create({
     borderBottomColor: '#d0d0d0',
     backgroundColor: '#ffffff',
     justifyContent: 'center',
-    minHeight: 50,
+    padding: 15,
     overflow: 'hidden',
   },
   cellText: {
     fontSize: 17,
-    marginLeft: 25,
-    position: 'absolute',
+    marginLeft: 12,
   },
   scrollView: {
     height: '100%',
@@ -60,58 +60,54 @@ const style = StyleSheet.create({
   },
 });
 
-export default class SettingsList extends React.Component {
-  title = '';
-  constructor() {
-    super();
-    this.state = {
-      language: '',
-    };
-  }
+const Username = styled.Text`
+  font-size: 17px;
+  margin-left: 12px;
+  font-weight: 700;
+  padding-vertical: 2px;
+`;
+const OtherInfo = styled(Username)`
+  font-size: 15px;
+  font-weight: 400;
+`;
 
-  componentDidMount() {
-    DefaultPreference.get('language').then(language => {
-      this.setState({language: language});
-    });
-  }
+const List = ({navigation}) => {
+  const dispatch = useDispatch();
+  const auth = useSelector(authSelector);
 
-  updateLanguage(val) {
-    DefaultPreference.set('language', val).then(() => {
-      DefaultPreference.get('language').then(language => {
-        this.setState({language: language});
-      });
-    });
-  }
+  return (
+    <SafeAreaView style={style.container}>
+      <Header bgColor="#ffb500" title="Settings"></Header>
+      <ScrollView style={style.scrollView} scrollEnabled={false}>
+        <TouchableOpacity
+          style={style.cell}
+          onPress={() => navigation.navigate('Information')}>
+          <Username>{auth.fullName || ''}</Username>
+          <OtherInfo>{auth.phoneNumber || ''}</OtherInfo>
+        </TouchableOpacity>
 
-  render() {
-    return (
-      <SafeAreaView style={style.container}>
-        <Header bgColor="#ffb500" title="Settings"></Header>
-        <ScrollView style={style.scrollView} scrollEnabled={false}>
-          <TouchableOpacity
-            style={style.cell}
-            onPress={() => this.props.navigation.navigate('Information')}>
-            <Text style={style.cellText}>Information</Text>
-          </TouchableOpacity>
+        <TouchableOpacity
+          style={style.cell}
+          onPress={() => navigation.navigate('Bluetooth')}>
+          <Text style={style.cellText}>Bluetooth</Text>
+        </TouchableOpacity>
 
-          <TouchableOpacity
-            style={style.cell}
-            onPress={() => this.props.navigation.navigate('Bluetooth')}>
-            <Text style={style.cellText}>Bluetooth</Text>
-          </TouchableOpacity>
+        <TouchableOpacity
+          style={style.cell}
+          onPress={() => {
+            dispatch(logoutAction());
+          }}>
+          <Text style={[style.cellText, {color: '#ff0000'}]}>Logout</Text>
+        </TouchableOpacity>
 
-          <TouchableOpacity style={style.cell} onPress={() => {}}>
-            <Text style={style.cellText}>Login to online account</Text>
-          </TouchableOpacity>
-
-          <View style={style.about}>
-            <Text style={style.regular}>
-              This project is for educational purposes only.
-            </Text>
-            <Text style={style.bold}>applate v0.16</Text>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    );
-  }
-}
+        <View style={style.about}>
+          <Text style={style.regular}>
+            This project is for educational purposes only.
+          </Text>
+          <Text style={style.bold}>applate v0.16</Text>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+export default List;

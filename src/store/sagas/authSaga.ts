@@ -57,15 +57,15 @@ const loginSaga = function* (action: AnyAction) {
 };
 
 const logoutSaga = function* (action: AnyAction) {
-  const {number, password} = action;
+  const {id} = action;
 
   try {
     //yield* put(updateSessionAction({loading: true}));
-    const response = yield* call(login, number, password);
+    const response = yield* call(logout, id);
+    console.log('yeet', response);
     const data = parseRawDataResponse(response, true);
     if (data) {
       yield* put(logoutSuccessAction(data));
-      console.log('yeet', data);
     } else {
       const errorMessage = response?.data?.error?.message;
       if (errorMessage) {

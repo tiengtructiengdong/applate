@@ -2,7 +2,7 @@
 export const loginAction = makeAction('LOGIN', 'number', 'password');
 export const loginSuccessAction = makeAction('LOGIN_SUCCESS', 'userData');
 
-export const logoutAction = makeAction('LOGOUT');
+export const logoutAction = makeAction('LOGOUT', 'id');
 export const logoutSuccessAction = makeAction('LOGOUT_SUCCESS');
 
 export const registerAction = makeAction('REGISTER', 'registerData');
