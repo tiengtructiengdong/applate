@@ -4,7 +4,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import styled from 'styled-components';
 
 import AddParkingLot from './AddParkingLot';
-import {ListHeader} from './shared/ListHeader';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   currentParkingLotSelector,
@@ -19,7 +18,7 @@ const Stack = createStackNavigator();
 
 const SafeArea = styled.SafeAreaView`
   flex: 1;
-  background-color: #ffb500;
+  background-color: #ffffff;
 `;
 const Container = styled.ScrollView`
   flex: 1;
@@ -34,6 +33,7 @@ const SearchBar = styled.TextInput`
   font-size: 17px;
   border-color: #dddddd;
 `;
+const Overview = styled.View``;
 
 const List = ({}) => {
   const dispatch = useDispatch();
@@ -50,9 +50,7 @@ const List = ({}) => {
 
   return (
     <SafeArea>
-      <ListHeader bgColor={'#ffb500'} title={parkingLot.Name} />
-      <SearchBar placeholder={'Search vehicle...'} />
-      <Container>{/* <ListCell plate={'52N3-5656'} /> */}</Container>
+      <Container></Container>
     </SafeArea>
   );
 };

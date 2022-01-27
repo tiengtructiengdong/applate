@@ -15,10 +15,6 @@ import {
   Dimensions,
   ToastAndroid,
 } from 'react-native';
-import {
-  BluetoothEscposPrinter,
-  BluetoothManager,
-} from 'react-native-bluetooth-escpos-printer';
 import {Header} from '../Header';
 
 var {height, width} = Dimensions.get('window');

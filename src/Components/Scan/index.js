@@ -13,10 +13,6 @@ import {RNCamera} from 'react-native-camera';
 
 import {Header} from '../Header';
 import {Picker} from '@react-native-picker/picker';
-import {
-  BluetoothEscposPrinter,
-  BluetoothManager,
-} from 'react-native-bluetooth-escpos-printer';
 
 import uuid from 'react-native-uuid';
 import DefaultPreference from 'react-native-default-preference';

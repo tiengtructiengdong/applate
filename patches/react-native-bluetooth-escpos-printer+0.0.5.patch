@@ -1,3 +1,6 @@
+diff --git a/node_modules/react-native-bluetooth-escpos-printer/.DS_Store b/node_modules/react-native-bluetooth-escpos-printer/.DS_Store
+new file mode 100644
+index 0000000..e69de29
 diff --git a/node_modules/react-native-bluetooth-escpos-printer/android/src/main/java/cn/jystudio/bluetooth/RNBluetoothManagerModule.java b/node_modules/react-native-bluetooth-escpos-printer/android/src/main/java/cn/jystudio/bluetooth/RNBluetoothManagerModule.java
 index dd5d33e..a22918b 100644
 --- a/node_modules/react-native-bluetooth-escpos-printer/android/src/main/java/cn/jystudio/bluetooth/RNBluetoothManagerModule.java
@@ -183,6 +186,10 @@ index dd5d33e..a22918b 100644
                  Promise p = promiseMap.remove(PROMISE_CONNECT);
                  if (p == null) {
                      emitRNEvent(EVENT_UNABLE_CONNECT, null);
+diff --git a/node_modules/react-native-bluetooth-escpos-printer/ios/.DS_Store b/node_modules/react-native-bluetooth-escpos-printer/ios/.DS_Store
+new file mode 100644
+index 0000000..318cf6b
+Binary files /dev/null and b/node_modules/react-native-bluetooth-escpos-printer/ios/.DS_Store differ
 diff --git a/node_modules/react-native-bluetooth-escpos-printer/ios/PrintColumnBleWriteDelegate.h b/node_modules/react-native-bluetooth-escpos-printer/ios/PrintColumnBleWriteDelegate.h
 index 8bd5024..163ed34 100644
 --- a/node_modules/react-native-bluetooth-escpos-printer/ios/PrintColumnBleWriteDelegate.h
@@ -210,18 +217,16 @@ index 4b7305d..17c07c5 100644
  #import "RNBluetoothEscposPrinter.h"
  @interface PrintImageBleWriteDelegate :NSObject<WriteDataToBleDelegate>
 diff --git a/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.h b/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.h
-index eb9be60..948febd 100644
+index eb9be60..14ec578 100644
 --- a/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.h
 +++ b/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.h
-@@ -1,6 +1,6 @@
+@@ -1,5 +1,5 @@
  
 -#import <React/RCTBridgeModule.h>
--#import "RNBluetoothManager.h";
 +#import "RCTBridgeModule.h"
-+#import "RNBluetoothManager.h"
+ #import "RNBluetoothManager.h";
  
  @interface RNBluetoothEscposPrinter : NSObject <RCTBridgeModule,WriteDataToBleDelegate>
- 
 diff --git a/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.m b/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.m
 index e203a31..2397924 100644
 --- a/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.m
@@ -247,9 +252,12 @@ index e203a31..2397924 100644
          unsigned char * formatedData = [ImageUtils format_K_threshold:graImage width:size height:size];
          NSData *dataToPrint = [ImageUtils eachLinePixToCmd:formatedData nWidth:size nHeight:size nMode:0];
          PrintImageBleWriteDelegate *delegate = [[PrintImageBleWriteDelegate alloc] init];
+diff --git a/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.xcodeproj/project.xcworkspace/xcuserdata/xcode.xcuserdatad/UserInterfaceState.xcuserstate b/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.xcodeproj/project.xcworkspace/xcuserdata/xcode.xcuserdatad/UserInterfaceState.xcuserstate
+new file mode 100644
+index 0000000..e69de29
 diff --git a/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.xcodeproj/xcuserdata/xcode.xcuserdatad/xcschemes/xcschememanagement.plist b/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.xcodeproj/xcuserdata/xcode.xcuserdatad/xcschemes/xcschememanagement.plist
 new file mode 100644
-index 0000000..d43cfb7
+index 0000000..b43aaeb
 --- /dev/null
 +++ b/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.xcodeproj/xcuserdata/xcode.xcuserdatad/xcschemes/xcschememanagement.plist
 @@ -0,0 +1,14 @@
@@ -262,7 +270,7 @@ index 0000000..d43cfb7
 +		<key>RNBluetoothEscposPrinter.xcscheme_^#shared#^_</key>
 +		<dict>
 +			<key>orderHint</key>
-+			<integer>70</integer>
++			<integer>5</integer>
 +		</dict>
 +	</dict>
 +</dict>
@@ -430,7 +438,7 @@ index 2d00f7f..d51ff40 100644
  -(id)init;
 diff --git a/node_modules/react-native-bluetooth-escpos-printer/ios/ZXingObjC-3.2.2/ZXingObjC.xcodeproj/xcuserdata/xcode.xcuserdatad/xcschemes/xcschememanagement.plist b/node_modules/react-native-bluetooth-escpos-printer/ios/ZXingObjC-3.2.2/ZXingObjC.xcodeproj/xcuserdata/xcode.xcuserdatad/xcschemes/xcschememanagement.plist
 new file mode 100644
-index 0000000..099daf5
+index 0000000..31bf06d
 --- /dev/null
 +++ b/node_modules/react-native-bluetooth-escpos-printer/ios/ZXingObjC-3.2.2/ZXingObjC.xcodeproj/xcuserdata/xcode.xcuserdatad/xcschemes/xcschememanagement.plist
 @@ -0,0 +1,29 @@
@@ -443,28 +451,28 @@ index 0000000..099daf5
 +		<key>OS X Framework.xcscheme_^#shared#^_</key>
 +		<dict>
 +			<key>orderHint</key>
-+			<integer>26</integer>
++			<integer>2</integer>
 +		</dict>
 +		<key>ZXingObjC-iOS.xcscheme_^#shared#^_</key>
 +		<dict>
 +			<key>orderHint</key>
-+			<integer>68</integer>
++			<integer>3</integer>
 +		</dict>
 +		<key>ZXingObjC-osx.xcscheme_^#shared#^_</key>
 +		<dict>
 +			<key>orderHint</key>
-+			<integer>69</integer>
++			<integer>4</integer>
 +		</dict>
 +		<key>iOS Framework.xcscheme_^#shared#^_</key>
 +		<dict>
 +			<key>orderHint</key>
-+			<integer>24</integer>
++			<integer>0</integer>
 +		</dict>
 +	</dict>
 +</dict>
 +</plist>
 diff --git a/node_modules/react-native-bluetooth-escpos-printer/ios/ZXingObjC-3.2.2/ZXingObjC/datamatrix/decoder/ZXDataMatrixDecodedBitStreamParser.m b/node_modules/react-native-bluetooth-escpos-printer/ios/ZXingObjC-3.2.2/ZXingObjC/datamatrix/decoder/ZXDataMatrixDecodedBitStreamParser.m
-index 245b5f3..155ca31 100755
+index 245b5f3..cdb1e6e 100755
 --- a/node_modules/react-native-bluetooth-escpos-printer/ios/ZXingObjC-3.2.2/ZXingObjC/datamatrix/decoder/ZXDataMatrixDecodedBitStreamParser.m
 +++ b/node_modules/react-native-bluetooth-escpos-printer/ios/ZXingObjC-3.2.2/ZXingObjC/datamatrix/decoder/ZXDataMatrixDecodedBitStreamParser.m
 @@ -24,11 +24,11 @@
@@ -597,7 +605,7 @@ index 245b5f3..155ca31 100755
 +//
 +//  int cValues[3] = {0};
 +//  int shift = 0;
-+//
++
 +//  do {
 +//    // If there is only one byte left then it will be encoded as ASCII
 +//    if ([bits available] == 8) {

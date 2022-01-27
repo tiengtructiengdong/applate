@@ -11,7 +11,6 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		57048CED731B425BACF0DE71 /* libRNBluetoothEscposPrinter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CBF57ABD0A14BBCA51E4028 /* libRNBluetoothEscposPrinter.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9AC3113A9566D8CE2470BE46 /* libPods-platev16-platev16Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2C77D773B5B37B6A23DF9D8 /* libPods-platev16-platev16Tests.a */; };
 		AE399B41265C9D7700A7AECB /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = AE399B3F265C9D7700A7AECB /* fonts */; };
@@ -29,13 +28,6 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = platev16;
 		};
-		AE33B59827A2803F007EBC0C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7F46959F0F2648AB94192190 /* RNBluetoothEscposPrinter.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNBluetoothEscposPrinter;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -51,10 +43,8 @@
 		416E9556FCA7C4E873B7E2C8 /* Pods-platev16-platev16Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platev16-platev16Tests.release.xcconfig"; path = "Target Support Files/Pods-platev16-platev16Tests/Pods-platev16-platev16Tests.release.xcconfig"; sourceTree = "<group>"; };
 		4972939FE78F1DBA229CE69B /* Pods-platev16.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platev16.debug.xcconfig"; path = "Target Support Files/Pods-platev16/Pods-platev16.debug.xcconfig"; sourceTree = "<group>"; };
 		6EA4C0EBA70FFEB8932A15FE /* Pods-platev16-platev16Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-platev16-platev16Tests.debug.xcconfig"; path = "Target Support Files/Pods-platev16-platev16Tests/Pods-platev16-platev16Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		7F46959F0F2648AB94192190 /* RNBluetoothEscposPrinter.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNBluetoothEscposPrinter.xcodeproj; path = "../node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.xcodeproj"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = platev16/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9B5FC0406E11D4431E6FAAFB /* libPods-platev16.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-platev16.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9CBF57ABD0A14BBCA51E4028 /* libRNBluetoothEscposPrinter.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNBluetoothEscposPrinter.a; sourceTree = "<group>"; };
 		AE399B3F265C9D7700A7AECB /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		AE399B40265C9D7700A7AECB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -76,7 +66,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C8C480E933D414D123FC7AEE /* libPods-platev16.a in Frameworks */,
-				57048CED731B425BACF0DE71 /* libRNBluetoothEscposPrinter.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,7 +115,6 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				7F46959F0F2648AB94192190 /* RNBluetoothEscposPrinter.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -161,17 +149,8 @@
 		AE33B59327A2803F007EBC0C /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				9CBF57ABD0A14BBCA51E4028 /* libRNBluetoothEscposPrinter.a */,
 			);
 			name = "Recovered References";
-			sourceTree = "<group>";
-		};
-		AE33B59527A2803F007EBC0C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				AE33B59927A2803F007EBC0C /* libRNBluetoothEscposPrinter.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		F285E4BE948803B85713CC8F /* Pods */ = {
@@ -258,12 +237,6 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = AE33B59527A2803F007EBC0C /* Products */;
-					ProjectRef = 7F46959F0F2648AB94192190 /* RNBluetoothEscposPrinter.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* platev16 */,
@@ -271,16 +244,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		AE33B59927A2803F007EBC0C /* libRNBluetoothEscposPrinter.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNBluetoothEscposPrinter.a;
-			remoteRef = AE33B59827A2803F007EBC0C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		00E356EC1AD99517003FC87E /* Resources */ = {
