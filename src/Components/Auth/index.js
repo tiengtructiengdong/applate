@@ -5,8 +5,10 @@ import styled from 'styled-components';
 import MainStack from '@components/MainStack';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {loginAction} from '@store/actionTypes';
+import {getAllParkingLotsAction, loginAction} from '@store/actionTypes';
 import {tokenSelector} from '@store/selectors/authSelector';
+import {currentParkingLotSelector} from '@store/selectors/parkingLotSelector';
+import AddParkingLot from '@components/List/AddParkingLot';
 
 const Container = styled.View`
   flex: 1;
@@ -61,11 +63,17 @@ const Auth = ({}) => {
 
   const dispatch = useDispatch();
   const token = useSelector(tokenSelector);
+  const parkingLot = useSelector(currentParkingLotSelector);
 
-  useEffect(() => {}, [dispatch]);
+  useEffect(() => {
+    dispatch(getAllParkingLotsAction());
+  }, [dispatch]);
 
   // MAIN STACK
   if (token != null && token != '') {
+    if (parkingLot === undefined) {
+      return <AddParkingLot forced={true} />;
+    }
     return <MainStack />;
   }
 
@@ -78,7 +86,10 @@ const Auth = ({}) => {
       <FieldArea>
         <Logo source={require('@icon/360.png')} />
         <Label>Phone number or ID</Label>
-        <Input onChangeText={text => setUsername(text)} />
+        <Input
+          keyboardType="numeric"
+          onChangeText={text => setUsername(text)}
+        />
         <Label>Password</Label>
         <Input onChangeText={text => setPassword(text)} secureTextEntry />
 

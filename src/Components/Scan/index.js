@@ -282,18 +282,18 @@ export default class ScanVC extends React.Component {
     Realm.open({schema: [parkingLot]}).then(realm => {
       var uuid_code = uuid.v4();
 
-      this.printTicket(plate, uuid_code);
-      realm.write(() => {
-        realm.create('parkingLot', {
-          id: 1950,
-          plateId: plate,
-          code: uuid_code,
-          checkinDate: Date().toString(),
-          state: 'new',
-          updateOnlineLater: false,
-          isCheckedOut: false,
-        });
-      });
+      // this.printTicket(plate, uuid_code);
+      // realm.write(() => {
+      //   realm.create('parkingLot', {
+      //     id: 1950,
+      //     plateId: plate,
+      //     code: uuid_code,
+      //     checkinDate: Date().toString(),
+      //     state: 'new',
+      //     updateOnlineLater: false,
+      //     isCheckedOut: false,
+      //   });
+      // });
     });
   }
 

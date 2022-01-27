@@ -7,6 +7,7 @@ import AddParkingLot from './AddParkingLot';
 import {ListHeader} from './shared/ListHeader';
 import {useDispatch, useSelector} from 'react-redux';
 import {
+  currentParkingLotSelector,
   myParkingLotSelector,
   workingParkingLotSelector,
 } from '@store/selectors/parkingLotSelector';
@@ -41,7 +42,7 @@ const List = ({}) => {
   const myParkingLots = useSelector(myParkingLotSelector);
   const workingParkingLots = useSelector(workingParkingLotSelector);
 
-  const [parkingLot, setParkingLot] = useState({});
+  const parkingLot = useSelector(currentParkingLotSelector);
 
   useEffect(() => {
     dispatch(getAllParkingLotsAction());
@@ -49,7 +50,7 @@ const List = ({}) => {
 
   return (
     <SafeArea>
-      <ListHeader bgColor={'#ffb500'} title={'Vehicles'} />
+      <ListHeader bgColor={'#ffb500'} title={parkingLot.Name} />
       <SearchBar placeholder={'Search vehicle...'} />
       <Container>{/* <ListCell plate={'52N3-5656'} /> */}</Container>
     </SafeArea>

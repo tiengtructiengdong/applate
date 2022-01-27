@@ -9,6 +9,14 @@ export const registerAction = makeAction('REGISTER', 'registerData');
 export const registerSuccessAction = makeAction('REGISTER_SUCCESS');
 
 // PARKING LOT
+export const addParkingLotAction = makeAction(
+  'ADD_PARKING_LOT',
+  'address',
+  'name',
+  'spaceCount',
+);
+export const addParkingLotSuccessAction = makeAction('ADD_PARKING_LOT_SUCCESS');
+
 export const getAllParkingLotsAction = makeAction('GET_ALL_PARKING_LOTS');
 export const getAllParkingLotsSuccessAction = makeAction(
   'GET_ALL_PARKING_LOTS_SUCCESS',

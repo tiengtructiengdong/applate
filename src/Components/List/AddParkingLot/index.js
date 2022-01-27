@@ -6,14 +6,14 @@ import styled from 'styled-components';
 import {Header} from '@components/Header';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {registerAction} from '@store/actionTypes';
+import {addParkingLotAction, registerAction} from '@store/actionTypes';
 
 const Container = styled.SafeAreaView`
   flex: 1;
   width: 100%;
   background-color: #ffb500;
 `;
-const FieldArea = styled.ScrollView`
+const FieldArea = styled.View`
   align-self: center;
   flex: 1;
   width: 100%;
@@ -50,51 +50,44 @@ const ButtonArea = styled.View`
 const Space = styled.View`
   height: 500px;
 `;
-const Screen = ({setToken}) => {
-  const [officialId, setId] = useState('');
-  const [fullName, setFullName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordRetype, setPasswordRetype] = useState('');
+const Screen = ({forced}) => {
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [spaceCount, setSpaceCount] = useState('');
 
   const dispatch = useDispatch();
-
   const navigation = useNavigation();
 
   const register = () => {
-    dispatch(
-      registerAction({
-        officialId,
-        fullName,
-        phoneNumber,
-        password,
-      }),
-    );
-    navigation.goBack();
+    dispatch(addParkingLotAction(address, name, parseInt(spaceCount)));
+    if (forced === false) {
+      navigation.goBack();
+    }
   };
 
   return (
     <Container>
       <Header
         bgColor={'#ffb500'}
-        title={'Register new account'}
-        goBack={() => navigation.goBack()}
+        title={`What's your parking lot?`}
+        goBack={
+          forced && forced === false ? () => navigation.goBack() : undefined
+        }
       />
       <FieldArea>
-        <Label>ID card number</Label>
-        <Input onChangeText={text => setId(text)} />
-        <Label>Full name</Label>
-        <Input onChangeText={text => setFullName(text)} />
-        <Label>Phone number</Label>
-        <Input onChangeText={text => setPhoneNumber(text)} />
-        <Label>Password</Label>
-        <Input onChangeText={text => setPassword(text)} secureTextEntry />
-        <Label>Retype password</Label>
-        <Input onChangeText={text => setPasswordRetype(text)} secureTextEntry />
+        <Label>Location name</Label>
+        <Input onChangeText={text => setName(text)} />
+        <Label>Address</Label>
+        <Input onChangeText={text => setAddress(text)} />
+        <Label>Space count</Label>
+        <Input
+          keyboardType="numeric"
+          onChangeText={text => setSpaceCount(text)}
+        />
 
         <ButtonArea>
           <Button onPress={register}>
-            <Label>Register</Label>
+            <Label>Add parking lot</Label>
           </Button>
         </ButtonArea>
         <Space />

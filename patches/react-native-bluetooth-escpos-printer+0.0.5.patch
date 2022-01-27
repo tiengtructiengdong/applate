@@ -1,0 +1,330 @@
+diff --git a/node_modules/react-native-bluetooth-escpos-printer/android/src/main/java/cn/jystudio/bluetooth/RNBluetoothManagerModule.java b/node_modules/react-native-bluetooth-escpos-printer/android/src/main/java/cn/jystudio/bluetooth/RNBluetoothManagerModule.java
+index dd5d33e..a22918b 100644
+--- a/node_modules/react-native-bluetooth-escpos-printer/android/src/main/java/cn/jystudio/bluetooth/RNBluetoothManagerModule.java
++++ b/node_modules/react-native-bluetooth-escpos-printer/android/src/main/java/cn/jystudio/bluetooth/RNBluetoothManagerModule.java
+@@ -10,8 +10,8 @@ import android.content.Intent;
+ import android.content.IntentFilter;
+ import android.content.pm.PackageManager;
+ import android.os.Bundle;
+-import android.support.v4.app.ActivityCompat;
+-import android.support.v4.content.ContextCompat;
++import androidx.core.app.ActivityCompat;
++import androidx.core.content.ContextCompat;
+ import android.util.Log;
+ import android.widget.Toast;
+ import com.facebook.react.bridge.*;
+@@ -65,7 +65,7 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
+     private static final String PROMISE_SCAN = "SCAN";
+     private static final String PROMISE_CONNECT = "CONNECT";
+ 
+-    private JSONArray pairedDeivce = new JSONArray();
++    private JSONArray pairedDevice = new JSONArray();
+     private JSONArray foundDevice = new JSONArray();
+     // Name of the connected device
+     private String mConnectedDeviceName = null;
+@@ -74,6 +74,8 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
+     // Member object for the services
+     private BluetoothService mService = null;
+ 
++    private boolean isConnected = false;
++
+     public RNBluetoothManagerModule(ReactApplicationContext reactContext, BluetoothService bluetoothService) {
+         super(reactContext);
+         this.reactContext = reactContext;
+@@ -116,33 +118,36 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
+         return mBluetoothAdapter;
+     }
+ 
++    @ReactMethod
++    public void isConnected(final Promise promise) {
++        promise.resolve(isConnected ? "true":"false");
++    }
+ 
+     @ReactMethod
+     public void enableBluetooth(final Promise promise) {
+         BluetoothAdapter adapter = this.getBluetoothAdapter();
+         if(adapter == null){
+             promise.reject(EVENT_BLUETOOTH_NOT_SUPPORT);
+-        }else if (!adapter.isEnabled()) {
+-            // If Bluetooth is not on, request that it be enabled.
+-            // setupChat() will then be called during onActivityResult
++        }
++        else if (!adapter.isEnabled()) {
+             Intent enableIntent = new Intent(
+                     BluetoothAdapter.ACTION_REQUEST_ENABLE);
+             promiseMap.put(PROMISE_ENABLE_BT, promise);
+             this.reactContext.startActivityForResult(enableIntent, REQUEST_ENABLE_BT, Bundle.EMPTY);
+         } else {
+-            WritableArray pairedDeivce =Arguments.createArray();
++            WritableArray pairedDevice =Arguments.createArray();
+             Set<BluetoothDevice> boundDevices = adapter.getBondedDevices();
+             for (BluetoothDevice d : boundDevices) {
+                 try {
+                     JSONObject obj = new JSONObject();
+                     obj.put("name", d.getName());
+                     obj.put("address", d.getAddress());
+-                    pairedDeivce.pushString(obj.toString());
++                    pairedDevice.pushString(obj.toString());
+                 } catch (Exception e) {
+                     //ignore.
+                 }
+             }Log.d(TAG,"ble Enabled");
+-            promise.resolve(pairedDeivce);
++            promise.resolve(pairedDevice);
+         }
+     }
+ 
+@@ -167,6 +172,8 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
+ 
+     @ReactMethod
+     public void scanDevices(final Promise promise) {
++        isConnected = false;
++
+         BluetoothAdapter adapter = this.getBluetoothAdapter();
+         if(adapter == null){
+             promise.reject(EVENT_BLUETOOTH_NOT_SUPPORT);
+@@ -181,7 +188,7 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
+             }
+ 
+ 
+-            pairedDeivce = new JSONArray();
++            pairedDevice = new JSONArray();
+             foundDevice = new JSONArray();
+             Set<BluetoothDevice> boundDevices = adapter.getBondedDevices();
+             for (BluetoothDevice d : boundDevices) {
+@@ -189,14 +196,14 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
+                     JSONObject obj = new JSONObject();
+                     obj.put("name", d.getName());
+                     obj.put("address", d.getAddress());
+-                    pairedDeivce.put(obj);
++                    pairedDevice.put(obj);
+                 } catch (Exception e) {
+                     //ignore.
+                 }
+             }
+ 
+             WritableMap params = Arguments.createMap();
+-            params.putString("devices", pairedDeivce.toString());
++            params.putString("devices", pairedDevice.toString());
+             emitRNEvent(EVENT_DEVICE_ALREADY_PAIRED, params);
+             if (!adapter.startDiscovery()) {
+                 promise.reject("DISCOVER", "NOT_STARTED");
+@@ -283,19 +290,19 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
+                 if (resultCode == Activity.RESULT_OK && promise != null) {
+                     // Bluetooth is now enabled, so set up a session
+                     if(adapter!=null){
+-                        WritableArray pairedDeivce =Arguments.createArray();
++                        WritableArray pairedDevice =Arguments.createArray();
+                         Set<BluetoothDevice> boundDevices = adapter.getBondedDevices();
+                         for (BluetoothDevice d : boundDevices) {
+                             try {
+                                 JSONObject obj = new JSONObject();
+                                 obj.put("name", d.getName());
+                                 obj.put("address", d.getAddress());
+-                                pairedDeivce.pushString(obj.toString());
++                                pairedDevice.pushString(obj.toString());
+                             } catch (Exception e) {
+                                 //ignore.
+                             }
+                         }
+-                        promise.resolve(pairedDeivce);
++                        promise.resolve(pairedDevice);
+                     }else{
+                         promise.resolve(null);
+                     }
+@@ -376,14 +383,14 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
+                     JSONObject result = null;
+                     try {
+                         result = new JSONObject();
+-                        result.put("paired", pairedDeivce);
++                        result.put("paired", pairedDevice);
+                         result.put("found", foundDevice);
+                         promise.resolve(result.toString());
+                     } catch (Exception e) {
+                         //ignore
+                     }
+                     WritableMap params = Arguments.createMap();
+-                    params.putString("paired", pairedDeivce.toString());
++                    params.putString("paired", pairedDevice.toString());
+                     params.putString("found", foundDevice.toString());
+                     emitRNEvent(EVENT_DEVICE_DISCOVER_DONE, params);
+                 }
+@@ -399,18 +406,21 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
+     @Override
+     public void onBluetoothServiceStateChanged(int state, Map<String, Object> bundle) {
+         Log.d(TAG,"on bluetoothServiceStatChange:"+state);
++        isConnected = false;
+         switch (state) {
+             case BluetoothService.STATE_CONNECTED:
+             case MESSAGE_DEVICE_NAME: {
+-                // save the connected device's name
+                 mConnectedDeviceName = (String) bundle.get(DEVICE_NAME);
+                 Promise p = promiseMap.remove(PROMISE_CONNECT);
+-                if (p == null) {   Log.d(TAG,"No Promise found.");
++                if (p == null) {   
++                    Log.d(TAG,"No Promise found.");
+                     WritableMap params = Arguments.createMap();
+                     params.putString(DEVICE_NAME, mConnectedDeviceName);
+                     emitRNEvent(EVENT_CONNECTED, params);
+-                } else { Log.d(TAG,"Promise Resolve.");
++                } else { 
++                    Log.d(TAG,"Promise Resolve.");
+                     p.resolve(mConnectedDeviceName);
++                    isConnected = true;
+                 }
+ 
+                 break;
+@@ -425,7 +435,7 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
+                 //}
+                 break;
+             }
+-            case MESSAGE_UNABLE_CONNECT: {     //无法连接设备
++            case MESSAGE_UNABLE_CONNECT: { 
+                 Promise p = promiseMap.remove(PROMISE_CONNECT);
+                 if (p == null) {
+                     emitRNEvent(EVENT_UNABLE_CONNECT, null);
+diff --git a/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.m b/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.m
+index e203a31..2397924 100644
+--- a/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.m
++++ b/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothEscposPrinter.m
+@@ -6,7 +6,7 @@
+ #import "ColumnSplitedString.h"
+ #import "PrintColumnBleWriteDelegate.h"
+ #import "ImageUtils.h"
+-#import "ZXingObjC/ZXingObjC.h"
++#import "ZXingObjC.h"
+ #import "PrintImageBleWriteDelegate.h"
+ @implementation RNBluetoothEscposPrinter
+ 
+@@ -539,8 +539,9 @@ -(void) textPrint:(NSString *) text
+     if(error || !result){
+         reject(@"ERROR_IN_CREATE_QRCODE",@"ERROR_IN_CREATE_QRCODE",nil);
+     }else{
+-        CGImageRef image = [[ZXImage imageWithMatrix:result] cgimage];
+-        uint8_t * graImage = [ImageUtils imageToGreyImage:[UIImage imageWithCGImage:image]];
++
++        // CUSTOM CHANGE FOR APPLATE
++		uint8_t * graImage = [ImageUtils imageToGreyImage:[[UIImage alloc] initWithCGImage:[[ZXImage imageWithMatrix:result] cgimage]]];
+         unsigned char * formatedData = [ImageUtils format_K_threshold:graImage width:size height:size];
+         NSData *dataToPrint = [ImageUtils eachLinePixToCmd:formatedData nWidth:size nHeight:size nMode:0];
+         PrintImageBleWriteDelegate *delegate = [[PrintImageBleWriteDelegate alloc] init];
+diff --git a/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothManager.m b/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothManager.m
+index c96d205..6701de6 100644
+--- a/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothManager.m
++++ b/node_modules/react-native-bluetooth-escpos-printer/ios/RNBluetoothManager.m
+@@ -127,6 +127,12 @@ + (BOOL)requiresMainQueueSetup
+ {
+     resolve(nil);
+ }
++// CUSTOM CHANGE FOR APPLATE
++RCT_EXPORT_METHOD(isConnected:(RCTPromiseResolveBlock)resolve
++                  rejecter:(RCTPromiseRejectBlock)reject)
++{
++	resolve(!(connected==nil)?@"true":@"false");
++}
+ //scanDevices
+ RCT_EXPORT_METHOD(scanDevices:(RCTPromiseResolveBlock)resolve
+                   rejecter:(RCTPromiseRejectBlock)reject)
+@@ -447,102 +453,6 @@ - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForServi
+         return;
+     }
+     
+-//    ServiceUUID：49535343-fe7d-4ae5-8fa9-9fafd205e455；
+-//    写的是
+-//characteristicUUID:49535343-8841-43f4-a8d4-ecbe34729bb3；
+-//    读的是
+-//characteristicUUID:49535343-1e4d-4bd9-ba61-23c647249616;
+-//
+-//    如果要写，翻译成base64位；
+-//
+-//    调用监听改变，需要去使能设备的Notify，var param={
+-//    serviceUUID: '000018f0-0000-1000-8000-00805f9b34fb',//service的UUID  这个值需要获取查看设备，我暂认为他是通用的
+-//    characteristicUUID:'00002af0-0000-1000-8000-00805f9b34fb',//characteristic的UUID  这个值也需要获取查看，我认为他是通用的
+-//    enable:true //true 或false,开启或关闭监听
+-//    };
+-//    param = JSON.stringify(param);
+-//    uexBluetoothLE.setCharacteristicNotification(param);
+-    
+-    
+-    /** TESTING NSLOG OUTPUT:: ***/
+-//    2018-10-01 21:29:24.136033+0800 bluetoothEscposPrinterExamples[8239:4598148] Trying to connect....D7D39238-EF56-71A7-7DCC-D464EFD3BFF1
+-//    2018-10-01 21:29:24.302880+0800 bluetoothEscposPrinterExamples[8239:4598148] did connected: <CBPeripheral: 0x1c4302d90, identifier = D7D39238-EF56-71A7-7DCC-D464EFD3BFF1, name = BlueTooth Printer, state = connected>
+-//    2018-10-01 21:29:24.302982+0800 bluetoothEscposPrinterExamples[8239:4598148] going to discover services.
+-//    2018-10-01 21:29:24.303375+0800 bluetoothEscposPrinterExamples[8239:4598148] going to emit EVEnT_CONNECTED.
+-//    2018-10-01 21:29:24.431164+0800 bluetoothEscposPrinterExamples[8239:4598148] 扫描到外设服务：BlueTooth Printer -> (
+-//                                                                                                               "<CBService: 0x1c246b200, isPrimary = YES, UUID = 49535343-FE7D-4AE5-8FA9-9FAFD205E455>",
+-//                                                                                                               "<CBService: 0x1c246b280, isPrimary = YES, UUID = 18F0>",
+-//                                                                                                               "<CBService: 0x1c246a740, isPrimary = YES, UUID = E7810A71-73AE-499D-8C15-FAA9AEF0C3F2>"
+-//                                                                                                               )
+-//    2018-10-01 21:29:24.431354+0800 bluetoothEscposPrinterExamples[8239:4598148] 服务id：49535343-FE7D-4AE5-8FA9-9FAFD205E455
+-//    2018-10-01 21:29:24.431448+0800 bluetoothEscposPrinterExamples[8239:4598148] 服务id：18F0
+-//    2018-10-01 21:29:24.431535+0800 bluetoothEscposPrinterExamples[8239:4598148] 服务id：E7810A71-73AE-499D-8C15-FAA9AEF0C3F2
+-//    2018-10-01 21:29:24.431552+0800 bluetoothEscposPrinterExamples[8239:4598148] 开始扫描外设服务的特征 BlueTooth Printer...
+-//    2018-10-01 21:29:24.432374+0800 bluetoothEscposPrinterExamples[8239:4598148] Characterstic found: <CBCharacteristic: 0x1c04afa20, UUID = 49535343-1E4D-4BD9-BA61-23C647249616, properties = 0x10, value = <5f47505f 4c383031 3630>, notifying = NO> in service: 49535343-FE7D-4AE5-8FA9-9FAFD205E455
+-//    2018-10-01 21:29:24.432406+0800 bluetoothEscposPrinterExamples[8239:4598148] Notify
+-//    2018-10-01 21:29:24.432417+0800 bluetoothEscposPrinterExamples[8239:4598148] known properties: 16
+-//    2018-10-01 21:29:24.432455+0800 bluetoothEscposPrinterExamples[8239:4598148] Characterstic found: <CBCharacteristic: 0x1c04af480, UUID = 49535343-8841-43F4-A8D4-ECBE34729BB3, properties = 0xC, value = (null), notifying = NO> in service: 49535343-FE7D-4AE5-8FA9-9FAFD205E455
+-//    2018-10-01 21:29:24.432753+0800 bluetoothEscposPrinterExamples[8239:4598148] WriteWithoutResponse
+-//    2018-10-01 21:29:24.432772+0800 bluetoothEscposPrinterExamples[8239:4598148] Write
+-//    2018-10-01 21:29:24.432785+0800 bluetoothEscposPrinterExamples[8239:4598148] known properties: 12
+-//    2018-10-01 21:29:24.432988+0800 bluetoothEscposPrinterExamples[8239:4598148] Characterstic found: <CBCharacteristic: 0x1c44ac9c0, UUID = 2AF0, properties = 0x30, value = (null), notifying = NO> in service: 18F0
+-//    2018-10-01 21:29:24.433005+0800 bluetoothEscposPrinterExamples[8239:4598148] Notify
+-//    2018-10-01 21:29:24.433015+0800 bluetoothEscposPrinterExamples[8239:4598148] Indicate
+-//    2018-10-01 21:29:24.433024+0800 bluetoothEscposPrinterExamples[8239:4598148] known properties: 48
+-//    2018-10-01 21:29:24.433079+0800 bluetoothEscposPrinterExamples[8239:4598148] Characterstic found: <CBCharacteristic: 0x1c44aca80, UUID = 2AF1, properties = 0xC, value = (null), notifying = NO> in service: 18F0
+-//    2018-10-01 21:29:24.433647+0800 bluetoothEscposPrinterExamples[8239:4598148] WriteWithoutResponse
+-//    2018-10-01 21:29:24.433662+0800 bluetoothEscposPrinterExamples[8239:4598148] Write
+-//    2018-10-01 21:29:24.433672+0800 bluetoothEscposPrinterExamples[8239:4598148] known properties: 12
+-//    2018-10-01 21:29:24.433900+0800 bluetoothEscposPrinterExamples[8239:4598148] Characterstic found: <CBCharacteristic: 0x1c44ac780, UUID = BEF8D6C9-9C21-4C9E-B632-BD58C1009F9F, properties = 0x3E, value = (null), notifying = NO> in service: E7810A71-73AE-499D-8C15-FAA9AEF0C3F2
+-//    2018-10-01 21:29:24.433928+0800 bluetoothEscposPrinterExamples[8239:4598148] Read
+-//    2018-10-01 21:29:24.433953+0800 bluetoothEscposPrinterExamples[8239:4598148] WriteWithoutResponse
+-//    2018-10-01 21:29:24.433964+0800 bluetoothEscposPrinterExamples[8239:4598148] Write
+-//    2018-10-01 21:29:24.433973+0800 bluetoothEscposPrinterExamples[8239:4598148] Notify
+-//    2018-10-01 21:29:24.434378+0800 bluetoothEscposPrinterExamples[8239:4598148] Indicate
+-//    2018-10-01 21:29:24.434389+0800 bluetoothEscposPrinterExamples[8239:4598148] known properties: 62
+-    
+-//    for(CBCharacteristic *cc in service.characteristics){
+-//       // NSLog(@"Characterstic found: %@ in service: %@" ,cc,service.UUID.UUIDString);
+-//        CBCharacteristicProperties pro = cc.properties;
+-//        Byte p = (Byte)pro;
+-////        CBCharacteristicPropertyBroadcast                                                = 0x01,
+-////        CBCharacteristicPropertyRead                                                    = 0x02,
+-////        CBCharacteristicPropertyWriteWithoutResponse                                    = 0x04,
+-////        CBCharacteristicPropertyWrite                                                    = 0x08,
+-////        CBCharacteristicPropertyNotify                                                    = 0x10,
+-////        CBCharacteristicPropertyIndicate                                                = 0x20,
+-////        CBCharacteristicPropertyAuthenticatedSignedWrites                                = 0x40,
+-////        CBCharacteristicPropertyExtendedProperties                                        = 0x80,
+-////        CBCharacteristicPropertyNotifyEncryptionRequired NS_ENUM_AVAILABLE(10_9, 6_0)    = 0x100,
+-////        CBCharacteristicPropertyIndicateEncryptionRequired NS_ENUM_AVAILABLE(10_9, 6_0)    = 0x200
+-//        if((p) & 0x01){
+-//            NSLog(@"Broadcast");
+-//        }
+-//        if((p>>1) & 0x01){
+-//            NSLog(@"Read");
+-//        }
+-//        if((p>>2) & 0x01){
+-//            NSLog(@"WriteWithoutResponse");
+-//        }
+-//        if((p>>3) & 0x01){
+-//            NSLog(@"Write");
+-//        }
+-//        if((p>>4) & 0x01){
+-//              NSLog(@"Notify");
+-//        }
+-//        if((p>>5) & 0x01){
+-//               NSLog(@"Indicate");
+-//        }
+-//        if((p>>6) & 0x01){
+-//            NSLog(@"AuthenticatedSignedWrites");
+-//        }
+-//        if((p>>7) & 0x01){
+-//            NSLog(@"ExtendedProperties");
+-//        }
+-//        {
+-//            NSLog(@"known properties: %lu", pro);
+-//        }
+-//    }
+ }
+ 
+ /*!
