@@ -55,7 +55,7 @@ class AppTabbar extends React.Component {
             style.container,
             {
               backgroundColor:
-                this.state.activeTab == 1 ? '#00000000' : '#ffffff',
+                this.state.activeTab != 2 ? '#00000000' : '#ffffff',
             },
           ]}>
           <TouchableOpacity
@@ -64,7 +64,7 @@ class AppTabbar extends React.Component {
             <Icon
               name="list"
               size={36}
-              color={this.state.activeTab == 0 ? '#000000' : '#777777'}
+              color={this.state.activeTab == 0 ? '#ffffff' : '#777777'}
             />
           </TouchableOpacity>
 

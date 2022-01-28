@@ -19,11 +19,11 @@ const Stack = createStackNavigator();
 
 const SafeArea = styled.SafeAreaView`
   flex: 1;
-  background-color: #ffffff;
+  background-color: #172a3b;
 `;
-const Container = styled.ScrollView`
+const Container = styled.View`
   flex: 1;
-  background-color: white;
+  background-color: #172a3b;
   margin-bottom: -50px;
 `;
 const SearchBar = styled.TextInput`
