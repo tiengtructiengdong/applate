@@ -8,15 +8,25 @@ export type ParkingLot = {
   SpaceCount: number;
 };
 
+export type Customer = {
+  Address: string;
+  Id: number;
+  Name: string;
+  OwnerId: number;
+  SpaceCount: number;
+};
+
 export type ParkingLotState = {
   myParkingLot: ParkingLot[];
   workingParkingLot: ParkingLot[];
   currentParkingLot?: ParkingLot;
+  activeSession: any[];
 };
 
 const initState: ParkingLotState = {
   myParkingLot: [],
   workingParkingLot: [],
+  activeSession: [],
 };
 
 // reducer
@@ -36,6 +46,12 @@ export default function parkingLotReducer(
           : workingParkingLot
           ? workingParkingLot[0]
           : undefined,
+      };
+    case 'GET_ACTIVE_SESSION_SUCCESS':
+      console.log('oops', action.customerData);
+      return {
+        ...state,
+        activeSession: action.customerData,
       };
 
     default:

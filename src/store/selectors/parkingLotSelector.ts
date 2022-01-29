@@ -8,3 +8,6 @@ export const workingParkingLotSelector = (state: RootState) =>
 
 export const currentParkingLotSelector = (state: RootState) =>
   state.parkingLot?.currentParkingLot || {};
+
+export const activeSessionSelector = (state: RootState) =>
+  state.parkingLot?.activeSession || [];
