@@ -6,7 +6,7 @@ import {PieChart} from 'react-native-chart-kit';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const BG = styled.View`
-  background-color: #344a5f;
+  background-color: #424242;
   height: 220px;
   margin: 20px 25px 30px;
   border-radius: 15px;
@@ -40,7 +40,7 @@ const ChartArea = styled.View`
 `;
 const ChartOverlay = styled.View`
   position: absolute;
-  background-color: #344a5f;
+  background-color: #424242;
   width: 112px;
   height: 112px;
   border-radius: 70px;
@@ -70,7 +70,7 @@ export function Overview({parkingLot}) {
   const data = [
     {
       population: 400,
-      color: '#1de48b',
+      color: '#fbd837',
     },
     {
       population: 20,
@@ -104,7 +104,7 @@ export function Overview({parkingLot}) {
             hasLegend={false}
           />
           <ChartOverlay>
-            <VehicleCount color="#1de48b">{parkingLot.SpaceCount}</VehicleCount>
+            <VehicleCount color="#fbd837">{parkingLot.SpaceCount}</VehicleCount>
             <Label>
               {parkingLot.SpaceCount != 0 ? 'Space left' : 'Motorbikes'}
             </Label>

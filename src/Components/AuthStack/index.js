@@ -2,18 +2,18 @@ import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 
 import styled from 'styled-components';
-import MainStack from '@components/MainStack';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {getAllParkingLotsAction, loginAction} from '@store/actionTypes';
-import {tokenSelector} from '@store/selectors/authSelector';
 import {currentParkingLotSelector} from '@store/selectors/parkingLotSelector';
 import AddParkingLot from '@components/List/AddParkingLot';
+import Register from './Register';
+import {createStackNavigator} from '@react-navigation/stack';
 
 const Container = styled.View`
   flex: 1;
   width: 100%;
-  background-color: white;
+  background-color: #121212;
 `;
 const Logo = styled.Image`
   height: 90px;
@@ -30,16 +30,21 @@ const FieldArea = styled.KeyboardAvoidingView`
 `;
 const Label = styled.Text`
   font-size: 18px;
+  color: white;
   font-weight: 700;
 `;
 const Input = styled.TextInput`
   height: 50px;
   font-size: 20px;
   border-radius: 5px;
-  background-color: #eeeeee;
+  background-color: #424242;
   padding: 10px;
   margin-top: 6px;
   margin-bottom: 20px;
+  color: white;
+`;
+const ButtonLabel = styled(Label)`
+  color: black;
 `;
 const Button = styled.TouchableOpacity`
   background-color: #ffb500;
@@ -59,23 +64,12 @@ const ButtonSpace = styled.View`
 const Auth = ({}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
-  const token = useSelector(tokenSelector);
-  const parkingLot = useSelector(currentParkingLotSelector);
-
-  useEffect(() => {
-    dispatch(getAllParkingLotsAction());
-  }, [dispatch]);
 
   // MAIN STACK
-  if (token != null && token != '') {
-    if (parkingLot === {}) {
-      return <AddParkingLot forced={true} />;
-    }
-    return <MainStack />;
-  }
 
   const login = () => {
     dispatch(loginAction(username, password));
@@ -84,7 +78,7 @@ const Auth = ({}) => {
   return (
     <Container>
       <FieldArea>
-        <Logo source={require('@icon/360.png')} />
+        <Logo source={require('@icon/360_black.png')} />
         <Label>Phone number or ID</Label>
         <Input
           keyboardType="numeric"
@@ -95,11 +89,11 @@ const Auth = ({}) => {
 
         <ButtonArea>
           <Button onPress={login}>
-            <Label>Login</Label>
+            <ButtonLabel>Login</ButtonLabel>
           </Button>
           <ButtonSpace />
           <Button onPress={() => navigation.navigate('Register')}>
-            <Label>Register</Label>
+            <ButtonLabel>Register</ButtonLabel>
           </Button>
         </ButtonArea>
       </FieldArea>
@@ -107,4 +101,14 @@ const Auth = ({}) => {
   );
 };
 
-export default React.memo(Auth);
+const AuthStack = ({}) => {
+  const Stack = createStackNavigator();
+  return (
+    <Stack.Navigator headerMode="none">
+      <Stack.Screen name="Auth" component={Auth} />
+      <Stack.Screen name="Register" component={Register} />
+    </Stack.Navigator>
+  );
+};
+
+export default React.memo(AuthStack);

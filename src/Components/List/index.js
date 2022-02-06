@@ -16,53 +16,66 @@ import {
   getActiveSessionAction,
   getAllParkingLotsAction,
 } from '@store/actionTypes';
-import {ParkingLot} from '@store/reducers/parkingLotReducer';
+
 import {Overview} from './shared/Overview';
 
 const Stack = createStackNavigator();
 
 const SafeArea = styled.SafeAreaView`
   flex: 1;
-  background-color: #172a3b;
+  background-color: #121212;
 `;
 const Container = styled.View`
   flex: 1;
-  background-color: #172a3b;
+  background-color: #121212;
 `;
 const SearchBar = styled.TextInput`
-  height: 45px;
+  height: 40px;
   border-bottom-width: 1px;
-  background-color: white;
-  padding: 10px;
-  font-size: 17px;
-  border-color: #dddddd;
+  font-size: 14px;
+  margin-top: 5px;
+  background-color: #1a1a1a;
+  padding-horizontal: 25px;
+  color: white;
 `;
 const LabelArea = styled.View`
   margin-horizontal: 25px;
-  padding-horizontal: 20px;
-  height: 45px;
+  height: 78px;
   padding-top: 15px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   overflow: hidden;
-  background-color: #3e619b;
+  background-color: #ffc500;
 `;
 const Label = styled.Text`
-  font-weight: 400;
-  font-size: 16px;
+  font-weight: 600;
+  font-size: 17px;
   color: ${props => props.color || 'white'};
+  padding-left: 25px;
 `;
 const SessionArea = styled.ScrollView`
-  background-color: #344a5f;
+  background-color: #1a1a1a;
   flex: 1;
-  margin: 0px 25px;
+  margin: 1px 25px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   padding-horizontal: 20px;
   margin-bottom: 90px;
 `;
+const Overlay = styled.View`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  flex-direction: column-reverse;
+  background-color: #00000000;
+`;
+const ParkingLotSelect = styled.View`
+  background-color: white;
+  height: 300px;
+`;
 
 const List = ({}) => {
+  console.log('nofuckingwhy');
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -74,26 +87,37 @@ const List = ({}) => {
 
   useEffect(() => {
     dispatch(getAllParkingLotsAction());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
-    if (parkingLot !== {}) dispatch(getActiveSessionAction(parkingLot.Id));
-  }, [dispatch, parkingLot]);
+    if (parkingLot?.Id) dispatch(getActiveSessionAction(parkingLot.Id));
+  }, [parkingLot]);
 
   return (
-    <SafeArea>
-      <Container>
-        <Overview parkingLot={parkingLot} />
-        <LabelArea>
-          <Label>Current sessions</Label>
-        </LabelArea>
-        <SessionArea>
-          {activeSession.map((customer, id) => (
-            <Cell key={id} vehicle={customer} />
-          ))}
-        </SessionArea>
-      </Container>
-    </SafeArea>
+    <>
+      <SafeArea>
+        <Container>
+          {parkingLot !== undefined && parkingLot !== {} ? (
+            <Overview parkingLot={parkingLot} />
+          ) : (
+            <></>
+          )}
+          <LabelArea>
+            <Label color="black">Current sessions</Label>
+            <SearchBar
+              placeholderTextColor="#777777"
+              placeholder="Search vehicle..."
+            />
+          </LabelArea>
+          <SessionArea>
+            {activeSession.map((customer, id) => (
+              <Cell key={id} vehicle={customer} />
+            ))}
+          </SessionArea>
+        </Container>
+      </SafeArea>
+      <Overlay>{/* <ParkingLotSelect></ParkingLotSelect> */}</Overlay>
+    </>
   );
 };
 

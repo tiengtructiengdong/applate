@@ -9,10 +9,8 @@ const style = StyleSheet.create({
     borderColor: '#777777',
     borderWidth: 1,
     shadowOffset: {width: 0, height: 5},
-    marginTop: -95,
     marginLeft: 26,
     marginRight: 26,
-    marginBottom: 20,
     height: 67,
   },
 
@@ -49,7 +47,19 @@ class AppTabbar extends React.Component {
 
   render() {
     return (
-      <View style={[{height: 0, overflow: 'visible'}]}>
+      <View
+        style={[
+          {
+            height: 100,
+            overflow: 'visible',
+            backgroundColor:
+              this.state.activeTab == 0
+                ? '#121212'
+                : this.state.activeTab == 1
+                ? '#121212'
+                : 'white',
+          },
+        ]}>
         <View
           style={[
             style.container,
@@ -64,7 +74,7 @@ class AppTabbar extends React.Component {
             <Icon
               name="list"
               size={36}
-              color={this.state.activeTab == 0 ? '#ffffff' : '#777777'}
+              color={this.state.activeTab == 0 ? '#ffc500' : '#777777'}
             />
           </TouchableOpacity>
 
