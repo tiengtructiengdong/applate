@@ -48,7 +48,6 @@ export default function parkingLotReducer(
           : undefined,
       };
     case 'GET_ACTIVE_SESSION_SUCCESS':
-      console.log('oops', action.customerData);
       return {
         ...state,
         activeSession: action.customerData,

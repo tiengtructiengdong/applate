@@ -66,16 +66,10 @@ const Overlay = styled.View`
   position: absolute;
   width: 100%;
   height: 100%;
-  flex-direction: column-reverse;
   background-color: #00000000;
-`;
-const ParkingLotSelect = styled.View`
-  background-color: white;
-  height: 300px;
 `;
 
 const List = ({}) => {
-  console.log('nofuckingwhy');
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -93,12 +87,19 @@ const List = ({}) => {
     if (parkingLot?.Id) dispatch(getActiveSessionAction(parkingLot.Id));
   }, [parkingLot]);
 
+  const confirmSelect = parkingLot => {};
+
   return (
     <>
       <SafeArea>
         <Container>
           {parkingLot !== undefined && parkingLot !== {} ? (
-            <Overview parkingLot={parkingLot} />
+            <Overview
+              parkingLot={parkingLot}
+              confirmSelect={confirmSelect}
+              myParkingLots={myParkingLots}
+              workingParkingLots={workingParkingLots}
+            />
           ) : (
             <></>
           )}
@@ -116,7 +117,6 @@ const List = ({}) => {
           </SessionArea>
         </Container>
       </SafeArea>
-      <Overlay>{/* <ParkingLotSelect></ParkingLotSelect> */}</Overlay>
     </>
   );
 };
