@@ -21,7 +21,7 @@ import {
 
 import {Overview} from './shared/Overview';
 import AddMembership from './AddMembership';
-import AddPartnership from './AddPartnership';
+import AddPartner from './AddPartner';
 
 const Stack = createStackNavigator();
 
@@ -91,15 +91,19 @@ const List = ({}) => {
         dispatch(searchVehicleAction(parkingLot.Id, searchVehicle));
       }
     }
-  }, [parkingLot]);
+  }, [parkingLot, searchVehicle]);
 
   const confirmSelect = parkId => {
     dispatch(getParkAction(parkId));
   };
 
   const viewMembershipPrice = () => {};
-  const addPartner = () => {};
-  const addParkingLot = () => {};
+  const addPartner = () => {
+    navigation.navigate('AddPartner');
+  };
+  const addParkingLot = () => {
+    navigation.navigate('AddParkingLot');
+  };
 
   return (
     <>
@@ -144,7 +148,7 @@ const ListStack = () => {
       <Stack.Screen name="List" component={List} />
       <Stack.Screen name="AddParkingLot" component={AddParkingLot} />
       <Stack.Screen name="AddMembership" component={AddMembership} />
-      <Stack.Screen name="AddPartnership" component={AddPartnership} />
+      <Stack.Screen name="AddPartner" component={AddPartner} />
     </Stack.Navigator>
   );
 };

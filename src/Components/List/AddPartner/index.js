@@ -7,7 +7,10 @@ import {Header} from '@components/Header';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {addPartnerAction, searchUserAction} from '@store/actionTypes';
-import {searchUserSelector} from '@store/selectors/parkingLotSelector';
+import {
+  currentParkingLotSelector,
+  searchUserSelector,
+} from '@store/selectors/parkingLotSelector';
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -20,17 +23,22 @@ const FieldArea = styled.View`
   width: 100%;
   padding-top: 50px;
   margin-bottom: -50px;
-  background-color: white;
+  background-color: #121212;
 `;
 const Label = styled.Text`
   font-size: 16px;
   margin-horizontal: 40px;
+  color: white;
+`;
+const BlackLabel = styled(Label)`
+  color: black;
 `;
 const Input = styled.TextInput`
   height: 45px;
   font-size: 18px;
   border-radius: 5px;
-  background-color: #eeeeee;
+  background-color: #424242;
+  color: white;
   padding: 10px;
   margin-vertical: 8px;
   margin-horizontal: 40px;
@@ -76,13 +84,11 @@ const Screen = ({forced}) => {
     <Container>
       <Header
         bgColor={'#ffb500'}
-        title={`Add Partnership?`}
-        goBack={
-          forced && forced === false ? () => navigation.goBack() : undefined
-        }
+        title={`Add Partnership`}
+        goBack={() => navigation.goBack()}
       />
       <FieldArea>
-        <Label>Location name</Label>
+        <Label>Partner's name or ID</Label>
         <Input
           value={keyword}
           onChangeText={text => {
@@ -90,11 +96,10 @@ const Screen = ({forced}) => {
             search(text);
           }}
         />
-        <Label>Price</Label>
 
         <ButtonArea>
           <Button onPress={addPartner}>
-            <Label>Add partner</Label>
+            <BlackLabel>Add partner</BlackLabel>
           </Button>
         </ButtonArea>
         <Space />

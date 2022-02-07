@@ -20,17 +20,22 @@ const FieldArea = styled.View`
   width: 100%;
   padding-top: 50px;
   margin-bottom: -50px;
-  background-color: white;
+  background-color: #121212;
 `;
 const Label = styled.Text`
   font-size: 16px;
   margin-horizontal: 40px;
+  color: white;
+`;
+const BlackLabel = styled(Label)`
+  color: black;
 `;
 const Input = styled.TextInput`
   height: 45px;
   font-size: 18px;
   border-radius: 5px;
-  background-color: #eeeeee;
+  background-color: #424242;
+  color: white;
   padding: 10px;
   margin-vertical: 8px;
   margin-horizontal: 40px;
@@ -75,6 +80,7 @@ const PriceField = styled.TextInput`
   font-size: 17px;
   flex: 2;
   text-align: right;
+  color: white;
 `;
 const PriceLabel = styled.Text`
   font-size: 16px;
@@ -91,7 +97,7 @@ const valueString = i => (
   />
 );
 
-const Screen = ({forced}) => {
+const Screen = ({}) => {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [spaceCount, setSpaceCount] = useState('');
@@ -104,9 +110,7 @@ const Screen = ({forced}) => {
 
   const register = () => {
     dispatch(addParkingLotAction(address, name, parseInt(spaceCount)));
-    if (forced === false) {
-      navigation.goBack();
-    }
+    navigation.goBack();
   };
 
   const renderTimePicker = mark => {
@@ -138,9 +142,7 @@ const Screen = ({forced}) => {
       <Header
         bgColor={'#ffb500'}
         title={`What's your parking lot?`}
-        goBack={
-          forced && forced === false ? () => navigation.goBack() : undefined
-        }
+        goBack={() => navigation.goBack()}
       />
       <FieldArea>
         <Label>Location name</Label>
@@ -165,7 +167,7 @@ const Screen = ({forced}) => {
 
         <ButtonArea>
           <Button onPress={register}>
-            <Label>Add parking lot</Label>
+            <BlackLabel>Add parking lot</BlackLabel>
           </Button>
         </ButtonArea>
         <Space />

@@ -15,6 +15,7 @@ const BG = styled.View`
 `;
 const Select = styled.TouchableOpacity`
   flex-direction: row;
+  flex: 1;
   margin: 0px 38px 20px 0px;
   align-items: center;
 `;
@@ -67,7 +68,7 @@ const SmallCount = styled(VehicleCount)`
 
 const ParkingLotSelectBG = styled.View`
   background-color: #212121;
-  height: 162px;
+  height: 167px;
   margin-top: -8px;
   margin-horizontal: -20px;
   border-bottom-left-radius: 15px;
@@ -105,8 +106,13 @@ const ParkingLotSelectSpace = styled(ParkingLotSelectNameLabel)`
   width: 100px;
   text-align: right;
 `;
-const CommandButton = styled.View`
-  padding-left: 5px;
+const CommandButton = styled.TouchableOpacity`
+  padding-left: 7px;
+  margin-top: -20px;
+`;
+const CommandArea = styled.View`
+  flex-direction: row;
+  align-items: center;
 `;
 
 export function Overview({
@@ -153,7 +159,7 @@ export function Overview({
 
   return (
     <BG>
-      <RowArea>
+      <CommandArea>
         <Select onPress={() => toggleSelect(!select)}>
           <Name adjustsFontSizeToFit numberOfLines={1}>
             {parkingLot.Name}
@@ -161,15 +167,15 @@ export function Overview({
           <Icon name="chevron-down" size={16} color="white" />
         </Select>
         <CommandButton onPress={viewMembershipPrice}>
-          <Icon name="cash-outline" size={16} color="white" />
+          <Icon name="cash-outline" size={20} color="white" />
         </CommandButton>
         <CommandButton onPress={addPartner}>
-          <Icon name="person-add-outline" size={16} color="white" />
+          <Icon name="person-add-outline" size={18} color="white" />
         </CommandButton>
         <CommandButton onPress={addParkingLot}>
-          <Icon name="add-outline" size={16} color="white" />
+          <Icon name="add-outline" size={22} color="white" />
         </CommandButton>
-      </RowArea>
+      </CommandArea>
 
       {select ? (
         <ParkingLotSelectBG>
