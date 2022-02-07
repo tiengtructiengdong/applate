@@ -20,7 +20,7 @@ const Select = styled.TouchableOpacity`
 `;
 const Name = styled.Text`
   font-weight: 600;
-  font-size: 22px;
+  font-size: 18px;
   color: white;
   padding-right: 5px;
 `;
@@ -105,12 +105,18 @@ const ParkingLotSelectSpace = styled(ParkingLotSelectNameLabel)`
   width: 100px;
   text-align: right;
 `;
+const CommandButton = styled.View`
+  padding-left: 5px;
+`;
 
 export function Overview({
   parkingLot,
   confirmSelect,
   myParkingLots,
   workingParkingLots,
+  viewMembershipPrice,
+  addParkingLot,
+  addPartner,
 }) {
   const today = new Date().getDate();
   const [select, toggleSelect] = useState(false);
@@ -147,12 +153,23 @@ export function Overview({
 
   return (
     <BG>
-      <Select onPress={() => toggleSelect(!select)}>
-        <Name adjustsFontSizeToFit numberOfLines={1}>
-          {parkingLot.Name}
-        </Name>
-        <Icon name="chevron-down" size={20} color="white" />
-      </Select>
+      <RowArea>
+        <Select onPress={() => toggleSelect(!select)}>
+          <Name adjustsFontSizeToFit numberOfLines={1}>
+            {parkingLot.Name}
+          </Name>
+          <Icon name="chevron-down" size={16} color="white" />
+        </Select>
+        <CommandButton onPress={viewMembershipPrice}>
+          <Icon name="cash-outline" size={16} color="white" />
+        </CommandButton>
+        <CommandButton onPress={addPartner}>
+          <Icon name="person-add-outline" size={16} color="white" />
+        </CommandButton>
+        <CommandButton onPress={addParkingLot}>
+          <Icon name="add-outline" size={16} color="white" />
+        </CommandButton>
+      </RowArea>
 
       {select ? (
         <ParkingLotSelectBG>

@@ -97,9 +97,9 @@ const List = ({}) => {
     dispatch(getParkAction(parkId));
   };
 
-  const addPartnership = () => {
-    navigation.navigate('AddPartnership');
-  };
+  const viewMembershipPrice = () => {};
+  const addPartner = () => {};
+  const addParkingLot = () => {};
 
   return (
     <>
@@ -111,6 +111,9 @@ const List = ({}) => {
               confirmSelect={confirmSelect}
               myParkingLots={myParkingLots}
               workingParkingLots={workingParkingLots}
+              viewMembershipPrice={viewMembershipPrice}
+              addParkingLot={addParkingLot}
+              addPartner={addPartner}
             />
           ) : (
             <></>
