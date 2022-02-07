@@ -9,5 +9,8 @@ export const workingParkingLotSelector = (state: RootState) =>
 export const currentParkingLotSelector = (state: RootState) =>
   state.parkingLot?.currentParkingLot;
 
-export const activeSessionSelector = (state: RootState) =>
-  state.parkingLot?.activeSession || [];
+export const sessionSelector = (state: RootState) =>
+  state.parkingLot?.session || [];
+
+export const searchUserSelector = (state: RootState) =>
+  state.parkingLot?.searchUser || [];

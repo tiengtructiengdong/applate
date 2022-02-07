@@ -39,6 +39,26 @@ export function getAllParkingLots(auth: AuthState) {
   return new apiClient(auth).get(`${HOST}parkingLot`);
 }
 
+export function getPark(auth: AuthState, id: number) {
+  return new apiClient(auth).get(`${HOST}parkingLot/${id}`);
+}
+
 export function getActiveSession(auth: AuthState, id: number) {
   return new apiClient(auth).get(`${HOST}parkingLot/${id}/getActiveSession`);
+}
+
+export function searchVehicle(auth: AuthState, id: number, keyword: string) {
+  return new apiClient(auth).get(
+    `${HOST}parkingLot/${id}/searchVehicle?keyword=${keyword}`,
+  );
+}
+
+export function searchUser(auth: AuthState, keyword: string) {
+  return new apiClient(auth).get(`${HOST}searchUser?keyword=${keyword}`);
+}
+
+export function addPartner(auth: AuthState, id: number, partnerId: number) {
+  return new apiClient(auth).post(`${HOST}parkingLot/${id}/addPartner`, {
+    partnerId,
+  });
 }

@@ -20,13 +20,15 @@ export type ParkingLotState = {
   myParkingLot: ParkingLot[];
   workingParkingLot: ParkingLot[];
   currentParkingLot?: ParkingLot;
-  activeSession: any[];
+  session: any[];
+  searchUser: any[];
 };
 
 const initState: ParkingLotState = {
   myParkingLot: [],
   workingParkingLot: [],
-  activeSession: [],
+  session: [],
+  searchUser: [],
 };
 
 // reducer
@@ -50,7 +52,17 @@ export default function parkingLotReducer(
     case 'GET_ACTIVE_SESSION_SUCCESS':
       return {
         ...state,
-        activeSession: action.customerData,
+        session: action.customerData,
+      };
+    case 'SEARCH_VEHICLE_SUCCESS':
+      return {
+        ...state,
+        session: action.vehicles,
+      };
+    case 'SEARCH_USER_SUCCESS':
+      return {
+        ...state,
+        searchUser: action.users,
       };
 
     default:

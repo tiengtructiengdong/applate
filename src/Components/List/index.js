@@ -6,7 +6,7 @@ import AddParkingLot from './AddParkingLot';
 import Cell from './shared/Cell';
 import {useDispatch, useSelector} from 'react-redux';
 import {
-  activeSessionSelector,
+  sessionSelector,
   currentParkingLotSelector,
   myParkingLotSelector,
   workingParkingLotSelector,
@@ -15,9 +15,12 @@ import {useNavigation} from '@react-navigation/native';
 import {
   getActiveSessionAction,
   getAllParkingLotsAction,
+  searchVehicleAction,
 } from '@store/actionTypes';
 
 import {Overview} from './shared/Overview';
+import AddMembership from './AddMembership';
+import AddPartnership from './AddPartnership';
 
 const Stack = createStackNavigator();
 
@@ -62,12 +65,6 @@ const SessionArea = styled.ScrollView`
   padding-horizontal: 20px;
   margin-bottom: 90px;
 `;
-const Overlay = styled.View`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: #00000000;
-`;
 
 const List = ({}) => {
   const dispatch = useDispatch();
@@ -77,17 +74,29 @@ const List = ({}) => {
   const workingParkingLots = useSelector(workingParkingLotSelector);
 
   const parkingLot = useSelector(currentParkingLotSelector);
-  const activeSession = useSelector(activeSessionSelector);
+  const session = useSelector(sessionSelector);
+
+  const [searchVehicle, setSearchVehicle] = useState('');
 
   useEffect(() => {
     dispatch(getAllParkingLotsAction());
   }, []);
 
   useEffect(() => {
-    if (parkingLot?.Id) dispatch(getActiveSessionAction(parkingLot.Id));
+    if (parkingLot?.Id) {
+      if (searchVehicle === '') {
+        dispatch(getActiveSessionAction(parkingLot.Id));
+      } else {
+        dispatch(searchVehicleAction(parkingLot.Id, searchVehicle));
+      }
+    }
   }, [parkingLot]);
 
   const confirmSelect = parkingLot => {};
+
+  const addPartnership = () => {
+    navigation.navigate('AddPartnership');
+  };
 
   return (
     <>
@@ -108,10 +117,12 @@ const List = ({}) => {
             <SearchBar
               placeholderTextColor="#777777"
               placeholder="Search vehicle..."
+              value={searchVehicle}
+              onChangeText={setSearchVehicle}
             />
           </LabelArea>
           <SessionArea>
-            {activeSession.map((customer, id) => (
+            {session.map((customer, id) => (
               <Cell key={id} vehicle={customer} />
             ))}
           </SessionArea>
@@ -126,6 +137,8 @@ const ListStack = () => {
     <Stack.Navigator headerMode="none">
       <Stack.Screen name="List" component={List} />
       <Stack.Screen name="AddParkingLot" component={AddParkingLot} />
+      <Stack.Screen name="AddMembership" component={AddMembership} />
+      <Stack.Screen name="AddPartnership" component={AddPartnership} />
     </Stack.Navigator>
   );
 };

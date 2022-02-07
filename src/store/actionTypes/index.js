@@ -29,6 +29,24 @@ export const getActiveSessionSuccessAction = makeAction(
   'customerData',
 );
 
+export const searchVehicleAction = makeAction(
+  'SEARCH_VEHICLE',
+  'id',
+  'keyword',
+);
+export const searchVehicleSuccessAction = makeAction(
+  'SEARCH_VEHICLE_SUCCESS',
+  'vehicles',
+);
+
+export const searchUserAction = makeAction('SEARCH_USER', 'keyword');
+export const searchUserSuccessAction = makeAction(
+  'SEARCH_USER_SUCCESS',
+  'users',
+);
+
+export const addPartnerAction = makeAction('ADD_PARTNER', 'partnerId');
+export const addPartnerSuccessAction = makeAction('ADD_PARTNER_SUCCESS');
 //
 //
 //
