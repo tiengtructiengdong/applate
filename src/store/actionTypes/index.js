@@ -45,6 +45,12 @@ export const searchUserSuccessAction = makeAction(
   'users',
 );
 
+export const getParkAction = makeAction('GET_PARK', 'id');
+export const getParkSuccessAction = makeAction(
+  'GET_PARK_SUCCESS',
+  'parkingLot',
+);
+
 export const addPartnerAction = makeAction('ADD_PARTNER', 'partnerId');
 export const addPartnerSuccessAction = makeAction('ADD_PARTNER_SUCCESS');
 //

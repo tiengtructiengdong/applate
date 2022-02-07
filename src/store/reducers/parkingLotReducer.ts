@@ -22,6 +22,8 @@ export type ParkingLotState = {
   currentParkingLot?: ParkingLot;
   session: any[];
   searchUser: any[];
+  membership: any;
+  partner: any[];
 };
 
 const initState: ParkingLotState = {
@@ -29,6 +31,8 @@ const initState: ParkingLotState = {
   workingParkingLot: [],
   session: [],
   searchUser: [],
+  membership: {},
+  partner: [],
 };
 
 // reducer
@@ -63,6 +67,12 @@ export default function parkingLotReducer(
       return {
         ...state,
         searchUser: action.users,
+      };
+    case 'GET_PARK_SUCCESS':
+      return {
+        ...state,
+        currentParkingLot: action.parkingLot,
+        membership: action.parkingLot.membership,
       };
 
     default:

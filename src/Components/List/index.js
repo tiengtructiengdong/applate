@@ -15,6 +15,7 @@ import {useNavigation} from '@react-navigation/native';
 import {
   getActiveSessionAction,
   getAllParkingLotsAction,
+  getParkAction,
   searchVehicleAction,
 } from '@store/actionTypes';
 
@@ -92,7 +93,9 @@ const List = ({}) => {
     }
   }, [parkingLot]);
 
-  const confirmSelect = parkingLot => {};
+  const confirmSelect = parkId => {
+    dispatch(getParkAction(parkId));
+  };
 
   const addPartnership = () => {
     navigation.navigate('AddPartnership');

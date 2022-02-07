@@ -126,7 +126,7 @@ export function Overview({
   ];
 
   const renderSelectItem = item => (
-    <ParkingLotSelectItem>
+    <ParkingLotSelectItem onPress={() => confirmSelect(item.Id)}>
       <ParkingLotSelectLeft>
         <ParkingLotSelectNameLabel
           color={item.Name === parkingLot.Name ? '#ffd834' : 'white'}>
