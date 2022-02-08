@@ -24,6 +24,7 @@ export type ParkingLotState = {
   searchUser: any[];
   membership: any;
   partner: any[];
+  isMyPark: boolean;
 };
 
 const initState: ParkingLotState = {
@@ -33,6 +34,7 @@ const initState: ParkingLotState = {
   searchUser: [],
   membership: {},
   partner: [],
+  isMyPark: false,
 };
 
 // reducer
@@ -47,11 +49,13 @@ export default function parkingLotReducer(
         ...state,
         myParkingLot,
         workingParkingLot,
-        currentParkingLot: myParkingLot
-          ? myParkingLot[0]
-          : workingParkingLot
-          ? workingParkingLot[0]
-          : undefined,
+        currentParkingLot:
+          myParkingLot && myParkingLot.length > 0
+            ? myParkingLot[0]
+            : workingParkingLot && workingParkingLot.length > 0
+            ? workingParkingLot[0]
+            : undefined,
+        isMyPark: myParkingLot && myParkingLot.length > 0,
       };
     case 'GET_ACTIVE_SESSION_SUCCESS':
       return {
@@ -73,6 +77,11 @@ export default function parkingLotReducer(
         ...state,
         currentParkingLot: action.parkingLot,
         membership: action.parkingLot.membership,
+      };
+    case 'GET_PARTNER_SUCCESS':
+      return {
+        ...state,
+        partner: action.partners,
       };
 
     default:

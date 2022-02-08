@@ -4,10 +4,12 @@ import Svg, {LinearGradient} from 'react-native-svg';
 import {PieChart} from 'react-native-chart-kit';
 
 import Icon from 'react-native-vector-icons/Ionicons';
+import {useSelector} from 'react-redux';
+import {isMyParkSelector} from '@store/selectors/parkingLotSelector';
 
 const BG = styled.View`
   background-color: #424242;
-  height: 220px;
+  height: 240px;
   margin: 20px 25px 30px;
   border-radius: 15px;
   padding-horizontal: 20px;
@@ -113,6 +115,7 @@ const CommandButton = styled.TouchableOpacity`
 const CommandArea = styled.View`
   flex-direction: row;
   align-items: center;
+  height: 70px;
 `;
 
 export function Overview({
@@ -125,6 +128,7 @@ export function Overview({
   addPartner,
 }) {
   const today = new Date().getDate();
+  const isMyPark = useSelector(isMyParkSelector);
   const [select, toggleSelect] = useState(false);
   const data = [
     {
@@ -137,8 +141,10 @@ export function Overview({
     },
   ];
 
-  const renderSelectItem = item => (
-    <ParkingLotSelectItem onPress={() => confirmSelect(item.Id)}>
+  const renderSelectItem = (item, i) => (
+    <ParkingLotSelectItem
+      onPress={() => confirmSelect(item.Id)}
+      key={`item_${i}`}>
       <ParkingLotSelectLeft>
         <ParkingLotSelectNameLabel
           color={item.Name === parkingLot.Name ? '#ffd834' : 'white'}>
@@ -161,19 +167,21 @@ export function Overview({
     <BG>
       <CommandArea>
         <Select onPress={() => toggleSelect(!select)}>
-          <Name adjustsFontSizeToFit numberOfLines={1}>
-            {parkingLot.Name}
-          </Name>
+          <Name numberOfLines={2}>{parkingLot.Name}</Name>
           <Icon name="chevron-down" size={16} color="white" />
         </Select>
         <CommandButton onPress={viewMembershipPrice}>
-          <Icon name="cash-outline" size={20} color="white" />
+          <Icon name="cash-outline" size={24} color="white" />
         </CommandButton>
-        <CommandButton onPress={addPartner}>
-          <Icon name="person-add-outline" size={18} color="white" />
-        </CommandButton>
+        {isMyPark ? (
+          <CommandButton onPress={addPartner}>
+            <Icon name="person-add-outline" size={22} color="white" />
+          </CommandButton>
+        ) : (
+          <></>
+        )}
         <CommandButton onPress={addParkingLot}>
-          <Icon name="add-outline" size={22} color="white" />
+          <Icon name="add-outline" size={28} color="white" />
         </CommandButton>
       </CommandArea>
 

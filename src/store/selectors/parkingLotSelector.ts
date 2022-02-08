@@ -14,3 +14,9 @@ export const sessionSelector = (state: RootState) =>
 
 export const searchUserSelector = (state: RootState) =>
   state.parkingLot?.searchUser || [];
+
+export const partnerSelector = (state: RootState) =>
+  state.parkingLot?.partner || [];
+
+export const isMyParkSelector = (state: RootState) =>
+  state.parkingLot?.isMyPark || false;

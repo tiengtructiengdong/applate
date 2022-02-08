@@ -65,7 +65,7 @@ const SessionArea = styled.ScrollView`
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   padding-horizontal: 20px;
-  margin-bottom: 90px;
+  margin-bottom: 30px;
 `;
 
 const List = ({}) => {

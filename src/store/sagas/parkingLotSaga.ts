@@ -3,6 +3,8 @@ import {
   getAllParkingLotsAction,
   getAllParkingLotsSuccessAction,
   getParkSuccessAction,
+  getPartnerAction,
+  getPartnerSuccessAction,
   searchUserSuccessAction,
 } from '@store/actionTypes';
 import {AnyAction} from 'redux';
@@ -17,6 +19,8 @@ import {
   searchUser,
   addPartner,
   getPark,
+  getPartner,
+  deletePartner,
 } from '@services/parkingLotServices';
 import {authSelector} from '@store/selectors/authSelector';
 
@@ -157,6 +161,28 @@ const getParkSaga = function* (action: AnyAction) {
   }
 };
 
+const getPartnerSaga = function* (action: AnyAction) {
+  const {id} = action;
+  try {
+    //yield* put(updateSessionAction({loading: true}));
+    const auth = yield* select(state => authSelector(state));
+    const response = yield* call(getPartner, auth, id);
+    const data = parseRawDataResponse(response, true);
+    if (data) {
+      yield* put(getPartnerSuccessAction(data.data));
+    } else {
+      const errorMessage = response?.data?.error?.message;
+      if (errorMessage) {
+        popUp(errorMessage);
+      }
+    }
+  } catch (error: any) {
+    popUp(error.message);
+  } finally {
+    //yield* put(updateSessionAction({loading: false}));
+  }
+};
+
 const addPartnerSaga = function* (action: AnyAction) {
   const {id, partnerId} = action;
   try {
@@ -165,10 +191,35 @@ const addPartnerSaga = function* (action: AnyAction) {
     const response = yield* call(addPartner, auth, id, partnerId);
     const data = parseRawDataResponse(response, true);
     if (data) {
-      //yield* put(getAllParkingLotsAction());
-      if (data.message === 'Successful') {
-        popUp('Successful!', 'They are now your partners.');
+      yield* put(getPartnerAction(id));
+      //if (data.message === 'Successful') {
+      //  popUp('Successful!', 'They are now your partners.');
+      //}
+    } else {
+      const errorMessage = response?.data?.error?.message;
+      if (errorMessage) {
+        popUp(errorMessage);
       }
+    }
+  } catch (error: any) {
+    popUp(error.message);
+  } finally {
+    //yield* put(updateSessionAction({loading: false}));
+  }
+};
+
+const deletePartnerSaga = function* (action: AnyAction) {
+  const {id, partnerId} = action;
+  try {
+    //yield* put(updateSessionAction({loading: true}));
+    const auth = yield* select(state => authSelector(state));
+    const response = yield* call(deletePartner, auth, id, partnerId);
+    const data = parseRawDataResponse(response, true);
+    if (data) {
+      yield* put(getPartnerAction(id));
+      //if (data.message === 'Successful') {
+      //  popUp('Successful!', 'They are now your partners.');
+      //}
     } else {
       const errorMessage = response?.data?.error?.message;
       if (errorMessage) {
@@ -191,5 +242,7 @@ export default function* () {
     takeLatest('SEARCH_USER', searchUserSaga),
     takeLatest('ADD_PARTNER', addPartnerSaga),
     takeLatest('GET_PARK', getParkSaga),
+    takeLatest('GET_PARTNER', getPartnerSaga),
+    takeLatest('DELETE_PARTNER', deletePartnerSaga),
   ]);
 }

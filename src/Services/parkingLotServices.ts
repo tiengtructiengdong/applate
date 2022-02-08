@@ -62,3 +62,13 @@ export function addPartner(auth: AuthState, id: number, partnerId: number) {
     partnerId,
   });
 }
+
+export function getPartner(auth: AuthState, id: number) {
+  return new apiClient(auth).get(`${HOST}parkingLot/${id}/getPartner`);
+}
+
+export function deletePartner(auth: AuthState, id: number, partnerId: number) {
+  return new apiClient(auth).delete(`${HOST}parkingLot/${id}/deletePartner`, {
+    partnerId,
+  });
+}

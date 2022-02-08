@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Alert} from 'react-native';
 
@@ -6,10 +6,16 @@ import styled from 'styled-components';
 import {Header} from '@components/Header';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {addPartnerAction, searchUserAction} from '@store/actionTypes';
+import {
+  addPartnerAction,
+  deletePartnerAction,
+  getPartnerAction,
+  searchUserAction,
+} from '@store/actionTypes';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {
   currentParkingLotSelector,
+  partnerSelector,
   searchUserSelector,
 } from '@store/selectors/parkingLotSelector';
 import {popUp} from '@constants/Utils';
@@ -30,10 +36,7 @@ const FieldArea = styled.View`
 const Label = styled.Text`
   font-size: 16px;
   margin-horizontal: 40px;
-  color: white;
-`;
-const BlackLabel = styled(Label)`
-  color: black;
+  color: #ffb500;
 `;
 const Input = styled.TextInput`
   height: 45px;
@@ -44,20 +47,6 @@ const Input = styled.TextInput`
   padding: 10px;
   margin-vertical: 8px;
   margin-horizontal: 40px;
-`;
-const Button = styled.TouchableOpacity`
-  background-color: #ffb500;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  margin-horizontal: 40px;
-  height: 50px;
-`;
-const ButtonArea = styled.View`
-  height: 90px;
-  background-color: #121212;
-  flex-direction: row;
 `;
 
 const UserSelectBG = styled.View`
@@ -74,7 +63,7 @@ const UserSelect = styled.ScrollView`
 
 const UserSelectItem = styled.TouchableOpacity`
   flex-direction: row;
-  padding-vertical: 6px;
+  padding-vertical: 10px;
   justify-content: center;
   align-items: center;
 `;
@@ -99,12 +88,8 @@ const TagArea = styled.ScrollView`
 
 const RemoveButton = styled.TouchableOpacity``;
 
-const Screen = ({forced}) => {
+const Screen = ({}) => {
   const [keyword, setKeyword] = useState('');
-  const [selectedId, setId] = useState(new Array(0));
-  const [selectedName, setName] = useState(new Array(0));
-
-  const [boo, trigger] = useState(false);
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -117,34 +102,21 @@ const Screen = ({forced}) => {
 
   const parkingLot = useSelector(currentParkingLotSelector);
   const searchUser = useSelector(searchUserSelector);
+  const partners = useSelector(partnerSelector);
 
-  const addPartner = () => {
-    selectedId.forEach(partnerId => {
-      dispatch(addPartnerAction(parkingLot.Id, partnerId));
-    });
-    navigation.goBack();
-  };
+  useEffect(() => {
+    dispatch(getPartnerAction(parkingLot.Id));
+  }, [dispatch]);
+
+  console.log(partners);
 
   const selectUser = user => {
     setKeyword('');
-    const ids = selectedId;
-    ids.push(user.Id);
-    setId(ids);
-
-    const names = selectedName;
-    names.push(user.FullName);
-    setName(names);
+    dispatch(addPartnerAction(parkingLot.Id, user.Id));
   };
 
-  const removeUser = i => {
-    trigger(!boo);
-    const ids = selectedId;
-    ids.splice(i, 1);
-    setId(ids);
-
-    const names = selectedName;
-    names.splice(i, 1);
-    setName(names);
+  const removeUser = user => {
+    dispatch(deletePartnerAction(parkingLot.Id, user.Id));
   };
 
   const securePhoneNumber = number => {
@@ -156,11 +128,13 @@ const Screen = ({forced}) => {
     <Container>
       <Header
         bgColor={'#ffb500'}
-        title={`Add Partnership`}
+        title={`Your Partners`}
         goBack={() => navigation.goBack()}
       />
       <FieldArea>
-        <Label>Partner's name or ID</Label>
+        <Label numberOfLines={1} adjustsFontSizeToFit>
+          Add a partner by name, ID or phone number
+        </Label>
         <Input
           value={keyword}
           onChangeText={text => {
@@ -168,13 +142,17 @@ const Screen = ({forced}) => {
             search(text);
           }}
         />
-        {searchUser.length > 0 && keyword != '' ? (
+        {searchUser != [] && keyword != '' ? (
           <UserSelectBG>
             <UserSelect>
               {searchUser
-                .filter(user => !selectedId.includes(user.Id))
-                .map(user => (
-                  <UserSelectItem onPress={() => selectUser(user)}>
+                .filter(
+                  user => !partners.map(item => item.Id).includes(user.Id),
+                )
+                .map((user, i) => (
+                  <UserSelectItem
+                    onPress={() => selectUser(user)}
+                    key={`user_${i}`}>
                     <UserSelectLeft>
                       <UserSelectNameLabel color="#ffb500">
                         {user.FullName}
@@ -189,12 +167,15 @@ const Screen = ({forced}) => {
           </UserSelectBG>
         ) : (
           <TagArea>
-            {selectedId.map((_, i) => (
-              <UserSelectItem disabled={true}>
+            {partners.map((user, i) => (
+              <UserSelectItem disabled={true} key={`user_${i}`}>
                 <UserSelectLeft>
-                  <UserSelectNameLabel>{selectedName[i]}</UserSelectNameLabel>
+                  <UserSelectNameLabel>{user.FullName}</UserSelectNameLabel>
+                  <UserSelectSubLabel>
+                    Phone number: {securePhoneNumber(user.PhoneNumber)}
+                  </UserSelectSubLabel>
                 </UserSelectLeft>
-                <RemoveButton onPress={() => removeUser(i)}>
+                <RemoveButton onPress={() => removeUser(user)}>
                   <Icon name="close-outline" size={30} color="red" />
                 </RemoveButton>
               </UserSelectItem>
@@ -202,11 +183,6 @@ const Screen = ({forced}) => {
           </TagArea>
         )}
       </FieldArea>
-      <ButtonArea>
-        <Button onPress={addPartner} disabled={selectedId.length === 0}>
-          <BlackLabel>Add partner</BlackLabel>
-        </Button>
-      </ButtonArea>
     </Container>
   );
 };
