@@ -51,7 +51,7 @@ export const getParkSuccessAction = makeAction(
   'parkingLot',
 );
 
-export const addPartnerAction = makeAction('ADD_PARTNER', 'partnerId');
+export const addPartnerAction = makeAction('ADD_PARTNER', 'id', 'partnerId');
 export const addPartnerSuccessAction = makeAction('ADD_PARTNER_SUCCESS');
 //
 //

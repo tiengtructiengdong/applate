@@ -3,6 +3,7 @@ import {
   getAllParkingLotsAction,
   getAllParkingLotsSuccessAction,
   getParkSuccessAction,
+  searchUserSuccessAction,
 } from '@store/actionTypes';
 import {AnyAction} from 'redux';
 import {put, takeLatest, all, call, select} from 'typed-redux-saga';
@@ -113,14 +114,14 @@ const searchVehicleSaga = function* (action: AnyAction) {
 };
 
 const searchUserSaga = function* (action: AnyAction) {
-  const {id} = action;
+  const {keyword} = action;
   try {
     //yield* put(updateSessionAction({loading: true}));
     const auth = yield* select(state => authSelector(state));
-    const response = yield* call(searchUser, auth, id);
+    const response = yield* call(searchUser, auth, keyword);
     const data = parseRawDataResponse(response, true);
     if (data) {
-      yield* put(getActiveSessionSuccessAction(data.users));
+      yield* put(searchUserSuccessAction(data.users));
     } else {
       const errorMessage = response?.data?.error?.message;
       if (errorMessage) {
@@ -165,6 +166,9 @@ const addPartnerSaga = function* (action: AnyAction) {
     const data = parseRawDataResponse(response, true);
     if (data) {
       //yield* put(getAllParkingLotsAction());
+      if (data.message === 'Successful') {
+        popUp('Successful!', 'They are now your partners.');
+      }
     } else {
       const errorMessage = response?.data?.error?.message;
       if (errorMessage) {
@@ -186,5 +190,6 @@ export default function* () {
     takeLatest('SEARCH_VEHICLE', searchVehicleSaga),
     takeLatest('SEARCH_USER', searchUserSaga),
     takeLatest('ADD_PARTNER', addPartnerSaga),
+    takeLatest('GET_PARK', getParkSaga),
   ]);
 }

@@ -147,7 +147,7 @@ const Screen = ({}) => {
     <Container>
       <Header
         bgColor={'#ffb500'}
-        title={`What's your parking lot?`}
+        title={`Pricing`}
         goBack={() => navigation.goBack()}
       />
       <FieldArea>

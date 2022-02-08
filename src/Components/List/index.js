@@ -22,6 +22,7 @@ import {
 import {Overview} from './shared/Overview';
 import AddMembership from './AddMembership';
 import AddPartner from './AddPartner';
+import ViewPrice from './ViewPrice';
 
 const Stack = createStackNavigator();
 
@@ -97,7 +98,9 @@ const List = ({}) => {
     dispatch(getParkAction(parkId));
   };
 
-  const viewMembershipPrice = () => {};
+  const viewMembershipPrice = () => {
+    navigation.navigate('ViewPrice');
+  };
   const addPartner = () => {
     navigation.navigate('AddPartner');
   };
@@ -149,6 +152,7 @@ const ListStack = () => {
       <Stack.Screen name="AddParkingLot" component={AddParkingLot} />
       <Stack.Screen name="AddMembership" component={AddMembership} />
       <Stack.Screen name="AddPartner" component={AddPartner} />
+      <Stack.Screen name="ViewPrice" component={ViewPrice} />
     </Stack.Navigator>
   );
 };
