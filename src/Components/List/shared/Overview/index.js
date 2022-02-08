@@ -9,7 +9,7 @@ import {isMyParkSelector} from '@store/selectors/parkingLotSelector';
 
 const BG = styled.View`
   background-color: #424242;
-  height: 240px;
+  height: 250px;
   margin: 20px 25px 30px;
   border-radius: 15px;
   padding-horizontal: 20px;
@@ -70,7 +70,7 @@ const SmallCount = styled(VehicleCount)`
 
 const ParkingLotSelectBG = styled.View`
   background-color: #212121;
-  height: 167px;
+  height: 169px;
   margin-top: -8px;
   margin-horizontal: -20px;
   border-bottom-left-radius: 15px;
@@ -141,10 +141,13 @@ export function Overview({
     },
   ];
 
+  const selectItem = id => {
+    confirmSelect(id);
+    toggleSelect(false);
+  };
+
   const renderSelectItem = (item, i) => (
-    <ParkingLotSelectItem
-      onPress={() => confirmSelect(item.Id)}
-      key={`item_${i}`}>
+    <ParkingLotSelectItem onPress={() => selectItem(item.Id)} key={`item_${i}`}>
       <ParkingLotSelectLeft>
         <ParkingLotSelectNameLabel
           color={item.Name === parkingLot.Name ? '#ffd834' : 'white'}>

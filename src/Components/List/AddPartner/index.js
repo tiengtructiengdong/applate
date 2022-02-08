@@ -19,6 +19,7 @@ import {
   searchUserSelector,
 } from '@store/selectors/parkingLotSelector';
 import {popUp} from '@constants/Utils';
+import {authSelector} from '@store/selectors/authSelector';
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -103,12 +104,11 @@ const Screen = ({}) => {
   const parkingLot = useSelector(currentParkingLotSelector);
   const searchUser = useSelector(searchUserSelector);
   const partners = useSelector(partnerSelector);
+  const auth = useSelector(authSelector);
 
   useEffect(() => {
     dispatch(getPartnerAction(parkingLot.Id));
   }, [dispatch]);
-
-  console.log(partners);
 
   const selectUser = user => {
     setKeyword('');
@@ -146,9 +146,10 @@ const Screen = ({}) => {
           <UserSelectBG>
             <UserSelect>
               {searchUser
-                .filter(
-                  user => !partners.map(item => item.Id).includes(user.Id),
-                )
+                .filter(user => {
+                  const ids = partners.map(item => item.Id);
+                  return !ids.includes(user.Id) && !ids.includes(auth.id);
+                })
                 .map((user, i) => (
                   <UserSelectItem
                     onPress={() => selectUser(user)}

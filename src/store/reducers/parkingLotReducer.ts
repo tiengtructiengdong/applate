@@ -75,7 +75,7 @@ export default function parkingLotReducer(
     case 'GET_PARK_SUCCESS':
       return {
         ...state,
-        currentParkingLot: action.parkingLot,
+        currentParkingLot: action.parkingLot[0],
         membership: action.parkingLot.membership,
       };
     case 'GET_PARTNER_SUCCESS':
