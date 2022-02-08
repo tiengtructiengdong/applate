@@ -14,6 +14,8 @@ import {RNCamera} from 'react-native-camera';
 import {Header} from '../Header';
 
 import uuid from 'react-native-uuid';
+import {currentParkingLotSelector} from '@store/selectors/parkingLotSelector';
+import {useDispatch, useSelector} from 'react-redux';
 
 const style = StyleSheet.create({
   container: {
@@ -117,6 +119,9 @@ const Scan = ({}) => {
   const [connected, setConnected] = useState(false);
   const [mounted, setMounted] = useState(false);
 
+  const dispatch = useDispatch();
+  const parkingLot = useSelector(currentParkingLotSelector);
+
   const onBarCodeRead = scanResult => {};
 
   const onTextRecognized = text => {
@@ -166,7 +171,7 @@ const Scan = ({}) => {
   return (
     <SafeAreaView style={style.container}>
       <Header
-        title="Scan plate or QR ticket"
+        title={parkingLot.Name}
         bgColor="#323232"
         titleColor="#ffffff"></Header>
       <View style={style.body}>

@@ -9,15 +9,12 @@ import {isMyParkSelector} from '@store/selectors/parkingLotSelector';
 
 const BG = styled.View`
   background-color: #424242;
-  height: 250px;
   margin: 20px 25px 30px;
   border-radius: 15px;
-  padding-horizontal: 20px;
-  padding-top: 20px;
+  padding: 20px;
 `;
 const Select = styled.TouchableOpacity`
   flex-direction: row;
-  flex: 1;
   margin: 0px 38px 20px 0px;
   align-items: center;
 `;
@@ -29,7 +26,6 @@ const Name = styled.Text`
 `;
 const RowArea = styled.View`
   flex-direction: row;
-  flex: 1;
 `;
 const Area = styled.View`
   align-items: center;
@@ -70,8 +66,8 @@ const SmallCount = styled(VehicleCount)`
 
 const ParkingLotSelectBG = styled.View`
   background-color: #212121;
-  height: 169px;
   margin-top: -8px;
+  margin-bottom: -20px;
   margin-horizontal: -20px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
@@ -109,13 +105,15 @@ const ParkingLotSelectSpace = styled(ParkingLotSelectNameLabel)`
   text-align: right;
 `;
 const CommandButton = styled.TouchableOpacity`
-  padding-left: 7px;
+  flex: 1;
   margin-top: -20px;
+  align-items: center;
 `;
 const CommandArea = styled.View`
   flex-direction: row;
   align-items: center;
-  height: 70px;
+  height: 92.5px;
+  padding-horizontal: 14px;
 `;
 
 export function Overview({
@@ -168,25 +166,10 @@ export function Overview({
 
   return (
     <BG>
-      <CommandArea>
-        <Select onPress={() => toggleSelect(!select)}>
-          <Name numberOfLines={2}>{parkingLot.Name}</Name>
-          <Icon name="chevron-down" size={16} color="white" />
-        </Select>
-        <CommandButton onPress={viewMembershipPrice}>
-          <Icon name="cash-outline" size={24} color="white" />
-        </CommandButton>
-        {isMyPark ? (
-          <CommandButton onPress={addPartner}>
-            <Icon name="person-add-outline" size={22} color="white" />
-          </CommandButton>
-        ) : (
-          <></>
-        )}
-        <CommandButton onPress={addParkingLot}>
-          <Icon name="add-outline" size={28} color="white" />
-        </CommandButton>
-      </CommandArea>
+      <Select onPress={() => toggleSelect(!select)}>
+        <Name numberOfLines={3}>{parkingLot.Name}</Name>
+        <Icon name="chevron-down" size={16} color="white" />
+      </Select>
 
       {select ? (
         <ParkingLotSelectBG>
@@ -236,6 +219,21 @@ export function Overview({
                 <SmallCount>0</SmallCount>
               </Area>
             </RowArea>
+            <CommandArea>
+              <CommandButton onPress={viewMembershipPrice}>
+                <Icon name="cash-outline" size={26} color="#fbd837" />
+              </CommandButton>
+              {isMyPark ? (
+                <CommandButton onPress={addPartner}>
+                  <Icon name="person-add-outline" size={24} color="white" />
+                </CommandButton>
+              ) : (
+                <></>
+              )}
+              <CommandButton onPress={addParkingLot}>
+                <Icon name="add-outline" size={34} color="#fbd837" />
+              </CommandButton>
+            </CommandArea>
           </Area>
         </RowArea>
       )}
