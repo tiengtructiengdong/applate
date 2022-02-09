@@ -24,13 +24,14 @@ export default function customerReducer(
         onTestCheckoutFailed,
       };
     case 'CHECKIN_SUCCESS':
-      onCheckinSuccess(action.data);
+      if (state.onCheckinSuccess) state.onCheckinSuccess(action.data);
       return state;
     case 'TEST_CHECKOUT_SUCCESS':
-      onTestCheckoutSuccess(action.plateId);
+      if (state.onTestCheckoutSuccess)
+        state.onTestCheckoutSuccess(action.plateId);
       return state;
     case 'TEST_CHECKOUT_FAILED':
-      onTestCheckoutFailed();
+      if (state.onTestCheckoutFailed) state.onTestCheckoutFailed();
       return state;
 
     default:

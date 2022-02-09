@@ -68,7 +68,8 @@ const testCheckoutSaga = function* (action: AnyAction) {
     const auth = yield* select(state => authSelector(state));
     const response = yield* call(testCheckout, auth, id, code);
     if (response.status != 200) {
-      throw new Error('Checkin error');
+      yield* put(testCheckoutFailedAction());
+      return;
     }
     const data = parseRawDataResponse(response, true);
     if (data) {

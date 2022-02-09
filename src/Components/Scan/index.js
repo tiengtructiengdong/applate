@@ -1,5 +1,4 @@
 import React, {memo, useEffect, useState} from 'react';
-import Realm from 'realm';
 
 import {
   Alert,
@@ -13,13 +12,13 @@ import {RNCamera} from 'react-native-camera';
 
 import {Header} from '../Header';
 
-import uuid from 'react-native-uuid';
 import {currentParkingLotSelector} from '@store/selectors/parkingLotSelector';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   setupCustomerListenerAction,
   testCheckoutAction,
 } from '@store/actionTypes';
+import {popUp} from '@constants/Utils';
 
 const style = StyleSheet.create({
   container: {
@@ -128,7 +127,10 @@ const Scan = ({}) => {
   const id = parkingLot.Id;
 
   const onBarCodeRead = code => {
-    dispatch(testCheckoutAction(id, code));
+    if (!checkOut) {
+      dispatch(testCheckoutAction(id, code));
+      setCheckout(true);
+    }
   };
 
   const onTextRecognized = text => {
@@ -168,7 +170,7 @@ const Scan = ({}) => {
   };
 
   const printTicket = code => {
-    console.log('Print Ticket');
+    popUp('Print Ticket');
   };
   const processCheckin = plateId => {};
   const processCheckout = plateId => {};
@@ -178,10 +180,12 @@ const Scan = ({}) => {
   };
 
   const onTestCheckoutSuccess = plateId => {
-    console.log('Vehicle found', plateId);
+    popUp('Vehicle found', plateId);
   };
   const onTestCheckoutFailed = () => {
-    console.log('Vehicle not found');
+    popUp('Vehicle not found', '', () => {
+      setCheckout(false);
+    });
   };
 
   useEffect(() => {
