@@ -66,6 +66,26 @@ export const deletePartnerAction = makeAction(
   'partnerId',
 );
 export const deletePartnerSuccessAction = makeAction('DELETE_PARTNER_SUCCESS');
+
+export const setupCustomerListenerAction = makeAction(
+  'SETUP_CUSTOMER_LISTENER',
+  'onCheckinSuccess',
+  'onTestCheckoutSuccess',
+  'onTestCheckoutFailed',
+);
+
+export const checkinAction = makeAction('CHECKIN', 'id', 'plateId');
+export const checkinSuccessAction = makeAction('CHECKIN_SUCCESS', 'data');
+
+export const checkoutAction = makeAction('CHECKOUT', 'id', 'code');
+export const checkoutSuccessAction = makeAction('CHECKOUT_SUCCESS');
+
+export const testCheckoutAction = makeAction('TEST_CHECKOUT', 'id', 'code');
+export const testCheckoutSuccessAction = makeAction(
+  'TEST_CHECKOUT_SUCCESS',
+  'plateId',
+);
+export const testCheckoutFailedAction = makeAction('TEST_CHECKOUT_FAILED');
 //
 //
 //

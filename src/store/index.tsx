@@ -17,6 +17,7 @@ import rootSaga from './sagas';
 // reducer
 import {AuthState} from './reducers/authReducer';
 import {ParkingLotState} from './reducers/parkingLotReducer';
+import {CustomerState} from './reducers/customerReducer';
 
 const logger = createLogger({
   collapsed: true,
@@ -58,6 +59,7 @@ export const persistor = persistStore(store);
 export interface RootState {
   auth: AuthState;
   parkingLot: ParkingLotState;
+  customer: CustomerState;
 }
 
 export default store;

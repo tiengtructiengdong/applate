@@ -2,8 +2,6 @@ import {apiClient} from './Api';
 import {HOST} from '@constants/Config';
 
 import {AuthState} from '@store/reducers/authReducer';
-import {useDispatch, useSelector} from 'react-redux';
-import {authSelector} from '@store/selectors/authSelector';
 import {Fee} from '@constants/Types';
 
 // add

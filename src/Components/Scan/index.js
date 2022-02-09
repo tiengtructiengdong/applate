@@ -1,4 +1,4 @@
-import React, {memo, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import Realm from 'realm';
 
 import {
@@ -16,6 +16,10 @@ import {Header} from '../Header';
 import uuid from 'react-native-uuid';
 import {currentParkingLotSelector} from '@store/selectors/parkingLotSelector';
 import {useDispatch, useSelector} from 'react-redux';
+import {
+  setupCustomerListenerAction,
+  testCheckoutAction,
+} from '@store/actionTypes';
 
 const style = StyleSheet.create({
   container: {
@@ -116,13 +120,16 @@ const style = StyleSheet.create({
 const Scan = ({}) => {
   const [checkOut, setCheckout] = useState(false);
   const [checkIn, setCheckin] = useState(false);
-  const [connected, setConnected] = useState(false);
+  const [connected, setConnected] = useState(true); //temp
   const [mounted, setMounted] = useState(false);
 
   const dispatch = useDispatch();
   const parkingLot = useSelector(currentParkingLotSelector);
+  const id = parkingLot.Id;
 
-  const onBarCodeRead = scanResult => {};
+  const onBarCodeRead = code => {
+    dispatch(testCheckoutAction(id, code));
+  };
 
   const onTextRecognized = text => {
     const regEx =
@@ -136,22 +143,22 @@ const Scan = ({}) => {
         const plate = data.match(regEx);
 
         if (plate) {
-          this.setState({checkIn: true});
+          setCheckin(true);
           const plateStr = plate[0].replace('-', '').replace('\n', '-');
 
           Alert.alert('Checkin', plateStr, [
             {
               text: 'Cancel',
               onPress: () => {
-                this.setState({checkIn: false});
+                setCheckin(false);
               },
               style: 'cancel',
             },
             {
               text: 'OK',
               onPress: () => {
-                this.setState({checkIn: false});
-                this.processCheckin(plateStr);
+                setCheckin(false);
+                processCheckin(plateStr);
               },
             },
           ]);
@@ -160,13 +167,32 @@ const Scan = ({}) => {
     }
   };
 
-  const printTicket = (plate, uuid) => {};
+  const printTicket = code => {
+    console.log('Print Ticket');
+  };
+  const processCheckin = plateId => {};
+  const processCheckout = plateId => {};
 
-  const processCheckin = plate => {
-    var uuid_code = uuid.v4();
+  const onCheckinSuccess = data => {
+    printTicket(data.code);
   };
 
-  const processCheckout = plate => {};
+  const onTestCheckoutSuccess = plateId => {
+    console.log('Vehicle found', plateId);
+  };
+  const onTestCheckoutFailed = () => {
+    console.log('Vehicle not found');
+  };
+
+  useEffect(() => {
+    dispatch(
+      setupCustomerListenerAction(
+        onCheckinSuccess,
+        onTestCheckoutSuccess,
+        onTestCheckoutFailed,
+      ),
+    );
+  }, [dispatch]);
 
   return (
     <SafeAreaView style={style.container}>
@@ -190,15 +216,11 @@ const Scan = ({}) => {
             <View style={style.cameraContent}>
               {connected ? (
                 <RNCamera
-                  ref={cam => (this.camera = cam)}
                   captureAudio={false}
-                  ref={ref => {
-                    this.camera = ref;
-                  }}
                   defaultTouchToFocus
                   style={{flex: 1, borderRadius: 10, zIndex: 3}}
-                  onBarCodeRead={this.onBarCodeRead.bind(this)}
-                  onTextRecognized={this.onTextRecognized.bind(this)}
+                  onBarCodeRead={onBarCodeRead}
+                  onTextRecognized={onTextRecognized}
                   autoFocus="on"
                   autoFocusPointOfInterest={{x: 0.5, y: 0.5}}
                 />
