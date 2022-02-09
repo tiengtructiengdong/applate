@@ -21,7 +21,7 @@ const FieldArea = styled.View`
   align-self: center;
   flex: 1;
   width: 100%;
-  padding-top: 50px;
+  padding-top: 35px;
   margin-bottom: -50px;
   background-color: #121212;
 `;
@@ -32,9 +32,10 @@ const Label = styled.Text`
   font-weight: 700;
 `;
 const WhiteLabel = styled(Label)`
+  font-size: 14px;
   color: white;
-  font-weight: 500;
-  padding-bottom: 10px;
+  font-weight: 400;
+  padding-bottom: 15px;
 `;
 const Scroll = styled.ScrollView``;
 const Sublabel = styled.Text`
@@ -66,6 +67,8 @@ const Screen = ({}) => {
         .catch(err => {
           console.error(err);
         });
+    } else {
+      BleManager.stopScan();
     }
   };
 
@@ -195,7 +198,6 @@ const Screen = ({}) => {
   useEffect(() => {
     BleManager.start({showAlert: false});
 
-    startScan();
     bleManagerEmitter.addListener(
       'BleManagerDiscoverPeripheral',
       handleDiscoverPeripheral,
@@ -253,7 +255,7 @@ const Screen = ({}) => {
       <Item onPress={() => testPeripheral(item)}>
         <Label>{item.name}</Label>
         <Sublabel>RSSI: {item.rssi}</Sublabel>
-        <Sublabel>{item.id}</Sublabel>
+        <Sublabel>UUID: {item.id}</Sublabel>
       </Item>
     );
   };
@@ -264,11 +266,13 @@ const Screen = ({}) => {
         bgColor={'#ffb500'}
         title={`Didn't find your printers?`}
         goBack={() => navigation.goBack()}
+        goRight={() => startScan()}
       />
       <FieldArea>
         <WhiteLabel>
           If your device's Bluetooth setting screen doesn't include your
-          printer, you can connect from here.{' '}
+          printer, you can connect from here.{'\n\n'}Press Scan button to scan
+          Bluetooth devices. Press it again to stop.
         </WhiteLabel>
 
         <Scroll>{list.map(renderItem)}</Scroll>
