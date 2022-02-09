@@ -52,20 +52,14 @@ class AppTabbar extends React.Component {
           {
             height: 100,
             overflow: 'visible',
-            backgroundColor:
-              this.state.activeTab == 0
-                ? '#121212'
-                : this.state.activeTab == 1
-                ? '#121212'
-                : 'white',
+            backgroundColor: '#121212',
           },
         ]}>
         <View
           style={[
             style.container,
             {
-              backgroundColor:
-                this.state.activeTab != 2 ? '#00000000' : '#ffffff',
+              backgroundColor: '#00000000',
             },
           ]}>
           <TouchableOpacity
@@ -94,7 +88,7 @@ class AppTabbar extends React.Component {
             <Icon
               name="cog-outline"
               size={36}
-              color={this.state.activeTab == 2 ? '#000000' : '#777777'}
+              color={this.state.activeTab == 2 ? '#ffc500' : '#777777'}
             />
           </TouchableOpacity>
         </View>

@@ -22,8 +22,8 @@ const style = StyleSheet.create({
   cell: {
     borderBottomWidth: 1,
     borderTopWidth: 0,
-    borderBottomColor: '#d0d0d0',
-    backgroundColor: '#ffffff',
+    borderBottomColor: '#606060',
+    backgroundColor: '#121212',
     justifyContent: 'center',
     padding: 15,
     overflow: 'hidden',
@@ -31,10 +31,11 @@ const style = StyleSheet.create({
   cellText: {
     fontSize: 17,
     marginLeft: 12,
+    color: 'white',
   },
   scrollView: {
     height: '100%',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#121212',
   },
   about: {
     padding: 25,
@@ -65,10 +66,12 @@ const Username = styled.Text`
   margin-left: 12px;
   font-weight: 700;
   padding-vertical: 2px;
+  color: white;
 `;
 const OtherInfo = styled(Username)`
   font-size: 15px;
   font-weight: 400;
+  color: white;
 `;
 
 const List = ({navigation}) => {
