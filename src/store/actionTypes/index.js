@@ -49,6 +49,7 @@ export const getParkAction = makeAction('GET_PARK', 'id');
 export const getParkSuccessAction = makeAction(
   'GET_PARK_SUCCESS',
   'parkingLot',
+  'membership',
 );
 
 export const getPartnerAction = makeAction('GET_PARTNER', 'id');

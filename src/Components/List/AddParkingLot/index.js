@@ -71,7 +71,7 @@ const PricePicker = styled(Picker)`
   flex: 1;
   height: 30px;
   top: -93px;
-  margin-horizontal: -7px;
+  margin-horizontal: -9px;
 `;
 const PricePickerItem = styled(Picker.Item)`
   font-size: 14px;
@@ -83,8 +83,9 @@ const PriceField = styled.TextInput`
   color: white;
 `;
 const PriceLabel = styled.Text`
-  font-size: 16px;
+  font-size: 17px;
   color: white;
+  color: #ffb500;
 `;
 
 const hourValue = [...Array(24).keys()];
@@ -161,16 +162,16 @@ const Screen = ({}) => {
           onChangeText={text => setSpaceCount(text)}
         />
         <Space height={20} />
-        <Label>Price</Label>
+        <PriceRow>
+          <PriceLabel>Price</PriceLabel>
+        </PriceRow>
         {[...Array(mark.length - 1).keys()].map(i => (
-          <PriceRow>
+          <PriceRow key={i}>
             {renderFrom(mark[i])}
             <PriceLabel> to </PriceLabel>
             {renderTo(mark[i + 1])}
-            <PriceField
-              placeholder="Enter price"
-              placeholderTextColor="#777777"
-            />
+            <PriceField placeholder="Price" placeholderTextColor="#777777" />
+            <PriceLabel> ₫</PriceLabel>
           </PriceRow>
         ))}
 
