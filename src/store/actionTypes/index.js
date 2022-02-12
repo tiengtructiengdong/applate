@@ -98,6 +98,7 @@ export const testCheckinSuccessAction = makeAction(
   'TEST_CHECKIN_SUCCESS',
   'data',
 );
+export const testCheckinFailedAction = makeAction('TEST_CHECKIN_FAILED');
 
 export const checkinAction = makeAction('CHECKIN', 'id', 'plateId', 'code');
 export const checkinSuccessAction = makeAction('CHECKIN_SUCCESS');
@@ -111,6 +112,15 @@ export const testCheckoutSuccessAction = makeAction(
   'plateId',
 );
 export const testCheckoutFailedAction = makeAction('TEST_CHECKOUT_FAILED');
+
+export const setMembershipAction = makeAction(
+  'SET_MEMBERSHIP',
+  'id',
+  'plateId',
+  'membershipId',
+);
+export const setMembershipSuccessAction = makeAction('SET_MEMBERSHIP_SUCCESS');
+
 //
 //
 //

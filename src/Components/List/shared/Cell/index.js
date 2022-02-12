@@ -37,7 +37,7 @@ const DateTime = styled.Text`
 
 function Cell({vehicle, onPress}) {
   return (
-    <BG activeOpacity={0.5}>
+    <BG activeOpacity={0.5} onPress={onPress}>
       <Left>
         <Name>{vehicle.PlateId}</Name>
       </Left>

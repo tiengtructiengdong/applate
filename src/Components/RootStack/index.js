@@ -1,14 +1,22 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {tokenSelector} from '@store/selectors/authSelector';
 import MainStack from '@components/MainStack';
 import AuthStack from '@components/AuthStack';
 import def from 'react-native-default-preference';
 import {loginSuccessAction} from '@store/actionTypes';
+import styled from 'styled-components';
+
+const Blank = styled.View`
+  height: 100%;
+  width: 100%;
+  background-color: #121212;
+`;
 
 const RootStack = ({}) => {
   const dispatch = useDispatch();
   const token = useSelector(tokenSelector);
+  const [isGetDef, setGetDef] = useState(false);
 
   const getDef = async () => {
     try {
@@ -21,14 +29,20 @@ const RootStack = ({}) => {
 
       const id = parseInt(idStr);
       dispatch(loginSuccessAction({id, token}));
+      setGetDef(true);
     } catch (err) {
       console.log(err);
+      setGetDef(true);
     }
   };
 
   useEffect(() => {
     getDef();
   }, [dispatch]);
+
+  if (!isGetDef) {
+    return <Blank />;
+  }
 
   return token != null && token != undefined && token != '' ? (
     <MainStack />

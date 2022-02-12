@@ -148,6 +148,7 @@ const getParkSaga = function* (action: AnyAction) {
     const data = parseRawDataResponse(response, true);
     if (data) {
       const {parkingLot, membership} = data;
+      console.log(membership);
       yield* put(getParkSuccessAction(parkingLot, membership));
     } else {
       const errorMessage = response?.data?.error?.message;

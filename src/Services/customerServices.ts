@@ -34,3 +34,17 @@ export function checkout(auth: AuthState, id: number, plateId: string) {
     plateId,
   });
 }
+
+export function setMembership(
+  auth: AuthState,
+  id: number,
+  plateId: string,
+  membershipId: number,
+) {
+  return new apiClient(auth).put(
+    `${HOST}parkingLot/${id}/customer/${plateId}/setMembership`,
+    {
+      membershipId,
+    },
+  );
+}

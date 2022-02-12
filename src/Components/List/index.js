@@ -1,6 +1,7 @@
 import React, {memo, useEffect, useState} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import styled from 'styled-components';
+import {Alert} from 'react-native';
 
 import AddParkingLot from './AddParkingLot';
 import Cell from './shared/Cell';
@@ -10,6 +11,7 @@ import {
   currentParkingLotSelector,
   myParkingLotSelector,
   workingParkingLotSelector,
+  membershipListSelector,
 } from '@store/selectors/parkingLotSelector';
 import {useNavigation} from '@react-navigation/native';
 import {
@@ -17,6 +19,7 @@ import {
   getAllParkingLotsAction,
   getParkAction,
   searchVehicleAction,
+  setMembershipAction,
 } from '@store/actionTypes';
 
 import {Overview} from './shared/Overview';
@@ -78,6 +81,8 @@ const List = ({}) => {
   const parkingLot = useSelector(currentParkingLotSelector);
   const session = useSelector(sessionSelector);
 
+  const memberships = useSelector(membershipListSelector);
+
   const [searchVehicle, setSearchVehicle] = useState('');
 
   useEffect(() => {
@@ -98,6 +103,7 @@ const List = ({}) => {
     dispatch(getParkAction(parkId));
   };
 
+  // menu commands
   const viewMembershipPrice = () => {
     navigation.navigate('ViewPrice');
   };
@@ -106,6 +112,42 @@ const List = ({}) => {
   };
   const addParkingLot = () => {
     navigation.navigate('AddParkingLot');
+  };
+
+  // vehicle options
+  const showVehicleOptions = vehicle => {
+    const {PlateId, Membership} = vehicle;
+    Alert.alert(
+      PlateId,
+      Membership ? `Member level: ${Membership}` : 'Passer-by',
+      [
+        {
+          text: 'Upgrade membership',
+        },
+        {
+          text: 'Cancel membership',
+          style: 'destructive',
+          onPress: () => {
+            removeMembership(PlateId);
+          },
+        },
+        {
+          text: 'Lost ticket?',
+        },
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+      ],
+    );
+  };
+  const upgradeMembership = (plateId, membershipId) => {
+    dispatch(setMembershipAction(parkingLot.Id, plateId, membershipId));
+  };
+  const removeMembership = plateId => {
+    const passerById = memberships[0]?.Id;
+    if (passerById)
+      dispatch(setMembershipAction(parkingLot.Id, plateId, passerById));
   };
 
   return (
@@ -136,7 +178,13 @@ const List = ({}) => {
           </LabelArea>
           <SessionArea>
             {session.map((customer, id) => (
-              <Cell key={id} vehicle={customer} />
+              <Cell
+                key={id}
+                vehicle={customer}
+                onPress={() => {
+                  showVehicleOptions(customer);
+                }}
+              />
             ))}
           </SessionArea>
         </Container>
