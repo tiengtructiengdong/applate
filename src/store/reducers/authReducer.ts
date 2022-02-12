@@ -1,7 +1,8 @@
 import {AnyAction} from 'redux';
+import def from 'react-native-default-preference';
 
 export type AuthState = {
-  userId?: string;
+  officialId?: string;
   id?: string;
   fullName?: string;
   phoneNumber?: string;
@@ -17,14 +18,21 @@ export default function authReducer(
 ): AuthState {
   switch (action.type) {
     case 'LOGIN_SUCCESS':
-      return {
-        ...state,
-        ...action.userData,
-      };
+      def.set('id', `${action.userData.id}`).then(() => {
+        def.set('token', action.userData.token).then(() => {});
+      });
+
+      const {officialId, id, fullName, phoneNumber, token} = action.userData;
+      return {...state, officialId, id, fullName, phoneNumber, token};
+
     case 'LOGOUT_SUCCESS':
+      def.clear('id').then(() => {
+        def.clear('token').then(() => {});
+      });
+
       return {
         ...state,
-        userId: undefined,
+        officialId: undefined,
         id: undefined,
         fullName: undefined,
         phoneNumber: undefined,
