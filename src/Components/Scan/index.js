@@ -15,7 +15,10 @@ import {Header} from '../Header';
 import {currentParkingLotSelector} from '@store/selectors/parkingLotSelector';
 import {useDispatch, useSelector} from 'react-redux';
 import {
+  checkinAction,
+  checkoutAction,
   setupCustomerListenerAction,
+  testCheckinAction,
   testCheckoutAction,
 } from '@store/actionTypes';
 import {popUp} from '@constants/Utils';
@@ -169,18 +172,19 @@ const Scan = ({}) => {
     }
   };
 
-  const printTicket = code => {
-    popUp('Print Ticket');
+  const processCheckin = plateId => {
+    dispatch(testCheckinAction(plateId));
   };
-  const processCheckin = plateId => {};
-  const processCheckout = plateId => {};
-
+  const onTestCheckinSuccess = data => {
+    const {plateId, code} = data;
+    dispatch(checkinAction(plateId, code));
+  };
   const onCheckinSuccess = data => {
-    printTicket(data.code);
+    console.log('Checkin success!', data);
   };
 
   const onTestCheckoutSuccess = plateId => {
-    popUp('Vehicle found', plateId);
+    dispatch(checkoutAction(plateId));
   };
   const onTestCheckoutFailed = () => {
     popUp('Vehicle not found', '', () => {
@@ -191,6 +195,7 @@ const Scan = ({}) => {
   useEffect(() => {
     dispatch(
       setupCustomerListenerAction(
+        onTestCheckinSuccess,
         onCheckinSuccess,
         onTestCheckoutSuccess,
         onTestCheckoutFailed,

@@ -70,15 +70,39 @@ export const deletePartnerSuccessAction = makeAction('DELETE_PARTNER_SUCCESS');
 
 export const setupCustomerListenerAction = makeAction(
   'SETUP_CUSTOMER_LISTENER',
+  'onTestCheckinSuccess',
   'onCheckinSuccess',
   'onTestCheckoutSuccess',
   'onTestCheckoutFailed',
 );
 
-export const checkinAction = makeAction('CHECKIN', 'id', 'plateId');
-export const checkinSuccessAction = makeAction('CHECKIN_SUCCESS', 'data');
+export const addMembershipAction = makeAction(
+  'ADD_MEMBERSHIP',
+  'id',
+  'membership',
+);
+export const addMembershipSuccessAction = makeAction('ADD_MEMBERSHIP_SUCCESS');
 
-export const checkoutAction = makeAction('CHECKOUT', 'id', 'code');
+export const updateMembershipAction = makeAction(
+  'UPDATE_MEMBERSHIP',
+  'id',
+  'membershipId',
+  'update',
+);
+export const updateMembershipSuccessAction = makeAction(
+  'UPDATE_MEMBERSHIP_SUCCESS',
+);
+
+export const testCheckinAction = makeAction('TEST_CHECKOUT', 'id', 'plateId');
+export const testCheckinSuccessAction = makeAction(
+  'TEST_CHECKIN_SUCCESS',
+  'data',
+);
+
+export const checkinAction = makeAction('CHECKIN', 'id', 'plateId', 'code');
+export const checkinSuccessAction = makeAction('CHECKIN_SUCCESS');
+
+export const checkoutAction = makeAction('CHECKOUT', 'id', 'plateId');
 export const checkoutSuccessAction = makeAction('CHECKOUT_SUCCESS');
 
 export const testCheckoutAction = makeAction('TEST_CHECKOUT', 'id', 'code');

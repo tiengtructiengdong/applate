@@ -146,7 +146,6 @@ const getParkSaga = function* (action: AnyAction) {
     const auth = yield* select(state => authSelector(state));
     const response = yield* call(getPark, auth, id);
     const data = parseRawDataResponse(response, true);
-    console.log(data);
     if (data) {
       const {parkingLot, membership} = data;
       yield* put(getParkSuccessAction(parkingLot, membership));

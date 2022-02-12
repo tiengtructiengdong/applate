@@ -4,7 +4,3 @@ export type RegisterData = {
   phoneNumber: string;
   password: string;
 };
-
-export type Fee = {
-  price: number;
-};

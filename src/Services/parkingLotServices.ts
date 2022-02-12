@@ -19,20 +19,6 @@ export function addParkingLot(
   });
 }
 
-export function addMembership(
-  auth: AuthState,
-  id: number,
-  name?: string,
-  fee?: Fee,
-  level: number = 0,
-) {
-  return new apiClient(auth).post(`${HOST}parkingLot/${id}/addParkingLot`, {
-    name,
-    fee,
-    level,
-  });
-}
-
 export function getAllParkingLots(auth: AuthState) {
   return new apiClient(auth).get(`${HOST}parkingLot`);
 }
