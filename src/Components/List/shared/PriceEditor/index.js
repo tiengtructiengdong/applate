@@ -63,6 +63,7 @@ const hour = [...Array(24).keys()];
 
 export function PriceEditor({}) {
   const scrollRef = useRef();
+  const [scrollVal, setScrollVal] = useState(0.39);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -70,12 +71,13 @@ export function PriceEditor({}) {
       y: (sizeY * 0.61) / 2.2,
       animated: false,
     });
-  });
+  }, [dispatch]);
 
   const [sizeX, setSizeX] = useState(0);
   const [sizeY, setSizeY] = useState(0);
 
   const scrollTo = val => {
+    setScrollVal(val);
     if (sizeY > 0) {
       scrollRef?.current.scrollTo({
         y: (sizeY * (1 - val)) / 2.2,
@@ -83,8 +85,6 @@ export function PriceEditor({}) {
       });
     }
   };
-
-  console.log(sizeX, sizeY);
 
   return (
     <Container>
@@ -125,7 +125,7 @@ export function PriceEditor({}) {
 
         <VertArea>
           <ScrollbarArea>
-            <Slider value={0.39} vertical onValueChange={scrollTo} />
+            <Slider value={scrollVal} vertical onValueChange={scrollTo} />
           </ScrollbarArea>
         </VertArea>
       </RowArea>
