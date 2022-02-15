@@ -1,7 +1,9 @@
 import {
+  getActiveSessionAction,
   getActiveSessionSuccessAction,
   getAllParkingLotsAction,
   getAllParkingLotsSuccessAction,
+  getParkAction,
   getParkSuccessAction,
   getPartnerAction,
   getPartnerSuccessAction,
@@ -60,6 +62,18 @@ const getAllParkingLotsSaga = function* (action: AnyAction) {
     const data = parseRawDataResponse(response, true);
     if (data) {
       yield* put(getAllParkingLotsSuccessAction(data));
+
+      const {myParkingLot, workingParkingLot} = data;
+      const currentPark =
+        myParkingLot && myParkingLot.length > 0
+          ? myParkingLot[0]
+          : workingParkingLot && workingParkingLot.length > 0
+          ? workingParkingLot[0]
+          : undefined;
+
+      if (currentPark) {
+        yield* put(getParkAction(currentPark.Id));
+      }
     } else {
       const errorMessage = response?.data?.error?.message;
       if (errorMessage) {
@@ -150,6 +164,7 @@ const getParkSaga = function* (action: AnyAction) {
       const {parkingLot, membership} = data;
       console.log(membership);
       yield* put(getParkSuccessAction(parkingLot, membership));
+      yield* put(getActiveSessionAction(parkingLot.Id));
     } else {
       const errorMessage = response?.data?.error?.message;
       if (errorMessage) {

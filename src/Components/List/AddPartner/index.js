@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {Alert} from 'react-native';
 
 import styled from 'styled-components';
 import {Header} from '@components/Header';

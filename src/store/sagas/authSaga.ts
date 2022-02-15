@@ -61,11 +61,10 @@ const logoutSaga = function* (action: AnyAction) {
 
   try {
     //yield* put(updateSessionAction({loading: true}));
+    yield* put(logoutSuccessAction());
     const response = yield* call(logout, id);
-    console.log('yeet', response);
     const data = parseRawDataResponse(response, true);
     if (data) {
-      yield* put(logoutSuccessAction(data));
     } else {
       const errorMessage = response?.data?.error?.message;
       if (errorMessage) {

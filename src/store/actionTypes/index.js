@@ -92,6 +92,14 @@ export const updateMembershipAction = makeAction(
 export const updateMembershipSuccessAction = makeAction(
   'UPDATE_MEMBERSHIP_SUCCESS',
 );
+export const deleteMembershipAction = makeAction(
+  'DELETE_MEMBERSHIP',
+  'id',
+  'membershipId',
+);
+export const deleteMembershipSuccessAction = makeAction(
+  'DELETE_MEMBERSHIP_SUCCESS',
+);
 
 export const testCheckinAction = makeAction('TEST_CHECKOUT', 'id', 'plateId');
 export const testCheckinSuccessAction = makeAction(

@@ -56,57 +56,20 @@ const ButtonArea = styled.View`
 const Space = styled.View`
   height: ${props => props.height || 500}px;
 `;
-const PriceRow = styled.View`
-  flex-direction: row;
-  height: 30px;
-  margin-top: 10px;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  overflow: hidden;
-  margin-left: 38px;
-  margin-right: 40px;
-`;
-const PricePicker = styled(Picker)`
-  flex: 1;
-  height: 30px;
-  top: -93px;
-  margin-horizontal: -9px;
-`;
-const PricePickerItem = styled(Picker.Item)`
-  font-size: 14px;
-`;
-const PriceField = styled.TextInput`
-  font-size: 17px;
-  flex: 2;
-  text-align: right;
-  color: white;
-`;
 const PriceLabel = styled.Text`
   font-size: 17px;
   color: white;
   color: #ffb500;
+  margin-horizontal: 40px;
 `;
-
-const hourValue = [...Array(24).keys()];
-const minuteValue = [...Array(60).keys()];
-const valueString = i => (
-  <PricePickerItem
-    label={i.toLocaleString('en-US', {
-      minimumIntegerDigits: 2,
-    })}
-    value={i}
-    color="white"
-  />
-);
 
 const Screen = ({}) => {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [spaceCount, setSpaceCount] = useState('');
 
-  const [price, setPrice] = useState([]);
-  const [mark, setMark] = useState([0, 0]);
+  const [price, setPrice] = useState(0);
+  const [priceMode, setPriceMode] = useState('fixed');
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -114,34 +77,6 @@ const Screen = ({}) => {
   const register = () => {
     dispatch(addParkingLotAction(address, name, parseInt(spaceCount)));
     navigation.goBack();
-  };
-
-  const renderTimePicker = mark => {
-    const hour = Math.floor(mark);
-    const minute = Math.round((mark - hour) * 60);
-
-    const style = {
-      color: 'white',
-    };
-
-    return (
-      <>
-        <PricePicker selectedValue={hour}>
-          {hourValue.map(valueString)}
-        </PricePicker>
-        <PriceLabel>:</PriceLabel>
-        <PricePicker selectedValue={minute}>
-          {minuteValue.map(valueString)}
-        </PricePicker>
-      </>
-    );
-  };
-
-  const renderFrom = mark => {
-    return renderTimePicker(mark);
-  };
-  const renderTo = mark => {
-    return renderTimePicker(mark);
   };
 
   return (
@@ -162,18 +97,8 @@ const Screen = ({}) => {
           onChangeText={text => setSpaceCount(text)}
         />
         <Space height={20} />
-        <PriceRow>
-          <PriceLabel>Price</PriceLabel>
-        </PriceRow>
-        {[...Array(mark.length - 1).keys()].map(i => (
-          <PriceRow key={i}>
-            {renderFrom(mark[i])}
-            <PriceLabel> to </PriceLabel>
-            {renderTo(mark[i + 1])}
-            <PriceField placeholder="Price" placeholderTextColor="#777777" />
-            <PriceLabel> ₫</PriceLabel>
-          </PriceRow>
-        ))}
+        <PriceLabel>Parking Price</PriceLabel>
+        <Input onChangeText={text => setAddress(text)} />
 
         <ButtonArea>
           <Button onPress={register}>

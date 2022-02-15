@@ -66,15 +66,15 @@ export function PriceEditor({}) {
   const [scrollVal, setScrollVal] = useState(0.39);
   const dispatch = useDispatch();
 
+  const [sizeX, setSizeX] = useState(0);
+  const [sizeY, setSizeY] = useState(0);
+
   useEffect(() => {
     scrollRef?.current.scrollTo({
       y: (sizeY * 0.61) / 2.2,
       animated: false,
     });
-  }, [dispatch]);
-
-  const [sizeX, setSizeX] = useState(0);
-  const [sizeY, setSizeY] = useState(0);
+  }, [dispatch, sizeY]);
 
   const scrollTo = val => {
     setScrollVal(val);

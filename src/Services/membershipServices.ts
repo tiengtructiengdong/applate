@@ -37,3 +37,16 @@ export function updateMembership(
     update,
   );
 }
+
+export function deleteMembership(
+  auth: AuthState,
+  id: number,
+  membershipId: number,
+) {
+  return new apiClient(auth).delete(
+    `${HOST}parkingLot/${id}/deleteMembership`,
+    {
+      membershipId,
+    },
+  );
+}
