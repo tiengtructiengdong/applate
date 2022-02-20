@@ -7,6 +7,7 @@ import {
   getParkSuccessAction,
   getPartnerAction,
   getPartnerSuccessAction,
+  logoutSuccessAction,
   searchUserSuccessAction,
 } from '@store/actionTypes';
 import {AnyAction} from 'redux';
@@ -38,6 +39,12 @@ const addParkingLotSaga = function* (action: AnyAction) {
       name,
       spaceCount,
     );
+
+    if (response.status == 403) {
+      yield* put(logoutSuccessAction());
+      throw new Error('Please log in again.');
+    }
+
     const data = parseRawDataResponse(response, true);
     if (data) {
       yield* put(getAllParkingLotsAction());
@@ -59,6 +66,12 @@ const getAllParkingLotsSaga = function* (action: AnyAction) {
     //yield* put(updateSessionAction({loading: true}));
     const auth = yield* select(state => authSelector(state));
     const response = yield* call(getAllParkingLots, auth);
+
+    if (response.status == 403) {
+      yield* put(logoutSuccessAction());
+      throw new Error('Please log in again.');
+    }
+
     const data = parseRawDataResponse(response, true);
     if (data) {
       yield* put(getAllParkingLotsSuccessAction(data));
@@ -93,6 +106,12 @@ const getActiveSessionSaga = function* (action: AnyAction) {
     //yield* put(updateSessionAction({loading: true}));
     const auth = yield* select(state => authSelector(state));
     const response = yield* call(getActiveSession, auth, id);
+
+    if (response.status == 403) {
+      yield* put(logoutSuccessAction());
+      throw new Error('Please log in again.');
+    }
+
     const data = parseRawDataResponse(response, true);
     if (data) {
       yield* put(getActiveSessionSuccessAction(data.session));
@@ -115,6 +134,12 @@ const searchVehicleSaga = function* (action: AnyAction) {
     //yield* put(updateSessionAction({loading: true}));
     const auth = yield* select(state => authSelector(state));
     const response = yield* call(searchVehicle, auth, id, keyword);
+
+    if (response.status == 403) {
+      yield* put(logoutSuccessAction());
+      throw new Error('Please log in again.');
+    }
+
     const data = parseRawDataResponse(response, true);
     if (data) {
       yield* put(getActiveSessionSuccessAction(data.vehicles));
@@ -137,6 +162,12 @@ const searchUserSaga = function* (action: AnyAction) {
     //yield* put(updateSessionAction({loading: true}));
     const auth = yield* select(state => authSelector(state));
     const response = yield* call(searchUser, auth, keyword);
+
+    if (response.status == 403) {
+      yield* put(logoutSuccessAction());
+      throw new Error('Please log in again.');
+    }
+
     const data = parseRawDataResponse(response, true);
     if (data) {
       yield* put(searchUserSuccessAction(data.users));
@@ -159,6 +190,12 @@ const getParkSaga = function* (action: AnyAction) {
     //yield* put(updateSessionAction({loading: true}));
     const auth = yield* select(state => authSelector(state));
     const response = yield* call(getPark, auth, id);
+
+    if (response.status == 403) {
+      yield* put(logoutSuccessAction());
+      throw new Error('Please log in again.');
+    }
+
     const data = parseRawDataResponse(response, true);
     if (data) {
       const {parkingLot, membership} = data;
@@ -184,6 +221,12 @@ const getPartnerSaga = function* (action: AnyAction) {
     //yield* put(updateSessionAction({loading: true}));
     const auth = yield* select(state => authSelector(state));
     const response = yield* call(getPartner, auth, id);
+
+    if (response.status == 403) {
+      yield* put(logoutSuccessAction());
+      throw new Error('Please log in again.');
+    }
+
     const data = parseRawDataResponse(response, true);
     if (data) {
       yield* put(getPartnerSuccessAction(data.data));
@@ -206,6 +249,12 @@ const addPartnerSaga = function* (action: AnyAction) {
     //yield* put(updateSessionAction({loading: true}));
     const auth = yield* select(state => authSelector(state));
     const response = yield* call(addPartner, auth, id, partnerId);
+
+    if (response.status == 403) {
+      yield* put(logoutSuccessAction());
+      throw new Error('Please log in again.');
+    }
+
     const data = parseRawDataResponse(response, true);
     if (data) {
       yield* put(getPartnerAction(id));
@@ -231,6 +280,12 @@ const deletePartnerSaga = function* (action: AnyAction) {
     //yield* put(updateSessionAction({loading: true}));
     const auth = yield* select(state => authSelector(state));
     const response = yield* call(deletePartner, auth, id, partnerId);
+
+    if (response.status == 403) {
+      yield* put(logoutSuccessAction());
+      throw new Error('Please log in again.');
+    }
+
     const data = parseRawDataResponse(response, true);
     if (data) {
       yield* put(getPartnerAction(id));

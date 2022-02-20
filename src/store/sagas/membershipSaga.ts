@@ -2,6 +2,7 @@ import {
   checkinSuccessAction,
   getActiveSessionAction,
   getParkAction,
+  logoutSuccessAction,
   testCheckoutFailedAction,
   testCheckoutSuccessAction,
 } from '@store/actionTypes';
@@ -22,7 +23,12 @@ const addMembershipSaga = function* (action: AnyAction) {
     //yield* put(updateSessionAction({loading: true}));
     const auth = yield* select(state => authSelector(state));
     const response = yield* call(addMembership, auth, id, membership);
-    console.log(response);
+
+    if (response.status == 403) {
+      yield* put(logoutSuccessAction());
+      throw new Error('Please log in again.');
+    }
+
     if (response.status != 200) {
       throw new Error('Cannot add membership');
     }
@@ -54,6 +60,12 @@ const updateMembershipSaga = function* (action: AnyAction) {
       membershipId,
       update,
     );
+
+    if (response.status == 403) {
+      yield* put(logoutSuccessAction());
+      throw new Error('Please log in again.');
+    }
+
     if (response.status != 200) {
       throw new Error('Cannot update membership');
     }
@@ -79,7 +91,12 @@ const deleteMembershipSaga = function* (action: AnyAction) {
     //yield* put(updateSessionAction({loading: true}));
     const auth = yield* select(state => authSelector(state));
     const response = yield* call(deleteMembership, auth, id, membershipId);
-    console.log(response);
+
+    if (response.status == 403) {
+      yield* put(logoutSuccessAction());
+      throw new Error('Please log in again.');
+    }
+
     if (response.status != 200) {
       throw new Error('Cannot add membership');
     }

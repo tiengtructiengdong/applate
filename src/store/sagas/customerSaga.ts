@@ -1,6 +1,7 @@
 import {
   checkinSuccessAction,
   getActiveSessionAction,
+  logoutSuccessAction,
   testCheckoutFailedAction,
   testCheckoutSuccessAction,
 } from '@store/actionTypes';
@@ -22,6 +23,12 @@ const checkinSaga = function* (action: AnyAction) {
     //yield* put(updateSessionAction({loading: true}));
     const auth = yield* select(state => authSelector(state));
     const response = yield* call(checkin, auth, id, plateId);
+
+    if (response.status == 403) {
+      yield* put(logoutSuccessAction());
+      throw new Error('Please log in again.');
+    }
+
     if (response.status != 200) {
       throw new Error('Checkin error');
     }
@@ -48,6 +55,12 @@ const checkoutSaga = function* (action: AnyAction) {
     //yield* put(updateSessionAction({loading: true}));
     const auth = yield* select(state => authSelector(state));
     const response = yield* call(checkout, auth, id, plateId);
+
+    if (response.status == 403) {
+      yield* put(logoutSuccessAction());
+      throw new Error('Please log in again.');
+    }
+
     if (response.status != 200) {
       throw new Error('Checkin error');
     }
@@ -74,6 +87,12 @@ const testCheckoutSaga = function* (action: AnyAction) {
     //yield* put(updateSessionAction({loading: true}));
     const auth = yield* select(state => authSelector(state));
     const response = yield* call(testCheckout, auth, id, code);
+
+    if (response.status == 403) {
+      yield* put(logoutSuccessAction());
+      throw new Error('Please log in again.');
+    }
+
     if (response.status != 200) {
       yield* put(testCheckoutFailedAction());
       return;
@@ -110,6 +129,11 @@ const setMembershipSaga = function* (action: AnyAction) {
       plateId,
       membershipId,
     );
+    if (response.status == 403) {
+      yield* put(logoutSuccessAction());
+      throw new Error('Please log in again.');
+    }
+
     if (response.status != 200) {
       throw new Error('Error setting membership');
     }
