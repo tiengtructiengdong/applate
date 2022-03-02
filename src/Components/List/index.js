@@ -87,7 +87,7 @@ const List = ({}) => {
 
   useEffect(() => {
     dispatch(getAllParkingLotsAction());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (parkingLot?.Id) {
@@ -98,6 +98,12 @@ const List = ({}) => {
       }
     }
   }, [parkingLot, searchVehicle]);
+
+  useEffect(() => {
+    if (parkingLot === undefined || parkingLot === {}) {
+      navigation.navigate('AddParkingLot', {forced: true});
+    }
+  }, [parkingLot]);
 
   const confirmSelect = parkId => {
     dispatch(getParkAction(parkId));

@@ -45,6 +45,18 @@ export default function parkingLotReducer(
   action: AnyAction,
 ): ParkingLotState {
   switch (action.type) {
+    case 'RESET_PARKS':
+      return {
+        ...state,
+        myParkingLot: [],
+        workingParkingLot: [],
+        session: [],
+        searchUser: [],
+        membership: [],
+        partner: [],
+        isMyPark: false,
+        vehicleCount: 0,
+      };
     case 'GET_ALL_PARKING_LOTS_SUCCESS':
       const {myParkingLot, workingParkingLot} = action.parkingLotData;
       return {

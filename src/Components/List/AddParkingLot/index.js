@@ -63,7 +63,7 @@ const PriceLabel = styled.Text`
   margin-horizontal: 40px;
 `;
 
-const Screen = ({}) => {
+const Screen = ({forced}) => {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [spaceCount, setSpaceCount] = useState('');
@@ -84,7 +84,7 @@ const Screen = ({}) => {
       <Header
         bgColor={'#ffb500'}
         title={`What's your parking lot?`}
-        goBack={() => navigation.goBack()}
+        goBack={forced == true ? () => navigation.goBack() : undefined}
       />
       <FieldArea>
         <Label>Location name</Label>

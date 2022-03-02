@@ -76,6 +76,8 @@ export const setupCustomerListenerAction = makeAction(
   'onTestCheckoutFailed',
 );
 
+export const resetParksAction = makeAction('RESET_PARKS');
+
 export const addMembershipAction = makeAction(
   'ADD_MEMBERSHIP',
   'id',

@@ -5,7 +5,11 @@ import {PieChart} from 'react-native-chart-kit';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
-import {isMyParkSelector} from '@store/selectors/parkingLotSelector';
+import {
+  displayCountSelector,
+  isMyParkSelector,
+  spaceCountSelector,
+} from '@store/selectors/parkingLotSelector';
 
 const BG = styled.View`
   background-color: #424242;
@@ -127,17 +131,27 @@ export function Overview({
 }) {
   const today = new Date().getDate();
   const isMyPark = useSelector(isMyParkSelector);
+  const displayCount = useSelector(displayCountSelector);
+  const spaceCount = useSelector(spaceCountSelector);
   const [select, toggleSelect] = useState(false);
-  const data = [
-    {
-      population: 400,
-      color: '#fbd837',
-    },
-    {
-      population: 20,
-      color: '#00000030',
-    },
-  ];
+  const data =
+    spaceCount > 0
+      ? [
+          {
+            population: displayCount,
+            color: '#fbd837',
+          },
+          {
+            population: spaceCount - displayCount,
+            color: '#00000030',
+          },
+        ]
+      : [
+          {
+            population: 1,
+            color: '#00000030',
+          },
+        ];
 
   const selectItem = id => {
     confirmSelect(id);
@@ -200,9 +214,7 @@ export function Overview({
               hasLegend={false}
             />
             <ChartOverlay>
-              <VehicleCount color="#fbd837">
-                {parkingLot.SpaceCount}
-              </VehicleCount>
+              <VehicleCount color="#fbd837">{displayCount}</VehicleCount>
               <Label>
                 {parkingLot.SpaceCount != 0 ? 'Space left' : 'Motorbikes'}
               </Label>

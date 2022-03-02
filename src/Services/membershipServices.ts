@@ -33,7 +33,7 @@ export function updateMembership(
   update: Membership,
 ) {
   return new apiClient(auth).put(
-    `${HOST}parkingLot/${id}/membership/${membershipId}/addMembership`,
+    `${HOST}parkingLot/${id}/membership/${membershipId}/updateMembership`,
     update,
   );
 }

@@ -107,6 +107,7 @@ const AuthStack = ({}) => {
     <Stack.Navigator headerMode="none">
       <Stack.Screen name="Auth" component={Auth} />
       <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen name="AddParkingLot" component={AddParkingLot} />
     </Stack.Navigator>
   );
 };

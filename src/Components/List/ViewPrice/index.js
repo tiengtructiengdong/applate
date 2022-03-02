@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -10,7 +11,11 @@ import {
   currentParkingLotSelector,
   membershipListSelector,
 } from '@store/selectors/parkingLotSelector';
-import {addMembershipAction} from '@store/actionTypes';
+import {
+  addMembershipAction,
+  deleteMembershipAction,
+  updateMembershipAction,
+} from '@store/actionTypes';
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -39,31 +44,33 @@ const SelectorArea = styled.View`
 `;
 const Label = styled.Text`
   font-size: 18px;
-  align-self: center;
   color: white;
   width: 120px;
 `;
-const Input = styled.TextInput`
+const Input = styled.TouchableOpacity`
   height: 45px;
   flex: 1;
   font-size: 18px;
   border-radius: 5px;
   background-color: #424242;
   color: white;
-  padding: 10px;
   margin-vertical: 8px;
   margin-left: 20px;
+  padding-left: 15px;
+  padding-top: 10px;
 `;
-const NameInput = styled.TextInput`
+const NameInput = styled.TouchableOpacity`
   height: 45px;
-  font-size: 18px;
   background-color: transparent;
-  color: #ffb500;
   margin-left: 0px;
-  padding: 0px;
+  padding-top: 10px;
   width: 120px;
   border-bottom-width: 1px;
   border-color: #424242;
+`;
+const NameText = styled.Text`
+  color: #ffb500;
+  font-size: 18px;
 `;
 const RemoveButton = styled.TouchableOpacity`
   margin-left: 10px;
@@ -92,11 +99,24 @@ const Screen = ({}) => {
     dispatch(deleteMembershipAction(parkingLot.Id, membershipId));
   };
 
+  // no ANDROID yet -- WARNING
+  const editPrice = memId => {
+    Alert.prompt('Parking price (VND)', '', price => {
+      dispatch(updateMembershipAction(parkingLot.Id, memId, {fee: {price}}));
+    });
+  };
+
+  const editName = memId => {
+    Alert.prompt('Enter the name', '', name => {
+      dispatch(updateMembershipAction(parkingLot.Id, memId, {name}));
+    });
+  };
+
   return (
     <Container>
       <Header
         bgColor={'#ffb500'}
-        title={`Pricing`}
+        title={`Pricing (VND)`}
         goBack={() => navigation.goBack()}
         goRight={() => addMembership('Diamond', 0, 1)}
         iconRight="add-outline"
@@ -104,17 +124,20 @@ const Screen = ({}) => {
       <FieldArea>
         <Row>
           <Label>Default</Label>
-          <Input
-            value={membershipList[0].Fee.price || '0'}
-            onChangeText={text => setName(text)}
-          />
+          <Input onPress={() => editPrice(membershipList[0].Id)}>
+            <Label>{JSON.parse(membershipList[0].Fee).price}</Label>
+          </Input>
         </Row>
         {membershipList
-          // .filter(item => item.Name != 'Passer-by')
+          .filter(item => item.Name != 'Passer-by')
           .map((membership, i) => (
             <Row key={`mem_${i}`}>
-              <NameInput value={membership.Name || ''} />
-              <Input onChangeText={text => setName(text)} />
+              <NameInput onPress={() => editName(membership.Id)}>
+                <NameText>{membership.Name || ''}</NameText>
+              </NameInput>
+              <Input onPress={() => editPrice(membership.Id)}>
+                <Label>{JSON.parse(membership.Fee).price}</Label>
+              </Input>
               <RemoveButton onPress={() => removeMembership(membership.Id)}>
                 <Icon name="close-outline" size={36} color="red" />
               </RemoveButton>

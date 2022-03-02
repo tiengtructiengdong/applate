@@ -65,13 +65,13 @@ const updateMembershipSaga = function* (action: AnyAction) {
       yield* put(logoutSuccessAction());
       throw new Error('Please log in again.');
     }
-
+    console.log(response);
     if (response.status != 200) {
       throw new Error('Cannot update membership');
     }
     const data = parseRawDataResponse(response, true);
     if (data) {
-      yield* put(checkinSuccessAction(data));
+      yield* put(getParkAction(id));
     } else {
       const errorMessage = response?.data?.error?.message;
       if (errorMessage) {

@@ -21,5 +21,15 @@ export const searchUserSelector = (state: RootState) =>
 export const partnerSelector = (state: RootState) =>
   state.parkingLot?.partner || [];
 
+export const spaceCountSelector = (state: RootState) =>
+  state.parkingLot?.currentParkingLot?.SpaceCount || 0;
+
+export const displayCountSelector = (state: RootState) =>
+  state.parkingLot?.currentParkingLot?.SpaceCount &&
+  state.parkingLot?.currentParkingLot?.SpaceCount > 0
+    ? state.parkingLot?.currentParkingLot?.SpaceCount -
+      (state.parkingLot?.vehicleCount || 0)
+    : state.parkingLot?.vehicleCount || 0;
+
 export const isMyParkSelector = (state: RootState) =>
   state.parkingLot?.isMyPark || false;
