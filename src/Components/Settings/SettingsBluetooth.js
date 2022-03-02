@@ -7,10 +7,7 @@ import {Header} from '@components/Header';
 import BleManager, {start} from 'react-native-ble-manager';
 
 import {NativeEventEmitter, NativeModules} from 'react-native';
-
-import {useDispatch, useSelector} from 'react-redux';
-import {popUp} from '@constants/Utils';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import EscPosEncoder from 'esc-pos-encoder';
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -59,7 +56,7 @@ const Screen = ({}) => {
 
   const startScan = () => {
     if (!isScanning) {
-      BleManager.scan([], 3, true)
+      BleManager.scan([], 5, false)
         .then(results => {
           console.log('Scanning...');
           setIsScanning(true);
@@ -69,7 +66,55 @@ const Screen = ({}) => {
         });
     } else {
       BleManager.stopScan();
+      setIsScanning(false);
     }
+  };
+
+  const printTest = peripheral => {
+    const encoder = new EscPosEncoder();
+    const res = encoder
+      .initialize()
+      .bold()
+      .text('Applate Test')
+      .newline()
+      .newline()
+      .text('Printer test success!')
+      .newline()
+      .text('You can now use the app.')
+      .encode();
+    var newArr = [];
+    for (i in res) {
+      newArr[i] = res[i] & 0xff;
+    }
+    console.log('allow', newArr);
+
+    BleManager.retrieveServices(peripheral.id)
+      .then(peripheralInfo => {
+        var service = '49535343-fe7d-4ae5-8fa9-9fafd205e455';
+        var characteristic = '49535343-8841-43f4-a8d4-ecbe34729bb3';
+        console.log(peripheralInfo);
+        //setTimeout(() => {
+        //BleManager.startNotification(peripheral.id, service, characteristic)
+        //  .then(() => {
+        //    console.log('Started notification on ' + peripheral.id);
+        //setTimeout(() => {
+        BleManager.write(peripheral.id, service, characteristic, newArr)
+          .then(() => {
+            console.log('Writed NORMAL crust');
+          })
+          .catch(err => {
+            console.log('yeetfail');
+          });
+        //}, 5000);
+        ///  })
+        ///  .catch(error => {
+        ///    console.log('Notification error', error);
+        ///  });
+        //}, 5000);
+      })
+      .catch(err => {
+        console.log('nope', err);
+      });
   };
 
   const handleStopScan = () => {
@@ -122,7 +167,6 @@ const Screen = ({}) => {
   };
 
   const testPeripheral = peripheral => {
-    console.log('we');
     if (peripheral) {
       if (peripheral.connected) {
         BleManager.disconnect(peripheral.id);
@@ -149,11 +193,13 @@ const Screen = ({}) => {
                     if (p) {
                       p.rssi = rssi;
                       peripherals.set(peripheral.id, p);
+                      console.log(p);
                       setList(Array.from(peripherals.values()));
                     }
                   });
                 },
               );
+              printTest(peripheral);
             }, 900);
           })
           .catch(error => {

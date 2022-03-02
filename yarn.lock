@@ -3442,7 +3442,7 @@ es6-promisify@^5.0.0:
 
 esc-pos-encoder@^1.3.0:
   version "1.3.0"
-  resolved "https://registry.npmjs.org/esc-pos-encoder/-/esc-pos-encoder-1.3.0.tgz"
+  resolved "https://registry.yarnpkg.com/esc-pos-encoder/-/esc-pos-encoder-1.3.0.tgz#a8b0c971db0b6507ad825a8b189dc436affb4041"
   integrity sha512-xtaOnH2ZGGq69kNIYGpwT8JznLLxdM1Qlb9sDaRRaCZ9KOEaq4zuKIbX4c1W74jfSVrON6LSp6g33L97k8Ifng==
   dependencies:
     buffer-to-uint8array "^1.1.0"
