@@ -74,6 +74,7 @@ export const setupCustomerListenerAction = makeAction(
   'onCheckinSuccess',
   'onTestCheckoutSuccess',
   'onTestCheckoutFailed',
+  'printTicket',
 );
 
 export const resetParksAction = makeAction('RESET_PARKS');
@@ -103,7 +104,7 @@ export const deleteMembershipSuccessAction = makeAction(
   'DELETE_MEMBERSHIP_SUCCESS',
 );
 
-export const testCheckinAction = makeAction('TEST_CHECKOUT', 'id', 'plateId');
+export const testCheckinAction = makeAction('TEST_CHECKIN', 'id', 'plateId');
 export const testCheckinSuccessAction = makeAction(
   'TEST_CHECKIN_SUCCESS',
   'data',

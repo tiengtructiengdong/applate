@@ -74,13 +74,15 @@ const Screen = ({}) => {
     const encoder = new EscPosEncoder();
     const res = encoder
       .initialize()
-      .bold()
       .text('Applate Test')
       .newline()
       .newline()
       .text('Printer test success!')
       .newline()
       .text('You can now use the app.')
+      .newline()
+      .newline()
+      .newline()
       .encode();
     var newArr = [];
     for (i in res) {
@@ -93,11 +95,6 @@ const Screen = ({}) => {
         var service = '49535343-fe7d-4ae5-8fa9-9fafd205e455';
         var characteristic = '49535343-8841-43f4-a8d4-ecbe34729bb3';
         console.log(peripheralInfo);
-        //setTimeout(() => {
-        //BleManager.startNotification(peripheral.id, service, characteristic)
-        //  .then(() => {
-        //    console.log('Started notification on ' + peripheral.id);
-        //setTimeout(() => {
         BleManager.write(peripheral.id, service, characteristic, newArr)
           .then(() => {
             console.log('Writed NORMAL crust');
@@ -105,12 +102,6 @@ const Screen = ({}) => {
           .catch(err => {
             console.log('yeetfail');
           });
-        //}, 5000);
-        ///  })
-        ///  .catch(error => {
-        ///    console.log('Notification error', error);
-        ///  });
-        //}, 5000);
       })
       .catch(err => {
         console.log('nope', err);
@@ -140,21 +131,6 @@ const Screen = ({}) => {
         data.characteristic,
       data.value,
     );
-  };
-
-  const retrieveConnected = () => {
-    BleManager.getConnectedPeripherals([]).then(results => {
-      if (results.length == 0) {
-        console.log('No connected peripherals');
-      }
-      console.log(results);
-      for (var i = 0; i < results.length; i++) {
-        var peripheral = results[i];
-        peripheral.connected = true;
-        peripherals.set(peripheral.id, peripheral);
-        setList(Array.from(peripherals.values()));
-      }
-    });
   };
 
   const handleDiscoverPeripheral = peripheral => {

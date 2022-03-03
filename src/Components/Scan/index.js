@@ -1,5 +1,5 @@
 import React, {memo, useEffect, useState} from 'react';
-
+import EscPosEncoder from 'esc-pos-encoder';
 import {
   Alert,
   Dimensions,
@@ -9,9 +9,9 @@ import {
   View,
 } from 'react-native';
 import {RNCamera} from 'react-native-camera';
+import BleManager, {start} from 'react-native-ble-manager';
 
 import {Header} from '../Header';
-
 import {currentParkingLotSelector} from '@store/selectors/parkingLotSelector';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -125,6 +125,9 @@ const Scan = ({}) => {
   const [connected, setConnected] = useState(true); //temp
   const [mounted, setMounted] = useState(false);
 
+  const peripherals = new Map();
+  const [list, setList] = useState([]);
+
   const dispatch = useDispatch();
   const parkingLot = useSelector(currentParkingLotSelector);
   const id = parkingLot.Id;
@@ -136,6 +139,47 @@ const Scan = ({}) => {
     }
   };
 
+  const printTicket = () => {
+    const encoder = new EscPosEncoder();
+    const res = encoder
+      .initialize()
+      .text('Applate Test')
+      .newline()
+      .newline()
+      .text('Printer test success!')
+      .newline()
+      .text('You can now use the app.')
+      .newline()
+      .newline()
+      .newline()
+      .encode();
+    var newArr = [];
+    for (i in res) {
+      newArr[i] = res[i] & 0xff;
+    }
+    console.log('allow', newArr);
+
+    for (let peripheral of list) {
+      BleManager.retrieveServices(peripheral.id)
+        .then(peripheralInfo => {
+          var service = '49535343-fe7d-4ae5-8fa9-9fafd205e455';
+          var characteristic = '49535343-8841-43f4-a8d4-ecbe34729bb3';
+          console.log(peripheralInfo);
+          BleManager.write(peripheral.id, service, characteristic, newArr)
+            .then(() => {
+              console.log('Writed NORMAL crust');
+              return;
+            })
+            .catch(err => {
+              console.log('yeetfail');
+            });
+        })
+        .catch(err => {
+          console.log('nope', err);
+        });
+    }
+    throw new Error('Cannot print. Please reconnect');
+  };
   const onTextRecognized = text => {
     const regEx =
       /[1-9][0-9]\-?[A-Z][A-Z0-9]?\n[0-9]{3}([0-9]|(\.|\-)[0-9]{2})/;
@@ -171,7 +215,20 @@ const Scan = ({}) => {
       }
     }
   };
-
+  const retrieveConnected = () => {
+    BleManager.getConnectedPeripherals([]).then(results => {
+      if (results.length == 0) {
+        console.log('No connected peripherals');
+      }
+      console.log(results);
+      for (var i = 0; i < results.length; i++) {
+        var peripheral = results[i];
+        peripheral.connected = true;
+        peripherals.set(peripheral.id, peripheral);
+        setList(Array.from(peripherals.values()));
+      }
+    });
+  };
   const processCheckin = plateId => {
     dispatch(testCheckinAction(plateId));
   };
@@ -199,8 +256,10 @@ const Scan = ({}) => {
         onCheckinSuccess,
         onTestCheckoutSuccess,
         onTestCheckoutFailed,
+        printTicket,
       ),
     );
+    retrieveConnected();
   }, [dispatch]);
 
   return (

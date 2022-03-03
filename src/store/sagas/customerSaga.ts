@@ -18,11 +18,11 @@ import {
 } from '@services/customerServices';
 
 const checkinSaga = function* (action: AnyAction) {
-  const {id, plateId} = action;
+  const {id, plateId, code} = action;
   try {
     //yield* put(updateSessionAction({loading: true}));
     const auth = yield* select(state => authSelector(state));
-    const response = yield* call(checkin, auth, id, plateId);
+    const response = yield* call(checkin, auth, id, plateId, code);
 
     if (response.status == 403) {
       yield* put(logoutSuccessAction());
