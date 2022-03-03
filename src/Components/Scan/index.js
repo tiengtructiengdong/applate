@@ -139,17 +139,18 @@ const Scan = ({}) => {
     }
   };
 
-  const printTicket = () => {
+  const printTicket = data => {
+    const {plateId, code} = data;
     const encoder = new EscPosEncoder();
     const res = encoder
       .initialize()
-      .text('Applate Test')
+      .text(parkingLot.Name || "Applate's Parking Lot")
       .newline()
+      .text(plateId)
       .newline()
-      .text('Printer test success!')
+      .qrcode(code)
       .newline()
-      .text('You can now use the app.')
-      .newline()
+      .text('Powered by Applate')
       .newline()
       .newline()
       .encode();
@@ -230,7 +231,7 @@ const Scan = ({}) => {
     });
   };
   const processCheckin = plateId => {
-    dispatch(testCheckinAction(plateId));
+    dispatch(testCheckinAction(parkingLot.Id, plateId));
   };
   const onTestCheckinSuccess = data => {
     const {plateId, code} = data;

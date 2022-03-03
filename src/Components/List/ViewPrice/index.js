@@ -112,6 +112,8 @@ const Screen = ({}) => {
     });
   };
 
+  console.log(membershipList);
+
   return (
     <Container>
       <Header
@@ -129,7 +131,7 @@ const Screen = ({}) => {
           </Input>
         </Row>
         {membershipList
-          .filter(item => item.Name != 'Passer-by')
+          .filter(item => item.Name != 'Default')
           .map((membership, i) => (
             <Row key={`mem_${i}`}>
               <NameInput onPress={() => editName(membership.Id)}>

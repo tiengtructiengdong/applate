@@ -2,6 +2,7 @@ import {
   checkinSuccessAction,
   getActiveSessionAction,
   logoutSuccessAction,
+  testCheckinProceedAction,
   testCheckoutFailedAction,
   testCheckoutSuccessAction,
 } from '@store/actionTypes';
@@ -14,8 +15,42 @@ import {
   checkin,
   checkout,
   setMembership,
+  testCheckin,
   testCheckout,
 } from '@services/customerServices';
+
+const testCheckinSaga = function* (action: AnyAction) {
+  const {id, plateId} = action;
+  console.log(action);
+  try {
+    //yield* put(updateSessionAction({loading: true}));
+    const auth = yield* select(state => authSelector(state));
+    const response = yield* call(testCheckin, auth, id, plateId);
+
+    if (response.status == 403) {
+      yield* put(logoutSuccessAction());
+      throw new Error('Please log in again.');
+    }
+
+    if (response.status != 200) {
+      console.log(response);
+      throw new Error('Test checkin error');
+    }
+    const data = parseRawDataResponse(response, true);
+    if (data) {
+      yield* put(testCheckinProceedAction(data));
+    } else {
+      const errorMessage = response?.data?.error?.message;
+      if (errorMessage) {
+        popUp(errorMessage);
+      }
+    }
+  } catch (error: any) {
+    popUp(error.message);
+  } finally {
+    //yield* put(updateSessionAction({loading: false}));
+  }
+};
 
 const checkinSaga = function* (action: AnyAction) {
   const {id, plateId, code} = action;
@@ -155,6 +190,7 @@ const setMembershipSaga = function* (action: AnyAction) {
 
 export default function* () {
   yield* all([
+    takeLatest('TEST_CHECKIN', testCheckinSaga),
     takeLatest('CHECKIN', checkinSaga),
     takeLatest('TEST_CHECKOUT', testCheckoutSaga),
     takeLatest('CHECKOUT', checkoutSaga),

@@ -5,7 +5,7 @@ export type CustomerState = {
   onCheckinSuccess?: (data: any) => void;
   onTestCheckoutSuccess?: (plateId: string) => void;
   onTestCheckoutFailed?: () => void;
-  printTicket?: () => void;
+  printTicket?: (data: any) => void;
 };
 
 const initState: CustomerState = {};
@@ -34,14 +34,17 @@ export default function customerReducer(
         printTicket,
       };
 
-    case 'TEST_CHECKIN':
-      console.log('testing', printTicket);
+    case 'TEST_CHECKIN_PROCEED':
+      console.log('yeet');
       try {
         if (state.printTicket) {
-          state.printTicket();
+          state.printTicket(action.data);
+        } else {
+          throw new Error('No such function');
         }
         if (state.onTestCheckinSuccess) {
-          state.onTestCheckinSuccess(action.data);
+          console.log('yes');
+          //state.onTestCheckinSuccess(action.data);
         }
       } catch (err) {
         console.log(err);

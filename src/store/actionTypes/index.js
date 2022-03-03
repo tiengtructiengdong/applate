@@ -105,6 +105,10 @@ export const deleteMembershipSuccessAction = makeAction(
 );
 
 export const testCheckinAction = makeAction('TEST_CHECKIN', 'id', 'plateId');
+export const testCheckinProceedAction = makeAction(
+  'TEST_CHECKIN_PROCEED',
+  'data',
+);
 export const testCheckinSuccessAction = makeAction(
   'TEST_CHECKIN_SUCCESS',
   'data',

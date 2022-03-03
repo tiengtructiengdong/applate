@@ -1,6 +1,7 @@
 import {RegisterData} from '@constants/Types';
 import {register, login, logout} from '@services/authServices';
 import {
+  addParkingLotAction,
   loginAction,
   loginSuccessAction,
   logoutSuccessAction,
@@ -16,6 +17,7 @@ const registerSaga = function* (action: AnyAction) {
     //yield* put(updateSessionAction({loading: true}));
     const response = yield* call(register, registerData);
     if (response.status === 400) {
+      console.log(response);
       throw new Error('ID or Phone number\nis registered!');
     }
     popUp('Registration success!', 'You can continue with the app.');
