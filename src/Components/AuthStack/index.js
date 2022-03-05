@@ -9,6 +9,7 @@ import {currentParkingLotSelector} from '@store/selectors/parkingLotSelector';
 import AddParkingLot from '@components/List/AddParkingLot';
 import Register from './Register';
 import {createStackNavigator} from '@react-navigation/stack';
+import {tabNavigationSelector} from '@store/selectors/authSelector';
 
 const Container = styled.View`
   flex: 1;

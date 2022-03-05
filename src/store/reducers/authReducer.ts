@@ -7,6 +7,7 @@ export type AuthState = {
   fullName?: string;
   phoneNumber?: string;
   token?: string;
+  navigation?: any;
 };
 
 const initState: AuthState = {};
@@ -17,6 +18,11 @@ export default function authReducer(
   action: AnyAction,
 ): AuthState {
   switch (action.type) {
+    case 'SET_TAB_NAVIGATION':
+      return {
+        ...state,
+        navigation: action.navigation,
+      };
     case 'LOGIN_SUCCESS':
       def.set('id', `${action.userData.id}`).then(() => {
         def.set('token', action.userData.token).then(() => {});

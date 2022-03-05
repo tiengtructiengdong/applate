@@ -2,6 +2,11 @@
 export const loginAction = makeAction('LOGIN', 'number', 'password');
 export const loginSuccessAction = makeAction('LOGIN_SUCCESS', 'userData');
 
+export const setTabNavigationAction = makeAction(
+  'SET_TAB_NAVIGATION',
+  'navigation',
+);
+
 export const logoutAction = makeAction('LOGOUT', 'id');
 export const logoutSuccessAction = makeAction('LOGOUT_SUCCESS');
 

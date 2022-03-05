@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import BleManager, {start} from 'react-native-ble-manager';
-
 import {Header} from '../Header';
 import {currentParkingLotSelector} from '@store/selectors/parkingLotSelector';
 import {useDispatch, useSelector} from 'react-redux';
@@ -21,6 +20,10 @@ import {
   testCheckinAction,
   testCheckoutAction,
 } from '@store/actionTypes';
+
+import QRCode from 'qrcode';
+import {createCanvas, loadImage} from 'canvas';
+
 import {popUp} from '@constants/Utils';
 
 const style = StyleSheet.create({
@@ -130,7 +133,7 @@ const Scan = ({}) => {
 
   const dispatch = useDispatch();
   const parkingLot = useSelector(currentParkingLotSelector);
-  const id = parkingLot.Id;
+  const id = parkingLot.Id || -1;
 
   const onBarCodeRead = code => {
     if (!checkOut) {
@@ -139,47 +142,57 @@ const Scan = ({}) => {
     }
   };
 
-  const printTicket = data => {
-    const {plateId, code} = data;
-    const encoder = new EscPosEncoder();
-    const res = encoder
-      .initialize()
-      .text(parkingLot.Name || "Applate's Parking Lot")
-      .newline()
-      .text(plateId)
-      .newline()
-      .qrcode(code)
-      .newline()
-      .text('Powered by Applate')
-      .newline()
-      .newline()
-      .encode();
-    var newArr = [];
-    for (i in res) {
-      newArr[i] = res[i] & 0xff;
-    }
-    console.log('allow', newArr);
+  const printTicket = async data => {
+    try {
+      const {plateId, code} = data;
+      //const qrcode = await getQRCode(code);
+      //console.log(qrcode);
+      const encoder = new EscPosEncoder();
+      const res = encoder
+        .initialize()
+        .text('The quick brown fox jumps over the lazy dog')
+        .newline()
+        .raw([
+          29, 119, 5, 29, 104, 128, 29, 102, 1, 29, 72, 3, 29, 107, 67, 75, 76,
+          77,
+        ])
+        .encode();
+      var newArr = [];
+      for (i in res) {
+        newArr[i] = res[i] & 0xff;
+      }
+      console.log('allow', newArr);
+      console.log('allow', newArr.map(String.fromCharCode));
 
-    for (let peripheral of list) {
-      BleManager.retrieveServices(peripheral.id)
-        .then(peripheralInfo => {
-          var service = '49535343-fe7d-4ae5-8fa9-9fafd205e455';
-          var characteristic = '49535343-8841-43f4-a8d4-ecbe34729bb3';
-          console.log(peripheralInfo);
-          BleManager.write(peripheral.id, service, characteristic, newArr)
-            .then(() => {
-              console.log('Writed NORMAL crust');
-              return;
+      try {
+        for (let peripheral of list) {
+          BleManager.retrieveServices(peripheral.id)
+            .then(peripheralInfo => {
+              var service = '49535343-fe7d-4ae5-8fa9-9fafd205e455';
+              var characteristic = '49535343-8841-43f4-a8d4-ecbe34729bb3';
+              console.log(peripheralInfo);
+              BleManager.write(peripheral.id, service, characteristic, newArr)
+                .then(() => {
+                  console.log('Writed NORMAL crust');
+                  throw new Error('return');
+                })
+                .catch(err => {
+                  console.log('yeetfail', err);
+                });
             })
             .catch(err => {
-              console.log('yeetfail');
+              console.log('nope', err);
             });
-        })
-        .catch(err => {
-          console.log('nope', err);
-        });
+        }
+      } catch (err) {
+        if (err.message === 'return') {
+          return;
+        }
+      }
+    } catch (err) {
+      console.log(err);
     }
-    throw new Error('Cannot print. Please reconnect');
+    //throw new Error('Cannot print. Please reconnect');
   };
   const onTextRecognized = text => {
     const regEx =
@@ -251,6 +264,7 @@ const Scan = ({}) => {
   };
 
   useEffect(() => {
+    console.log('34543');
     dispatch(
       setupCustomerListenerAction(
         onTestCheckinSuccess,

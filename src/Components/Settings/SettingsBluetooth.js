@@ -80,6 +80,7 @@ const Screen = ({}) => {
       .text('Printer test success!')
       .newline()
       .text('You can now use the app.')
+      .qrcode('yeet')
       .newline()
       .newline()
       .newline()
