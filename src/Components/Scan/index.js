@@ -20,9 +20,7 @@ import {
   testCheckinAction,
   testCheckoutAction,
 } from '@store/actionTypes';
-
-import QRCode from 'qrcode';
-import {createCanvas, loadImage} from 'canvas';
+import qrcode from 'qrcode-terminal';
 
 import {popUp} from '@constants/Utils';
 
@@ -135,34 +133,69 @@ const Scan = ({}) => {
   const parkingLot = useSelector(currentParkingLotSelector);
   const id = parkingLot.Id || -1;
 
+  const getQR = code => {
+    // calculation
+    const m = 0;
+    const x = 4;
+
+    // calculation
+    var qrRaw = [];
+
+    qrcode.generate(code, {small: true}, qrcode => {
+      var lines = qrcode.split('\n');
+      lines.forEach(line => {
+        const width = line.length * x;
+        const nL = width % 256;
+        const nH = Math.floor((width - nL) / 256);
+
+        var lineRaw = [0x1b, 0x2a, m, nL, nH];
+        line.split('').forEach(dot => {
+          if (dot === '▄') {
+            lineRaw = lineRaw.concat(Array(x).fill(0xf));
+          } else if (dot === '█') {
+            lineRaw = lineRaw.concat(Array(x).fill(0xff));
+          } else if (dot === '▀') {
+            lineRaw = lineRaw.concat(Array(x).fill(0xf0));
+          } else {
+            lineRaw = lineRaw.concat(Array(x).fill(0));
+          }
+        });
+
+        qrRaw = qrRaw.concat(lineRaw);
+      });
+    });
+    return qrRaw;
+  };
   const onBarCodeRead = code => {
     if (!checkOut) {
       dispatch(testCheckoutAction(id, code));
       setCheckout(true);
     }
   };
-
   const printTicket = async data => {
     try {
       const {plateId, code} = data;
-      //const qrcode = await getQRCode(code);
-      //console.log(qrcode);
+
       const encoder = new EscPosEncoder();
       const res = encoder
         .initialize()
-        .text('The quick brown fox jumps over the lazy dog')
+        .text(
+          parkingLot.Name
+            ? `Parking Lot: ${parkingLot.Name}`
+            : 'Applate Parking Lot',
+        )
+        .text(plateId || 'Vehicle')
         .newline()
-        .raw([
-          29, 119, 5, 29, 104, 128, 29, 102, 1, 29, 72, 3, 29, 107, 67, 75, 76,
-          77,
-        ])
+        .raw(getQR(code))
+        .newline()
+        .text('Powered by Applate')
+        .newline()
+        .newline()
         .encode();
       var newArr = [];
       for (i in res) {
         newArr[i] = res[i] & 0xff;
       }
-      console.log('allow', newArr);
-      console.log('allow', newArr.map(String.fromCharCode));
 
       try {
         for (let peripheral of list) {
@@ -253,7 +286,6 @@ const Scan = ({}) => {
   const onCheckinSuccess = data => {
     console.log('Checkin success!', data);
   };
-
   const onTestCheckoutSuccess = plateId => {
     dispatch(checkoutAction(plateId));
   };
@@ -264,7 +296,6 @@ const Scan = ({}) => {
   };
 
   useEffect(() => {
-    console.log('34543');
     dispatch(
       setupCustomerListenerAction(
         onTestCheckinSuccess,

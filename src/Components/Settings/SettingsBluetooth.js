@@ -9,6 +9,8 @@ import BleManager, {start} from 'react-native-ble-manager';
 import {NativeEventEmitter, NativeModules} from 'react-native';
 import EscPosEncoder from 'esc-pos-encoder';
 
+import qrcode from 'qrcode-terminal';
+
 const Container = styled.SafeAreaView`
   flex: 1;
   width: 100%;
@@ -71,6 +73,43 @@ const Screen = ({}) => {
   };
 
   const printTest = peripheral => {
+    const m = 0;
+    const x = 5;
+
+    // calculation
+    var qrRaw = [];
+
+    qrcode.generate(
+      'This will be a small QRCode, eh!',
+      {small: true},
+      qrcode => {
+        var lines = qrcode.split('\n');
+        lines.forEach(line => {
+          const width = line.length * x;
+          const nL = width % 256;
+          const nH = Math.floor((width - nL) / 256);
+
+          var lineRaw = [0x1b, 0x2a, m, nL, nH];
+          line.split('').forEach(dot => {
+            if (dot === '▄') {
+              lineRaw = lineRaw.concat(Array(x).fill(0xf));
+            } else if (dot === '█') {
+              lineRaw = lineRaw.concat(Array(x).fill(0xff));
+            } else if (dot === '▀') {
+              lineRaw = lineRaw.concat(Array(x).fill(0xf0));
+            } else {
+              lineRaw = lineRaw.concat(Array(x).fill(0));
+            }
+          });
+
+          console.log(lineRaw);
+
+          qrRaw = qrRaw.concat(lineRaw);
+        });
+      },
+    );
+    // calculation
+
     const encoder = new EscPosEncoder();
     const res = encoder
       .initialize()
@@ -80,8 +119,8 @@ const Screen = ({}) => {
       .text('Printer test success!')
       .newline()
       .text('You can now use the app.')
-      .qrcode('yeet')
       .newline()
+      .raw(qrRaw)
       .newline()
       .newline()
       .encode();
