@@ -71,7 +71,7 @@ const SmallCount = styled(VehicleCount)`
 
 const ParkingLotSelectBG = styled.View`
   background-color: #212121;
-  height: 153px;
+  height: 166px;
   margin-top: -8px;
   margin-bottom: -20px;
   margin-horizontal: -20px;
@@ -122,19 +122,21 @@ const CommandArea = styled.View`
   flex-direction: row;
   align-items: center;
   height: 90px;
-  padding-top: 10px;
+  padding-top: 20px;
   padding-horizontal: 5px;
 `;
 const CommandText = styled.Text`
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   text-align: center;
+  letter-spacing: -0.5px;
   padding-top: 5px;
   color: ${props => props.color || 'white'};
 `;
 const BluetoothText = styled.Text`
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
+  letter-spacing: -0.5px;
   text-align: center;
   color: ${props => props.color || 'white'};
   align-self: center;
@@ -250,7 +252,7 @@ export function Overview({
             </ChartOverlay>
           </ChartArea>
           <Area>
-            <RowArea paddingTop={20}>
+            <RowArea paddingTop={18}>
               {/* <Area>
                 <SmallLabel>Customers</SmallLabel>
                 <SmallCount>20</SmallCount>

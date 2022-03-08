@@ -84,7 +84,7 @@ const Screen = ({forced}) => {
       <Header
         bgColor={'#ffb500'}
         title={`What's your parking lot?`}
-        goBack={forced == true ? () => navigation.goBack() : undefined}
+        goBack={forced == true ? undefined : () => navigation.goBack()}
       />
       <FieldArea>
         <Label>Location name</Label>
