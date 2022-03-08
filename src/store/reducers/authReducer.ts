@@ -25,7 +25,15 @@ export default function authReducer(
       };
     case 'LOGIN_SUCCESS':
       def.set('id', `${action.userData.id}`).then(() => {
-        def.set('token', action.userData.token).then(() => {});
+        def.set('token', action.userData.token).then(() => {
+          def.set('fullName', `${action.userData.fullName}`).then(() => {
+            def.set('officialId', action.userData.officialId).then(() => {
+              def
+                .set('phoneNumber', `${action.userData.phoneNumber}`)
+                .then(() => {});
+            });
+          });
+        });
       });
 
       const {officialId, id, fullName, phoneNumber, token} = action.userData;
@@ -33,7 +41,13 @@ export default function authReducer(
 
     case 'LOGOUT_SUCCESS':
       def.clear('id').then(() => {
-        def.clear('token').then(() => {});
+        def.clear('token').then(() => {
+          def.clear('fullName').then(() => {
+            def.clear('officialId').then(() => {
+              def.clear('phoneNumber').then(() => {});
+            });
+          });
+        });
       });
 
       return {

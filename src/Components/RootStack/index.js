@@ -22,13 +22,18 @@ const RootStack = ({}) => {
     try {
       const idStr = await def.get('id');
       const token = await def.get('token');
+      const fullName = await def.get('fullName');
+      const officialId = await def.get('officialId');
+      const phoneNumber = await def.get('phoneNumber');
 
       if (idStr === undefined || token === undefined) {
         throw new Error('You must log in first.');
       }
 
       const id = parseInt(idStr);
-      dispatch(loginSuccessAction({id, token}));
+      dispatch(
+        loginSuccessAction({id, token, fullName, officialId, phoneNumber}),
+      );
       setGetDef(true);
     } catch (err) {
       console.log(err);

@@ -30,6 +30,7 @@ const Name = styled.Text`
 `;
 const RowArea = styled.View`
   flex-direction: row;
+  padding-top: ${props => props.paddingTop || 0}px;
 `;
 const Area = styled.View`
   align-items: center;
@@ -70,6 +71,7 @@ const SmallCount = styled(VehicleCount)`
 
 const ParkingLotSelectBG = styled.View`
   background-color: #212121;
+  height: 153px;
   margin-top: -8px;
   margin-bottom: -20px;
   margin-horizontal: -20px;
@@ -108,16 +110,42 @@ const ParkingLotSelectSpace = styled(ParkingLotSelectNameLabel)`
   width: 100px;
   text-align: right;
 `;
-const CommandButton = styled.TouchableOpacity`
+const CommandItem = styled.View`
   flex: 1;
   margin-top: -20px;
+  align-items: center;
+`;
+const CommandButton = styled.TouchableOpacity`
   align-items: center;
 `;
 const CommandArea = styled.View`
   flex-direction: row;
   align-items: center;
-  height: 92.5px;
-  padding-horizontal: 14px;
+  height: 90px;
+  padding-top: 10px;
+  padding-horizontal: 5px;
+`;
+const CommandText = styled.Text`
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  padding-top: 5px;
+  color: ${props => props.color || 'white'};
+`;
+const BluetoothText = styled.Text`
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  color: ${props => props.color || 'white'};
+  align-self: center;
+`;
+const BluetoothButton = styled.TouchableOpacity`
+  width: 90%;
+  height: 50px;
+  border-radius: 6px;
+  background-color: #212121;
+  padding-horizontal: 10px;
+  justify-content: center;
 `;
 
 export function Overview({
@@ -128,6 +156,7 @@ export function Overview({
   viewMembershipPrice,
   addParkingLot,
   addPartner,
+  testBluetoothPrinter,
 }) {
   const today = new Date().getDate();
   const isMyPark = useSelector(isMyParkSelector);
@@ -221,30 +250,45 @@ export function Overview({
             </ChartOverlay>
           </ChartArea>
           <Area>
-            <RowArea>
-              <Area>
+            <RowArea paddingTop={20}>
+              {/* <Area>
                 <SmallLabel>Customers</SmallLabel>
                 <SmallCount>20</SmallCount>
               </Area>
               <Area>
                 <SmallLabel color="#ea6a47">Ticket loss</SmallLabel>
                 <SmallCount>0</SmallCount>
-              </Area>
+              </Area> */}
+              <CommandItem>
+                <BluetoothButton onPress={testBluetoothPrinter}>
+                  <BluetoothText>Test Bluetooth printer</BluetoothText>
+                </BluetoothButton>
+              </CommandItem>
             </RowArea>
+
             <CommandArea>
-              <CommandButton onPress={viewMembershipPrice}>
-                <Icon name="cash-outline" size={26} color="#fbd837" />
-              </CommandButton>
-              {isMyPark ? (
-                <CommandButton onPress={addPartner}>
-                  <Icon name="person-add-outline" size={24} color="white" />
+              <CommandItem>
+                <CommandButton onPress={viewMembershipPrice}>
+                  <Icon name="cash-outline" size={26} color="#fbd837" />
                 </CommandButton>
+                <CommandText>Park price</CommandText>
+              </CommandItem>
+              {isMyPark ? (
+                <CommandItem>
+                  <CommandButton onPress={addPartner}>
+                    <Icon name="person-add-outline" size={26} color="#fbd837" />
+                  </CommandButton>
+                  <CommandText>Add partner</CommandText>
+                </CommandItem>
               ) : (
                 <></>
               )}
-              <CommandButton onPress={addParkingLot}>
-                <Icon name="add-outline" size={34} color="#fbd837" />
-              </CommandButton>
+              <CommandItem>
+                <CommandButton onPress={addParkingLot}>
+                  <Icon name="add-outline" size={26} color="#fbd837" />
+                </CommandButton>
+                <CommandText>New{'\n'}park</CommandText>
+              </CommandItem>
             </CommandArea>
           </Area>
         </RowArea>

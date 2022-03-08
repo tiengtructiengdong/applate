@@ -294,15 +294,16 @@ const Screen = ({}) => {
     <Container>
       <Header
         bgColor={'#ffb500'}
-        title={`Didn't find your printers?`}
+        title={`Test Bluetooth printer`}
         goBack={() => navigation.goBack()}
         goRight={() => startScan()}
       />
       <FieldArea>
         <WhiteLabel>
-          If your device's Bluetooth setting screen doesn't include your
-          printer, you can connect from here.{'\n\n'}Press Scan button to scan
-          Bluetooth devices. Press it again to stop.
+          Upon Bluetooth connection, a print test will be performed.{'\n\n'}
+          PLEASE ONLY USE THE APP IF THE TEST PAPER SUCCESSFULLY PRINTS OUT.
+          {'\n\n'}Press Scan button to scan Bluetooth devices. Press it again to
+          stop.
         </WhiteLabel>
 
         <Scroll>{list.map(renderItem)}</Scroll>

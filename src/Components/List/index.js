@@ -26,6 +26,7 @@ import {Overview} from './shared/Overview';
 import AddMembership from './AddMembership';
 import AddPartner from './AddPartner';
 import ViewPrice from './ViewPrice';
+import SettingsBluetooth from '@components/Settings/SettingsBluetooth';
 
 const Stack = createStackNavigator();
 
@@ -119,6 +120,9 @@ const List = ({}) => {
   const addParkingLot = () => {
     navigation.navigate('AddParkingLot');
   };
+  const testBluetoothPrinter = () => {
+    navigation.navigate('Bluetooth');
+  };
 
   // vehicle options
   const showVehicleOptions = vehicle => {
@@ -169,6 +173,7 @@ const List = ({}) => {
               viewMembershipPrice={viewMembershipPrice}
               addParkingLot={addParkingLot}
               addPartner={addPartner}
+              testBluetoothPrinter={testBluetoothPrinter}
             />
           ) : (
             <></>
@@ -207,6 +212,7 @@ const ListStack = () => {
       <Stack.Screen name="AddMembership" component={AddMembership} />
       <Stack.Screen name="AddPartner" component={AddPartner} />
       <Stack.Screen name="ViewPrice" component={ViewPrice} />
+      <Stack.Screen name="Bluetooth" component={SettingsBluetooth} />
     </Stack.Navigator>
   );
 };
