@@ -8,7 +8,7 @@ import {
   getPartnerAction,
   getPartnerSuccessAction,
   logoutSuccessAction,
-  searchUserSuccessAction,
+  searchVehicleSuccessAction,
 } from '@store/actionTypes';
 import {AnyAction} from 'redux';
 import {put, takeLatest, all, call, select} from 'typed-redux-saga';
@@ -142,7 +142,7 @@ const searchVehicleSaga = function* (action: AnyAction) {
 
     const data = parseRawDataResponse(response, true);
     if (data) {
-      yield* put(getActiveSessionSuccessAction(data.vehicles));
+      yield* put(searchVehicleSuccessAction(data.vehicles));
     } else {
       const errorMessage = response?.data?.error?.message;
       if (errorMessage) {
