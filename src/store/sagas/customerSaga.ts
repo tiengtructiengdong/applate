@@ -66,7 +66,9 @@ const testCheckinProceedSaga = function* (action: AnyAction) {
 
     try {
       if (printTicket) {
-        printTicket(action.data);
+        printTicket(action.data).catch(err => {
+          throw new Error(err);
+        });
       } else {
         throw new Error('No such function');
       }

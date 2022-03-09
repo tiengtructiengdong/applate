@@ -173,61 +173,50 @@ const Scan = ({}) => {
     }
   };
   const printTicket = async data => {
-    console.log('nope');
-    try {
-      const {plateId, code} = data;
+    var ret = false;
+    const {plateId, code} = data;
 
-      const encoder = new EscPosEncoder();
-      const res = encoder
-        .initialize()
-        .text(
-          parkingLot.Name
-            ? `Parking Lot: ${parkingLot.Name}`
-            : 'Applate Parking Lot',
-        )
-        .newline()
-        .text(plateId || 'Vehicle')
-        .newline()
-        .raw(getQR(code))
-        .newline()
-        .text('Powered by Applate')
-        .newline()
-        .newline()
-        .encode();
-      var newArr = [];
-      for (i in res) {
-        newArr[i] = res[i] & 0xff;
-      }
-
-      try {
-        for (let peripheral of list) {
-          BleManager.retrieveServices(peripheral.id)
-            .then(peripheralInfo => {
-              var service = '49535343-fe7d-4ae5-8fa9-9fafd205e455';
-              var characteristic = '49535343-8841-43f4-a8d4-ecbe34729bb3';
-              console.log(peripheralInfo);
-              BleManager.write(peripheral.id, service, characteristic, newArr)
-                .then(() => {
-                  console.log('Writed NORMAL crust');
-                  throw new Error('return');
-                })
-                .catch(err => {
-                  console.log('yeetfail', err);
-                });
-            })
-            .catch(err => {
-              console.log('nope', err);
-            });
-        }
-      } catch (err) {
-        if (err.message === 'return') {
-          return;
-        }
-      }
-    } catch (err) {
-      console.log(err);
+    const encoder = new EscPosEncoder();
+    const res = encoder
+      .initialize()
+      .text(
+        parkingLot.Name
+          ? `Parking Lot: ${parkingLot.Name}`
+          : 'Applate Parking Lot',
+      )
+      .newline()
+      .text(plateId || 'Vehicle')
+      .newline()
+      .raw(getQR(code))
+      .newline()
+      .text('Powered by Applate')
+      .newline()
+      .newline()
+      .encode();
+    var newArr = [];
+    for (i in res) {
+      newArr[i] = res[i] & 0xff;
     }
-    //throw new Error('Cannot print. Please reconnect');
+
+    console.log(list);
+    for (let peripheral of list) {
+      try {
+        const peripheralInfo = await BleManager.retrieveServices(peripheral.id);
+        var service = '49535343-fe7d-4ae5-8fa9-9fafd205e455';
+        var characteristic = '49535343-8841-43f4-a8d4-ecbe34729bb3';
+        console.log(peripheralInfo);
+        await BleManager.write(peripheral.id, service, characteristic, newArr);
+        console.log('Writed NORMAL crust');
+        ret = true;
+      } catch (err) {
+        console.log('Device error, next device', err);
+        continue;
+      }
+    }
+
+    if (ret === false) {
+      throw new Error('Cannot print. Please reconnect');
+    }
   };
   const onTextRecognized = text => {
     const regEx =
@@ -265,6 +254,7 @@ const Scan = ({}) => {
     }
   };
   const retrieveConnected = () => {
+    console.log('retrieve');
     BleManager.getConnectedPeripherals([]).then(results => {
       if (results.length == 0) {
         console.log('No connected peripherals');
@@ -276,6 +266,7 @@ const Scan = ({}) => {
         peripherals.set(peripheral.id, peripheral);
         setList(Array.from(peripherals.values()));
       }
+      console.log(list);
     });
   };
   const processCheckin = plateId => {
@@ -308,6 +299,7 @@ const Scan = ({}) => {
       ),
     );
     retrieveConnected();
+    console.log('retrieve');
   }, [dispatch]);
 
   return (
