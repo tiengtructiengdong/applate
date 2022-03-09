@@ -168,7 +168,7 @@ const Scan = ({}) => {
   };
   const onBarCodeRead = code => {
     if (!checkOut) {
-      dispatch(testCheckoutAction(id, code));
+      dispatch(testCheckoutAction(id, code.data));
       setCheckout(true);
     }
   };
@@ -281,12 +281,31 @@ const Scan = ({}) => {
     console.log('Checkin success!', data);
   };
   const onTestCheckoutSuccess = plateId => {
-    dispatch(checkoutAction(plateId));
+    Alert.alert('Checkout', plateId, [
+      {
+        text: 'Cancel',
+        onPress: () => {
+          setCheckout(false);
+        },
+        style: 'cancel',
+      },
+      {
+        text: 'OK',
+        onPress: () => {
+          setCheckout(false);
+          dispatch(checkoutAction(parkingLot.Id, plateId));
+        },
+      },
+    ]);
   };
   const onTestCheckoutFailed = () => {
-    popUp('Vehicle not found', '', () => {
-      setCheckout(false);
-    });
+    popUp(
+      'Invalid QR code!',
+      'The vehicle has probably been checked out.',
+      () => {
+        setCheckout(false);
+      },
+    );
   };
 
   useEffect(() => {

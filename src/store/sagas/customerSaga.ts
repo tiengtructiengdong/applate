@@ -130,7 +130,7 @@ const checkoutSaga = function* (action: AnyAction) {
     }
 
     if (response.status != 200) {
-      throw new Error('Checkin error');
+      throw new Error('Checkout error');
     }
     const data = parseRawDataResponse(response, true);
     if (data) {
