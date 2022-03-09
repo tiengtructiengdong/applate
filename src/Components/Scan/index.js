@@ -136,7 +136,7 @@ const Scan = ({}) => {
   const getQR = code => {
     // calculation
     const m = 0;
-    const x = 6;
+    const x = 4;
 
     // calculation
     var qrRaw = [];
@@ -187,7 +187,8 @@ const Scan = ({}) => {
       .newline()
       .text(plateId || 'Vehicle')
       .newline()
-      .raw(getQR(code))
+      //.raw(getQR(code))
+      .qrcode(code)
       .newline()
       .text('Powered by Applate')
       .newline()
