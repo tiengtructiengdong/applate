@@ -34,23 +34,6 @@ export default function customerReducer(
         printTicket,
       };
 
-    case 'TEST_CHECKIN_PROCEED':
-      console.log('yeet');
-      try {
-        if (state.printTicket) {
-          state.printTicket(action.data);
-        } else {
-          throw new Error('No such function');
-        }
-        if (state.onTestCheckinSuccess) {
-          console.log('yes');
-          //state.onTestCheckinSuccess(action.data);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-      return state;
-
     case 'CHECKIN_SUCCESS':
       console.log('Checkin success');
       return state;

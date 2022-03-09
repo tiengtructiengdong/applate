@@ -84,16 +84,17 @@ const List = ({navigation}) => {
       <ScrollView style={style.scrollView} scrollEnabled={false}>
         <TouchableOpacity
           style={style.cell}
-          onPress={() => navigation.navigate('Information')}>
+          //onPress={() => navigation.navigate('Information')}
+        >
           <Username>{auth.fullName || ''}</Username>
           <OtherInfo>{auth.phoneNumber || ''}</OtherInfo>
         </TouchableOpacity>
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={style.cell}
           onPress={() => navigation.navigate('Bluetooth')}>
           <Text style={style.cellText}>Bluetooth</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <TouchableOpacity
           style={style.cell}

@@ -117,6 +117,7 @@ const CommandItem = styled.View`
 `;
 const CommandButton = styled.TouchableOpacity`
   align-items: center;
+  height: 32px;
 `;
 const CommandArea = styled.View`
   flex-direction: row;

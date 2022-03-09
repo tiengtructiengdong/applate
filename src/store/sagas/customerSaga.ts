@@ -12,6 +12,10 @@ import {apiCallProxy} from './apiHelper';
 import {parseRawDataResponse, popUp} from '@constants/Utils';
 import {authSelector} from '@store/selectors/authSelector';
 import {
+  printTicketSelector,
+  onTestCheckinSuccessSelector,
+} from '@store/selectors/customerSelector';
+import {
   checkin,
   checkout,
   setMembership,
@@ -44,6 +48,33 @@ const testCheckinSaga = function* (action: AnyAction) {
       if (errorMessage) {
         popUp(errorMessage);
       }
+    }
+  } catch (error: any) {
+    popUp(error.message);
+  } finally {
+    //yield* put(updateSessionAction({loading: false}));
+  }
+};
+
+const testCheckinProceedSaga = function* (action: AnyAction) {
+  //const {id, plateId, code} = action;
+  try {
+    const printTicket = yield* select(state => printTicketSelector(state));
+    const onTestCheckinSuccess = yield* select(state =>
+      onTestCheckinSuccessSelector(state),
+    );
+
+    try {
+      if (printTicket) {
+        printTicket(action.data);
+      } else {
+        throw new Error('No such function');
+      }
+      if (onTestCheckinSuccess) {
+        onTestCheckinSuccess(action.data);
+      }
+    } catch (err) {
+      console.log(err);
     }
   } catch (error: any) {
     popUp(error.message);
@@ -191,6 +222,7 @@ const setMembershipSaga = function* (action: AnyAction) {
 export default function* () {
   yield* all([
     takeLatest('TEST_CHECKIN', testCheckinSaga),
+    takeLatest('TEST_CHECKIN_PROCEED', testCheckinProceedSaga),
     takeLatest('CHECKIN', checkinSaga),
     takeLatest('TEST_CHECKOUT', testCheckoutSaga),
     takeLatest('CHECKOUT', checkoutSaga),

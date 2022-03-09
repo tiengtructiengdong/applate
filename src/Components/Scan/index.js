@@ -136,7 +136,7 @@ const Scan = ({}) => {
   const getQR = code => {
     // calculation
     const m = 0;
-    const x = 4;
+    const x = 6;
 
     // calculation
     var qrRaw = [];
@@ -173,6 +173,7 @@ const Scan = ({}) => {
     }
   };
   const printTicket = async data => {
+    console.log('nope');
     try {
       const {plateId, code} = data;
 
@@ -184,6 +185,7 @@ const Scan = ({}) => {
             ? `Parking Lot: ${parkingLot.Name}`
             : 'Applate Parking Lot',
         )
+        .newline()
         .text(plateId || 'Vehicle')
         .newline()
         .raw(getQR(code))
@@ -281,7 +283,7 @@ const Scan = ({}) => {
   };
   const onTestCheckinSuccess = data => {
     const {plateId, code} = data;
-    dispatch(checkinAction(plateId, code));
+    dispatch(checkinAction(parkingLot.Id, plateId, code));
   };
   const onCheckinSuccess = data => {
     console.log('Checkin success!', data);
