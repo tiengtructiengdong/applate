@@ -127,7 +127,7 @@ const Scan = ({}) => {
   const [mounted, setMounted] = useState(false);
 
   const peripherals = new Map();
-  const [list, setList] = useState([]);
+  var deviceList = [];
 
   const dispatch = useDispatch();
   const parkingLot = useSelector(currentParkingLotSelector);
@@ -199,8 +199,27 @@ const Scan = ({}) => {
       newArr[i] = res[i] & 0xff;
     }
 
-    console.log(list);
-    for (let peripheral of list) {
+    if (deviceList.length === 0) {
+      const results = await BleManager.getConnectedPeripherals([]);
+      console.log('this', results);
+      if (results.length == 0) {
+        console.log('No connected peripherals');
+      }
+      console.log(results);
+      for (var i = 0; i < results.length; i++) {
+        var peripheral = results[i];
+        peripheral.connected = true;
+        peripherals.set(peripheral.id, peripheral);
+        deviceList = Array.from(peripherals.values());
+      }
+
+      console.log(deviceList);
+      if (deviceList.length === 0) {
+        throw new Error('No printers');
+      }
+    }
+
+    for (let peripheral of deviceList) {
       try {
         const peripheralInfo = await BleManager.retrieveServices(peripheral.id);
         var service = '49535343-fe7d-4ae5-8fa9-9fafd205e455';
@@ -216,6 +235,7 @@ const Scan = ({}) => {
     }
 
     if (ret === false) {
+      deviceList = [];
       throw new Error('Cannot print. Please reconnect');
     }
   };
@@ -253,22 +273,6 @@ const Scan = ({}) => {
         }
       }
     }
-  };
-  const retrieveConnected = () => {
-    console.log('retrieve');
-    BleManager.getConnectedPeripherals([]).then(results => {
-      if (results.length == 0) {
-        console.log('No connected peripherals');
-      }
-      console.log(results);
-      for (var i = 0; i < results.length; i++) {
-        var peripheral = results[i];
-        peripheral.connected = true;
-        peripherals.set(peripheral.id, peripheral);
-        setList(Array.from(peripherals.values()));
-      }
-      console.log(list);
-    });
   };
   const processCheckin = plateId => {
     dispatch(testCheckinAction(parkingLot.Id, plateId));
@@ -318,8 +322,6 @@ const Scan = ({}) => {
         printTicket,
       ),
     );
-    retrieveConnected();
-    console.log('retrieve');
   }, [dispatch]);
 
   return (

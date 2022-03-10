@@ -160,6 +160,8 @@ const List = ({}) => {
       dispatch(setMembershipAction(parkingLot.Id, plateId, passerById));
   };
 
+  console.log(session[0]);
+
   return (
     <>
       <SafeArea>
