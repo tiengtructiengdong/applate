@@ -274,7 +274,7 @@ export function Overview({
                 <CommandButton onPress={viewMembershipPrice}>
                   <Icon name="cash-outline" size={26} color="#fbd837" />
                 </CommandButton>
-                <CommandText>Park price</CommandText>
+                <CommandText>Park{'\n'}price</CommandText>
               </CommandItem>
               {isMyPark ? (
                 <CommandItem>
