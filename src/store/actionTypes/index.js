@@ -10,7 +10,11 @@ export const setTabNavigationAction = makeAction(
 export const logoutAction = makeAction('LOGOUT', 'id');
 export const logoutSuccessAction = makeAction('LOGOUT_SUCCESS');
 
-export const registerAction = makeAction('REGISTER', 'registerData');
+export const registerAction = makeAction(
+  'REGISTER',
+  'registerData',
+  'onSuccess',
+);
 export const registerSuccessAction = makeAction('REGISTER_SUCCESS');
 
 // PARKING LOT

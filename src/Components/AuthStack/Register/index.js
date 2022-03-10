@@ -87,19 +87,22 @@ const Register = ({setToken}) => {
   const register = () => {
     if (password == passwordRetype && password.length >= PASSWORD_LIMIT) {
       dispatch(
-        registerAction({
-          officialId,
-          fullName,
-          phoneNumber,
-          password,
-          address,
-          name,
-          spaceCount: parseInt(spaceCount) || 0,
-          defaultFee: {price},
-        }),
+        registerAction(
+          {
+            officialId,
+            fullName,
+            phoneNumber,
+            password,
+            address,
+            name,
+            spaceCount: parseInt(spaceCount) || 0,
+            defaultFee: {price},
+          },
+          () => {
+            navigation.goBack();
+          },
+        ),
       );
-      //dispatch(addParkingLotAction(address, name, parseInt(spaceCount)));
-      navigation.goBack();
     }
   };
 

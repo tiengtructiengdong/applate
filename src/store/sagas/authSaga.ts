@@ -12,7 +12,7 @@ import {apiCallProxy} from './apiHelper';
 import {errString, parseRawDataResponse, popUp} from '@constants/Utils';
 
 const registerSaga = function* (action: AnyAction) {
-  const registerData: RegisterData = action.registerData;
+  const {registerData, onSuccess} = action;
   try {
     //yield* put(updateSessionAction({loading: true}));
     const response = yield* call(register, registerData);
@@ -21,6 +21,7 @@ const registerSaga = function* (action: AnyAction) {
       throw new Error('ID or Phone number\nis registered!');
     }
     popUp('Registration success!', 'You can continue with the app.');
+    onSuccess();
     yield* put(loginAction(registerData.officialId, registerData.password));
   } catch (error: any) {
     popUp(error.message, 'Please try again');
