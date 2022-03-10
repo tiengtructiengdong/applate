@@ -72,7 +72,6 @@ export function MembershipMenu({
   const membershipList = useSelector(membershipListSelector);
 
   const select = mem => {
-    console.log(mem);
     dispatch(setMembershipAction(parkingLotId, plateId, mem.Id));
     setVisible(false);
   };

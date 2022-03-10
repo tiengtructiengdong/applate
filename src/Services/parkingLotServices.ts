@@ -27,8 +27,13 @@ export function getPark(auth: AuthState, id: number) {
   return new apiClient(auth).get(`${HOST}parkingLot/${id}`);
 }
 
-export function getActiveSession(auth: AuthState, id: number) {
-  return new apiClient(auth).get(`${HOST}parkingLot/${id}/getActiveSession`);
+export function getActiveSession(auth: AuthState, id: number, page?: number) {
+  console.log(
+    `${HOST}parkingLot/${id}/getActiveSession${page ? `?page=${page}` : ''}`,
+  );
+  return new apiClient(auth).get(
+    `${HOST}parkingLot/${id}/getActiveSession${page ? `?page=${page}` : ''}`,
+  );
 }
 
 export function searchVehicle(auth: AuthState, id: number, keyword: string) {

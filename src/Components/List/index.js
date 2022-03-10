@@ -12,6 +12,8 @@ import {
   myParkingLotSelector,
   workingParkingLotSelector,
   membershipListSelector,
+  pageSelector,
+  vehicleCountSelector,
 } from '@store/selectors/parkingLotSelector';
 import {useNavigation} from '@react-navigation/native';
 import {
@@ -118,6 +120,22 @@ const List = ({}) => {
     dispatch(getParkAction(parkId));
   };
 
+  // pagination
+  const page = useSelector(pageSelector);
+  const vehicleCount = useSelector(vehicleCountSelector);
+  const loadNextPage = () => {
+    if (page * 10 < vehicleCount) {
+      dispatch(getActiveSessionAction(parkingLot.Id, page + 1));
+    }
+  };
+  const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
+    const paddingToBottom = 20;
+    return (
+      layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom
+    );
+  };
+
   // menu commands
   const viewMembershipPrice = () => {
     navigation.navigate('ViewPrice');
@@ -137,7 +155,6 @@ const List = ({}) => {
     const {PlateId} = vehicle;
     const Membership = vehicle.Name;
 
-    console.log(vehicle);
     Alert.alert(
       PlateId,
       Membership && Membership != 'Default'
@@ -168,7 +185,6 @@ const List = ({}) => {
     );
   };
   const upgradeMembership = (plateId, membership) => {
-    console.log(membership);
     setCurrentPlateId(plateId);
     setCurrentMembership(membership);
     setMembershipUpgradeVisible(true);
@@ -192,7 +208,13 @@ const List = ({}) => {
               onChangeText={setSearchVehicle}
             />
           </LabelArea>
-          <SessionArea>
+          <SessionArea
+            onScroll={({nativeEvent}) => {
+              if (isCloseToBottom(nativeEvent)) {
+                loadNextPage();
+              }
+            }}
+            scrollEventThrottle={400}>
             {session.map((customer, id) => (
               <Cell
                 key={id}

@@ -26,6 +26,7 @@ export type ParkingLotState = {
   partner: any[];
   isMyPark: boolean;
   vehicleCount?: number;
+  page: number;
 };
 
 const initState: ParkingLotState = {
@@ -37,6 +38,7 @@ const initState: ParkingLotState = {
   partner: [],
   isMyPark: false,
   vehicleCount: 0,
+  page: 1,
 };
 
 // reducer
@@ -56,6 +58,7 @@ export default function parkingLotReducer(
         partner: [],
         isMyPark: false,
         vehicleCount: 0,
+        page: 1,
       };
     case 'GET_ALL_PARKING_LOTS_SUCCESS':
       const {myParkingLot, workingParkingLot} = action.parkingLotData;
@@ -63,26 +66,38 @@ export default function parkingLotReducer(
         ...state,
         myParkingLot,
         workingParkingLot,
+        page: 1,
       };
     case 'GET_ACTIVE_SESSION_SUCCESS':
+      if (action.vehicleCount) {
+        return {
+          ...state,
+          session: action.customerData,
+          vehicleCount: action.vehicleCount,
+          page: 1,
+        };
+      }
       return {
         ...state,
-        session: action.customerData,
-        vehicleCount: action.customerData?.length || 0,
+        session: (state.session || []).concat(action.customerData),
+        page: state.page + 1,
       };
     case 'SEARCH_VEHICLE_SUCCESS':
       return {
         ...state,
         session: action.vehicles,
+        page: 1,
       };
     case 'SEARCH_USER_SUCCESS':
       return {
         ...state,
         searchUser: action.users,
+        page: 1,
       };
     case 'GET_PARK_SUCCESS':
       return {
         ...state,
+        page: 1,
         currentParkingLot: action.parkingLot,
         membership: action.membership,
         isMyPark: state.myParkingLot

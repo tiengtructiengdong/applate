@@ -3,6 +3,10 @@ import {RootState} from '@store/index';
 export const myParkingLotSelector = (state: RootState) =>
   state.parkingLot?.myParkingLot || [];
 
+export const pageSelector = (state: RootState) => state.parkingLot?.page || 1;
+export const vehicleCountSelector = (state: RootState) =>
+  state.parkingLot?.vehicleCount || 0;
+
 export const workingParkingLotSelector = (state: RootState) =>
   state.parkingLot?.workingParkingLot || [];
 

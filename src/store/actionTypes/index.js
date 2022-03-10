@@ -28,10 +28,15 @@ export const getAllParkingLotsSuccessAction = makeAction(
   'parkingLotData',
 );
 
-export const getActiveSessionAction = makeAction('GET_ACTIVE_SESSION', 'id');
+export const getActiveSessionAction = makeAction(
+  'GET_ACTIVE_SESSION',
+  'id',
+  'page',
+);
 export const getActiveSessionSuccessAction = makeAction(
   'GET_ACTIVE_SESSION_SUCCESS',
   'customerData',
+  'vehicleCount',
 );
 
 export const searchVehicleAction = makeAction(

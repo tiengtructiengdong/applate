@@ -112,8 +112,6 @@ const Screen = ({}) => {
     });
   };
 
-  console.log(membershipList);
-
   return (
     <Container>
       <Header

@@ -101,11 +101,11 @@ const getAllParkingLotsSaga = function* (action: AnyAction) {
 };
 
 const getActiveSessionSaga = function* (action: AnyAction) {
-  const {id} = action;
+  const {id, page} = action;
   try {
     //yield* put(updateSessionAction({loading: true}));
     const auth = yield* select(state => authSelector(state));
-    const response = yield* call(getActiveSession, auth, id);
+    const response = yield* call(getActiveSession, auth, id, page);
 
     if (response.status == 403) {
       yield* put(logoutSuccessAction());
@@ -114,7 +114,9 @@ const getActiveSessionSaga = function* (action: AnyAction) {
 
     const data = parseRawDataResponse(response, true);
     if (data) {
-      yield* put(getActiveSessionSuccessAction(data.session));
+      yield* put(
+        getActiveSessionSuccessAction(data.session, data.vehicleCount),
+      );
     } else {
       const errorMessage = response?.data?.error?.message;
       if (errorMessage) {
