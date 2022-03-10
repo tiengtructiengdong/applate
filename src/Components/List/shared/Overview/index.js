@@ -13,7 +13,7 @@ import {
 
 const BG = styled.View`
   background-color: #424242;
-  margin: 20px 25px 30px;
+  margin: 0px 25px 30px;
   border-radius: 15px;
   padding: 20px;
 `;

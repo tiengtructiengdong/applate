@@ -40,9 +40,9 @@ const Container = styled.View`
   background-color: #121212;
 `;
 const SearchBar = styled.TextInput`
-  height: 40px;
+  height: 50px;
   border-bottom-width: 1px;
-  font-size: 14px;
+  font-size: 16px;
   margin-top: 5px;
   background-color: #1a1a1a;
   padding-horizontal: 25px;
@@ -50,7 +50,7 @@ const SearchBar = styled.TextInput`
 `;
 const LabelArea = styled.View`
   margin-horizontal: 25px;
-  height: 78px;
+  height: 85px;
   padding-top: 15px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
@@ -183,20 +183,6 @@ const List = ({}) => {
     <>
       <SafeArea>
         <Container>
-          {parkingLot !== undefined && parkingLot !== {} ? (
-            <Overview
-              parkingLot={parkingLot}
-              confirmSelect={confirmSelect}
-              myParkingLots={myParkingLots}
-              workingParkingLots={workingParkingLots}
-              viewMembershipPrice={viewMembershipPrice}
-              addParkingLot={addParkingLot}
-              addPartner={addPartner}
-              testBluetoothPrinter={testBluetoothPrinter}
-            />
-          ) : (
-            <></>
-          )}
           <LabelArea>
             <Label color="black">Current sessions</Label>
             <SearchBar
@@ -217,6 +203,20 @@ const List = ({}) => {
               />
             ))}
           </SessionArea>
+          {parkingLot !== undefined && parkingLot !== {} ? (
+            <Overview
+              parkingLot={parkingLot}
+              confirmSelect={confirmSelect}
+              myParkingLots={myParkingLots}
+              workingParkingLots={workingParkingLots}
+              viewMembershipPrice={viewMembershipPrice}
+              addParkingLot={addParkingLot}
+              addPartner={addPartner}
+              testBluetoothPrinter={testBluetoothPrinter}
+            />
+          ) : (
+            <></>
+          )}
         </Container>
       </SafeArea>
       {isMembershipUpgradeVisible ? (
