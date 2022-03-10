@@ -27,6 +27,7 @@ import AddMembership from './AddMembership';
 import AddPartner from './AddPartner';
 import ViewPrice from './ViewPrice';
 import SettingsBluetooth from '@components/Settings/SettingsBluetooth';
+import {MembershipMenu} from './shared/MembershipMenu';
 
 const Stack = createStackNavigator();
 
@@ -63,12 +64,13 @@ const Label = styled.Text`
   padding-left: 25px;
 `;
 const SessionArea = styled.ScrollView`
-  background-color: #1a1a1a;
+  background-color: ${props => props.color || '#1a1a1a'};
   flex: 1;
   margin: 1px 25px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   padding-horizontal: 20px;
+  padding-vertical: 10px;
   margin-bottom: 30px;
 `;
 
@@ -83,6 +85,12 @@ const List = ({}) => {
   const session = useSelector(sessionSelector);
 
   const memberships = useSelector(membershipListSelector);
+
+  // set membership customerId, currentMembership, setVisible
+  const [currentPlateId, setCurrentPlateId] = useState('');
+  const [currentMembership, setCurrentMembership] = useState('');
+  const [isMembershipUpgradeVisible, setMembershipUpgradeVisible] =
+    useState(false);
 
   const [searchVehicle, setSearchVehicle] = useState('');
 
@@ -126,13 +134,21 @@ const List = ({}) => {
 
   // vehicle options
   const showVehicleOptions = vehicle => {
-    const {PlateId, Membership} = vehicle;
+    const {PlateId} = vehicle;
+    const Membership = vehicle.Name;
+
+    console.log(vehicle);
     Alert.alert(
       PlateId,
-      Membership ? `Member level: ${Membership}` : 'Passer-by',
+      Membership && Membership != 'Default'
+        ? `Member level: ${Membership}`
+        : '',
       [
         {
           text: 'Upgrade membership',
+          onPress: () => {
+            upgradeMembership(PlateId, Membership);
+          },
         },
         {
           text: 'Cancel membership',
@@ -151,16 +167,17 @@ const List = ({}) => {
       ],
     );
   };
-  const upgradeMembership = (plateId, membershipId) => {
-    dispatch(setMembershipAction(parkingLot.Id, plateId, membershipId));
+  const upgradeMembership = (plateId, membership) => {
+    console.log(membership);
+    setCurrentPlateId(plateId);
+    setCurrentMembership(membership);
+    setMembershipUpgradeVisible(true);
   };
   const removeMembership = plateId => {
     const passerById = memberships[0]?.Id;
     if (passerById)
       dispatch(setMembershipAction(parkingLot.Id, plateId, passerById));
   };
-
-  console.log(session[0]);
 
   return (
     <>
@@ -202,6 +219,16 @@ const List = ({}) => {
           </SessionArea>
         </Container>
       </SafeArea>
+      {isMembershipUpgradeVisible ? (
+        <MembershipMenu
+          parkingLotId={parkingLot.Id}
+          plateId={currentPlateId}
+          currentMembership={currentMembership}
+          setVisible={setMembershipUpgradeVisible}
+        />
+      ) : (
+        <></>
+      )}
     </>
   );
 };

@@ -208,6 +208,7 @@ const setMembershipSaga = function* (action: AnyAction) {
     const data = parseRawDataResponse(response, true);
     if (data) {
       //yield* put(checkinSuccessAction(data));
+      yield* put(getActiveSessionAction(id));
     } else {
       const errorMessage = response?.data?.error?.message;
       if (errorMessage) {
