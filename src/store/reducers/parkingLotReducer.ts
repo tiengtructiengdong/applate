@@ -69,7 +69,7 @@ export default function parkingLotReducer(
         page: 1,
       };
     case 'GET_ACTIVE_SESSION_SUCCESS':
-      if (action.vehicleCount) {
+      if (action.vehicleCount !== undefined) {
         return {
           ...state,
           session: action.customerData,

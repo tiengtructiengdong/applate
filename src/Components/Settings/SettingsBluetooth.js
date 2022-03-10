@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import styled from 'styled-components';
 import {Header} from '@components/Header';
@@ -33,6 +34,12 @@ const Label = styled.Text`
 const WhiteLabel = styled(Label)`
   font-size: 14px;
   color: white;
+  font-weight: 400;
+  padding-bottom: 15px;
+`;
+const YellowLabel = styled(Label)`
+  font-size: 14px;
+  color: #ffb500;
   font-weight: 400;
   padding-bottom: 15px;
 `;
@@ -263,9 +270,12 @@ const Screen = ({}) => {
       <FieldArea>
         <WhiteLabel>
           Upon Bluetooth connection, a print test will be performed.{'\n\n'}
-          PLEASE ONLY USE THE APP IF THE TEST PAPER SUCCESSFULLY PRINTS OUT.
-          {'\n\n'}Press Scan button to scan Bluetooth devices. Press it again to
-          stop.
+          <YellowLabel>
+            You should only start checkin IF THE TEST PAPER SUCCESSFULLY PRINTS
+            OUT.
+          </YellowLabel>
+          {'\n\n'}Press <Icon name="print-outline" size={20} color="white" />{' '}
+          button to scan Bluetooth devices. Press it again to stop.
         </WhiteLabel>
 
         <Scroll>{list.map(renderItem)}</Scroll>
