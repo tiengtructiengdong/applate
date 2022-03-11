@@ -150,6 +150,11 @@ export const setMembershipAction = makeAction(
 );
 export const setMembershipSuccessAction = makeAction('SET_MEMBERSHIP_SUCCESS');
 
+export const setBluetoothPrinter = makeAction(
+  'SET_BLUETOOTH_PRINTER',
+  'printer',
+);
+export const resetBluetoothPrinter = makeAction('RESET_BLUETOOTH_PRINTER');
 //
 //
 //

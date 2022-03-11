@@ -11,6 +11,8 @@ import {NativeEventEmitter, NativeModules} from 'react-native';
 import EscPosEncoder from 'esc-pos-encoder';
 
 import qrcode from 'qrcode-terminal';
+import {useDispatch} from 'react-redux';
+import {sleep} from '@constants/Utils';
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -43,7 +45,9 @@ const YellowLabel = styled(Label)`
   font-weight: 400;
   padding-bottom: 15px;
 `;
-const Scroll = styled.ScrollView``;
+const Scroll = styled.ScrollView`
+  margin-bottom: 70px;
+`;
 const Sublabel = styled.Text`
   font-size: 8px;
   margin-horizontal: 40px;
@@ -56,26 +60,31 @@ const Item = styled.TouchableOpacity`
 const Screen = ({}) => {
   const navigation = useNavigation();
 
-  const [isScanning, setIsScanning] = useState(false);
+  const [isScanned, setIsScanned] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const peripherals = new Map();
   const [list, setList] = useState([]);
 
   const BleManagerModule = NativeModules.BleManager;
   const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
 
+  const dispatch = useDispatch();
+
   const startScan = () => {
-    if (!isScanning) {
+    if (!isScanned) {
+      setLoading(true);
       BleManager.scan([], 5, false)
         .then(results => {
+          setIsScanned(true);
           console.log('Scanning...');
-          setIsScanning(true);
         })
         .catch(err => {
           console.error(err);
         });
-    } else {
-      BleManager.stopScan();
-      setIsScanning(false);
+      sleep(5000).then(() => {
+        BleManager.stopScan();
+        setLoading(false);
+      });
     }
   };
 
@@ -119,7 +128,6 @@ const Screen = ({}) => {
 
   const handleStopScan = () => {
     console.log('Scan is stopped');
-    setIsScanning(false);
   };
 
   const handleDisconnectedPeripheral = data => {
@@ -145,7 +153,8 @@ const Screen = ({}) => {
   const handleDiscoverPeripheral = peripheral => {
     console.log('Got ble peripheral', peripheral);
     if (!peripheral.name) {
-      peripheral.name = 'NO NAME';
+      //peripheral.name = 'NO NAME';
+      return;
     }
     peripherals.set(peripheral.id, peripheral);
     setList(Array.from(peripherals.values()));
@@ -195,7 +204,7 @@ const Screen = ({}) => {
   };
 
   useEffect(() => {
-    BleManager.start({showAlert: false});
+    BleManager.start({showAlert: true});
 
     bleManagerEmitter.addListener(
       'BleManagerDiscoverPeripheral',
@@ -249,6 +258,19 @@ const Screen = ({}) => {
     };
   }, []);
 
+  //
+  //
+  //
+  //
+  //
+  //
+
+  //
+  //
+  //
+  //
+  //
+
   const renderItem = item => {
     return (
       <Item onPress={() => testPeripheral(item)}>
@@ -258,14 +280,21 @@ const Screen = ({}) => {
       </Item>
     );
   };
+  //if (!isScanned) {
+  sleep(1000).then(() => {
+    console.log('232');
+    startScan();
+  });
+  //}
 
   return (
     <Container>
       <Header
         bgColor={'#ffb500'}
         title={`Test Bluetooth printer`}
+        isLoading={isLoading}
         goBack={() => navigation.goBack()}
-        goRight={() => startScan()}
+        //goRight={() => startScan()}
       />
       <FieldArea>
         <WhiteLabel>
@@ -274,8 +303,6 @@ const Screen = ({}) => {
             You should only start checkin IF THE TEST PAPER SUCCESSFULLY PRINTS
             OUT.
           </YellowLabel>
-          {'\n\n'}Press <Icon name="print-outline" size={20} color="white" />{' '}
-          button to scan Bluetooth devices. Press it again to stop.
         </WhiteLabel>
 
         <Scroll>{list.map(renderItem)}</Scroll>

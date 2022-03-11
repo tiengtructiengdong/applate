@@ -52,4 +52,8 @@ export const prompt = (
     );
   }
 };
+
+export const sleep = (ms: number) => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+};
 //const asyncQuery = (func) => promisify(func).bind(pool);
