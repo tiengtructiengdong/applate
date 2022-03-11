@@ -8053,6 +8053,11 @@
   dependencies:
     "babel-preset-flow" "^6.23.0"
 
+"react-native-prompt-android@^1.1.0":
+  "integrity" "sha512-4JoyEaT2ZnK9IH+tDFpbTiQBgva8UIFGQf4/Uw/tnEVWBERlVlzcs5B82T9BkeEhEqXhp89JaiSBnLWj30lciw=="
+  "resolved" "https://registry.npmjs.org/react-native-prompt-android/-/react-native-prompt-android-1.1.0.tgz"
+  "version" "1.1.0"
+
 "react-native-qrcode-svg@^6.1.2":
   "integrity" "sha512-lMbbxoPVybXCp9SYm73Aj/0iZ9OlSZl2u+zpdbjgC4DYHBm9m9tDQxISNg1OPeR7AAzmyx8IV4JTFmk8G5R22g=="
   "resolved" "https://registry.npmjs.org/react-native-qrcode-svg/-/react-native-qrcode-svg-6.1.2.tgz"

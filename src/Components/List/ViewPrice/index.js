@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Alert} from 'react-native';
+import {prompt} from '@constants/Utils';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -101,13 +102,13 @@ const Screen = ({}) => {
 
   // no ANDROID yet -- WARNING
   const editPrice = memId => {
-    Alert.prompt('Parking price (VND)', '', price => {
+    prompt('Parking price (VND)', '', price => {
       dispatch(updateMembershipAction(parkingLot.Id, memId, {fee: {price}}));
     });
   };
 
   const editName = memId => {
-    Alert.prompt('Enter the name', '', name => {
+    prompt('Enter the name', '', name => {
       dispatch(updateMembershipAction(parkingLot.Id, memId, {name}));
     });
   };
