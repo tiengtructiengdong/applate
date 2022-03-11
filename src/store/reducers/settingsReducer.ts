@@ -1,10 +1,15 @@
 import {AnyAction} from 'redux';
+import def from 'react-native-default-preference';
 
 export type SettingsState = {
-  bluetoothPrinter?: any;
+  bluetoothPrinter: string;
+  isBluetoothPrinterConnected: boolean;
 };
 
-const initState: SettingsState = {};
+const initState: SettingsState = {
+  bluetoothPrinter: 'man',
+  isBluetoothPrinterConnected: false,
+};
 
 // reducer
 export default function settingsReducer(
@@ -13,14 +18,18 @@ export default function settingsReducer(
 ): SettingsState {
   switch (action.type) {
     case 'SET_BLUETOOTH_PRINTER':
+      def.set('bluetoothPrinter', action.printer.id).then(() => {});
       return {
         ...state,
-        bluetoothPrinter: action.printer,
+        bluetoothPrinter: action.printer.id,
+        isBluetoothPrinterConnected: true,
       };
     case 'RESET_BLUETOOTH_PRINTER':
+      def.clear('bluetoothPrinter').then(() => {});
       return {
         ...state,
-        bluetoothPrinter: undefined,
+        bluetoothPrinter: '',
+        isBluetoothPrinterConnected: false,
       };
     default:
       return state;

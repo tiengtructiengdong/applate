@@ -4,8 +4,14 @@ import {tokenSelector} from '@store/selectors/authSelector';
 import MainStack from '@components/MainStack';
 import AuthStack from '@components/AuthStack';
 import def from 'react-native-default-preference';
-import {loginSuccessAction} from '@store/actionTypes';
+import {
+  loginSuccessAction,
+  resetBluetoothPrinterAction,
+  setBluetoothPrinterAction,
+} from '@store/actionTypes';
 import styled from 'styled-components';
+
+import BleManager, {start} from 'react-native-ble-manager';
 
 const Blank = styled.View`
   height: 100%;
@@ -19,6 +25,7 @@ const RootStack = ({}) => {
   const [isGetDef, setGetDef] = useState(false);
 
   const getDef = async () => {
+    BleManager.start({showAlert: true});
     try {
       const idStr = await def.get('id');
       const token = await def.get('token');
@@ -35,8 +42,15 @@ const RootStack = ({}) => {
         loginSuccessAction({id, token, fullName, officialId, phoneNumber}),
       );
       setGetDef(true);
+
+      const bluetoothPrinterId = await def.get('bluetoothPrinter');
+      console.log('btp', bluetoothPrinterId);
+      await BleManager.connect(bluetoothPrinterId);
+
+      dispatch(setBluetoothPrinterAction({id: bluetoothPrinterId}));
     } catch (err) {
       console.log(err);
+      dispatch(resetBluetoothPrinterAction());
       setGetDef(true);
     }
   };

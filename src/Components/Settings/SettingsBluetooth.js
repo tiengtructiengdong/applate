@@ -13,6 +13,7 @@ import EscPosEncoder from 'esc-pos-encoder';
 import qrcode from 'qrcode-terminal';
 import {useDispatch} from 'react-redux';
 import {sleep} from '@constants/Utils';
+import {setBluetoothPrinterAction} from '@store/actionTypes';
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -106,7 +107,6 @@ const Screen = ({}) => {
     for (i in res) {
       newArr[i] = res[i] & 0xff;
     }
-    console.log('allow', newArr);
 
     BleManager.retrieveServices(peripheral.id)
       .then(peripheralInfo => {
@@ -116,6 +116,7 @@ const Screen = ({}) => {
         BleManager.write(peripheral.id, service, characteristic, newArr)
           .then(() => {
             console.log('Writed NORMAL crust');
+            dispatch(setBluetoothPrinterAction(peripheral));
           })
           .catch(err => {
             console.log('yeetfail');
@@ -165,6 +166,7 @@ const Screen = ({}) => {
       if (peripheral.connected) {
         BleManager.disconnect(peripheral.id);
       } else {
+        console.log('lol', peripheral.id);
         BleManager.connect(peripheral.id)
           .then(() => {
             let p = peripherals.get(peripheral.id);
@@ -271,9 +273,9 @@ const Screen = ({}) => {
   //
   //
 
-  const renderItem = item => {
+  const renderItem = (item, i) => {
     return (
-      <Item onPress={() => testPeripheral(item)}>
+      <Item key={`device_${i}`} onPress={() => testPeripheral(item)}>
         <Label>{item.name}</Label>
         <Sublabel>RSSI: {item.rssi}</Sublabel>
         <Sublabel>UUID: {item.id}</Sublabel>
@@ -282,7 +284,6 @@ const Screen = ({}) => {
   };
   //if (!isScanned) {
   sleep(1000).then(() => {
-    console.log('232');
     startScan();
   });
   //}

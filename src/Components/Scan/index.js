@@ -23,6 +23,7 @@ import {
 import qrcode from 'qrcode-terminal';
 
 import {popUp} from '@constants/Utils';
+import {bluetoothPrinterSelector} from '@store/selectors/settingsSelector';
 
 const style = StyleSheet.create({
   container: {
@@ -124,14 +125,12 @@ const Scan = ({}) => {
   const [checkOut, setCheckout] = useState(false);
   const [checkIn, setCheckin] = useState(false);
   const [connected, setConnected] = useState(true); //temp
-  const [mounted, setMounted] = useState(false);
 
-  const peripherals = new Map();
-  var deviceList = [];
+  const bluetoothPrinterId = useSelector(bluetoothPrinterSelector);
 
   const dispatch = useDispatch();
   const parkingLot = useSelector(currentParkingLotSelector);
-  const id = parkingLot.Id || -1;
+  const id = parkingLot?.Id || -1;
 
   const getQR = code => {
     // calculation
@@ -172,6 +171,7 @@ const Scan = ({}) => {
       setCheckout(true);
     }
   };
+
   const printTicket = async data => {
     var ret = false;
     const {plateId, code} = data;
@@ -199,43 +199,21 @@ const Scan = ({}) => {
       newArr[i] = res[i] & 0xff;
     }
 
-    if (deviceList.length === 0) {
-      const results = await BleManager.getConnectedPeripherals([]);
-      console.log('this', results);
-      if (results.length == 0) {
-        console.log('No connected peripherals');
-      }
-      console.log(results);
-      for (var i = 0; i < results.length; i++) {
-        var peripheral = results[i];
-        peripheral.connected = true;
-        peripherals.set(peripheral.id, peripheral);
-        deviceList = Array.from(peripherals.values());
-      }
-
-      console.log(deviceList);
-      if (deviceList.length === 0) {
-        throw new Error('No printers');
-      }
+    if (!bluetoothPrinterId) {
+      throw new Error('No printers');
     }
 
-    for (let peripheral of deviceList) {
-      try {
-        const peripheralInfo = await BleManager.retrieveServices(peripheral.id);
-        var service = '49535343-fe7d-4ae5-8fa9-9fafd205e455';
-        var characteristic = '49535343-8841-43f4-a8d4-ecbe34729bb3';
-        console.log(peripheralInfo);
-        await BleManager.write(peripheral.id, service, characteristic, newArr);
-        console.log('Writed NORMAL crust');
-        ret = true;
-      } catch (err) {
-        console.log('Device error, next device', err);
-        continue;
-      }
-    }
-
-    if (ret === false) {
-      deviceList = [];
+    try {
+      var service = '49535343-fe7d-4ae5-8fa9-9fafd205e455';
+      var characteristic = '49535343-8841-43f4-a8d4-ecbe34729bb3';
+      await BleManager.write(
+        bluetoothPrinterId,
+        service,
+        characteristic,
+        newArr,
+      );
+      console.log('Writed NORMAL crust');
+    } catch (err) {
       throw new Error('Cannot print. Please reconnect');
     }
   };
@@ -327,7 +305,7 @@ const Scan = ({}) => {
   return (
     <SafeAreaView style={style.container}>
       <Header
-        title={parkingLot.Name}
+        title={parkingLot?.Name || ''}
         bgColor="#323232"
         titleColor="#ffffff"></Header>
       <View style={style.body}>

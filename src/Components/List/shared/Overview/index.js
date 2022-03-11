@@ -10,10 +10,14 @@ import {
   isMyParkSelector,
   spaceCountSelector,
 } from '@store/selectors/parkingLotSelector';
+import {
+  bluetoothPrinterSelector,
+  isBluetoothPrinterConnectedSelector,
+} from '@store/selectors/settingsSelector';
 
 const BG = styled.View`
   background-color: #424242;
-  margin: 0px 25px 30px;
+  margin: -5px 25px 25px 25px;
   border-radius: 15px;
   padding: 20px;
 `;
@@ -38,7 +42,7 @@ const Area = styled.View`
 `;
 const ChartArea = styled.View`
   width: 125px;
-  height: 125px;
+  height: 150px;
   margin-right: 5px;
   justify-content: center;
 `;
@@ -110,21 +114,19 @@ const ParkingLotSelectSpace = styled(ParkingLotSelectNameLabel)`
   width: 100px;
   text-align: right;
 `;
-const CommandItem = styled.View`
-  flex: 1;
-  margin-top: -20px;
-  align-items: center;
-`;
 const CommandButton = styled.TouchableOpacity`
   align-items: center;
-  height: 32px;
+  flex: 1;
+  border-radius: 6px;
+  background-color: #303030;
+  margin-horizontal: 3px;
+  padding-vertical: 10px;
 `;
 const CommandArea = styled.View`
   flex-direction: row;
   align-items: center;
   height: 90px;
   padding-top: 20px;
-  padding-horizontal: 5px;
 `;
 const CommandText = styled.Text`
   font-size: 12px;
@@ -135,15 +137,15 @@ const CommandText = styled.Text`
   color: ${props => props.color || 'white'};
 `;
 const BluetoothText = styled.Text`
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.2px;
   text-align: center;
   color: ${props => props.color || 'white'};
   align-self: center;
 `;
 const BluetoothButton = styled.TouchableOpacity`
-  width: 90%;
+  width: 96%;
   height: 50px;
   border-radius: 6px;
   background-color: #212121;
@@ -210,6 +212,11 @@ export function Overview({
     </ParkingLotSelectItem>
   );
 
+  const isBluetoothPrinterConnected = useSelector(
+    isBluetoothPrinterConnectedSelector,
+  );
+  const bluetoothPrinter = useSelector(bluetoothPrinterSelector);
+
   return (
     <BG>
       <Select onPress={() => toggleSelect(!select)}>
@@ -253,7 +260,7 @@ export function Overview({
             </ChartOverlay>
           </ChartArea>
           <Area>
-            <RowArea paddingTop={18}>
+            <RowArea>
               {/* <Area>
                 <SmallLabel>Customers</SmallLabel>
                 <SmallCount>20</SmallCount>
@@ -262,36 +269,33 @@ export function Overview({
                 <SmallLabel color="#ea6a47">Ticket loss</SmallLabel>
                 <SmallCount>0</SmallCount>
               </Area> */}
-              <CommandItem>
-                <BluetoothButton onPress={testBluetoothPrinter}>
-                  <BluetoothText>Test Bluetooth printer</BluetoothText>
-                </BluetoothButton>
-              </CommandItem>
+              <BluetoothButton onPress={testBluetoothPrinter}>
+                <BluetoothText
+                  color={isBluetoothPrinterConnected ? '#ffb500' : 'white'}>
+                  {isBluetoothPrinterConnected
+                    ? 'Printer connected'
+                    : 'Test Bluetooth printer'}
+                </BluetoothText>
+              </BluetoothButton>
             </RowArea>
 
             <CommandArea>
-              <CommandItem>
-                <CommandButton onPress={viewMembershipPrice}>
-                  <Icon name="cash-outline" size={26} color="#fbd837" />
-                </CommandButton>
+              <CommandButton onPress={viewMembershipPrice}>
+                <Icon name="cash-outline" size={26} color="#fbd837" />
                 <CommandText>Park{'\n'}price</CommandText>
-              </CommandItem>
+              </CommandButton>
               {isMyPark ? (
-                <CommandItem>
-                  <CommandButton onPress={addPartner}>
-                    <Icon name="person-add-outline" size={26} color="#fbd837" />
-                  </CommandButton>
+                <CommandButton onPress={addPartner}>
+                  <Icon name="person-add-outline" size={26} color="#fbd837" />
                   <CommandText>Add partner</CommandText>
-                </CommandItem>
+                </CommandButton>
               ) : (
                 <></>
               )}
-              <CommandItem>
-                <CommandButton onPress={addParkingLot}>
-                  <Icon name="add-outline" size={26} color="#fbd837" />
-                </CommandButton>
+              <CommandButton onPress={addParkingLot}>
+                <Icon name="add-outline" size={26} color="#fbd837" />
                 <CommandText>New{'\n'}park</CommandText>
-              </CommandItem>
+              </CommandButton>
             </CommandArea>
           </Area>
         </RowArea>

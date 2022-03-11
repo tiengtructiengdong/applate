@@ -64,19 +64,16 @@ const testCheckinProceedSaga = function* (action: AnyAction) {
       onTestCheckinSuccessSelector(state),
     );
 
-    try {
-      if (printTicket) {
-        printTicket(action.data).catch(err => {
-          throw new Error(err);
-        });
-      } else {
-        throw new Error('No such function');
+    if (printTicket) {
+      try {
+        printTicket(action.data);
+      } catch (err) {
+        popUp(err.message);
+        return;
       }
-      if (onTestCheckinSuccess) {
-        onTestCheckinSuccess(action.data);
-      }
-    } catch (err) {
-      console.log(err);
+    }
+    if (onTestCheckinSuccess) {
+      onTestCheckinSuccess(action.data);
     }
   } catch (error: any) {
     popUp(error.message);
