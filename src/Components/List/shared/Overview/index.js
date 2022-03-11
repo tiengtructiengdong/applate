@@ -75,7 +75,7 @@ const SmallCount = styled(VehicleCount)`
 
 const ParkingLotSelectBG = styled.View`
   background-color: #212121;
-  height: 166px;
+  height: 143px;
   margin-top: -8px;
   margin-bottom: -20px;
   margin-horizontal: -20px;
@@ -135,22 +135,6 @@ const CommandText = styled.Text`
   letter-spacing: -0.5px;
   padding-top: 5px;
   color: ${props => props.color || 'white'};
-`;
-const BluetoothText = styled.Text`
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: -0.2px;
-  text-align: center;
-  color: ${props => props.color || 'white'};
-  align-self: center;
-`;
-const BluetoothButton = styled.TouchableOpacity`
-  width: 96%;
-  height: 50px;
-  border-radius: 6px;
-  background-color: #212121;
-  padding-horizontal: 10px;
-  justify-content: center;
 `;
 
 export function Overview({

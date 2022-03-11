@@ -239,7 +239,7 @@ const Scan = ({}) => {
       );
       console.log('Writed NORMAL crust');
     } catch (err) {
-      throw new Error('Cannot print. Please reconnect');
+      throw new Error(err);
     }
   };
   const onTextRecognized = text => {

@@ -41,13 +41,15 @@ const RootStack = ({}) => {
       dispatch(
         loginSuccessAction({id, token, fullName, officialId, phoneNumber}),
       );
-      setGetDef(true);
-
       const bluetoothPrinterId = await def.get('bluetoothPrinter');
       await BleManager.connect(bluetoothPrinterId);
+      const info = await BleManager.retrieveServices(bluetoothPrinterId);
+      console.log('success', info);
 
       dispatch(setBluetoothPrinterAction({id: bluetoothPrinterId}));
+      setGetDef(true);
     } catch (err) {
+      console.log('nope', err);
       dispatch(resetBluetoothPrinterAction());
       setGetDef(true);
     }
