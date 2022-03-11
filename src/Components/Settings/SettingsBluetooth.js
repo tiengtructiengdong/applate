@@ -292,7 +292,7 @@ const Screen = ({}) => {
     <Container>
       <Header
         bgColor={'#ffb500'}
-        title={`Test Bluetooth printer`}
+        title={`Connect Bluetooth printer`}
         isLoading={isLoading}
         goBack={() => navigation.goBack()}
         //goRight={() => startScan()}

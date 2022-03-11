@@ -42,7 +42,7 @@ const Area = styled.View`
 `;
 const ChartArea = styled.View`
   width: 125px;
-  height: 150px;
+  height: 115px;
   margin-right: 5px;
   justify-content: center;
 `;
@@ -212,11 +212,6 @@ export function Overview({
     </ParkingLotSelectItem>
   );
 
-  const isBluetoothPrinterConnected = useSelector(
-    isBluetoothPrinterConnectedSelector,
-  );
-  const bluetoothPrinter = useSelector(bluetoothPrinterSelector);
-
   return (
     <BG>
       <Select onPress={() => toggleSelect(!select)}>
@@ -260,25 +255,6 @@ export function Overview({
             </ChartOverlay>
           </ChartArea>
           <Area>
-            <RowArea>
-              {/* <Area>
-                <SmallLabel>Customers</SmallLabel>
-                <SmallCount>20</SmallCount>
-              </Area>
-              <Area>
-                <SmallLabel color="#ea6a47">Ticket loss</SmallLabel>
-                <SmallCount>0</SmallCount>
-              </Area> */}
-              <BluetoothButton onPress={testBluetoothPrinter}>
-                <BluetoothText
-                  color={isBluetoothPrinterConnected ? '#ffb500' : 'white'}>
-                  {isBluetoothPrinterConnected
-                    ? 'Printer connected'
-                    : 'Test Bluetooth printer'}
-                </BluetoothText>
-              </BluetoothButton>
-            </RowArea>
-
             <CommandArea>
               <CommandButton onPress={viewMembershipPrice}>
                 <Icon name="cash-outline" size={26} color="#fbd837" />

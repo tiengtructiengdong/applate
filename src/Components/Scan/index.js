@@ -1,5 +1,7 @@
 import React, {memo, useEffect, useState} from 'react';
+import styled from 'styled-components';
 import EscPosEncoder from 'esc-pos-encoder';
+import {useNavigation} from '@react-navigation/native';
 import {
   Alert,
   Dimensions,
@@ -23,7 +25,12 @@ import {
 import qrcode from 'qrcode-terminal';
 
 import {popUp} from '@constants/Utils';
-import {bluetoothPrinterSelector} from '@store/selectors/settingsSelector';
+import {
+  bluetoothPrinterSelector,
+  isBluetoothPrinterConnectedSelector,
+} from '@store/selectors/settingsSelector';
+import {createStackNavigator} from '@react-navigation/stack';
+import SettingsBluetooth from '@components/Settings/SettingsBluetooth';
 
 const style = StyleSheet.create({
   container: {
@@ -33,10 +40,10 @@ const style = StyleSheet.create({
   },
   body: {
     flex: 1,
-    height: '100%',
     backgroundColor: '#121212',
     paddingVertical: 20,
     flexDirection: 'column',
+    justifyContent: 'center',
   },
   sectionContainer: {
     marginTop: 32,
@@ -66,8 +73,8 @@ const style = StyleSheet.create({
     margin: 20,
   },
   cameraArea: {
-    flex: 1,
     justifyContent: 'center',
+    alignSelf: 'center',
     paddingBottom: 70,
   },
   cameraView: {
@@ -78,7 +85,6 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 27,
     overflow: 'hidden',
-    top: -80,
   },
   cameraContent: {
     backgroundColor: '#353535',
@@ -121,11 +127,30 @@ const style = StyleSheet.create({
   },
 });
 
+const BluetoothText = styled.Text`
+  font-size: 17px;
+  font-weight: 500;
+  text-align: center;
+  color: ${props => props.color || 'white'};
+  align-self: center;
+`;
+const BluetoothButton = styled.TouchableOpacity`
+  height: 54px;
+  border-radius: 12px;
+  background-color: #303030;
+  padding-horizontal: 10px;
+  justify-content: center;
+  margin-top: 20px;
+`;
+
 const Scan = ({}) => {
   const [checkOut, setCheckout] = useState(false);
   const [checkIn, setCheckin] = useState(false);
-  const [connected, setConnected] = useState(true); //temp
+  const isBluetoothPrinterConnected = useSelector(
+    isBluetoothPrinterConnectedSelector,
+  );
 
+  const navigation = useNavigation();
   const bluetoothPrinterId = useSelector(bluetoothPrinterSelector);
 
   const dispatch = useDispatch();
@@ -289,7 +314,6 @@ const Scan = ({}) => {
       },
     );
   };
-
   useEffect(() => {
     dispatch(
       setupCustomerListenerAction(
@@ -314,7 +338,7 @@ const Scan = ({}) => {
             style={[
               style.cameraView,
               {
-                borderColor: !connected
+                borderColor: !isBluetoothPrinterConnected
                   ? '#ff3511'
                   : checkOut || checkIn
                   ? '#07e722'
@@ -322,7 +346,7 @@ const Scan = ({}) => {
               },
             ]}>
             <View style={style.cameraContent}>
-              {connected ? (
+              {isBluetoothPrinterConnected ? (
                 <RNCamera
                   captureAudio={false}
                   defaultTouchToFocus
@@ -341,10 +365,28 @@ const Scan = ({}) => {
               )}
             </View>
           </View>
+          <BluetoothButton onPress={() => navigation.navigate('Bluetooth')}>
+            <BluetoothText
+              color={isBluetoothPrinterConnected ? '#ffb500' : 'white'}>
+              {isBluetoothPrinterConnected
+                ? 'Change printer'
+                : 'Connect Bluetooth printer'}
+            </BluetoothText>
+          </BluetoothButton>
         </View>
       </View>
     </SafeAreaView>
   );
 };
 
-export default memo(Scan);
+const Stack = createStackNavigator();
+const ScanStack = () => {
+  return (
+    <Stack.Navigator headerMode="none">
+      <Stack.Screen name="Scan" component={Scan} />
+      <Stack.Screen name="Bluetooth" component={SettingsBluetooth} />
+    </Stack.Navigator>
+  );
+};
+
+export default memo(ScanStack);

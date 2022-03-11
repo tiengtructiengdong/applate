@@ -263,7 +263,6 @@ const ListStack = () => {
       <Stack.Screen name="AddMembership" component={AddMembership} />
       <Stack.Screen name="AddPartner" component={AddPartner} />
       <Stack.Screen name="ViewPrice" component={ViewPrice} />
-      <Stack.Screen name="Bluetooth" component={SettingsBluetooth} />
     </Stack.Navigator>
   );
 };

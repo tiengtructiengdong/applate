@@ -44,12 +44,10 @@ const RootStack = ({}) => {
       setGetDef(true);
 
       const bluetoothPrinterId = await def.get('bluetoothPrinter');
-      console.log('btp', bluetoothPrinterId);
       await BleManager.connect(bluetoothPrinterId);
 
       dispatch(setBluetoothPrinterAction({id: bluetoothPrinterId}));
     } catch (err) {
-      console.log(err);
       dispatch(resetBluetoothPrinterAction());
       setGetDef(true);
     }
