@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import {Alert, Platform, PermissionsAndroid} from 'react-native';
 
 import styled from 'styled-components';
 import {Header} from '@components/Header';
@@ -12,7 +12,7 @@ import EscPosEncoder from 'esc-pos-encoder';
 
 import qrcode from 'qrcode-terminal';
 import {useDispatch} from 'react-redux';
-import {sleep} from '@constants/Utils';
+import {isAndroid, sleep} from '@constants/Utils';
 import {setBluetoothPrinterAction} from '@store/actionTypes';
 
 const Container = styled.SafeAreaView`
@@ -222,7 +222,7 @@ const Screen = ({}) => {
       handleUpdateValueForCharacteristic,
     );
 
-    if (Platform.OS === 'android' && Platform.Version >= 23) {
+    if (isAndroid && Platform.Version >= 23) {
       PermissionsAndroid.check(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
       ).then(result => {
