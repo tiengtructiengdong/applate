@@ -54,6 +54,7 @@ const LabelArea = styled.View`
   margin-horizontal: 25px;
   height: 85px;
   padding-top: 15px;
+  margin-top: 25px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   overflow: hidden;
