@@ -8,6 +8,7 @@ import {
   getPartnerAction,
   getPartnerSuccessAction,
   logoutSuccessAction,
+  searchUserSuccessAction,
   searchVehicleSuccessAction,
 } from '@store/actionTypes';
 import {AnyAction} from 'redux';
