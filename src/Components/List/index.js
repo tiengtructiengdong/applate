@@ -169,18 +169,19 @@ const List = ({}) => {
           },
         },
         {
-          text: 'Cancel membership',
+          text: 'Clear membership',
           style: 'destructive',
           onPress: () => {
             removeMembership(PlateId);
           },
         },
-        {
-          text: 'Lost ticket?',
-        },
+        // {
+        //   text: 'Lost ticket?',
+        // },
         {
           text: 'Cancel',
           style: 'cancel',
+          onPress: () => {},
         },
       ],
     );
