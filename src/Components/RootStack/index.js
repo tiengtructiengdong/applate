@@ -49,7 +49,7 @@ const RootStack = ({}) => {
       dispatch(setBluetoothPrinterAction({id: bluetoothPrinterId}));
       setGetDef(true);
     } catch (err) {
-      console.log('nope', err);
+      console.log('Invalid Bluetooth', err);
       dispatch(resetBluetoothPrinterAction());
       setGetDef(true);
     }

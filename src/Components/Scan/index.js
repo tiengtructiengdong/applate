@@ -223,6 +223,7 @@ const Scan = ({}) => {
       newArr[i] = res[i] & 0xff;
     }
 
+    console.log(bluetoothPrinterId);
     if (!bluetoothPrinterId) {
       return Promise.reject(new Error('No printers'));
     }
@@ -238,7 +239,7 @@ const Scan = ({}) => {
       );
       console.log('Writed NORMAL crust');
     } catch (err) {
-      console.log(bluetoothPrinterId);
+      console.log(bluetoothPrinterId, err);
       return Promise.reject(new Error('Bluetooth connection error'));
     }
     return Promise.resolve();
