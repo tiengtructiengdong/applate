@@ -139,6 +139,7 @@ export const testCheckoutAction = makeAction('TEST_CHECKOUT', 'id', 'code');
 export const testCheckoutSuccessAction = makeAction(
   'TEST_CHECKOUT_SUCCESS',
   'plateId',
+  'price',
 );
 export const testCheckoutFailedAction = makeAction('TEST_CHECKOUT_FAILED');
 

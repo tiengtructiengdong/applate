@@ -3,7 +3,7 @@ import {AnyAction} from 'redux';
 export type CustomerState = {
   onTestCheckinSuccess?: (data: any) => void;
   onCheckinSuccess?: (data: any) => void;
-  onTestCheckoutSuccess?: (plateId: string) => void;
+  onTestCheckoutSuccess?: (plateId: string, price: number) => void;
   onTestCheckoutFailed?: () => void;
   printTicket?: (data: any) => void;
 };
@@ -40,7 +40,7 @@ export default function customerReducer(
 
     case 'TEST_CHECKOUT_SUCCESS':
       if (state.onTestCheckoutSuccess)
-        state.onTestCheckoutSuccess(action.plateId);
+        state.onTestCheckoutSuccess(action.plateId, action.price);
       return state;
 
     case 'TEST_CHECKOUT_FAILED':

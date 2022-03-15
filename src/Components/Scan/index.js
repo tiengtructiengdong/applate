@@ -287,8 +287,8 @@ const Scan = ({}) => {
   const onCheckinSuccess = data => {
     console.log('Checkin success!', data);
   };
-  const onTestCheckoutSuccess = plateId => {
-    Alert.alert('Checkout', plateId, [
+  const onTestCheckoutSuccess = (plateId, price) => {
+    Alert.alert(plateId, `Checkout price: ${price || 0}`, [
       {
         text: 'Cancel',
         onPress: () => {

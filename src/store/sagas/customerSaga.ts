@@ -165,7 +165,8 @@ const testCheckoutSaga = function* (action: AnyAction) {
     const data = parseRawDataResponse(response, true);
     if (data) {
       if (data.isFound) {
-        yield* put(testCheckoutSuccessAction(data.plateId));
+        const price = JSON.parse(data.fee).price;
+        yield* put(testCheckoutSuccessAction(data.plateId, price));
       } else {
         yield* put(testCheckoutFailedAction());
       }
