@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useState} from 'react';
+import React, {memo, useEffect, useRef, useState} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import styled from 'styled-components';
 import {Alert} from 'react-native';
@@ -30,6 +30,7 @@ import AddPartner from './AddPartner';
 import ViewPrice from './ViewPrice';
 import SettingsBluetooth from '@components/Settings/SettingsBluetooth';
 import {MembershipMenu} from './shared/MembershipMenu';
+import {TextInput} from 'react-native-gesture-handler';
 
 const Stack = createStackNavigator();
 
@@ -94,6 +95,8 @@ const List = ({}) => {
   const [currentMembership, setCurrentMembership] = useState('');
   const [isMembershipUpgradeVisible, setMembershipUpgradeVisible] =
     useState(false);
+
+  const [isOverviewShown, toggleOverview] = useState(true);
 
   const [searchVehicle, setSearchVehicle] = useState('');
 
@@ -208,6 +211,12 @@ const List = ({}) => {
               placeholder="Search vehicle..."
               value={searchVehicle}
               onChangeText={setSearchVehicle}
+              onFocus={() => {
+                toggleOverview(false);
+              }}
+              onBlur={() => {
+                toggleOverview(true);
+              }}
             />
           </LabelArea>
           <SessionArea
@@ -227,7 +236,7 @@ const List = ({}) => {
               />
             ))}
           </SessionArea>
-          {parkingLot !== undefined && parkingLot !== {} ? (
+          {parkingLot !== undefined && parkingLot !== {} && isOverviewShown ? (
             <Overview
               parkingLot={parkingLot}
               confirmSelect={confirmSelect}

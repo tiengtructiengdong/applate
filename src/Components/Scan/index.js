@@ -198,7 +198,6 @@ const Scan = ({}) => {
   };
 
   const printTicket = async data => {
-    var ret = false;
     const {plateId, code} = data;
 
     const encoder = new EscPosEncoder();
@@ -225,7 +224,7 @@ const Scan = ({}) => {
     }
 
     if (!bluetoothPrinterId) {
-      throw new Error('No printers');
+      return Promise.reject(new Error('No printers'));
     }
 
     try {
@@ -239,8 +238,10 @@ const Scan = ({}) => {
       );
       console.log('Writed NORMAL crust');
     } catch (err) {
-      throw new Error(err);
+      console.log(bluetoothPrinterId);
+      return Promise.reject(new Error('Bluetooth connection error'));
     }
+    return Promise.resolve();
   };
   const onTextRecognized = text => {
     const regEx =

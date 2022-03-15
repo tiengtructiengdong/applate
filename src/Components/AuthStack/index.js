@@ -27,7 +27,7 @@ const FieldArea = styled.KeyboardAvoidingView`
   justify-content: center;
   margin-horizontal: 30px;
   width: 250px;
-  margin-top: 150px;
+  margin-top: 30px;
 `;
 const Label = styled.Text`
   font-size: 18px;

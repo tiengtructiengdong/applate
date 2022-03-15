@@ -2,6 +2,7 @@ import {
   checkinSuccessAction,
   getActiveSessionAction,
   logoutSuccessAction,
+  resetBluetoothPrinterAction,
   testCheckinProceedAction,
   testCheckoutFailedAction,
   testCheckoutSuccessAction,
@@ -57,7 +58,7 @@ const testCheckinSaga = function* (action: AnyAction) {
 };
 
 const testCheckinProceedSaga = function* (action: AnyAction) {
-  //const {id, plateId, code} = action;
+  var err = false;
   try {
     const printTicket = yield* select(state => printTicketSelector(state));
     const onTestCheckinSuccess = yield* select(state =>
@@ -65,15 +66,19 @@ const testCheckinProceedSaga = function* (action: AnyAction) {
     );
 
     if (printTicket) {
-      try {
-        printTicket(action.data);
-      } catch (err) {
-        popUp(err.message);
-        return;
-      }
+      printTicket(action.data)
+        .then(() => {
+          if (onTestCheckinSuccess) {
+            onTestCheckinSuccess(action.data);
+          }
+        })
+        .catch(err => {
+          popUp(err.message);
+          err = true;
+        });
     }
-    if (onTestCheckinSuccess) {
-      onTestCheckinSuccess(action.data);
+    if (err) {
+      yield* put(resetBluetoothPrinterAction());
     }
   } catch (error: any) {
     popUp(error.message);

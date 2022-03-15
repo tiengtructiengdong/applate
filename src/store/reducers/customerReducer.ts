@@ -5,7 +5,7 @@ export type CustomerState = {
   onCheckinSuccess?: (data: any) => void;
   onTestCheckoutSuccess?: (plateId: string, price: number) => void;
   onTestCheckoutFailed?: () => void;
-  printTicket?: (data: any) => void;
+  printTicket?: (data: any) => Promise<void>;
 };
 
 const initState: CustomerState = {};
