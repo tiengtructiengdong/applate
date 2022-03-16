@@ -42,6 +42,7 @@ const loginSaga = function* (action: AnyAction) {
       yield* put(loginSuccessAction(data));
     } else {
       const errorMessage = response?.data?.error?.message;
+      console.log('errrrr', errorMessage);
       if (errorMessage) {
         popUp(errorMessage);
       }
