@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useState} from 'react';
+import React, {memo, useEffect, useRef, useState} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import styled from 'styled-components';
 import {Alert} from 'react-native';
@@ -30,6 +30,7 @@ import AddPartner from './AddPartner';
 import ViewPrice from './ViewPrice';
 import SettingsBluetooth from '@components/Settings/SettingsBluetooth';
 import {MembershipMenu} from './shared/MembershipMenu';
+import {TextInput} from 'react-native-gesture-handler';
 
 const Stack = createStackNavigator();
 
@@ -76,6 +77,9 @@ const SessionArea = styled.ScrollView`
   padding-vertical: 10px;
   margin-bottom: 30px;
 `;
+const Space = styled.View`
+  height: 30px;
+`;
 
 const List = ({}) => {
   const dispatch = useDispatch();
@@ -95,6 +99,8 @@ const List = ({}) => {
   const [isMembershipUpgradeVisible, setMembershipUpgradeVisible] =
     useState(false);
 
+  const [isOverviewShown, toggleOverview] = useState(true);
+
   const [searchVehicle, setSearchVehicle] = useState('');
 
   useEffect(() => {
@@ -111,12 +117,6 @@ const List = ({}) => {
     }
   }, [parkingLot, searchVehicle]);
 
-  useEffect(() => {
-    if (parkingLot === undefined || parkingLot === {}) {
-      navigation.navigate('AddParkingLot', {forced: true});
-    }
-  }, [parkingLot]);
-
   const confirmSelect = parkId => {
     dispatch(getParkAction(parkId));
   };
@@ -126,7 +126,7 @@ const List = ({}) => {
   const vehicleCount = useSelector(vehicleCountSelector);
   const loadNextPage = () => {
     if (page * 10 < vehicleCount) {
-      dispatch(getActiveSessionAction(parkingLot.Id, page + 1));
+      dispatch(getActiveSessionAction(parkingLot?.Id, page + 1));
     }
   };
   const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
@@ -194,7 +194,7 @@ const List = ({}) => {
   const removeMembership = plateId => {
     const passerById = memberships[0]?.Id;
     if (passerById)
-      dispatch(setMembershipAction(parkingLot.Id, plateId, passerById));
+      dispatch(setMembershipAction(parkingLot?.Id, plateId, passerById));
   };
 
   return (
@@ -208,6 +208,12 @@ const List = ({}) => {
               placeholder="Search vehicle..."
               value={searchVehicle}
               onChangeText={setSearchVehicle}
+              onFocus={() => {
+                toggleOverview(false);
+              }}
+              onBlur={() => {
+                toggleOverview(true);
+              }}
             />
           </LabelArea>
           <SessionArea
@@ -226,8 +232,9 @@ const List = ({}) => {
                 }}
               />
             ))}
+            <Space />
           </SessionArea>
-          {parkingLot !== undefined && parkingLot !== {} ? (
+          {parkingLot !== undefined && parkingLot !== {} && isOverviewShown ? (
             <Overview
               parkingLot={parkingLot}
               confirmSelect={confirmSelect}
@@ -245,7 +252,7 @@ const List = ({}) => {
       </SafeArea>
       {isMembershipUpgradeVisible ? (
         <MembershipMenu
-          parkingLotId={parkingLot.Id}
+          parkingLotId={parkingLot?.Id}
           plateId={currentPlateId}
           currentMembership={currentMembership}
           setVisible={setMembershipUpgradeVisible}

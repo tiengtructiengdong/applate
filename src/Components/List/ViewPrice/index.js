@@ -89,7 +89,7 @@ const Screen = ({}) => {
 
   const addMembership = (name, price, level) => {
     dispatch(
-      addMembershipAction(parkingLot.Id, {
+      addMembershipAction(parkingLot?.Id, {
         name,
         fee: {price},
         level,
@@ -97,19 +97,19 @@ const Screen = ({}) => {
     );
   };
   const removeMembership = membershipId => {
-    dispatch(deleteMembershipAction(parkingLot.Id, membershipId));
+    dispatch(deleteMembershipAction(parkingLot?.Id, membershipId));
   };
 
   // no ANDROID yet -- WARNING
   const editPrice = memId => {
     prompt('Parking price (VND)', '', price => {
-      dispatch(updateMembershipAction(parkingLot.Id, memId, {fee: {price}}));
+      dispatch(updateMembershipAction(parkingLot?.Id, memId, {fee: {price}}));
     });
   };
 
   const editName = memId => {
     prompt('Enter the name', '', name => {
-      dispatch(updateMembershipAction(parkingLot.Id, memId, {name}));
+      dispatch(updateMembershipAction(parkingLot?.Id, memId, {name}));
     });
   };
 

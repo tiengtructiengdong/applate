@@ -49,7 +49,7 @@ const RootStack = ({}) => {
       dispatch(setBluetoothPrinterAction({id: bluetoothPrinterId}));
       setGetDef(true);
     } catch (err) {
-      console.log('nope', err);
+      console.log('Invalid Bluetooth', err);
       dispatch(resetBluetoothPrinterAction());
       setGetDef(true);
     }
@@ -58,6 +58,27 @@ const RootStack = ({}) => {
   useEffect(() => {
     getDef();
   }, [dispatch]);
+
+  const MINUTE_MS = 10000;
+
+  useEffect(() => {
+    const connect = async () => {
+      try {
+        const bluetoothPrinterId = await def.get('bluetoothPrinter');
+        await BleManager.connect(bluetoothPrinterId);
+        //const info = await BleManager.retrieveServices(bluetoothPrinterId);
+        console.log('success' /*, info*/);
+
+        dispatch(setBluetoothPrinterAction({id: bluetoothPrinterId}));
+      } catch (err) {
+        console.log('error', err);
+        dispatch(resetBluetoothPrinterAction());
+      }
+    };
+    const interval = setInterval(connect, MINUTE_MS);
+
+    return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+  }, []);
 
   if (!isGetDef) {
     return <Blank />;

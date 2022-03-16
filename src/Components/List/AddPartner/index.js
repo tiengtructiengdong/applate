@@ -106,16 +106,16 @@ const Screen = ({}) => {
   const auth = useSelector(authSelector);
 
   useEffect(() => {
-    dispatch(getPartnerAction(parkingLot.Id));
+    dispatch(getPartnerAction(parkingLot?.Id));
   }, [dispatch]);
 
   const selectUser = user => {
     setKeyword('');
-    dispatch(addPartnerAction(parkingLot.Id, user.Id));
+    dispatch(addPartnerAction(parkingLot?.Id, user.Id));
   };
 
   const removeUser = user => {
-    dispatch(deletePartnerAction(parkingLot.Id, user.Id));
+    dispatch(deletePartnerAction(parkingLot?.Id, user.Id));
   };
 
   const securePhoneNumber = number => {

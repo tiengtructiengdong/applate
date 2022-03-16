@@ -116,11 +116,14 @@ const Register = ({setToken}) => {
       <FieldArea>
         <BigLabel>Personal Information</BigLabel>
         <Label>ID card number</Label>
-        <Input onChangeText={text => setId(text)} />
+        <Input keyboardType="numeric" onChangeText={text => setId(text)} />
         <Label>Full name</Label>
         <Input onChangeText={text => setFullName(text)} />
         <Label>Phone number</Label>
-        <Input onChangeText={text => setPhoneNumber(text)} />
+        <Input
+          keyboardType="numeric"
+          onChangeText={text => setPhoneNumber(text)}
+        />
         <Label>Password</Label>
         <Input onChangeText={text => setPassword(text)} secureTextEntry />
         <Label>Retype password</Label>
@@ -140,7 +143,7 @@ const Register = ({setToken}) => {
           onChangeText={text => setSpaceCount(text)}
         />
         <Label>Parking Price (VND)</Label>
-        <Input onChangeText={text => setPrice(text)} />
+        <Input keyboardType="numeric" onChangeText={text => setPrice(text)} />
 
         <ButtonArea>
           <Button

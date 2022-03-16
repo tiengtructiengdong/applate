@@ -2,6 +2,7 @@ import React, {memo, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import EscPosEncoder from 'esc-pos-encoder';
 import {useNavigation} from '@react-navigation/native';
+import def from 'react-native-default-preference';
 import {
   Alert,
   Dimensions,
@@ -157,6 +158,7 @@ const Scan = ({}) => {
   const parkingLot = useSelector(currentParkingLotSelector);
   const id = parkingLot?.Id || -1;
 
+  /*
   const getQR = code => {
     // calculation
     const m = 0;
@@ -190,7 +192,9 @@ const Scan = ({}) => {
     });
     return qrRaw;
   };
+  */
   const onBarCodeRead = code => {
+    console.log(code);
     if (!checkOut) {
       dispatch(testCheckoutAction(id, code.data));
       setCheckout(true);
@@ -198,7 +202,6 @@ const Scan = ({}) => {
   };
 
   const printTicket = async data => {
-    var ret = false;
     const {plateId, code} = data;
 
     const encoder = new EscPosEncoder();
@@ -224,23 +227,28 @@ const Scan = ({}) => {
       newArr[i] = res[i] & 0xff;
     }
 
-    if (!bluetoothPrinterId) {
-      throw new Error('No printers');
+    //console.log(bluetoothPrinterId);
+    const printerId = await def.get('bluetoothPrinter');
+    if (printerId === '') {
+      return Promise.reject(new Error('No printers'));
     }
 
     try {
       var service = '49535343-fe7d-4ae5-8fa9-9fafd205e455';
       var characteristic = '49535343-8841-43f4-a8d4-ecbe34729bb3';
       await BleManager.write(
-        bluetoothPrinterId,
+        //bluetoothPrinterId,
+        printerId,
         service,
         characteristic,
         newArr,
       );
       console.log('Writed NORMAL crust');
     } catch (err) {
-      throw new Error(err);
+      console.log(bluetoothPrinterId, printerId, err);
+      return Promise.reject(new Error('Bluetooth connection error'));
     }
+    return Promise.resolve();
   };
   const onTextRecognized = text => {
     const regEx =
@@ -278,17 +286,17 @@ const Scan = ({}) => {
     }
   };
   const processCheckin = plateId => {
-    dispatch(testCheckinAction(parkingLot.Id, plateId));
+    dispatch(testCheckinAction(parkingLot?.Id, plateId));
   };
   const onTestCheckinSuccess = data => {
     const {plateId, code} = data;
-    dispatch(checkinAction(parkingLot.Id, plateId, code));
+    dispatch(checkinAction(parkingLot?.Id, plateId, code));
   };
   const onCheckinSuccess = data => {
     console.log('Checkin success!', data);
   };
   const onTestCheckoutSuccess = (plateId, price) => {
-    Alert.alert(plateId, `Checkout price: ${price || 0}`, [
+    Alert.alert(`${price.toLocaleString('en-US') || 0} VND`, plateId, [
       {
         text: 'Cancel',
         onPress: () => {
@@ -300,7 +308,7 @@ const Scan = ({}) => {
         text: 'OK',
         onPress: () => {
           setCheckout(false);
-          dispatch(checkoutAction(parkingLot.Id, plateId));
+          dispatch(checkoutAction(parkingLot?.Id, plateId));
         },
       },
     ]);

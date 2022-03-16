@@ -7,7 +7,7 @@ export type SettingsState = {
 };
 
 const initState: SettingsState = {
-  bluetoothPrinter: 'man',
+  bluetoothPrinter: '',
   isBluetoothPrinterConnected: false,
 };
 
@@ -19,6 +19,7 @@ export default function settingsReducer(
   switch (action.type) {
     case 'SET_BLUETOOTH_PRINTER':
       def.set('bluetoothPrinter', action.printer.id).then(() => {});
+      console.log('set', action.printer.id);
       return {
         ...state,
         bluetoothPrinter: action.printer.id,
@@ -26,9 +27,10 @@ export default function settingsReducer(
       };
     case 'RESET_BLUETOOTH_PRINTER':
       def.clear('bluetoothPrinter').then(() => {});
+      console.log('reset ble');
       return {
         ...state,
-        bluetoothPrinter: '',
+        //bluetoothPrinter: '',
         isBluetoothPrinterConnected: false,
       };
     default:

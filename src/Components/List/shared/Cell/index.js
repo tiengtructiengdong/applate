@@ -37,14 +37,19 @@ const MembershipText = styled.Text`
 `;
 
 function Cell({vehicle, onPress}) {
-  const date = new Date(vehicle.CheckinDateTime);
-  const membership = vehicle.Name;
-  const price = JSON.parse(vehicle.Fee).price;
+  if (!vehicle) {
+    return <></>;
+  }
+  const date = vehicle.CheckinDateTime
+    ? new Date(vehicle.CheckinDateTime)
+    : new Date();
+  const membership = vehicle.Name || '';
+  //const price = vehicle.Fee ? JSON.parse(vehicle.Fee).price || 0 : 0;
 
   return (
     <BG activeOpacity={0.5} onPress={onPress}>
       <Left>
-        <Name>{vehicle.PlateId}</Name>
+        <Name>{vehicle.PlateId || ''}</Name>
         {membership != 'Default' ? (
           <MembershipText>{membership}</MembershipText>
         ) : (

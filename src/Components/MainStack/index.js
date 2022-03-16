@@ -20,7 +20,9 @@ const MainStack = ({}) => {
   // }, [dispatch]);
 
   return (
-    <Tab.Navigator tabBar={props => <AppTabbar {...props} />}>
+    <Tab.Navigator
+      tabBar={props => <AppTabbar {...props} />}
+      tabBarOptions={{keyboardHidesTabBar: true}}>
       <Tab.Screen name="List" component={List} />
       <Tab.Screen name="Scan" component={Scan} options={{tabBarBadge: 3}} />
       <Tab.Screen name="Settings" component={Settings} />

@@ -2,6 +2,7 @@ import {
   checkinSuccessAction,
   getActiveSessionAction,
   logoutSuccessAction,
+  resetBluetoothPrinterAction,
   testCheckinProceedAction,
   testCheckoutFailedAction,
   testCheckoutSuccessAction,
@@ -57,7 +58,7 @@ const testCheckinSaga = function* (action: AnyAction) {
 };
 
 const testCheckinProceedSaga = function* (action: AnyAction) {
-  //const {id, plateId, code} = action;
+  var err = false;
   try {
     const printTicket = yield* select(state => printTicketSelector(state));
     const onTestCheckinSuccess = yield* select(state =>
@@ -65,15 +66,20 @@ const testCheckinProceedSaga = function* (action: AnyAction) {
     );
 
     if (printTicket) {
-      try {
-        printTicket(action.data);
-      } catch (err) {
-        popUp(err.message);
-        return;
-      }
+      printTicket(action.data)
+        .then(() => {
+          if (onTestCheckinSuccess) {
+            onTestCheckinSuccess(action.data);
+          }
+        })
+        .catch(err => {
+          popUp(err.message);
+          err = true;
+        });
     }
-    if (onTestCheckinSuccess) {
-      onTestCheckinSuccess(action.data);
+    if (err) {
+      console.log('fuck');
+      yield* put(resetBluetoothPrinterAction());
     }
   } catch (error: any) {
     popUp(error.message);
@@ -126,6 +132,8 @@ const checkoutSaga = function* (action: AnyAction) {
       throw new Error('Please log in again.');
     }
 
+    console.log(auth, id, plateId);
+
     if (response.status != 200) {
       throw new Error('Checkout error');
     }
@@ -165,8 +173,9 @@ const testCheckoutSaga = function* (action: AnyAction) {
     const data = parseRawDataResponse(response, true);
     if (data) {
       if (data.isFound) {
+        console.log(data);
         const price = JSON.parse(data.fee).price;
-        yield* put(testCheckoutSuccessAction(data.plateId, price));
+        yield* put(testCheckoutSuccessAction(data.plateId, price || 0));
       } else {
         yield* put(testCheckoutFailedAction());
       }

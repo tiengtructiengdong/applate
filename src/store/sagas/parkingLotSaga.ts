@@ -204,7 +204,7 @@ const getParkSaga = function* (action: AnyAction) {
       const {parkingLot, membership} = data;
       console.log(membership);
       yield* put(getParkSuccessAction(parkingLot, membership));
-      yield* put(getActiveSessionAction(parkingLot.Id));
+      yield* put(getActiveSessionAction(parkingLot?.Id));
     } else {
       const errorMessage = response?.data?.error?.message;
       if (errorMessage) {

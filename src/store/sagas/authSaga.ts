@@ -18,7 +18,8 @@ const registerSaga = function* (action: AnyAction) {
     const response = yield* call(register, registerData);
     if (response.status === 400) {
       console.log(response);
-      throw new Error('ID or Phone number\nis registered!');
+      const errorMessage = response?.data?.message;
+      throw new Error(errorMessage || 'ID or Phone number\nis registered!');
     }
     popUp('Registration success!', 'You can continue with the app.');
     onSuccess();
@@ -41,6 +42,7 @@ const loginSaga = function* (action: AnyAction) {
       yield* put(loginSuccessAction(data));
     } else {
       const errorMessage = response?.data?.error?.message;
+      console.log('errrrr', errorMessage);
       if (errorMessage) {
         popUp(errorMessage);
       }
