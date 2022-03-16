@@ -27,10 +27,10 @@ export default function settingsReducer(
       };
     case 'RESET_BLUETOOTH_PRINTER':
       def.clear('bluetoothPrinter').then(() => {});
-      console.log('reset what');
+      console.log('reset ble');
       return {
         ...state,
-        bluetoothPrinter: '',
+        //bluetoothPrinter: '',
         isBluetoothPrinterConnected: false,
       };
     default:

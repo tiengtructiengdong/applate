@@ -157,6 +157,7 @@ const Scan = ({}) => {
   const parkingLot = useSelector(currentParkingLotSelector);
   const id = parkingLot?.Id || -1;
 
+  /*
   const getQR = code => {
     // calculation
     const m = 0;
@@ -190,6 +191,7 @@ const Scan = ({}) => {
     });
     return qrRaw;
   };
+  */
   const onBarCodeRead = code => {
     console.log(code);
     if (!checkOut) {
@@ -198,7 +200,6 @@ const Scan = ({}) => {
     }
   };
 
-  console.log(bluetoothPrinterId);
   const printTicket = async data => {
     const {plateId, code} = data;
 
