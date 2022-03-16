@@ -2,6 +2,7 @@ import React, {memo, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import EscPosEncoder from 'esc-pos-encoder';
 import {useNavigation} from '@react-navigation/native';
+import def from 'react-native-default-preference';
 import {
   Alert,
   Dimensions,
@@ -226,8 +227,9 @@ const Scan = ({}) => {
       newArr[i] = res[i] & 0xff;
     }
 
-    console.log(bluetoothPrinterId);
-    if (!bluetoothPrinterId) {
+    //console.log(bluetoothPrinterId);
+    const printerId = await def.get('bluetoothPrinter');
+    if (printerId === '') {
       return Promise.reject(new Error('No printers'));
     }
 
@@ -235,14 +237,15 @@ const Scan = ({}) => {
       var service = '49535343-fe7d-4ae5-8fa9-9fafd205e455';
       var characteristic = '49535343-8841-43f4-a8d4-ecbe34729bb3';
       await BleManager.write(
-        bluetoothPrinterId,
+        //bluetoothPrinterId,
+        printerId,
         service,
         characteristic,
         newArr,
       );
       console.log('Writed NORMAL crust');
     } catch (err) {
-      console.log(bluetoothPrinterId, err);
+      console.log(bluetoothPrinterId, printerId, err);
       return Promise.reject(new Error('Bluetooth connection error'));
     }
     return Promise.resolve();

@@ -78,6 +78,7 @@ const testCheckinProceedSaga = function* (action: AnyAction) {
         });
     }
     if (err) {
+      console.log('fuck');
       yield* put(resetBluetoothPrinterAction());
     }
   } catch (error: any) {
