@@ -191,12 +191,14 @@ const Scan = ({}) => {
     return qrRaw;
   };
   const onBarCodeRead = code => {
+    console.log(code);
     if (!checkOut) {
       dispatch(testCheckoutAction(id, code.data));
       setCheckout(true);
     }
   };
 
+  console.log(bluetoothPrinterId);
   const printTicket = async data => {
     const {plateId, code} = data;
 
@@ -280,17 +282,17 @@ const Scan = ({}) => {
     }
   };
   const processCheckin = plateId => {
-    dispatch(testCheckinAction(parkingLot.Id, plateId));
+    dispatch(testCheckinAction(parkingLot?.Id, plateId));
   };
   const onTestCheckinSuccess = data => {
     const {plateId, code} = data;
-    dispatch(checkinAction(parkingLot.Id, plateId, code));
+    dispatch(checkinAction(parkingLot?.Id, plateId, code));
   };
   const onCheckinSuccess = data => {
     console.log('Checkin success!', data);
   };
   const onTestCheckoutSuccess = (plateId, price) => {
-    Alert.alert(plateId, `Checkout price: ${price || 0}`, [
+    Alert.alert(`${price.toLocaleString('en-US') || 0} VND`, plateId, [
       {
         text: 'Cancel',
         onPress: () => {
@@ -302,7 +304,7 @@ const Scan = ({}) => {
         text: 'OK',
         onPress: () => {
           setCheckout(false);
-          dispatch(checkoutAction(parkingLot.Id, plateId));
+          dispatch(checkoutAction(parkingLot?.Id, plateId));
         },
       },
     ]);

@@ -77,6 +77,9 @@ const SessionArea = styled.ScrollView`
   padding-vertical: 10px;
   margin-bottom: 30px;
 `;
+const Space = styled.View`
+  height: 30px;
+`;
 
 const List = ({}) => {
   const dispatch = useDispatch();
@@ -114,12 +117,6 @@ const List = ({}) => {
     }
   }, [parkingLot, searchVehicle]);
 
-  useEffect(() => {
-    if (parkingLot === undefined || parkingLot === {}) {
-      navigation.navigate('AddParkingLot', {forced: true});
-    }
-  }, [parkingLot]);
-
   const confirmSelect = parkId => {
     dispatch(getParkAction(parkId));
   };
@@ -129,7 +126,7 @@ const List = ({}) => {
   const vehicleCount = useSelector(vehicleCountSelector);
   const loadNextPage = () => {
     if (page * 10 < vehicleCount) {
-      dispatch(getActiveSessionAction(parkingLot.Id, page + 1));
+      dispatch(getActiveSessionAction(parkingLot?.Id, page + 1));
     }
   };
   const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
@@ -197,7 +194,7 @@ const List = ({}) => {
   const removeMembership = plateId => {
     const passerById = memberships[0]?.Id;
     if (passerById)
-      dispatch(setMembershipAction(parkingLot.Id, plateId, passerById));
+      dispatch(setMembershipAction(parkingLot?.Id, plateId, passerById));
   };
 
   return (
@@ -235,6 +232,7 @@ const List = ({}) => {
                 }}
               />
             ))}
+            <Space />
           </SessionArea>
           {parkingLot !== undefined && parkingLot !== {} && isOverviewShown ? (
             <Overview
@@ -254,7 +252,7 @@ const List = ({}) => {
       </SafeArea>
       {isMembershipUpgradeVisible ? (
         <MembershipMenu
-          parkingLotId={parkingLot.Id}
+          parkingLotId={parkingLot?.Id}
           plateId={currentPlateId}
           currentMembership={currentMembership}
           setVisible={setMembershipUpgradeVisible}

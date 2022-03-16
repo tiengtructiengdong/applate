@@ -131,6 +131,8 @@ const checkoutSaga = function* (action: AnyAction) {
       throw new Error('Please log in again.');
     }
 
+    console.log(auth, id, plateId);
+
     if (response.status != 200) {
       throw new Error('Checkout error');
     }
@@ -170,8 +172,9 @@ const testCheckoutSaga = function* (action: AnyAction) {
     const data = parseRawDataResponse(response, true);
     if (data) {
       if (data.isFound) {
+        console.log(data);
         const price = JSON.parse(data.fee).price;
-        yield* put(testCheckoutSuccessAction(data.plateId, price));
+        yield* put(testCheckoutSuccessAction(data.plateId, price || 0));
       } else {
         yield* put(testCheckoutFailedAction());
       }

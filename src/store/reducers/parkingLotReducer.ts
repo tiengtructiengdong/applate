@@ -102,7 +102,7 @@ export default function parkingLotReducer(
         membership: action.membership,
         isMyPark: state.myParkingLot
           .map(x => x.Id)
-          .includes(action.parkingLot.Id),
+          .includes(action.parkingLot?.Id),
       };
     case 'GET_PARTNER_SUCCESS':
       return {
