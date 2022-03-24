@@ -503,6 +503,7 @@
 					"$(SRCROOT)/../node_modules/react-native-bluetooth-escpos-printer/ios/**",
 				);
 				INFOPLIST_FILE = platev16/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -535,6 +536,7 @@
 					"$(SRCROOT)/../node_modules/react-native-bluetooth-escpos-printer/ios/**",
 				);
 				INFOPLIST_FILE = platev16/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
