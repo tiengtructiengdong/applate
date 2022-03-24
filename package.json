@@ -52,6 +52,7 @@
     "react-native-svg": "^12.1.1",
     "react-native-uuid": "^2.0.1",
     "react-native-vector-icons": "^8.1.0",
+    "react-native-vision-camera": "^2.13.0",
     "react-redux": "^7.2.6",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
