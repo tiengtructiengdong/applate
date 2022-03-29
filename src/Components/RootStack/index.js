@@ -71,7 +71,7 @@ const RootStack = ({}) => {
 
         dispatch(setBluetoothPrinterAction({id: bluetoothPrinterId}));
       } catch (err) {
-        console.log('error', err);
+        //console.log('error', err);
         dispatch(resetBluetoothPrinterAction());
       }
     };
