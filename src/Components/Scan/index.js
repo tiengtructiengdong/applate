@@ -12,6 +12,13 @@ import {
   View,
 } from 'react-native';
 import {RNCamera} from 'react-native-camera';
+import Camera, {useCameraDevices} from 'react-native-vision-camera';
+
+/* MODULE */
+/* MODULE */
+/* MODULE */
+/* MODULE */
+
 import BleManager, {start} from 'react-native-ble-manager';
 import {Header} from '../Header';
 import {currentParkingLotSelector} from '@store/selectors/parkingLotSelector';
@@ -25,6 +32,11 @@ import {
 } from '@store/actionTypes';
 import qrcode from 'qrcode-terminal';
 
+/* MODULE */
+/* MODULE */
+/* MODULE */
+/* MODULE */
+
 import {popUp} from '@constants/Utils';
 import {
   bluetoothPrinterSelector,
@@ -32,6 +44,11 @@ import {
 } from '@store/selectors/settingsSelector';
 import {createStackNavigator} from '@react-navigation/stack';
 import SettingsBluetooth from '@components/Settings/SettingsBluetooth';
+
+/* MODULE */
+/* MODULE */
+/* MODULE */
+/* MODULE */
 
 const style = StyleSheet.create({
   container: {
@@ -143,6 +160,14 @@ const BluetoothButton = styled.TouchableOpacity`
   justify-content: center;
   margin-top: 20px;
 `;
+
+/* MODULE */
+/* MODULE */
+/* MODULE */
+/* MODULE */
+/* MODULE */
+/* MODULE */
+/* MODULE */
 
 const Scan = ({}) => {
   const [checkOut, setCheckout] = useState(false);
@@ -334,6 +359,15 @@ const Scan = ({}) => {
     );
   }, [dispatch]);
 
+  /* MODULE */
+  /* MODULE */
+  /* MODULE */
+  /* MODULE */
+  /* MODULE */
+
+  const devices = useCameraDevices('wide-angle-camera');
+  const device = devices.back;
+
   return (
     <SafeAreaView style={style.container}>
       <Header
@@ -354,17 +388,19 @@ const Scan = ({}) => {
               },
             ]}>
             <View style={style.cameraContent}>
-              {isBluetoothPrinterConnected ? (
-                <RNCamera
-                  captureAudio={false}
-                  defaultTouchToFocus
-                  style={{flex: 1, borderRadius: 10, zIndex: 3}}
-                  onBarCodeRead={onBarCodeRead}
-                  onTextRecognized={onTextRecognized}
-                  autoFocus="on"
-                  autoFocusPointOfInterest={{x: 0.5, y: 0.5}}
-                />
+              {true ? (
+                <Camera />
               ) : (
+                // ) : isBluetoothPrinterConnected ? (
+                //   <RNCamera
+                //     captureAudio={false}
+                //     defaultTouchToFocus
+                //     style={{flex: 1, borderRadius: 10, zIndex: 3}}
+                //     onBarCodeRead={onBarCodeRead}
+                //     onTextRecognized={onTextRecognized}
+                //     autoFocus="on"
+                //     autoFocusPointOfInterest={{x: 0.5, y: 0.5}}
+                //   />
                 <View style={[{alignSelf: 'center'}]}>
                   <Text style={style.cameraContentText}>
                     No printer is connected.
