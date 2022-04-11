@@ -12,7 +12,6 @@ import {
   View,
 } from 'react-native';
 import {RNCamera} from 'react-native-camera';
-import Camera, {useCameraDevices} from 'react-native-vision-camera';
 
 /* MODULE */
 /* MODULE */
@@ -388,19 +387,17 @@ const Scan = ({}) => {
               },
             ]}>
             <View style={style.cameraContent}>
-              {true ? (
-                <Camera />
+              {isBluetoothPrinterConnected ? (
+                <RNCamera
+                  captureAudio={false}
+                  defaultTouchToFocus
+                  style={{flex: 1, borderRadius: 10, zIndex: 3}}
+                  onBarCodeRead={onBarCodeRead}
+                  onTextRecognized={onTextRecognized}
+                  autoFocus="on"
+                  autoFocusPointOfInterest={{x: 0.5, y: 0.5}}
+                />
               ) : (
-                // ) : isBluetoothPrinterConnected ? (
-                //   <RNCamera
-                //     captureAudio={false}
-                //     defaultTouchToFocus
-                //     style={{flex: 1, borderRadius: 10, zIndex: 3}}
-                //     onBarCodeRead={onBarCodeRead}
-                //     onTextRecognized={onTextRecognized}
-                //     autoFocus="on"
-                //     autoFocusPointOfInterest={{x: 0.5, y: 0.5}}
-                //   />
                 <View style={[{alignSelf: 'center'}]}>
                   <Text style={style.cameraContentText}>
                     No printer is connected.
