@@ -12,6 +12,12 @@ import {
   View,
 } from 'react-native';
 import {RNCamera} from 'react-native-camera';
+
+/* MODULE */
+/* MODULE */
+/* MODULE */
+/* MODULE */
+
 import BleManager, {start} from 'react-native-ble-manager';
 import {Header} from '../Header';
 import {currentParkingLotSelector} from '@store/selectors/parkingLotSelector';
@@ -25,6 +31,11 @@ import {
 } from '@store/actionTypes';
 import qrcode from 'qrcode-terminal';
 
+/* MODULE */
+/* MODULE */
+/* MODULE */
+/* MODULE */
+
 import {popUp} from '@constants/Utils';
 import {
   bluetoothPrinterSelector,
@@ -32,6 +43,11 @@ import {
 } from '@store/selectors/settingsSelector';
 import {createStackNavigator} from '@react-navigation/stack';
 import SettingsBluetooth from '@components/Settings/SettingsBluetooth';
+
+/* MODULE */
+/* MODULE */
+/* MODULE */
+/* MODULE */
 
 const style = StyleSheet.create({
   container: {
@@ -143,6 +159,14 @@ const BluetoothButton = styled.TouchableOpacity`
   justify-content: center;
   margin-top: 20px;
 `;
+
+/* MODULE */
+/* MODULE */
+/* MODULE */
+/* MODULE */
+/* MODULE */
+/* MODULE */
+/* MODULE */
 
 const Scan = ({}) => {
   const [checkOut, setCheckout] = useState(false);
@@ -333,6 +357,15 @@ const Scan = ({}) => {
       ),
     );
   }, [dispatch]);
+
+  /* MODULE */
+  /* MODULE */
+  /* MODULE */
+  /* MODULE */
+  /* MODULE */
+
+  const devices = useCameraDevices('wide-angle-camera');
+  const device = devices.back;
 
   return (
     <SafeAreaView style={style.container}>
