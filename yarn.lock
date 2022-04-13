@@ -1755,10 +1755,10 @@
   "resolved" "https://registry.npmjs.org/@react-native-firebase/app-distribution/-/app-distribution-14.5.1.tgz"
   "version" "14.5.1"
 
-"@react-native-firebase/app@^14.5.1", "@react-native-firebase/app@14.5.1":
-  "integrity" "sha512-PmoiKU3DBnuaMZ5Nw71qCmDbJMJQJoYknm5gTI+j09iF0PDzzF0t+Qe/lCWEKMrDs6TuYpJvxFoocSFlAF6BHg=="
-  "resolved" "https://registry.npmjs.org/@react-native-firebase/app/-/app-14.5.1.tgz"
-  "version" "14.5.1"
+"@react-native-firebase/app@^14.7.0", "@react-native-firebase/app@14.5.1":
+  "integrity" "sha512-/TdFv0L4AOEdKbAqmUu0yDXWq0Viw9sEX5mprPQDQbnctEJVwDLWehJkKx2CMiGeZox7VU2cshBLD0AC82XTtQ=="
+  "resolved" "https://registry.npmjs.org/@react-native-firebase/app/-/app-14.7.0.tgz"
+  "version" "14.7.0"
   dependencies:
     "@expo/config-plugins" "^4.0.18"
     "opencollective-postinstall" "^2.0.1"

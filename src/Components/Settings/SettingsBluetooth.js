@@ -205,19 +205,27 @@ const Screen = ({}) => {
     }
   };
 
+  var discoverPeripheralListener;
+  var stopScanListener;
+  var disconnectListener;
+  var updateValueListener;
+
   useEffect(() => {
     BleManager.start({showAlert: true});
 
-    bleManagerEmitter.addListener(
+    discoverPeripheralListener = bleManagerEmitter.addListener(
       'BleManagerDiscoverPeripheral',
       handleDiscoverPeripheral,
     );
-    bleManagerEmitter.addListener('BleManagerStopScan', handleStopScan);
-    bleManagerEmitter.addListener(
+    stopScanListener = bleManagerEmitter.addListener(
+      'BleManagerStopScan',
+      handleStopScan,
+    );
+    disconnectListener = bleManagerEmitter.addListener(
       'BleManagerDisconnectPeripheral',
       handleDisconnectedPeripheral,
     );
-    bleManagerEmitter.addListener(
+    updateValueListener = bleManagerEmitter.addListener(
       'BleManagerDidUpdateValueForCharacteristic',
       handleUpdateValueForCharacteristic,
     );
@@ -244,19 +252,10 @@ const Screen = ({}) => {
 
     return () => {
       console.log('unmount');
-      bleManagerEmitter.removeListener(
-        'BleManagerDiscoverPeripheral',
-        handleDiscoverPeripheral,
-      );
-      bleManagerEmitter.removeListener('BleManagerStopScan', handleStopScan);
-      bleManagerEmitter.removeListener(
-        'BleManagerDisconnectPeripheral',
-        handleDisconnectedPeripheral,
-      );
-      bleManagerEmitter.removeListener(
-        'BleManagerDidUpdateValueForCharacteristic',
-        handleUpdateValueForCharacteristic,
-      );
+      discoverPeripheralListener.remove();
+      stopScanListener.remove();
+      disconnectListener.remove();
+      updateValueListener.remove();
     };
   }, []);
 

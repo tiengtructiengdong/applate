@@ -364,9 +364,6 @@ const Scan = ({}) => {
   /* MODULE */
   /* MODULE */
 
-  const devices = useCameraDevices('wide-angle-camera');
-  const device = devices.back;
-
   return (
     <SafeAreaView style={style.container}>
       <Header
