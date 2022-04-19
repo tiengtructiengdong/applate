@@ -1,3 +1,5 @@
 rootProject.name = 'platev16'
+include ':react-native-camera'
+project(':react-native-camera').projectDir = new File(rootProject.projectDir, '../../../../../usr/local/lib/node_modules/react-native-camera/android')
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'
