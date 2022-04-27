@@ -17,7 +17,7 @@ const Container = styled.View`
   background-color: #121212;
 `;
 const Logo = styled.Image`
-  height: 90px;
+  height: 80px;
   align-self: center;
   resize-mode: contain;
   margin-bottom: 30px;
@@ -27,21 +27,21 @@ const FieldArea = styled.KeyboardAvoidingView`
   justify-content: center;
   margin-horizontal: 30px;
   width: 250px;
-  margin-top: 30px;
+  margin-top: 50px;
 `;
 const Label = styled.Text`
-  font-size: 18px;
+  font-size: 16px;
   color: white;
   font-weight: 700;
 `;
 const Input = styled.TextInput`
-  height: 50px;
-  font-size: 20px;
+  height: 45px;
+  font-size: 18px;
   border-radius: 5px;
   background-color: #424242;
   padding: 10px;
   margin-top: 6px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   color: white;
 `;
 const ButtonLabel = styled(Label)`
@@ -55,7 +55,7 @@ const Button = styled.TouchableOpacity`
   border-radius: 5px;
 `;
 const ButtonArea = styled.View`
-  height: 50px;
+  height: 45px;
   flex-direction: row;
   margin-top: 10px;
 `;
@@ -86,7 +86,11 @@ const Auth = ({}) => {
           onChangeText={text => setUsername(text)}
         />
         <Label>Password</Label>
-        <Input onChangeText={text => setPassword(text)} secureTextEntry />
+        <Input
+          onChangeText={text => setPassword(text)}
+          secureTextEntry
+          onSubmitEditing={login}
+        />
 
         <ButtonArea>
           <Button onPress={login}>
