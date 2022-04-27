@@ -43,6 +43,7 @@ import {
 } from '@store/selectors/settingsSelector';
 import {createStackNavigator} from '@react-navigation/stack';
 import SettingsBluetooth from '@components/Settings/SettingsBluetooth';
+import ChangeLocation from './ChangeLocation';
 
 /* MODULE */
 /* MODULE */
@@ -367,7 +368,7 @@ const Scan = ({}) => {
   return (
     <SafeAreaView style={style.container}>
       <Header
-        title={parkingLot?.Name || ''}
+        title={parkingLot?.Name || 'No parking lot!'}
         bgColor="#323232"
         titleColor="#ffffff"></Header>
       <View style={style.body}>
@@ -411,6 +412,14 @@ const Scan = ({}) => {
                 : 'Connect Bluetooth printer'}
             </BluetoothText>
           </BluetoothButton>
+          <BluetoothButton
+            onPress={() => navigation.navigate('ChangeLocation')}>
+            <BluetoothText color={'#ffb500'}>
+              {parkingLot
+                ? `Current park: ${parkingLot.Name}`
+                : `You have no parking lots!`}
+            </BluetoothText>
+          </BluetoothButton>
         </View>
       </View>
     </SafeAreaView>
@@ -423,6 +432,7 @@ const ScanStack = () => {
     <Stack.Navigator headerMode="none">
       <Stack.Screen name="Scan" component={Scan} />
       <Stack.Screen name="Bluetooth" component={SettingsBluetooth} />
+      <Stack.Screen name="ChangeLocation" component={ChangeLocation} />
     </Stack.Navigator>
   );
 };
