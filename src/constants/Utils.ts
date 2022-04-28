@@ -56,4 +56,25 @@ export const prompt = (
 export const sleep = (ms: number) => {
   return new Promise(resolve => setTimeout(resolve, ms));
 };
+
+export const randomMembershipName = () => {
+  const names = [
+    'Gold',
+    'Diamond',
+    'Bronze',
+    'Silver',
+    'Platinum',
+    'VIP',
+    'Amber',
+    'Sapphire',
+    'Member',
+    'Star',
+    'Elite',
+    'Business',
+    'Enterprise',
+    'Pro',
+  ];
+  const index = Math.floor(Math.random() * 14);
+  return names[index];
+};
 //const asyncQuery = (func) => promisify(func).bind(pool);
