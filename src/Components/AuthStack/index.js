@@ -90,6 +90,7 @@ const Auth = ({}) => {
           onChangeText={text => setPassword(text)}
           secureTextEntry
           onSubmitEditing={login}
+          returnKeyType="go"
         />
 
         <ButtonArea>

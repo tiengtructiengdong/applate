@@ -302,6 +302,7 @@ const Scan = ({}) => {
               text: 'OK',
               onPress: () => {
                 setCheckin(false);
+                setCheckout(false);
                 processCheckin(plateStr);
               },
             },
@@ -332,6 +333,7 @@ const Scan = ({}) => {
       {
         text: 'OK',
         onPress: () => {
+          setCheckin(false);
           setCheckout(false);
           dispatch(checkoutAction(parkingLot?.Id, plateId));
         },

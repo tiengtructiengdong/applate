@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Alert} from 'react-native';
-import {prompt} from '@constants/Utils';
+import {prompt, randomMembershipName} from '@constants/Utils';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -119,7 +119,7 @@ const Screen = ({}) => {
         bgColor={'#ffb500'}
         title={`Pricing (VND)`}
         goBack={() => navigation.goBack()}
-        goRight={() => addMembership('Diamond', 0, 1)}
+        goRight={() => addMembership(randomMembershipName(), 0, 1)}
         iconRight="add-outline"
       />
       <FieldArea>
