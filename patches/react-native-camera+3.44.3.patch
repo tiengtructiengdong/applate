@@ -11325,12 +11325,12 @@ index 0000000..0bb9f3a
 +		INJECTED from /Users/xcode/Desktop/platev16/node_modules/react-native-camera/android/src/main/AndroidManifest.xml
 diff --git a/node_modules/react-native-camera/android/build/tmp/compileGeneralDebugJavaWithJavac/source-classes-mapping.txt b/node_modules/react-native-camera/android/build/tmp/compileGeneralDebugJavaWithJavac/source-classes-mapping.txt
 new file mode 100644
-index 0000000..15780d7
+index 0000000..29ab62e
 --- /dev/null
 +++ b/node_modules/react-native-camera/android/build/tmp/compileGeneralDebugJavaWithJavac/source-classes-mapping.txt
 @@ -0,0 +1,244 @@
-+org/reactnative/camera/tasks/TextRecognizerAsyncTask.java
-+ org.reactnative.camera.tasks.TextRecognizerAsyncTask
++org/reactnative/camera/events/BarcodeDetectionErrorEvent.java
++ org.reactnative.camera.events.BarcodeDetectionErrorEvent
 +org/reactnative/facedetector/RNFaceDetector.java
 + org.reactnative.facedetector.RNFaceDetector
 +com/google/android/cameraview/Camera2.java
@@ -11453,9 +11453,24 @@ index 0000000..15780d7
 + org.reactnative.facedetector.FaceDetectorUtils
 +org/reactnative/camera/tasks/TextRecognizerAsyncTaskDelegate.java
 + org.reactnative.camera.tasks.TextRecognizerAsyncTaskDelegate
-+org/reactnative/camera/CameraViewManager.java
-+ org.reactnative.camera.CameraViewManager
-+ org.reactnative.camera.CameraViewManager$Events
++com/google/android/cameraview/Camera1.java
++ com.google.android.cameraview.Camera1
++ com.google.android.cameraview.Camera1$1
++ com.google.android.cameraview.Camera1$1$1
++ com.google.android.cameraview.Camera1$1$2
++ com.google.android.cameraview.Camera1$10
++ com.google.android.cameraview.Camera1$10$1
++ com.google.android.cameraview.Camera1$10$2
++ com.google.android.cameraview.Camera1$10$3
++ com.google.android.cameraview.Camera1$11
++ com.google.android.cameraview.Camera1$2
++ com.google.android.cameraview.Camera1$3
++ com.google.android.cameraview.Camera1$4
++ com.google.android.cameraview.Camera1$5
++ com.google.android.cameraview.Camera1$6
++ com.google.android.cameraview.Camera1$7
++ com.google.android.cameraview.Camera1$8
++ com.google.android.cameraview.Camera1$9
 +com/lwansbrough/RCTCamera/RCTCamera.java
 + com.lwansbrough.RCTCamera.RCTCamera
 + com.lwansbrough.RCTCamera.RCTCamera$CameraInfoWrapper
@@ -11497,6 +11512,30 @@ index 0000000..15780d7
 +org/reactnative/camera/tasks/ResolveTakenPictureAsyncTask.java
 + org.reactnative.camera.tasks.ResolveTakenPictureAsyncTask
 + org.reactnative.camera.tasks.ResolveTakenPictureAsyncTask$1
++org/reactnative/camera/tasks/BarcodeDetectorAsyncTask.java
++ org.reactnative.camera.tasks.BarcodeDetectorAsyncTask
++org/reactnative/camera/events/FaceDetectionErrorEvent.java
++ org.reactnative.camera.events.FaceDetectionErrorEvent
++org/reactnative/camera/tasks/FaceDetectorAsyncTask.java
++ org.reactnative.camera.tasks.FaceDetectorAsyncTask
++org/reactnative/camera/utils/ImageDimensions.java
++ org.reactnative.camera.utils.ImageDimensions
++com/google/android/cameraview/Size.java
++ com.google.android.cameraview.Size
++ com.google.android.cameraview.Size$1
++org/reactnative/frame/RNFrame.java
++ org.reactnative.frame.RNFrame
++org/reactnative/camera/events/FacesDetectedEvent.java
++ org.reactnative.camera.events.FacesDetectedEvent
++org/reactnative/frame/RNFrameFactory.java
++ org.reactnative.frame.RNFrameFactory
++org/reactnative/camera/events/CameraMountErrorEvent.java
++ org.reactnative.camera.events.CameraMountErrorEvent
++org/reactnative/camera/tasks/TextRecognizerAsyncTask.java
++ org.reactnative.camera.tasks.TextRecognizerAsyncTask
++org/reactnative/camera/CameraViewManager.java
++ org.reactnative.camera.CameraViewManager
++ org.reactnative.camera.CameraViewManager$Events
 +org/reactnative/camera/CameraModule.java
 + org.reactnative.camera.CameraModule
 + org.reactnative.camera.CameraModule$1
@@ -11525,41 +11564,6 @@ index 0000000..15780d7
 + org.reactnative.camera.CameraModule$7
 + org.reactnative.camera.CameraModule$8
 + org.reactnative.camera.CameraModule$9
-+org/reactnative/camera/events/FaceDetectionErrorEvent.java
-+ org.reactnative.camera.events.FaceDetectionErrorEvent
-+org/reactnative/camera/tasks/FaceDetectorAsyncTask.java
-+ org.reactnative.camera.tasks.FaceDetectorAsyncTask
-+org/reactnative/camera/utils/ImageDimensions.java
-+ org.reactnative.camera.utils.ImageDimensions
-+com/google/android/cameraview/Size.java
-+ com.google.android.cameraview.Size
-+ com.google.android.cameraview.Size$1
-+org/reactnative/frame/RNFrame.java
-+ org.reactnative.frame.RNFrame
-+org/reactnative/camera/events/FacesDetectedEvent.java
-+ org.reactnative.camera.events.FacesDetectedEvent
-+org/reactnative/frame/RNFrameFactory.java
-+ org.reactnative.frame.RNFrameFactory
-+org/reactnative/camera/events/CameraMountErrorEvent.java
-+ org.reactnative.camera.events.CameraMountErrorEvent
-+com/google/android/cameraview/Camera1.java
-+ com.google.android.cameraview.Camera1
-+ com.google.android.cameraview.Camera1$1
-+ com.google.android.cameraview.Camera1$1$1
-+ com.google.android.cameraview.Camera1$1$2
-+ com.google.android.cameraview.Camera1$10
-+ com.google.android.cameraview.Camera1$10$1
-+ com.google.android.cameraview.Camera1$10$2
-+ com.google.android.cameraview.Camera1$10$3
-+ com.google.android.cameraview.Camera1$11
-+ com.google.android.cameraview.Camera1$2
-+ com.google.android.cameraview.Camera1$3
-+ com.google.android.cameraview.Camera1$4
-+ com.google.android.cameraview.Camera1$5
-+ com.google.android.cameraview.Camera1$6
-+ com.google.android.cameraview.Camera1$7
-+ com.google.android.cameraview.Camera1$8
-+ com.google.android.cameraview.Camera1$9
 +org/reactnative/camera/RNCameraView.java
 + org.reactnative.camera.RNCameraView
 + org.reactnative.camera.RNCameraView$1
@@ -11569,10 +11573,6 @@ index 0000000..15780d7
 + org.reactnative.camera.RNCameraView$5
 + org.reactnative.camera.RNCameraView$6
 + org.reactnative.camera.RNCameraView$7
-+org/reactnative/camera/tasks/BarcodeDetectorAsyncTask.java
-+ org.reactnative.camera.tasks.BarcodeDetectorAsyncTask
-+org/reactnative/camera/events/BarcodeDetectionErrorEvent.java
-+ org.reactnative.camera.events.BarcodeDetectionErrorEvent
 diff --git a/node_modules/react-native-camera/android/build/tmp/compileGeneralReleaseJavaWithJavac/source-classes-mapping.txt b/node_modules/react-native-camera/android/build/tmp/compileGeneralReleaseJavaWithJavac/source-classes-mapping.txt
 new file mode 100644
 index 0000000..1f39b7c
@@ -11842,7 +11842,7 @@ index 0000000..09d1354
 +#Sun May 08 00:46:12 ICT 2022
 +sdk.dir=/Users/xcode/Library/Android/sdk
 diff --git a/node_modules/react-native-camera/android/src/general/java/org/reactnative/camera/tasks/TextRecognizerAsyncTask.java b/node_modules/react-native-camera/android/src/general/java/org/reactnative/camera/tasks/TextRecognizerAsyncTask.java
-index b8c2e9e..a3740b2 100644
+index b8c2e9e..ca754c1 100644
 --- a/node_modules/react-native-camera/android/src/general/java/org/reactnative/camera/tasks/TextRecognizerAsyncTask.java
 +++ b/node_modules/react-native-camera/android/src/general/java/org/reactnative/camera/tasks/TextRecognizerAsyncTask.java
 @@ -1,6 +1,26 @@
@@ -11916,7 +11916,7 @@ index b8c2e9e..a3740b2 100644
    ) {
      mDelegate = delegate;
      mThemedReactContext = themedReactContext;
-@@ -60,119 +78,88 @@ public class TextRecognizerAsyncTask extends android.os.AsyncTask<Void, Void, Sp
+@@ -60,119 +78,153 @@ public class TextRecognizerAsyncTask extends android.os.AsyncTask<Void, Void, Sp
      mScaleY = (double) (viewHeight) / (mImageDimensions.getHeight() * density);
      mPaddingLeft = viewPaddingLeft;
      mPaddingTop = viewPaddingTop;
@@ -11996,9 +11996,7 @@ index b8c2e9e..a3740b2 100644
 +    } catch (Exception e) {
 +      Log.e("TesseractLog", e.toString());
      }
-+    return text;
-+  }
- 
+-
 -    WritableMap origin = Arguments.createMap();
 -    origin.putDouble("x", x * this.mScaleX);
 -    origin.putDouble("y", y * this.mScaleY);
@@ -12020,6 +12018,36 @@ index b8c2e9e..a3740b2 100644
 -      type_ = "line";
 -    } else /*if (text instanceof Element)*/ {
 -      type_ = "element";
+-    }
+-    encodedText.putString("type", type_);
+-
+-    return encodedText;
++    return text;
+   }
+ 
+-  private WritableMap rotateTextX(WritableMap text) {
+-    ReadableMap faceBounds = text.getMap("bounds");
+-
+-    ReadableMap oldOrigin = faceBounds.getMap("origin");
+-    WritableMap mirroredOrigin = FaceDetectorUtils.positionMirroredHorizontally(
+-            oldOrigin, mImageDimensions.getWidth(), mScaleX);
+-
+-    double translateX = -faceBounds.getMap("size").getDouble("width");
+-    WritableMap translatedMirroredOrigin = FaceDetectorUtils.positionTranslatedHorizontally(mirroredOrigin, translateX);
+-
+-    WritableMap newBounds = Arguments.createMap();
+-    newBounds.merge(faceBounds);
+-    newBounds.putMap("origin", translatedMirroredOrigin);
+-
+-    text.putMap("bounds", newBounds);
+-
+-    ReadableArray oldComponents = text.getArray("components");
+-    WritableArray newComponents = Arguments.createArray();
+-    for (int i = 0; i < oldComponents.size(); ++i) {
+-      WritableMap component = Arguments.createMap();
+-      component.merge(oldComponents.getMap(i));
+-      rotateTextX(component);
+-      newComponents.pushMap(component);
 +  @Override
 +  protected void onPostExecute(String text) {
 +    super.onPostExecute(text);
@@ -12038,70 +12066,108 @@ index b8c2e9e..a3740b2 100644
 +    } catch (Exception e) {
 +      Log.e("Loge", e.toString());
      }
--    encodedText.putString("type", type_);
+-    text.putArray("components", newComponents);
 -
--    return encodedText;
+-    return text;
    }
  
--  private WritableMap rotateTextX(WritableMap text) {
--    ReadableMap faceBounds = text.getMap("bounds");
--
--    ReadableMap oldOrigin = faceBounds.getMap("origin");
--    WritableMap mirroredOrigin = FaceDetectorUtils.positionMirroredHorizontally(
--            oldOrigin, mImageDimensions.getWidth(), mScaleX);
--
--    double translateX = -faceBounds.getMap("size").getDouble("width");
--    WritableMap translatedMirroredOrigin = FaceDetectorUtils.positionTranslatedHorizontally(mirroredOrigin, translateX);
--
--    WritableMap newBounds = Arguments.createMap();
--    newBounds.merge(faceBounds);
--    newBounds.putMap("origin", translatedMirroredOrigin);
-+}
- 
--    text.putMap("bounds", newBounds);
+ }
++
 +/*
 +
 +TESSERACT
++05-10 17:45:25.844 14470 14549 E TesseractLog: _[n]ABCDEFGH[n]OPQRSTUV[n]abcdefghijk[n]pq rstuvwxy.[n]12345678901[n]i
++05-10 17:45:27.814 14470 14549 E TesseractLog: _[n]ABCDEFGH[n]OPQRSTUV[n]abcdefghijkl[n]pq rstuvwxy:[n]1234567890}
++05-10 17:45:29.904 14470 14549 E TesseractLog: _[n]ABCDEFGH[n]OPQRSTUV[n]abcdefghijm[n]‘ pqrstuvwxy:[n]l 12345678901
++05-10 17:45:31.864 14470 14549 E TesseractLog: ABCDEFGH[n]OPQRSTUV[n]abcdefghijk[n]pqrstuvwxy[n]12345678901
++05-10 17:45:33.944 14470 14549 E TesseractLog: —[n]ABCDEFG[n]OPQRSTL[n]abcdefghi‘[n]pqrstuvw:[n]123456785
++05-10 17:45:36.074 14470 14549 E TesseractLog: _[n]ABCDEH[n]OPQRST[n]abcdefgh[n]pqrstuvw[n]1 724RR7R
++05-10 17:45:38.074 14470 14549 E TesseractLog: _[n]ABCDEF[n]OPQRST[n]abcdefgr[n]pq rstuvw[n]12345673
++05-10 17:45:40.054 14470 14549 E TesseractLog: _[n]ABCDEF[n]OPQRS1[n]abcdefgl[n]pq rstuvv[n]1234521:
++05-10 17:45:42.004 14470 14549 E TesseractLog: _[n]ABCDEF[n]OPQRST[n]abcdefgl[n]pq rstuvv[n]12245n1s
++05-10 17:45:44.174 14470 14549 E TesseractLog: _[n]ABCDEF[n]OPQRST[n]abcdefgr[n]pqrstuvw[n]1 7345K”?
++05-10 17:45:46.124 14470 14549 E TesseractLog: _[n]ABCDEF[n]OPQRST[n]abcdefgr[n]pq rstuv“[n]1234sn19
++05-10 17:45:48.144 14470 14549 E TesseractLog: _[n]ABCDEF[n]OPQRST[n]abcdefgr[n]pq rstuvv\[n]12345678
++05-10 17:45:50.114 14470 14549 E TesseractLog: _[n]ABCDEF[n]OPQRS'I[n]abcdefgl[n]pq rstuvv
++05-10 17:45:51.934 14470 14549 E TesseractLog: -[n]ABCDEF[n]OPQRS'I[n]abcdefgl[n]pqrstuvv
++05-10 17:45:53.874 14470 14549 E TesseractLog: _[n]ABCDEF[n]OPQRS'I[n]abcdefgl[n]pqrstuvv[n]4 ‘3Q A £271
++05-10 17:45:55.694 14470 14549 E TesseractLog: .Ciwiy[n]67890
++05-10 17:45:57.644 14470 14549 E TesseractLog: IJwiy[n]B7890
++05-10 17:45:59.324 14470 14549 E TesseractLog: iTUV[n]ghijk[n]IWYU
++05-10 17:46:01.014 14470 14549 E TesseractLog: iCDEI[n]'QRS'[n]ndefu
++05-10 17:46:02.884 14470 14549 E TesseractLog: —[n]>CDEF[n]‘QRS'[n]Pdnfn
++05-10 17:46:04.454 14470 14893 E TesseractLog: pqré[n]1234
++05-10 17:46:06.164 14470 14893 E TesseractLog: pqrs'[n]1234
++05-10 17:46:08.204 14470 14893 E TesseractLog: :tu'i”[n]V\[n]l5678
++05-10 17:46:10.234 14470 14893 E TesseractLog: PQRS‘![n]rcdefgl[n]|rstuvv[n]114:2?!
++05-10 17:46:12.134 14470 14893 E TesseractLog: —[n]BCDEFC[n]PQRSTI[n])cdefgh[n]urstuvw'
++05-10 17:46:14.144 14470 14893 E TesseractLog: _[n]BCDEF<[n]PQRSTI[n]bcdefgh[n]urstuvw
++05-10 17:46:16.034 14470 14893 E TesseractLog: —[n]BCDEF<[n]>PQRSTI[n]bcdefgh[n]urstuvw
++05-10 17:46:17.894 14470 14893 E TesseractLog: _[n]BCDEF<[n]PQRSTI[n]chefgh[n]qrstuvw
++05-10 17:46:19.744 14470 14893 E TesseractLog: —[n]BCDEF<[n]PQRSTI[n]bcdefgh[n]qrstuvw
++05-10 17:46:21.384 14470 14893 E TesseractLog: AB i[n]OP n[n]abc[n]qu“
++05-10 17:46:23.584 14470 14893 E TesseractLog: IIIIIII[n]ABCDE[n]OPQRS[n]abcdeﬂ[n]no rshn
++05-10 17:46:25.574 14470 14893 E TesseractLog: IIIIIII[n]ABCDE[n]OPQRS[n]abcdeﬁ[n]no rstuv
++05-10 17:46:27.484 14470 14893 E TesseractLog: _[n]ABCDE[n]OPQRS[n]abcdeﬂ[n]nu rstm
++05-10 17:46:29.504 14470 14893 E TesseractLog: —[n]ABCDE[n]OPQRS[n]abcdefg[n]nu rstuv
++05-10 17:46:31.434 14470 14893 E TesseractLog: —[n]ABCDE[n]QPQRS[n]abcdeﬁ[n]nu rstuv
++05-10 17:46:33.344 14470 14893 E TesseractLog: —[n]ABCDE[n]OPQRS[n]abcdeﬂ[n]nurstuv
++05-10 17:46:35.444 14470 14893 E TesseractLog: —[n]ABCDEFGHIJ[n]OPQRSTUV“[n]abcdefghijkl[n]pqrstuvwxyz[n]\ 1234567890!
++05-10 17:46:37.584 14470 14893 E TesseractLog: —[n]ABCDEFGHL[n]OPQRSTUW[n]abcdefghijkl[n]pqrstuvwxyz[n]1234567890!
++05-10 17:46:39.714 14470 14893 E TesseractLog: ABCDEFGHI.[n]OPQRSTUW[n]abcdefghijkl[n]pqrstuvwxyz[n]1234567890!
++05-10 17:46:41.834 14470 14893 E TesseractLog: ABCDEFGHI.[n]OPQRSTUW[n]abcdefghijkl[n]pq rstuvwxyz[n]1234567890!
++05-10 17:46:43.844 14470 14893 E TesseractLog: —[n]DEFGHI[n]RSTUV\[n]iefghijkl[n]tuvwxyz
++05-10 17:46:45.874 14470 14893 E TesseractLog: —[n]DEFGH‘[n]tRSTUV‘[n]lefghijkl[n]itUVWXVI
++05-10 17:46:47.834 14470 14893 E TesseractLog: —[n]DEFGH\[n]IRSTUV‘[n]lefghijkl[n]stuvwxv:
++05-10 17:46:50.094 14470 14893 E TesseractLog: HDVUI;[n]OPQRS[n]abcdeﬂ[n]pqrstm[n]4 01,1212‘
++05-10 17:46:52.174 14470 14893 E TesseractLog: 0PQR€[n]abcdeﬁ[n]pq rstw[n]491,“:2
++05-10 17:46:54.274 14470 14893 E TesseractLog: OPQRS[n]abcdeﬂ[n]pqrstm[n]1 9245K‘
++05-10 17:46:56.244 14470 14893 E TesseractLog: anUU[n]pqrstL[n]123451
++05-10 17:46:58.204 14470 14893 E TesseractLog: GUUUU[n]pqrstu[n]123451
++05-10 17:47:00.144 14470 14893 E TesseractLog: GUUUG[n]pqrstu[n]123451
++05-10 17:47:03.074 14470 14893 E TesseractLog: 600061[n]pq rstu[n]123451
++05-10 17:47:05.324 14470 14893 E TesseractLog: aocue1[n]pq rstu[n]1 2345€
++05-10 17:47:07.564 14470 14893 E TesseractLog: ancuef[n]pq rstu‘[n]123456
++05-10 17:47:10.134 14470 14893 E TesseractLog: ’QRSTI[n]»cdefgh[n]|rstuvw[n]QARR7Q
++05-10 17:47:12.474 14470 14893 E TesseractLog: UUUEH[n]PQRST[n]chefgh[n]qrstuvw
++05-10 17:47:14.684 14470 14893 E TesseractLog: F;: r..- -[n]._:.-._-_ --[n]1;. '1
++ */
 +
-+05-10 16:54:53.974  4795  5018 E TesseractLog: ABCDEFGHI[n]OPQRSTUV\[n]abcdefghijkl[n]pq rstuvwxyz[n]1234567890!‘
-+05-10 16:54:55.914  4795  5018 E TesseractLog: ABCDEFGHIJI[n]OPQRSTUVW[n]abcdefghijklrr[n]pq rstuvwxyz[n]12345678901&
-+05-10 16:54:57.904  4795  4830 E TesseractLog: ABCDEFGHIJ[n]OPQRSTUVW[n]abcdefghijkln[n]pq rstuvwxyz[n]1234567890/&
-+05-10 16:54:59.794  4795  4830 E TesseractLog: ABCDEFGHIJ[n]OPQRSTUV\A[n]abcdefghijkln[n]pq rstuvwxyz[n]1234567890/8
-+05-10 16:55:01.844  4795  4830 E TesseractLog: ABCDEFGHIJI[n]OPQRSTUVW[n]abcdefghijklm[n]pq rstuvwxyz[n]1234567890/&-
-+05-10 16:55:03.814  4795  4830 E TesseractLog: ABCDEFGHIJ[n]OPQRSTUVW[n]abcdefghijkln[n]pq rstuvwxyz[n]12345678901&
-+05-10 16:55:05.884  4795  4830 E TesseractLog: ABCDEFGHIJ[n]OPQRSTUVW[n]abcdefghijkln[n]pqrstuvwxyz[n]1234567890/&
-+05-10 16:55:07.814  4795  4830 E TesseractLog: ABCDEFGHIJ[n]OPQRSTUVW[n]abcdefghijkln[n]pqrstuvwxyz[n]1234567890!&
-+05-10 16:55:09.804  4795  4830 E TesseractLog: ABCDEFGHIJ[n]OPQRSTUVW[n]abcdefghijkln'[n]pq rstuvwxyz[n]1234567890/&'
-+05-10 16:55:11.794  4795  4830 E TesseractLog: DEFGHIJKLMI[n]tRSTUVWXYZ[n]lefghijklmno[n]ituvwxyz[n]L567890/&-,.
-+05-10 16:55:14.104  4795  4830 E TesseractLog: Cl" U r1 IJ H[n]STUVWX[n]fghijklmn[n]|vwxyz[n]s1aso/&-,.
-+05-10 16:55:16.144  4795  4830 E TesseractLog: J I U V III‘[n]'ghijklml[n]vwxyz[n]mac/s",
-+05-10 16:55:18.554  4795  4830 E TesseractLog: GHIJKLM[n]'UVWXYZ[n]1ijklmno[n]vxyz l[n]QOnIR__
-+05-10 16:55:20.674  4795  4830 E TesseractLog: ,CDEFGHI[n]'QRSTUW[n]cdefghijkl[n]rstuvwxyz[n]34567890!
-+05-10 16:55:22.644  4795  4830 E TesseractLog: —[n]ABCDEF[n]OPQRST[n]abcdefgl[n]pqrstuvv[n]1234567!
-+05-10 16:55:24.674  4795  5210 E TesseractLog: —[n]ABCDEF‘[n]OPQRST[n]abcdefgr[n]pq rstuvm[n]12345678
-+05-10 16:55:26.614  4795  5210 E TesseractLog: —[n]ABCDEF[n]OPQRST[n]abcdefgt[n]pq rstuvw[n]12345678
-+05-10 16:55:28.664  4795  5210 E TesseractLog: —[n]ABCDEFG[n]OPQRSTL[n]abcdefghi[n]pqrstuvw;[n]12345678!
-+05-10 16:55:30.624  4795  5210 E TesseractLog: ABCDEF<[n]OPQRSTI[n]abcdefgh[n]pqrstuvw[n]123456781
-+05-10 16:55:32.524  4795  5210 E TesseractLog: ABCDEF([n]OPQRSTI[n]abcdefgh[n]pqrstuvw[n]12345678
-+05-10 16:55:34.574  4795  5080 E TesseractLog: ABCDEF G[n]OPQRSTU[n]abcdefghij[n]pqrstuvwx[n]1234567891
++ 
++ /* MLKIT 
++ 
++05-10 17:39:48.464 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@26e28b0, 1=com.google.android.gms.vision.text.TextBlock@16d2329, 2=com.google.android.gms.vision.text.TextBlock@6e4a6ae}
++05-10 17:39:52.874 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@3fedd86, 1=com.google.android.gms.vision.text.TextBlock@6a75647, 2=com.google.android.gms.vision.text.TextBlock@3738e74, 3=com.google.android.gms.vision.text.TextBlock@f5b4c12, 4=com.google.android.gms.vision.text.TextBlock@2f90fe3, 5=com.google.android.gms.vision.text.TextBlock@3751de0}
++05-10 17:39:57.534 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@e9cc8f8, 1=com.google.android.gms.vision.text.TextBlock@5cd51d1}
++05-10 17:40:01.694 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@7ad140e, 1=com.google.android.gms.vision.text.TextBlock@1a1fe2f, 2=com.google.android.gms.vision.text.TextBlock@4c5bc3c, 3=com.google.android.gms.vision.text.TextBlock@9f39dc5}
++05-10 17:40:05.794 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@521e779, 1=com.google.android.gms.vision.text.TextBlock@48c9cbe}
++05-10 17:40:11.284 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@b39c517, 1=com.google.android.gms.vision.text.TextBlock@8701d04, 2=com.google.android.gms.vision.text.TextBlock@5abc2ed}
++05-10 17:40:15.394 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@54c089c, 1=com.google.android.gms.vision.text.TextBlock@a762a5, 2=com.google.android.gms.vision.text.TextBlock@7f1767a}
++05-10 17:40:18.954 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@b149659, 1=com.google.android.gms.vision.text.TextBlock@f69521e}
++05-10 17:40:23.324 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@6cf9af7, 1=com.google.android.gms.vision.text.TextBlock@9a66d64, 2=com.google.android.gms.vision.text.TextBlock@893bcd}
++05-10 17:40:26.984 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@cdf1785, 1=com.google.android.gms.vision.text.TextBlock@a05b9da, 2=com.google.android.gms.vision.text.TextBlock@bacbe0b}
++05-10 17:40:30.624 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@42db23d, 1=com.google.android.gms.vision.text.TextBlock@bf1aa32, 2=com.google.android.gms.vision.text.TextBlock@c6ce383}
++05-10 17:40:34.044 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@1fe5271, 1=com.google.android.gms.vision.text.TextBlock@acdb856, 2=com.google.android.gms.vision.text.TextBlock@45e0d7}
++05-10 17:40:37.294 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@79613cf, 1=com.google.android.gms.vision.text.TextBlock@f52bc65, 2=com.google.android.gms.vision.text.TextBlock@40a1deb}
++05-10 17:40:40.554 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@bf4c419, 1=com.google.android.gms.vision.text.TextBlock@f4d4cde, 2=com.google.android.gms.vision.text.TextBlock@3098ebf}
++05-10 17:40:43.744 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@9496b7, 1=com.google.android.gms.vision.text.TextBlock@145fd8d, 2=com.google.android.gms.vision.text.TextBlock@61c1b42}
++05-10 17:40:46.974 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@11f49a8, 1=com.google.android.gms.vision.text.TextBlock@2b3bcc1, 2=com.google.android.gms.vision.text.TextBlock@8505c66, 3=com.google.android.gms.vision.text.TextBlock@3429ba7}
++05-10 17:40:50.294 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@e04923e, 1=com.google.android.gms.vision.text.TextBlock@675589f, 2=com.google.android.gms.vision.text.TextBlock@af15dec, 3=com.google.android.gms.vision.text.TextBlock@3eb15b5, 4=com.google.android.gms.vision.text.TextBlock@ab3944a}
++05-10 17:40:53.614 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@97ffef0, 1=com.google.android.gms.vision.text.TextBlock@8ccdc69, 2=com.google.android.gms.vision.text.TextBlock@c9806ee}
++05-10 17:40:56.964 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@ae0bc08, 1=com.google.android.gms.vision.text.TextBlock@12aafa1, 2=com.google.android.gms.vision.text.TextBlock@83605c6, 3=com.google.android.gms.vision.text.TextBlock@1e6f987, 4=com.google.android.gms.vision.text.TextBlock@4c990b4, 5=com.google.android.gms.vision.text.TextBlock@321a4dd}
++05-10 17:41:00.334 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@78a424c, 1=com.google.android.gms.vision.text.TextBlock@8d99295, 2=com.google.android.gms.vision.text.TextBlock@38affaa}
++05-10 17:41:03.644 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@cb5b550, 1=com.google.android.gms.vision.text.TextBlock@27cc349}
++05-10 17:41:06.994 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@f8ade68, 1=com.google.android.gms.vision.text.TextBlock@a549281, 2=com.google.android.gms.vision.text.TextBlock@b6bdf26, 3=com.google.android.gms.vision.text.TextBlock@84fc767}
++05-10 17:41:12.574 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@707ff75, 1=com.google.android.gms.vision.text.TextBlock@7bb9b0a, 2=com.google.android.gms.vision.text.TextBlock@7da3f7b, 3=com.google.android.gms.vision.text.TextBlock@b66b198, 4=com.google.android.gms.vision.text.TextBlock@8661df1, 5=com.google.android.gms.vision.text.TextBlock@a005dd6, 6=com.google.android.gms.vision.text.TextBlock@8435857, 7=com.google.android.gms.vision.text.TextBlock@3e14f44}
++05-10 17:41:18.294 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@9d8afe5, 1=com.google.android.gms.vision.text.TextBlock@6f8daba, 2=com.google.android.gms.vision.text.TextBlock@75fd6b, 3=com.google.android.gms.vision.text.TextBlock@135b0c8}
++05-10 17:41:21.464 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@e72aee3, 1=com.google.android.gms.vision.text.TextBlock@eafd0e0}
++05-10 17:41:24.874 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@735175b, 1=com.google.android.gms.vision.text.TextBlock@a1adbf8, 2=com.google.android.gms.vision.text.TextBlock@64568d1}
++05-10 17:41:28.134 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@d493210, 1=com.google.android.gms.vision.text.TextBlock@dcb6109}
++05-10 17:41:32.844 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@72821e6, 1=com.google.android.gms.vision.text.TextBlock@44eb327, 2=com.google.android.gms.vision.text.TextBlock@74259d4, 3=com.google.android.gms.vision.text.TextBlock@c97077d, 4=com.google.android.gms.vision.text.TextBlock@8447672, 5=com.google.android.gms.vision.text.TextBlock@f695ac3, 6=com.google.android.gms.vision.text.TextBlock@f553f40, 7=com.google.android.gms.vision.text.TextBlock@c119e79, 8=com.google.android.gms.vision.text.TextBlock@c5f87be, 9=com.google.android.gms.vision.text.TextBlock@afce01f}
++05-10 17:41:36.724 11545 11545 E MLKitLog: {0=com.google.android.gms.vision.text.TextBlock@e99e004, 1=com.google.android.gms.vision.text.TextBlock@c436022}
 +
 + */
- 
--    ReadableArray oldComponents = text.getArray("components");
--    WritableArray newComponents = Arguments.createArray();
--    for (int i = 0; i < oldComponents.size(); ++i) {
--      WritableMap component = Arguments.createMap();
--      component.merge(oldComponents.getMap(i));
--      rotateTextX(component);
--      newComponents.pushMap(component);
--    }
--    text.putArray("components", newComponents);
-  
 \ No newline at end of file
--    return text;
--  }
--
--}
 diff --git a/node_modules/react-native-camera/android/src/main/AndroidManifest.xml b/node_modules/react-native-camera/android/src/main/AndroidManifest.xml
 index fe6303a..addd3a3 100644
 --- a/node_modules/react-native-camera/android/src/main/AndroidManifest.xml
