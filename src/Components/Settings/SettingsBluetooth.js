@@ -15,6 +15,8 @@ import {useDispatch} from 'react-redux';
 import {isAndroid, sleep} from '@constants/Utils';
 import {setBluetoothPrinterAction} from '@store/actionTypes';
 
+import imgQRCode from 'react-native-qrcode-svg';
+
 const Container = styled.SafeAreaView`
   flex: 1;
   width: 100%;
@@ -89,12 +91,47 @@ const Screen = ({}) => {
     }
   };
 
+  const getPixelBitQR = code => {
+    // calculation
+    const m = 0;
+    const x = 4;
+
+    // calculation
+    var qrRaw = [];
+
+    imgQRCode.generate(code, {small: true}, qrcode => {
+      var lines = qrcode.split('\n');
+      lines.forEach(line => {
+        const width = line.length * x;
+        const nL = width % 256;
+        const nH = Math.floor((width - nL) / 256);
+
+        var lineRaw = [0x1b, 0x2a, m, nL, nH];
+        line.split('').forEach(dot => {
+          if (dot === '▄') {
+            lineRaw = lineRaw.concat(Array(x).fill(0xf));
+          } else if (dot === '█') {
+            lineRaw = lineRaw.concat(Array(x).fill(0xff));
+          } else if (dot === '▀') {
+            lineRaw = lineRaw.concat(Array(x).fill(0xf0));
+          } else {
+            lineRaw = lineRaw.concat(Array(x).fill(0));
+          }
+        });
+
+        qrRaw = qrRaw.concat(lineRaw);
+      });
+    });
+    return qrRaw;
+  };
+
   const printTest = peripheral => {
     const encoder = new EscPosEncoder();
     const res = encoder
       .initialize()
       .text('Applate Test')
       .newline()
+
       .newline()
       .text('Printer test success!')
       .newline()
