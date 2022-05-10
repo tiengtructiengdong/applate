@@ -1803,7 +1803,7 @@ index 0000000..0d259dd
 +o/classes
 diff --git a/node_modules/react-native-camera/android/build/.transforms/5c158f66ce84bae87f6d9b811d9175ce/transformed/classes/classes.dex b/node_modules/react-native-camera/android/build/.transforms/5c158f66ce84bae87f6d9b811d9175ce/transformed/classes/classes.dex
 new file mode 100644
-index 0000000..93918f2
+index 0000000..2dbc469
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/.transforms/5c158f66ce84bae87f6d9b811d9175ce/transformed/classes/classes.dex differ
 diff --git a/node_modules/react-native-camera/android/build/.transforms/bfb7c804bb33073cb44593082e241970/results.bin b/node_modules/react-native-camera/android/build/.transforms/bfb7c804bb33073cb44593082e241970/results.bin
 new file mode 100644
@@ -1986,7 +1986,7 @@ index 0000000..9e26dfe
 \ No newline at end of file
 diff --git a/node_modules/react-native-camera/android/build/intermediates/compile_library_classes_jar/generalDebug/classes.jar b/node_modules/react-native-camera/android/build/intermediates/compile_library_classes_jar/generalDebug/classes.jar
 new file mode 100644
-index 0000000..b19802f
+index 0000000..6388ce4
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/intermediates/compile_library_classes_jar/generalDebug/classes.jar differ
 diff --git a/node_modules/react-native-camera/android/build/intermediates/compile_library_classes_jar/generalRelease/classes.jar b/node_modules/react-native-camera/android/build/intermediates/compile_library_classes_jar/generalRelease/classes.jar
 new file mode 100644
@@ -6920,7 +6920,7 @@ index 0000000..9f8715c
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/tasks/ResolveTakenPictureAsyncTask.class differ
 diff --git a/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/tasks/TextRecognizerAsyncTask.class b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/tasks/TextRecognizerAsyncTask.class
 new file mode 100644
-index 0000000..38a342c
+index 0000000..437d26b
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/tasks/TextRecognizerAsyncTask.class differ
 diff --git a/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/tasks/TextRecognizerAsyncTaskDelegate.class b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/tasks/TextRecognizerAsyncTaskDelegate.class
 new file mode 100644
@@ -8237,7 +8237,7 @@ index 0000000..4742c36
 +attr flash
 diff --git a/node_modules/react-native-camera/android/build/intermediates/runtime_library_classes_jar/generalDebug/classes.jar b/node_modules/react-native-camera/android/build/intermediates/runtime_library_classes_jar/generalDebug/classes.jar
 new file mode 100644
-index 0000000..92ddfdb
+index 0000000..2d2fab9
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/intermediates/runtime_library_classes_jar/generalDebug/classes.jar differ
 diff --git a/node_modules/react-native-camera/android/build/intermediates/runtime_library_classes_jar/generalRelease/classes.jar b/node_modules/react-native-camera/android/build/intermediates/runtime_library_classes_jar/generalRelease/classes.jar
 new file mode 100644
@@ -11842,10 +11842,10 @@ index 0000000..09d1354
 +#Sun May 08 00:46:12 ICT 2022
 +sdk.dir=/Users/xcode/Library/Android/sdk
 diff --git a/node_modules/react-native-camera/android/src/general/java/org/reactnative/camera/tasks/TextRecognizerAsyncTask.java b/node_modules/react-native-camera/android/src/general/java/org/reactnative/camera/tasks/TextRecognizerAsyncTask.java
-index b8c2e9e..86d2e99 100644
+index b8c2e9e..a3dedc7 100644
 --- a/node_modules/react-native-camera/android/src/general/java/org/reactnative/camera/tasks/TextRecognizerAsyncTask.java
 +++ b/node_modules/react-native-camera/android/src/general/java/org/reactnative/camera/tasks/TextRecognizerAsyncTask.java
-@@ -1,6 +1,25 @@
+@@ -1,6 +1,26 @@
  package org.reactnative.camera.tasks;
  
  import android.util.SparseArray;
@@ -11858,6 +11858,7 @@ index b8c2e9e..86d2e99 100644
 +import android.graphics.Canvas;
 +import android.graphics.Color;
 +import android.graphics.ImageFormat;
++import android.graphics.Matrix;
 +import android.graphics.Rect;
 +import android.graphics.YuvImage;
 +
@@ -11871,7 +11872,7 @@ index b8c2e9e..86d2e99 100644
  
  import com.facebook.react.bridge.Arguments;
  import com.facebook.react.bridge.ReadableArray;
-@@ -9,22 +28,18 @@ import com.facebook.react.bridge.WritableArray;
+@@ -9,22 +29,18 @@ import com.facebook.react.bridge.WritableArray;
  import com.facebook.react.bridge.WritableMap;
  import com.facebook.react.uimanager.ThemedReactContext;
  import com.google.android.cameraview.CameraView;
@@ -11897,7 +11898,7 @@ index b8c2e9e..86d2e99 100644
    private byte[] mImageData;
    private int mWidth;
    private int mHeight;
-@@ -34,6 +49,7 @@ public class TextRecognizerAsyncTask extends android.os.AsyncTask<Void, Void, Sp
+@@ -34,6 +50,7 @@ public class TextRecognizerAsyncTask extends android.os.AsyncTask<Void, Void, Sp
    private double mScaleY;
    private int mPaddingLeft;
    private int mPaddingTop;
@@ -11905,7 +11906,7 @@ index b8c2e9e..86d2e99 100644
  
    public TextRecognizerAsyncTask(
            TextRecognizerAsyncTaskDelegate delegate,
-@@ -47,7 +63,8 @@ public class TextRecognizerAsyncTask extends android.os.AsyncTask<Void, Void, Sp
+@@ -47,7 +64,8 @@ public class TextRecognizerAsyncTask extends android.os.AsyncTask<Void, Void, Sp
            int viewWidth,
            int viewHeight,
            int viewPaddingLeft,
@@ -11915,7 +11916,7 @@ index b8c2e9e..86d2e99 100644
    ) {
      mDelegate = delegate;
      mThemedReactContext = themedReactContext;
-@@ -60,119 +77,58 @@ public class TextRecognizerAsyncTask extends android.os.AsyncTask<Void, Void, Sp
+@@ -60,119 +78,58 @@ public class TextRecognizerAsyncTask extends android.os.AsyncTask<Void, Void, Sp
      mScaleY = (double) (viewHeight) / (mImageDimensions.getHeight() * density);
      mPaddingLeft = viewPaddingLeft;
      mPaddingTop = viewPaddingTop;
@@ -11990,18 +11991,18 @@ index b8c2e9e..86d2e99 100644
 -    origin.putDouble("x", x * this.mScaleX);
 -    origin.putDouble("y", y * this.mScaleY);
 +      byte[] bmpBytes = out.toByteArray();
-+      final Bitmap bmp = BitmapFactory.decodeByteArray(bmpBytes, 0, bmpBytes.length);
- 
+       
 -    WritableMap size = Arguments.createMap();
 -    size.putDouble("width", text.getBoundingBox().width() * this.mScaleX);
 -    size.putDouble("height", text.getBoundingBox().height() * this.mScaleY);
-+      //String DATA_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).toString() + "/Tesseract/";
-+      //OutputStream img = new FileOutputStream(DATA_PATH + "tessdata/image.bmp");
-+      //out.writeTo(img);
++      Matrix matrix = new Matrix();
++      matrix.postRotate(90);
  
 -    WritableMap bounds = Arguments.createMap();
 -    bounds.putMap("origin", origin);
 -    bounds.putMap("size", size);
++      Bitmap bmp = BitmapFactory.decodeByteArray(bmpBytes, 0, bmpBytes.length);
++      bmp = Bitmap.createBitmap(bmp, 0, 0, mWidth, mHeight, matrix, true);
 +      tess.setImage(bmp);
  
 -    encodedText.putMap("bounds", bounds);
