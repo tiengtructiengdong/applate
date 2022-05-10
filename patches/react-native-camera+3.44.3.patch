@@ -1803,7 +1803,7 @@ index 0000000..0d259dd
 +o/classes
 diff --git a/node_modules/react-native-camera/android/build/.transforms/5c158f66ce84bae87f6d9b811d9175ce/transformed/classes/classes.dex b/node_modules/react-native-camera/android/build/.transforms/5c158f66ce84bae87f6d9b811d9175ce/transformed/classes/classes.dex
 new file mode 100644
-index 0000000..2dbc469
+index 0000000..17a5e17
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/.transforms/5c158f66ce84bae87f6d9b811d9175ce/transformed/classes/classes.dex differ
 diff --git a/node_modules/react-native-camera/android/build/.transforms/bfb7c804bb33073cb44593082e241970/results.bin b/node_modules/react-native-camera/android/build/.transforms/bfb7c804bb33073cb44593082e241970/results.bin
 new file mode 100644
@@ -1986,7 +1986,7 @@ index 0000000..9e26dfe
 \ No newline at end of file
 diff --git a/node_modules/react-native-camera/android/build/intermediates/compile_library_classes_jar/generalDebug/classes.jar b/node_modules/react-native-camera/android/build/intermediates/compile_library_classes_jar/generalDebug/classes.jar
 new file mode 100644
-index 0000000..6388ce4
+index 0000000..07d70f4
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/intermediates/compile_library_classes_jar/generalDebug/classes.jar differ
 diff --git a/node_modules/react-native-camera/android/build/intermediates/compile_library_classes_jar/generalRelease/classes.jar b/node_modules/react-native-camera/android/build/intermediates/compile_library_classes_jar/generalRelease/classes.jar
 new file mode 100644
@@ -6744,35 +6744,35 @@ index 0000000..153973f
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraPackage.class differ
 diff --git a/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView$1.class b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView$1.class
 new file mode 100644
-index 0000000..24c2479
+index 0000000..4a46165
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView$1.class differ
 diff --git a/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView$2.class b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView$2.class
 new file mode 100644
-index 0000000..184b022
+index 0000000..160b975
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView$2.class differ
 diff --git a/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView$3.class b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView$3.class
 new file mode 100644
-index 0000000..1178ecc
+index 0000000..ba61841
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView$3.class differ
 diff --git a/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView$4.class b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView$4.class
 new file mode 100644
-index 0000000..769b877
+index 0000000..526701b
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView$4.class differ
 diff --git a/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView$5.class b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView$5.class
 new file mode 100644
-index 0000000..cd5c6d1
+index 0000000..0d7ee1d
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView$5.class differ
 diff --git a/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView$6.class b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView$6.class
 new file mode 100644
-index 0000000..58bcbdd
+index 0000000..66b6f7a
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView$6.class differ
 diff --git a/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView$7.class b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView$7.class
 new file mode 100644
-index 0000000..0ee4b07
+index 0000000..475f10a
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView$7.class differ
 diff --git a/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView.class b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView.class
 new file mode 100644
-index 0000000..04ac7c1
+index 0000000..825ec82
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraView.class differ
 diff --git a/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraViewHelper$1.class b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/RNCameraViewHelper$1.class
 new file mode 100644
@@ -6920,7 +6920,7 @@ index 0000000..9f8715c
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/tasks/ResolveTakenPictureAsyncTask.class differ
 diff --git a/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/tasks/TextRecognizerAsyncTask.class b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/tasks/TextRecognizerAsyncTask.class
 new file mode 100644
-index 0000000..437d26b
+index 0000000..bdb7ca7
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/tasks/TextRecognizerAsyncTask.class differ
 diff --git a/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/tasks/TextRecognizerAsyncTaskDelegate.class b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/tasks/TextRecognizerAsyncTaskDelegate.class
 new file mode 100644
@@ -8237,7 +8237,7 @@ index 0000000..4742c36
 +attr flash
 diff --git a/node_modules/react-native-camera/android/build/intermediates/runtime_library_classes_jar/generalDebug/classes.jar b/node_modules/react-native-camera/android/build/intermediates/runtime_library_classes_jar/generalDebug/classes.jar
 new file mode 100644
-index 0000000..2d2fab9
+index 0000000..c9da1c3
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/intermediates/runtime_library_classes_jar/generalDebug/classes.jar differ
 diff --git a/node_modules/react-native-camera/android/build/intermediates/runtime_library_classes_jar/generalRelease/classes.jar b/node_modules/react-native-camera/android/build/intermediates/runtime_library_classes_jar/generalRelease/classes.jar
 new file mode 100644
@@ -11842,7 +11842,7 @@ index 0000000..09d1354
 +#Sun May 08 00:46:12 ICT 2022
 +sdk.dir=/Users/xcode/Library/Android/sdk
 diff --git a/node_modules/react-native-camera/android/src/general/java/org/reactnative/camera/tasks/TextRecognizerAsyncTask.java b/node_modules/react-native-camera/android/src/general/java/org/reactnative/camera/tasks/TextRecognizerAsyncTask.java
-index b8c2e9e..a3dedc7 100644
+index b8c2e9e..a3740b2 100644
 --- a/node_modules/react-native-camera/android/src/general/java/org/reactnative/camera/tasks/TextRecognizerAsyncTask.java
 +++ b/node_modules/react-native-camera/android/src/general/java/org/reactnative/camera/tasks/TextRecognizerAsyncTask.java
 @@ -1,6 +1,26 @@
@@ -11916,7 +11916,7 @@ index b8c2e9e..a3dedc7 100644
    ) {
      mDelegate = delegate;
      mThemedReactContext = themedReactContext;
-@@ -60,119 +78,58 @@ public class TextRecognizerAsyncTask extends android.os.AsyncTask<Void, Void, Sp
+@@ -60,119 +78,88 @@ public class TextRecognizerAsyncTask extends android.os.AsyncTask<Void, Void, Sp
      mScaleY = (double) (viewHeight) / (mImageDimensions.getHeight() * density);
      mPaddingLeft = viewPaddingLeft;
      mPaddingTop = viewPaddingTop;
@@ -11934,7 +11934,7 @@ index b8c2e9e..a3dedc7 100644
 -    RNFrame frame = RNFrameFactory.buildFrame(mImageData, mWidth, mHeight, mRotation);
 -    return mTextRecognizer.detect(frame.getFrame());
 -  }
--
+ 
 -  @Override
 -  protected void onPostExecute(SparseArray<TextBlock> textBlocks) {
 -    super.onPostExecute(textBlocks);
@@ -11955,10 +11955,16 @@ index b8c2e9e..a3dedc7 100644
 -    }
 -    mDelegate.onTextRecognizerTaskCompleted();
 -  }
--
++    String text = "";
++    try {
++      YuvImage yuv = new YuvImage(mImageData, ImageFormat.NV21, mWidth, mHeight, null);
++      ByteArrayOutputStream out = new ByteArrayOutputStream();
++      yuv.compressToJpeg(new Rect(0, 0, mWidth, mHeight), 50, out);
+ 
 -  private WritableMap serializeText(Text text) {
 -    WritableMap encodedText = Arguments.createMap();
--
++      byte[] bmpBytes = out.toByteArray();
+       
 -    WritableArray components = Arguments.createArray();
 -    for (Text component : text.getComponents()) {
 -      components.pushMap(serializeText(component));
@@ -11966,49 +11972,47 @@ index b8c2e9e..a3dedc7 100644
 -    encodedText.putArray("components", components);
 -
 -    encodedText.putString("value", text.getValue());
--
++      Matrix matrix = new Matrix();
++      matrix.postRotate(90);
+ 
 -    int x = text.getBoundingBox().left;
 -    int y = text.getBoundingBox().top;
--
++      Bitmap bmp = BitmapFactory.decodeByteArray(bmpBytes, 0, bmpBytes.length);
++      bmp = Bitmap.createBitmap(bmp, 0, 0, mWidth, mHeight, matrix, true);
++      tess.setImage(bmp);
+ 
 -    if (text.getBoundingBox().left < mWidth / 2) {
 -      x = x + mPaddingLeft / 2;
 -    } else if (text.getBoundingBox().left > mWidth /2) {
 -      x = x - mPaddingLeft / 2;
 -    }
++      text = tess.getUTF8Text();
++      Log.e("TesseractLog", text.replaceAll("\\n+","[n]"));
  
 -    if (text.getBoundingBox().height() < mHeight / 2) {
 -      y = y + mPaddingTop / 2;
 -    } else if (text.getBoundingBox().height() > mHeight / 2) {
 -      y = y - mPaddingTop / 2;
--    }
-+    String text = "";
-+    try {
-+      YuvImage yuv = new YuvImage(mImageData, ImageFormat.NV21, mWidth, mHeight, null);
-+      ByteArrayOutputStream out = new ByteArrayOutputStream();
-+      yuv.compressToJpeg(new Rect(0, 0, mWidth, mHeight), 50, out);
++    } catch (Exception e) {
++      Log.e("TesseractLog", e.toString());
+     }
++    return text;
++  }
  
 -    WritableMap origin = Arguments.createMap();
 -    origin.putDouble("x", x * this.mScaleX);
 -    origin.putDouble("y", y * this.mScaleY);
-+      byte[] bmpBytes = out.toByteArray();
-       
+-
 -    WritableMap size = Arguments.createMap();
 -    size.putDouble("width", text.getBoundingBox().width() * this.mScaleX);
 -    size.putDouble("height", text.getBoundingBox().height() * this.mScaleY);
-+      Matrix matrix = new Matrix();
-+      matrix.postRotate(90);
- 
+-
 -    WritableMap bounds = Arguments.createMap();
 -    bounds.putMap("origin", origin);
 -    bounds.putMap("size", size);
-+      Bitmap bmp = BitmapFactory.decodeByteArray(bmpBytes, 0, bmpBytes.length);
-+      bmp = Bitmap.createBitmap(bmp, 0, 0, mWidth, mHeight, matrix, true);
-+      tess.setImage(bmp);
- 
+-
 -    encodedText.putMap("bounds", bounds);
-+      text = tess.getUTF8Text();
-+      Log.e("Loge", text);
- 
+-
 -    String type_;
 -    if (text instanceof TextBlock) {
 -      type_ = "block";
@@ -12016,38 +12020,6 @@ index b8c2e9e..a3dedc7 100644
 -      type_ = "line";
 -    } else /*if (text instanceof Element)*/ {
 -      type_ = "element";
-+    } catch (Exception e) {
-+      Log.e("Loge", e.toString());
-     }
--    encodedText.putString("type", type_);
--
--    return encodedText;
-+    return text;
-   }
- 
--  private WritableMap rotateTextX(WritableMap text) {
--    ReadableMap faceBounds = text.getMap("bounds");
--
--    ReadableMap oldOrigin = faceBounds.getMap("origin");
--    WritableMap mirroredOrigin = FaceDetectorUtils.positionMirroredHorizontally(
--            oldOrigin, mImageDimensions.getWidth(), mScaleX);
--
--    double translateX = -faceBounds.getMap("size").getDouble("width");
--    WritableMap translatedMirroredOrigin = FaceDetectorUtils.positionTranslatedHorizontally(mirroredOrigin, translateX);
--
--    WritableMap newBounds = Arguments.createMap();
--    newBounds.merge(faceBounds);
--    newBounds.putMap("origin", translatedMirroredOrigin);
--
--    text.putMap("bounds", newBounds);
--
--    ReadableArray oldComponents = text.getArray("components");
--    WritableArray newComponents = Arguments.createArray();
--    for (int i = 0; i < oldComponents.size(); ++i) {
--      WritableMap component = Arguments.createMap();
--      component.merge(oldComponents.getMap(i));
--      rotateTextX(component);
--      newComponents.pushMap(component);
 +  @Override
 +  protected void onPostExecute(String text) {
 +    super.onPostExecute(text);
@@ -12066,12 +12038,70 @@ index b8c2e9e..a3dedc7 100644
 +    } catch (Exception e) {
 +      Log.e("Loge", e.toString());
      }
--    text.putArray("components", newComponents);
+-    encodedText.putString("type", type_);
 -
--    return text;
+-    return encodedText;
    }
  
- }
+-  private WritableMap rotateTextX(WritableMap text) {
+-    ReadableMap faceBounds = text.getMap("bounds");
+-
+-    ReadableMap oldOrigin = faceBounds.getMap("origin");
+-    WritableMap mirroredOrigin = FaceDetectorUtils.positionMirroredHorizontally(
+-            oldOrigin, mImageDimensions.getWidth(), mScaleX);
+-
+-    double translateX = -faceBounds.getMap("size").getDouble("width");
+-    WritableMap translatedMirroredOrigin = FaceDetectorUtils.positionTranslatedHorizontally(mirroredOrigin, translateX);
+-
+-    WritableMap newBounds = Arguments.createMap();
+-    newBounds.merge(faceBounds);
+-    newBounds.putMap("origin", translatedMirroredOrigin);
++}
+ 
+-    text.putMap("bounds", newBounds);
++/*
++
++TESSERACT
++
++05-10 16:54:53.974  4795  5018 E TesseractLog: ABCDEFGHI[n]OPQRSTUV\[n]abcdefghijkl[n]pq rstuvwxyz[n]1234567890!‘
++05-10 16:54:55.914  4795  5018 E TesseractLog: ABCDEFGHIJI[n]OPQRSTUVW[n]abcdefghijklrr[n]pq rstuvwxyz[n]12345678901&
++05-10 16:54:57.904  4795  4830 E TesseractLog: ABCDEFGHIJ[n]OPQRSTUVW[n]abcdefghijkln[n]pq rstuvwxyz[n]1234567890/&
++05-10 16:54:59.794  4795  4830 E TesseractLog: ABCDEFGHIJ[n]OPQRSTUV\A[n]abcdefghijkln[n]pq rstuvwxyz[n]1234567890/8
++05-10 16:55:01.844  4795  4830 E TesseractLog: ABCDEFGHIJI[n]OPQRSTUVW[n]abcdefghijklm[n]pq rstuvwxyz[n]1234567890/&-
++05-10 16:55:03.814  4795  4830 E TesseractLog: ABCDEFGHIJ[n]OPQRSTUVW[n]abcdefghijkln[n]pq rstuvwxyz[n]12345678901&
++05-10 16:55:05.884  4795  4830 E TesseractLog: ABCDEFGHIJ[n]OPQRSTUVW[n]abcdefghijkln[n]pqrstuvwxyz[n]1234567890/&
++05-10 16:55:07.814  4795  4830 E TesseractLog: ABCDEFGHIJ[n]OPQRSTUVW[n]abcdefghijkln[n]pqrstuvwxyz[n]1234567890!&
++05-10 16:55:09.804  4795  4830 E TesseractLog: ABCDEFGHIJ[n]OPQRSTUVW[n]abcdefghijkln'[n]pq rstuvwxyz[n]1234567890/&'
++05-10 16:55:11.794  4795  4830 E TesseractLog: DEFGHIJKLMI[n]tRSTUVWXYZ[n]lefghijklmno[n]ituvwxyz[n]L567890/&-,.
++05-10 16:55:14.104  4795  4830 E TesseractLog: Cl" U r1 IJ H[n]STUVWX[n]fghijklmn[n]|vwxyz[n]s1aso/&-,.
++05-10 16:55:16.144  4795  4830 E TesseractLog: J I U V III‘[n]'ghijklml[n]vwxyz[n]mac/s",
++05-10 16:55:18.554  4795  4830 E TesseractLog: GHIJKLM[n]'UVWXYZ[n]1ijklmno[n]vxyz l[n]QOnIR__
++05-10 16:55:20.674  4795  4830 E TesseractLog: ,CDEFGHI[n]'QRSTUW[n]cdefghijkl[n]rstuvwxyz[n]34567890!
++05-10 16:55:22.644  4795  4830 E TesseractLog: —[n]ABCDEF[n]OPQRST[n]abcdefgl[n]pqrstuvv[n]1234567!
++05-10 16:55:24.674  4795  5210 E TesseractLog: —[n]ABCDEF‘[n]OPQRST[n]abcdefgr[n]pq rstuvm[n]12345678
++05-10 16:55:26.614  4795  5210 E TesseractLog: —[n]ABCDEF[n]OPQRST[n]abcdefgt[n]pq rstuvw[n]12345678
++05-10 16:55:28.664  4795  5210 E TesseractLog: —[n]ABCDEFG[n]OPQRSTL[n]abcdefghi[n]pqrstuvw;[n]12345678!
++05-10 16:55:30.624  4795  5210 E TesseractLog: ABCDEF<[n]OPQRSTI[n]abcdefgh[n]pqrstuvw[n]123456781
++05-10 16:55:32.524  4795  5210 E TesseractLog: ABCDEF([n]OPQRSTI[n]abcdefgh[n]pqrstuvw[n]12345678
++05-10 16:55:34.574  4795  5080 E TesseractLog: ABCDEF G[n]OPQRSTU[n]abcdefghij[n]pqrstuvwx[n]1234567891
++
++ */
+ 
+-    ReadableArray oldComponents = text.getArray("components");
+-    WritableArray newComponents = Arguments.createArray();
+-    for (int i = 0; i < oldComponents.size(); ++i) {
+-      WritableMap component = Arguments.createMap();
+-      component.merge(oldComponents.getMap(i));
+-      rotateTextX(component);
+-      newComponents.pushMap(component);
+-    }
+-    text.putArray("components", newComponents);
+  
+\ No newline at end of file
+-    return text;
+-  }
+-
+-}
 diff --git a/node_modules/react-native-camera/android/src/main/AndroidManifest.xml b/node_modules/react-native-camera/android/src/main/AndroidManifest.xml
 index fe6303a..addd3a3 100644
 --- a/node_modules/react-native-camera/android/src/main/AndroidManifest.xml
@@ -12098,58 +12128,52 @@ index 9e449ef..cff1589 100644
          put("FaceDetection", Collections.unmodifiableMap(new HashMap<String, Object>() {
            {
 diff --git a/node_modules/react-native-camera/android/src/main/java/org/reactnative/camera/RNCameraView.java b/node_modules/react-native-camera/android/src/main/java/org/reactnative/camera/RNCameraView.java
-index 99e00d5..0f01283 100644
+index 99e00d5..851581d 100644
 --- a/node_modules/react-native-camera/android/src/main/java/org/reactnative/camera/RNCameraView.java
 +++ b/node_modules/react-native-camera/android/src/main/java/org/reactnative/camera/RNCameraView.java
-@@ -1,10 +1,14 @@
- package org.reactnative.camera;
-+import android.util.Log;
-+import java.net.URL;
+@@ -13,7 +13,13 @@ import android.media.CamcorderProfile;
+ import android.os.Build;
+ import androidx.core.content.ContextCompat;
+ 
 +import android.os.Environment;
- 
- import android.Manifest;
- import android.annotation.SuppressLint;
- import android.content.pm.PackageManager;
- import android.content.res.Configuration;
- import android.content.res.Resources;
 +import android.content.Context;
- import android.graphics.Color;
- import android.graphics.ImageFormat;
- import android.graphics.Rect;
-@@ -31,13 +35,21 @@ import org.reactnative.camera.tasks.*;
- import org.reactnative.camera.utils.RNFileUtils;
- import org.reactnative.facedetector.RNFaceDetector;
- 
++ 
 +import com.googlecode.tesseract.android.TessBaseAPI;
 +
+ import android.util.DisplayMetrics;
++import android.util.Log;
+ import android.view.GestureDetector;
+ import android.view.MotionEvent;
+ import android.view.ScaleGestureDetector;
+@@ -33,10 +39,17 @@ import org.reactnative.facedetector.RNFaceDetector;
+ 
  import java.io.ByteArrayOutputStream;
  import java.io.File;
 +import java.io.FileInputStream;
 +import java.io.FileOutputStream;
 +import java.io.InputStream;
-+import java.io.OutputStream;
-+import java.util.zip.GZIPInputStream;
  import java.io.IOException;
++import java.io.OutputStream;
++import java.net.URL;
  import java.util.*;
  import java.util.concurrent.ConcurrentHashMap;
  import java.util.concurrent.ConcurrentLinkedQueue;
- 
++import java.util.zip.GZIPInputStream;
 +
+ 
  public class RNCameraView extends CameraView implements LifecycleEventListener, BarCodeScannerAsyncTaskDelegate, FaceDetectorAsyncTaskDelegate,
      BarcodeDetectorAsyncTaskDelegate, TextRecognizerAsyncTaskDelegate, PictureSavedDelegate {
-   private ThemedReactContext mThemedReactContext;
-@@ -92,11 +104,52 @@ public class RNCameraView extends CameraView implements LifecycleEventListener,
+@@ -92,11 +105,50 @@ public class RNCameraView extends CameraView implements LifecycleEventListener,
    private int mCameraViewWidth = 0;
    private int mCameraViewHeight = 0;
  
-+  // Tess
 +  private TessBaseAPI tess = new TessBaseAPI();
 +
    public RNCameraView(ThemedReactContext themedReactContext) {
      super(themedReactContext, true);
      mThemedReactContext = themedReactContext;
      themedReactContext.addLifecycleEventListener(this);
-     
+ 
 +    String DATA_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).toString() + "/Tesseract/";
 +    String[] paths = new String[] { DATA_PATH, DATA_PATH + "tessdata/" };
 +
@@ -12187,15 +12211,67 @@ index 99e00d5..0f01283 100644
 +
 +    tess.init(DATA_PATH, "eng");
 +
-+
      addCallback(new Callback() {
        @Override
        public void onCameraOpened(CameraView cameraView) {
-@@ -162,16 +215,15 @@ public class RNCameraView extends CameraView implements LifecycleEventListener,
+@@ -108,65 +160,13 @@ public class RNCameraView extends CameraView implements LifecycleEventListener,
+         RNCameraViewHelper.emitMountErrorEvent(cameraView, "Camera view threw an error - component could not be rendered.");
+       }
+ 
+-      @Override
+-      public void onPictureTaken(CameraView cameraView, final byte[] data, int deviceOrientation) {
+-        Promise promise = mPictureTakenPromises.poll();
+-        ReadableMap options = mPictureTakenOptions.remove(promise);
+-        if (options.hasKey("fastMode") && options.getBoolean("fastMode")) {
+-            promise.resolve(null);
+-        }
+-        final File cacheDirectory = mPictureTakenDirectories.remove(promise);
+-        if(Build.VERSION.SDK_INT >= 11/*HONEYCOMB*/) {
+-          new ResolveTakenPictureAsyncTask(data, promise, options, cacheDirectory, deviceOrientation, RNCameraView.this)
+-                  .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+-        } else {
+-          new ResolveTakenPictureAsyncTask(data, promise, options, cacheDirectory, deviceOrientation, RNCameraView.this)
+-                  .execute();
+-        }
+-        RNCameraViewHelper.emitPictureTakenEvent(cameraView);
+-      }
+-
+-      @Override
+-      public void onRecordingStart(CameraView cameraView, String path, int videoOrientation, int deviceOrientation) {
+-        WritableMap result = Arguments.createMap();
+-        result.putInt("videoOrientation", videoOrientation);
+-        result.putInt("deviceOrientation", deviceOrientation);
+-        result.putString("uri", RNFileUtils.uriFromFile(new File(path)).toString());
+-        RNCameraViewHelper.emitRecordingStartEvent(cameraView, result);
+-      }
+-
+-      @Override
+-      public void onRecordingEnd(CameraView cameraView) {
+-        RNCameraViewHelper.emitRecordingEndEvent(cameraView);
+-      }
+-
+-      @Override
+-      public void onVideoRecorded(CameraView cameraView, String path, int videoOrientation, int deviceOrientation) {
+-        if (mVideoRecordedPromise != null) {
+-          if (path != null) {
+-            WritableMap result = Arguments.createMap();
+-            result.putBoolean("isRecordingInterrupted", mIsRecordingInterrupted);
+-            result.putInt("videoOrientation", videoOrientation);
+-            result.putInt("deviceOrientation", deviceOrientation);
+-            result.putString("uri", RNFileUtils.uriFromFile(new File(path)).toString());
+-            mVideoRecordedPromise.resolve(result);
+-          } else {
+-            mVideoRecordedPromise.reject("E_RECORDING", "Couldn't stop recording - there is none in progress");
+-          }
+-          mIsRecording = false;
+-          mIsRecordingInterrupted = false;
+-          mVideoRecordedPromise = null;
+-        }
+-      }
+ 
        @Override
        public void onFramePreview(CameraView cameraView, byte[] data, int width, int height, int rotation) {
          int correctRotation = RNCameraViewHelper.getCorrectCameraRotation(rotation, getFacing(), getCameraOrientation());
-+        
          boolean willCallBarCodeTask = mShouldScanBarCodes && !barCodeScannerTaskLock && cameraView instanceof BarCodeScannerAsyncTaskDelegate;
 -        boolean willCallFaceTask = mShouldDetectFaces && !faceDetectorTaskLock && cameraView instanceof FaceDetectorAsyncTaskDelegate;
 -        boolean willCallGoogleBarcodeTask = mShouldGoogleDetectBarcodes && !googleBarcodeDetectorTaskLock && cameraView instanceof BarcodeDetectorAsyncTaskDelegate;
@@ -12205,16 +12281,10 @@ index 99e00d5..0f01283 100644
            return;
          }
  
-         if (data.length < (1.5 * width * height)) {
--            return;
-+          return;
-         }
- 
-         if (willCallBarCodeTask) {
-@@ -180,36 +232,21 @@ public class RNCameraView extends CameraView implements LifecycleEventListener,
+@@ -180,36 +180,10 @@ public class RNCameraView extends CameraView implements LifecycleEventListener,
            new BarCodeScannerAsyncTask(delegate, mMultiFormatReader, data, width, height, mLimitScanArea, mScanAreaX, mScanAreaY, mScanAreaWidth, mScanAreaHeight, mCameraViewWidth, mCameraViewHeight, getAspectRatio().toFloat()).execute();
          }
-         
+ 
 -        if (willCallFaceTask) {
 -          faceDetectorTaskLock = true;
 -          FaceDetectorAsyncTaskDelegate delegate = (FaceDetectorAsyncTaskDelegate) cameraView;
@@ -12240,22 +12310,12 @@ index 99e00d5..0f01283 100644
 -                  correctRotation, getResources().getDisplayMetrics().density, getFacing(),
 -                  getWidth(), getHeight(), mPaddingX, mPaddingY).execute();
 -        }
-+        // IMAGE PROCESSING
-+        // for (int y = 0; y < data.length; y++) {
-+        //   int a = data[y] & 0xff;
-+        //   int x = (int) (255.0 / (1 + Math.exp(-25.0 * (a / 128.0 - 1.0))));
-+        //   data[y] = (byte) x;
-+        // }
- 
+-
          if (willCallTextTask) {
            textRecognizerTaskLock = true;
            TextRecognizerAsyncTaskDelegate delegate = (TextRecognizerAsyncTaskDelegate) cameraView;
 -          new TextRecognizerAsyncTask(delegate, mThemedReactContext, data, width, height, correctRotation, getResources().getDisplayMetrics().density, getFacing(), getWidth(), getHeight(), mPaddingX, mPaddingY).execute();
-+          try {
-+            new TextRecognizerAsyncTask(delegate, mThemedReactContext, data, width, height, correctRotation, getResources().getDisplayMetrics().density, getFacing(), getWidth(), getHeight(), mPaddingX, mPaddingY, tess).execute();
-+          } catch (Exception e) {
-+            Log.e("Loge", e.toString());
-+          }
++          new TextRecognizerAsyncTask(delegate, mThemedReactContext, data, width, height, correctRotation, getResources().getDisplayMetrics().density, getFacing(), getWidth(), getHeight(), mPaddingX, mPaddingY, tess).execute();
          }
        }
      });
