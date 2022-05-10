@@ -1803,7 +1803,7 @@ index 0000000..0d259dd
 +o/classes
 diff --git a/node_modules/react-native-camera/android/build/.transforms/5c158f66ce84bae87f6d9b811d9175ce/transformed/classes/classes.dex b/node_modules/react-native-camera/android/build/.transforms/5c158f66ce84bae87f6d9b811d9175ce/transformed/classes/classes.dex
 new file mode 100644
-index 0000000..56fd46c
+index 0000000..93918f2
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/.transforms/5c158f66ce84bae87f6d9b811d9175ce/transformed/classes/classes.dex differ
 diff --git a/node_modules/react-native-camera/android/build/.transforms/bfb7c804bb33073cb44593082e241970/results.bin b/node_modules/react-native-camera/android/build/.transforms/bfb7c804bb33073cb44593082e241970/results.bin
 new file mode 100644
@@ -1986,7 +1986,7 @@ index 0000000..9e26dfe
 \ No newline at end of file
 diff --git a/node_modules/react-native-camera/android/build/intermediates/compile_library_classes_jar/generalDebug/classes.jar b/node_modules/react-native-camera/android/build/intermediates/compile_library_classes_jar/generalDebug/classes.jar
 new file mode 100644
-index 0000000..24ad60b
+index 0000000..b19802f
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/intermediates/compile_library_classes_jar/generalDebug/classes.jar differ
 diff --git a/node_modules/react-native-camera/android/build/intermediates/compile_library_classes_jar/generalRelease/classes.jar b/node_modules/react-native-camera/android/build/intermediates/compile_library_classes_jar/generalRelease/classes.jar
 new file mode 100644
@@ -6920,7 +6920,7 @@ index 0000000..9f8715c
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/tasks/ResolveTakenPictureAsyncTask.class differ
 diff --git a/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/tasks/TextRecognizerAsyncTask.class b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/tasks/TextRecognizerAsyncTask.class
 new file mode 100644
-index 0000000..0c52813
+index 0000000..38a342c
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/tasks/TextRecognizerAsyncTask.class differ
 diff --git a/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/tasks/TextRecognizerAsyncTaskDelegate.class b/node_modules/react-native-camera/android/build/intermediates/javac/generalDebug/classes/org/reactnative/camera/tasks/TextRecognizerAsyncTaskDelegate.class
 new file mode 100644
@@ -8237,7 +8237,7 @@ index 0000000..4742c36
 +attr flash
 diff --git a/node_modules/react-native-camera/android/build/intermediates/runtime_library_classes_jar/generalDebug/classes.jar b/node_modules/react-native-camera/android/build/intermediates/runtime_library_classes_jar/generalDebug/classes.jar
 new file mode 100644
-index 0000000..848d2e0
+index 0000000..92ddfdb
 Binary files /dev/null and b/node_modules/react-native-camera/android/build/intermediates/runtime_library_classes_jar/generalDebug/classes.jar differ
 diff --git a/node_modules/react-native-camera/android/build/intermediates/runtime_library_classes_jar/generalRelease/classes.jar b/node_modules/react-native-camera/android/build/intermediates/runtime_library_classes_jar/generalRelease/classes.jar
 new file mode 100644
@@ -11325,12 +11325,12 @@ index 0000000..0bb9f3a
 +		INJECTED from /Users/xcode/Desktop/platev16/node_modules/react-native-camera/android/src/main/AndroidManifest.xml
 diff --git a/node_modules/react-native-camera/android/build/tmp/compileGeneralDebugJavaWithJavac/source-classes-mapping.txt b/node_modules/react-native-camera/android/build/tmp/compileGeneralDebugJavaWithJavac/source-classes-mapping.txt
 new file mode 100644
-index 0000000..5f5ebfc
+index 0000000..15780d7
 --- /dev/null
 +++ b/node_modules/react-native-camera/android/build/tmp/compileGeneralDebugJavaWithJavac/source-classes-mapping.txt
 @@ -0,0 +1,244 @@
-+org/reactnative/camera/events/BarcodeDetectionErrorEvent.java
-+ org.reactnative.camera.events.BarcodeDetectionErrorEvent
++org/reactnative/camera/tasks/TextRecognizerAsyncTask.java
++ org.reactnative.camera.tasks.TextRecognizerAsyncTask
 +org/reactnative/facedetector/RNFaceDetector.java
 + org.reactnative.facedetector.RNFaceDetector
 +com/google/android/cameraview/Camera2.java
@@ -11560,10 +11560,6 @@ index 0000000..5f5ebfc
 + com.google.android.cameraview.Camera1$7
 + com.google.android.cameraview.Camera1$8
 + com.google.android.cameraview.Camera1$9
-+org/reactnative/camera/tasks/BarcodeDetectorAsyncTask.java
-+ org.reactnative.camera.tasks.BarcodeDetectorAsyncTask
-+org/reactnative/camera/tasks/TextRecognizerAsyncTask.java
-+ org.reactnative.camera.tasks.TextRecognizerAsyncTask
 +org/reactnative/camera/RNCameraView.java
 + org.reactnative.camera.RNCameraView
 + org.reactnative.camera.RNCameraView$1
@@ -11573,6 +11569,10 @@ index 0000000..5f5ebfc
 + org.reactnative.camera.RNCameraView$5
 + org.reactnative.camera.RNCameraView$6
 + org.reactnative.camera.RNCameraView$7
++org/reactnative/camera/tasks/BarcodeDetectorAsyncTask.java
++ org.reactnative.camera.tasks.BarcodeDetectorAsyncTask
++org/reactnative/camera/events/BarcodeDetectionErrorEvent.java
++ org.reactnative.camera.events.BarcodeDetectionErrorEvent
 diff --git a/node_modules/react-native-camera/android/build/tmp/compileGeneralReleaseJavaWithJavac/source-classes-mapping.txt b/node_modules/react-native-camera/android/build/tmp/compileGeneralReleaseJavaWithJavac/source-classes-mapping.txt
 new file mode 100644
 index 0000000..1f39b7c
@@ -11842,7 +11842,7 @@ index 0000000..09d1354
 +#Sun May 08 00:46:12 ICT 2022
 +sdk.dir=/Users/xcode/Library/Android/sdk
 diff --git a/node_modules/react-native-camera/android/src/general/java/org/reactnative/camera/tasks/TextRecognizerAsyncTask.java b/node_modules/react-native-camera/android/src/general/java/org/reactnative/camera/tasks/TextRecognizerAsyncTask.java
-index b8c2e9e..2ce5a5b 100644
+index b8c2e9e..86d2e99 100644
 --- a/node_modules/react-native-camera/android/src/general/java/org/reactnative/camera/tasks/TextRecognizerAsyncTask.java
 +++ b/node_modules/react-native-camera/android/src/general/java/org/reactnative/camera/tasks/TextRecognizerAsyncTask.java
 @@ -1,6 +1,25 @@
@@ -11871,7 +11871,17 @@ index b8c2e9e..2ce5a5b 100644
  
  import com.facebook.react.bridge.Arguments;
  import com.facebook.react.bridge.ReadableArray;
-@@ -19,8 +38,10 @@ import org.reactnative.facedetector.FaceDetectorUtils;
+@@ -9,22 +28,18 @@ import com.facebook.react.bridge.WritableArray;
+ import com.facebook.react.bridge.WritableMap;
+ import com.facebook.react.uimanager.ThemedReactContext;
+ import com.google.android.cameraview.CameraView;
+-import com.google.android.gms.vision.text.Line;
+-import com.google.android.gms.vision.text.Text;
+-import com.google.android.gms.vision.text.TextBlock;
+-import com.google.android.gms.vision.text.TextRecognizer;
+ 
+ import org.reactnative.camera.utils.ImageDimensions;
+-import org.reactnative.facedetector.FaceDetectorUtils;
  import org.reactnative.frame.RNFrame;
  import org.reactnative.frame.RNFrameFactory;
  
@@ -11883,7 +11893,11 @@ index b8c2e9e..2ce5a5b 100644
  
    private TextRecognizerAsyncTaskDelegate mDelegate;
    private ThemedReactContext mThemedReactContext;
-@@ -34,6 +55,7 @@ public class TextRecognizerAsyncTask extends android.os.AsyncTask<Void, Void, Sp
+-  private TextRecognizer mTextRecognizer;
+   private byte[] mImageData;
+   private int mWidth;
+   private int mHeight;
+@@ -34,6 +49,7 @@ public class TextRecognizerAsyncTask extends android.os.AsyncTask<Void, Void, Sp
    private double mScaleY;
    private int mPaddingLeft;
    private int mPaddingTop;
@@ -11891,7 +11905,7 @@ index b8c2e9e..2ce5a5b 100644
  
    public TextRecognizerAsyncTask(
            TextRecognizerAsyncTaskDelegate delegate,
-@@ -47,7 +69,8 @@ public class TextRecognizerAsyncTask extends android.os.AsyncTask<Void, Void, Sp
+@@ -47,7 +63,8 @@ public class TextRecognizerAsyncTask extends android.os.AsyncTask<Void, Void, Sp
            int viewWidth,
            int viewHeight,
            int viewPaddingLeft,
@@ -11901,7 +11915,7 @@ index b8c2e9e..2ce5a5b 100644
    ) {
      mDelegate = delegate;
      mThemedReactContext = themedReactContext;
-@@ -60,37 +83,66 @@ public class TextRecognizerAsyncTask extends android.os.AsyncTask<Void, Void, Sp
+@@ -60,119 +77,58 @@ public class TextRecognizerAsyncTask extends android.os.AsyncTask<Void, Void, Sp
      mScaleY = (double) (viewHeight) / (mImageDimensions.getHeight() * density);
      mPaddingLeft = viewPaddingLeft;
      mPaddingTop = viewPaddingTop;
@@ -11918,32 +11932,9 @@ index b8c2e9e..2ce5a5b 100644
 -    mTextRecognizer = new TextRecognizer.Builder(mThemedReactContext).build();
 -    RNFrame frame = RNFrameFactory.buildFrame(mImageData, mWidth, mHeight, mRotation);
 -    return mTextRecognizer.detect(frame.getFrame());
-+
-+    String text = "";
-+    try {
-+      YuvImage yuv = new YuvImage(mImageData, ImageFormat.NV21, mWidth, mHeight, null);
-+      ByteArrayOutputStream out = new ByteArrayOutputStream();
-+      yuv.compressToJpeg(new Rect(0, 0, mWidth, mHeight), 50, out);
-+
-+      byte[] bmpBytes = out.toByteArray();
-+      final Bitmap bmp = BitmapFactory.decodeByteArray(bmpBytes, 0, bmpBytes.length);
-+
-+      //String DATA_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).toString() + "/Tesseract/";
-+      //OutputStream img = new FileOutputStream(DATA_PATH + "tessdata/image.bmp");
-+      //out.writeTo(img);
-+
-+      tess.setImage(bmp);
-+
-+      text = tess.getUTF8Text();
-+      Log.e("Loge", text);
-+
-+    } catch (Exception e) {
-+      Log.e("Loge", e.toString());
-+    }
-+    return text;
-   }
- 
-   @Override
+-  }
+-
+-  @Override
 -  protected void onPostExecute(SparseArray<TextBlock> textBlocks) {
 -    super.onPostExecute(textBlocks);
 -    if (mTextRecognizer != null) {
@@ -11958,6 +11949,105 @@ index b8c2e9e..2ce5a5b 100644
 -          serializedTextBlock = rotateTextX(serializedTextBlock);
 -        }
 -        textBlocksList.pushMap(serializedTextBlock);
+-      }
+-      mDelegate.onTextRecognized(textBlocksList);
+-    }
+-    mDelegate.onTextRecognizerTaskCompleted();
+-  }
+-
+-  private WritableMap serializeText(Text text) {
+-    WritableMap encodedText = Arguments.createMap();
+-
+-    WritableArray components = Arguments.createArray();
+-    for (Text component : text.getComponents()) {
+-      components.pushMap(serializeText(component));
+-    }
+-    encodedText.putArray("components", components);
+-
+-    encodedText.putString("value", text.getValue());
+-
+-    int x = text.getBoundingBox().left;
+-    int y = text.getBoundingBox().top;
+-
+-    if (text.getBoundingBox().left < mWidth / 2) {
+-      x = x + mPaddingLeft / 2;
+-    } else if (text.getBoundingBox().left > mWidth /2) {
+-      x = x - mPaddingLeft / 2;
+-    }
+ 
+-    if (text.getBoundingBox().height() < mHeight / 2) {
+-      y = y + mPaddingTop / 2;
+-    } else if (text.getBoundingBox().height() > mHeight / 2) {
+-      y = y - mPaddingTop / 2;
+-    }
++    String text = "";
++    try {
++      YuvImage yuv = new YuvImage(mImageData, ImageFormat.NV21, mWidth, mHeight, null);
++      ByteArrayOutputStream out = new ByteArrayOutputStream();
++      yuv.compressToJpeg(new Rect(0, 0, mWidth, mHeight), 50, out);
+ 
+-    WritableMap origin = Arguments.createMap();
+-    origin.putDouble("x", x * this.mScaleX);
+-    origin.putDouble("y", y * this.mScaleY);
++      byte[] bmpBytes = out.toByteArray();
++      final Bitmap bmp = BitmapFactory.decodeByteArray(bmpBytes, 0, bmpBytes.length);
+ 
+-    WritableMap size = Arguments.createMap();
+-    size.putDouble("width", text.getBoundingBox().width() * this.mScaleX);
+-    size.putDouble("height", text.getBoundingBox().height() * this.mScaleY);
++      //String DATA_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).toString() + "/Tesseract/";
++      //OutputStream img = new FileOutputStream(DATA_PATH + "tessdata/image.bmp");
++      //out.writeTo(img);
+ 
+-    WritableMap bounds = Arguments.createMap();
+-    bounds.putMap("origin", origin);
+-    bounds.putMap("size", size);
++      tess.setImage(bmp);
+ 
+-    encodedText.putMap("bounds", bounds);
++      text = tess.getUTF8Text();
++      Log.e("Loge", text);
+ 
+-    String type_;
+-    if (text instanceof TextBlock) {
+-      type_ = "block";
+-    } else if (text instanceof Line) {
+-      type_ = "line";
+-    } else /*if (text instanceof Element)*/ {
+-      type_ = "element";
++    } catch (Exception e) {
++      Log.e("Loge", e.toString());
+     }
+-    encodedText.putString("type", type_);
+-
+-    return encodedText;
++    return text;
+   }
+ 
+-  private WritableMap rotateTextX(WritableMap text) {
+-    ReadableMap faceBounds = text.getMap("bounds");
+-
+-    ReadableMap oldOrigin = faceBounds.getMap("origin");
+-    WritableMap mirroredOrigin = FaceDetectorUtils.positionMirroredHorizontally(
+-            oldOrigin, mImageDimensions.getWidth(), mScaleX);
+-
+-    double translateX = -faceBounds.getMap("size").getDouble("width");
+-    WritableMap translatedMirroredOrigin = FaceDetectorUtils.positionTranslatedHorizontally(mirroredOrigin, translateX);
+-
+-    WritableMap newBounds = Arguments.createMap();
+-    newBounds.merge(faceBounds);
+-    newBounds.putMap("origin", translatedMirroredOrigin);
+-
+-    text.putMap("bounds", newBounds);
+-
+-    ReadableArray oldComponents = text.getArray("components");
+-    WritableArray newComponents = Arguments.createArray();
+-    for (int i = 0; i < oldComponents.size(); ++i) {
+-      WritableMap component = Arguments.createMap();
+-      component.merge(oldComponents.getMap(i));
+-      rotateTextX(component);
+-      newComponents.pushMap(component);
++  @Override
 +  protected void onPostExecute(String text) {
 +    super.onPostExecute(text);
 +    //Log.e("Loge", "PostExecute");
@@ -11965,29 +12055,22 @@ index b8c2e9e..2ce5a5b 100644
 +    try {
 +      if (text != null) {
 +        WritableArray textBlocksList = Arguments.createArray();
-+        // for (int i = 0; i < textBlocks.size(); ++i) {
-+        //   TextBlock textBlock = textBlocks.valueAt(i);
-+        //   WritableMap serializedTextBlock = serializeText(textBlock);
-+        //   if (mImageDimensions.getFacing() == CameraView.FACING_FRONT) {
-+        //     serializedTextBlock = rotateTextX(serializedTextBlock);
-+        //   }
-+        //   textBlocksList.pushMap(serializedTextBlock);
-+        // }
 +        WritableMap serializedText = Arguments.createMap();
 +        serializedText.putString("text", text);
 +        
 +        textBlocksList.pushMap(serializedText);
 +        mDelegate.onTextRecognized(textBlocksList);
-       }
--      mDelegate.onTextRecognized(textBlocksList);
++      }
 +      mDelegate.onTextRecognizerTaskCompleted();
 +    } catch (Exception e) {
 +      Log.e("Loge", e.toString());
      }
--    mDelegate.onTextRecognizerTaskCompleted();
+-    text.putArray("components", newComponents);
+-
+-    return text;
    }
  
-   private WritableMap serializeText(Text text) {
+ }
 diff --git a/node_modules/react-native-camera/android/src/main/AndroidManifest.xml b/node_modules/react-native-camera/android/src/main/AndroidManifest.xml
 index fe6303a..addd3a3 100644
 --- a/node_modules/react-native-camera/android/src/main/AndroidManifest.xml
