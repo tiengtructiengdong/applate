@@ -36,7 +36,7 @@ import qrcode from 'qrcode-terminal';
 /* MODULE */
 /* MODULE */
 
-import {popUp} from '@constants/Utils';
+import {isAndroid, popUp} from '@constants/Utils';
 import {
   bluetoothPrinterSelector,
   isBluetoothPrinterConnectedSelector,
@@ -275,39 +275,66 @@ const Scan = ({}) => {
     }
     return Promise.resolve();
   };
-  const onTextRecognized = text => {
-    const regEx =
-      /[1-9][0-9]\-?[A-Z][A-Z0-9]?\n[0-9]{3}([0-9]|(\.|\-)[0-9]{2})/;
 
-    if (!checkIn && !checkOut) {
+  const parseOCR = text => {
+    var data = '';
+
+    if (text) {
+      data = text.textBlocks[0]?.text
+        .replaceAll(/(^\s+|\s+$)/g, '')
+        .replaceAll(/\-8/g, '-B')
+        .replaceAll(/\-2/g, '-Z')
+        .replaceAll(/\-0/g, '-D')
+        .replaceAll(/\-6/g, '-G');
+      const topRegex = /[1-9][0-9]\-[A-Z][0-9]/;
+      const botRegex = /[0-9]{3}([0-9]|(\.|\-)[0-9]{2})/;
+
+      if (data.match(topRegex) && data.match(botRegex)) {
+        return [data.match(topRegex)[0] + '\n' + data.match(botRegex)[0]];
+      }
+
+      return undefined;
+    }
+    //
+    else {
+      const regEx =
+        /[1-9][0-9]\-?[A-Z][A-Z0-9]?\n[0-9]{3}([0-9]|(\.|\-)[0-9]{2})/;
       const block = text.textBlocks.map(e => e.value);
-
       if (block.length > 0) {
-        const data = block.join('');
-        const plate = data.match(regEx);
+        data = block.join('');
+      }
+      return data.match(regEx);
+    }
+  };
 
-        if (plate) {
-          setCheckin(true);
-          const plateStr = plate[0].replace('-', '').replace('\n', '-');
+  const onTextRecognized = text => {
+    console.log(
+      new Date().getTime(),
+      text.textBlocks[0].text.replace('\n', '-'),
+    );
+    if (!checkIn && !checkOut) {
+      const plate = parseOCR(text);
+      if (plate) {
+        setCheckin(true);
+        const plateStr = plate[0].replace('-', '').replace('\n', '-');
 
-          Alert.alert('Checkin', plateStr, [
-            {
-              text: 'Cancel',
-              onPress: () => {
-                setCheckin(false);
-              },
-              style: 'cancel',
+        Alert.alert('Checkin', plateStr, [
+          {
+            text: 'Cancel',
+            onPress: () => {
+              setCheckin(false);
             },
-            {
-              text: 'OK',
-              onPress: () => {
-                setCheckin(false);
-                setCheckout(false);
-                processCheckin(plateStr);
-              },
+            style: 'cancel',
+          },
+          {
+            text: 'OK',
+            onPress: () => {
+              setCheckin(false);
+              setCheckout(false);
+              processCheckin(plateStr);
             },
-          ]);
-        }
+          },
+        ]);
       }
     }
   };
@@ -387,7 +414,7 @@ const Scan = ({}) => {
               },
             ]}>
             <View style={style.cameraContent}>
-              {isBluetoothPrinterConnected ? (
+              {true ? (
                 <RNCamera
                   captureAudio={false}
                   defaultTouchToFocus
