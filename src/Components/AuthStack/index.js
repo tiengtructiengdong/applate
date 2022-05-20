@@ -10,7 +10,6 @@ import AddParkingLot from '@components/List/AddParkingLot';
 import Register from './Register';
 import {createStackNavigator} from '@react-navigation/stack';
 import {tabNavigationSelector} from '@store/selectors/authSelector';
-import Scan from '@components/Scan';
 
 const Container = styled.View`
   flex: 1;
@@ -112,7 +111,7 @@ const AuthStack = ({}) => {
   const Stack = createStackNavigator();
   return (
     <Stack.Navigator headerMode="none">
-      <Stack.Screen name="Auth" component={Scan} />
+      <Stack.Screen name="Auth" component={Auth} />
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="AddParkingLot" component={AddParkingLot} />
     </Stack.Navigator>

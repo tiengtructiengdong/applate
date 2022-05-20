@@ -414,7 +414,7 @@ const Scan = ({}) => {
               },
             ]}>
             <View style={style.cameraContent}>
-              {true ? (
+              {isBluetoothPrinterConnected ? (
                 <RNCamera
                   captureAudio={false}
                   defaultTouchToFocus

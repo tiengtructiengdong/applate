@@ -1,1 +1,1 @@
-export const HOST = 'https://backlate-343800.df.r.appspot.com/';
+export const HOST = 'https://academic-empire-330510.df.r.appspot.com/';
