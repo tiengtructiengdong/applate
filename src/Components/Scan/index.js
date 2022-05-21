@@ -279,13 +279,22 @@ const Scan = ({}) => {
   const parseOCR = text => {
     var data = '';
 
-    if (text) {
-      data = text.textBlocks[0]?.text
-        .replaceAll(/(^\s+|\s+$)/g, '')
-        .replaceAll(/\-8/g, '-B')
-        .replaceAll(/\-2/g, '-Z')
-        .replaceAll(/\-0/g, '-D')
-        .replaceAll(/\-6/g, '-G');
+    if (isAndroid) {
+      data = text.textBlocks[0]?.text;
+      if (!data) {
+        return undefined;
+      }
+      console.log(data);
+      data = data
+        .replace(/(^\s+|\s+$)/g, '')
+        .replace('B', '8')
+        .replace('Z', '2')
+        .replace('D', '0')
+        .replace('G', '6')
+        .replace(/\-8/g, '-B')
+        .replace(/\-2/g, '-Z')
+        .replace(/\-0/g, '-D')
+        .replace(/\-6/g, '-G');
       const topRegex = /[1-9][0-9]\-[A-Z][0-9]/;
       const botRegex = /[0-9]{3}([0-9]|(\.|\-)[0-9]{2})/;
 
