@@ -198,8 +198,6 @@ export function Overview({
     </ParkingLotSelectItem>
   );
 
-  console.log('yeet', myParkingLots);
-
   return (
     <BG>
       <Select onPress={() => toggleSelect(!select)}>
