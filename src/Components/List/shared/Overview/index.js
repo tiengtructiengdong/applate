@@ -4,7 +4,7 @@ import Svg, {LinearGradient} from 'react-native-svg';
 import {PieChart} from 'react-native-chart-kit';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   displayCountSelector,
   isMyParkSelector,
@@ -14,6 +14,7 @@ import {
   bluetoothPrinterSelector,
   isBluetoothPrinterConnectedSelector,
 } from '@store/selectors/settingsSelector';
+import {getAllParkingLotsAction} from '@store/actionTypes';
 
 const BG = styled.View`
   background-color: #424242;
@@ -147,6 +148,7 @@ export function Overview({
   addPartner,
   testBluetoothPrinter,
 }) {
+  const dispatch = useDispatch();
   const today = new Date().getDate();
   const isMyPark = useSelector(isMyParkSelector);
   const displayCount = useSelector(displayCountSelector);
@@ -200,7 +202,11 @@ export function Overview({
 
   return (
     <BG>
-      <Select onPress={() => toggleSelect(!select)}>
+      <Select
+        onPress={() => {
+          toggleSelect(!select);
+          dispatch(getAllParkingLotsAction());
+        }}>
         <Name numberOfLines={3}>{parkingLot.Name}</Name>
         <Icon name="chevron-down" size={16} color="white" />
       </Select>

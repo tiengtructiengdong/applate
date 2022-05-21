@@ -39,7 +39,7 @@ const testCheckinSaga = function* (action: AnyAction) {
 
     if (response.status != 200) {
       console.log(response);
-      throw new Error('Test checkin error');
+      throw new Error('The vehicle is in another parking lot!');
     }
     const data = parseRawDataResponse(response, true);
     if (data) {

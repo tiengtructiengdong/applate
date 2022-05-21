@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Alert} from 'react-native';
 
@@ -8,6 +8,7 @@ import {Header} from '@components/Header';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   addParkingLotAction,
+  getAllParkingLotsAction,
   getParkAction,
   registerAction,
 } from '@store/actionTypes';
@@ -120,10 +121,9 @@ const Screen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const register = () => {
-    dispatch(addParkingLotAction(address, name, parseInt(spaceCount)));
-    navigation.goBack();
-  };
+  useEffect(() => {
+    dispatch(getAllParkingLotsAction());
+  }, [dispatch]);
 
   const selectItem = parkId => {
     dispatch(getParkAction(parkId));
