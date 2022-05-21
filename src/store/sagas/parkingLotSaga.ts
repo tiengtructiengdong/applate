@@ -82,6 +82,7 @@ const getAllParkingLotsSaga = function* (action: AnyAction) {
     );
 
     const prevParkList = yield* select(state => parkIdsSelector(state));
+    prevParkList.sort();
 
     const data = parseRawDataResponse(response, true);
     if (data) {
@@ -89,6 +90,7 @@ const getAllParkingLotsSaga = function* (action: AnyAction) {
 
       const {myParkingLot, workingParkingLot} = data;
       const newParkList = yield* select(state => parkIdsSelector(state));
+      newParkList.sort();
 
       const currentPark =
         prevCurrentPark && prevParkList != newParkList
