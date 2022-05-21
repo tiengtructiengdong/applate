@@ -175,9 +175,9 @@ const List = ({}) => {
             removeMembership(PlateId);
           },
         },
-        // {
-        //   text: 'Lost ticket?',
-        // },
+        {
+          text: 'Lost ticket?',
+        },
         {
           text: 'Cancel',
           style: 'cancel',

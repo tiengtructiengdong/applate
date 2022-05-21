@@ -190,11 +190,15 @@ export function Overview({
       </ParkingLotSelectLeft>
       <ParkingLotSelectSpace
         color={item.Name === parkingLot.Name ? '#ffd834' : 'white'}>
-        {item.SpaceCount}{' '}
-        <ParkingLotSelectSubLabel>left</ParkingLotSelectSubLabel>{' '}
+        {Math.abs(item.SpaceCount - item.Count)}{' '}
+        <ParkingLotSelectSubLabel>
+          {item.SpaceCount != 0 ? 'left' : 'vehicles'}
+        </ParkingLotSelectSubLabel>{' '}
       </ParkingLotSelectSpace>
     </ParkingLotSelectItem>
   );
+
+  console.log('yeet', myParkingLots);
 
   return (
     <BG>
