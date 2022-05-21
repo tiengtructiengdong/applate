@@ -279,10 +279,6 @@ const Scan = ({}) => {
   const parseOCR = text => {
     var data = '';
 
-    if (!text || text === '') {
-      return undefined;
-    }
-
     if (isAndroid) {
       data = text.textBlocks[0]?.text;
       if (!data) {
@@ -321,10 +317,10 @@ const Scan = ({}) => {
   };
 
   const onTextRecognized = text => {
-    console.log(
-      new Date().getTime(),
-      text.textBlocks[0].text.replace('\n', '-'),
-    );
+    // console.log(
+    //   new Date().getTime(),
+    //   text.textBlocks[0].text.replace('\n', '-'),
+    // );
     if (!checkIn && !checkOut) {
       const plate = parseOCR(text);
       if (plate) {
