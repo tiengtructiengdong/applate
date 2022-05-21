@@ -142,12 +142,13 @@ const Screen = () => {
           {item.Address}
         </ParkingLotSelectSubLabel>
       </ParkingLotSelectLeft>
+
       <ParkingLotSelectSpace
         color={item.Name === parkingLot.Name ? '#ffd834' : 'white'}>
-        {/* {item.SpaceCount}{' '}
+        {Math.abs(item.SpaceCount - item.Count)}{' '}
         <ParkingLotSelectSubLabel>
-          {item.SpaceCount === 0 ? 'vehicles' : 'left'}
-        </ParkingLotSelectSubLabel>{' '} */}
+          {item.SpaceCount != 0 ? 'left' : 'vehicles'}
+        </ParkingLotSelectSubLabel>{' '}
       </ParkingLotSelectSpace>
     </ParkingLotSelectItem>
   );

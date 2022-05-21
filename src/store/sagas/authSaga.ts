@@ -38,18 +38,14 @@ const loginSaga = function* (action: AnyAction) {
     //yield* put(updateSessionAction({loading: true}));
     const response = yield* call(login, number, password);
     const data = parseRawDataResponse(response, true);
-    if (data) {
+    if (response.status == 200) {
       yield* put(loginSuccessAction(data));
     } else {
-      const errorMessage = response?.data?.error?.message;
-      console.log('errrrr', errorMessage);
-      if (errorMessage) {
-        popUp(errorMessage);
-      }
+      throw new Error(String(response.status));
     }
   } catch (error: any) {
     switch (error.message) {
-      case errString(401):
+      case '400':
         popUp('Invalid username\nor password', 'Please check again');
         return;
       default:
