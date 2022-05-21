@@ -27,6 +27,8 @@ import {
   deletePartner,
 } from '@services/parkingLotServices';
 import {authSelector} from '@store/selectors/authSelector';
+import {useSelector} from 'react-redux';
+import {currentParkingLotSelector} from '@store/selectors/parkingLotSelector';
 
 const addParkingLotSaga = function* (action: AnyAction) {
   const {address, name, spaceCount} = action;
@@ -78,12 +80,17 @@ const getAllParkingLotsSaga = function* (action: AnyAction) {
       yield* put(getAllParkingLotsSuccessAction(data));
 
       const {myParkingLot, workingParkingLot} = data;
-      const currentPark =
-        myParkingLot && myParkingLot.length > 0
-          ? myParkingLot[0]
-          : workingParkingLot && workingParkingLot.length > 0
-          ? workingParkingLot[0]
-          : undefined;
+      const prevCurrentPark = yield* select(state =>
+        currentParkingLotSelector(state),
+      );
+
+      const currentPark = prevCurrentPark
+        ? prevCurrentPark
+        : myParkingLot && myParkingLot.length > 0
+        ? myParkingLot[0]
+        : workingParkingLot && workingParkingLot.length > 0
+        ? workingParkingLot[0]
+        : undefined;
 
       if (currentPark) {
         yield* put(getParkAction(currentPark.Id));
