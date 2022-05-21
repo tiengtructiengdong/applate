@@ -279,6 +279,10 @@ const Scan = ({}) => {
   const parseOCR = text => {
     var data = '';
 
+    if (!text || text === '') {
+      return undefined;
+    }
+
     if (isAndroid) {
       data = text.textBlocks[0]?.text;
       if (!data) {
