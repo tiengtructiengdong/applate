@@ -28,7 +28,10 @@ import {
 } from '@services/parkingLotServices';
 import {authSelector} from '@store/selectors/authSelector';
 import {useSelector} from 'react-redux';
-import {currentParkingLotSelector} from '@store/selectors/parkingLotSelector';
+import {
+  currentParkingLotSelector,
+  parkIdsSelector,
+} from '@store/selectors/parkingLotSelector';
 
 const addParkingLotSaga = function* (action: AnyAction) {
   const {address, name, spaceCount} = action;
@@ -74,23 +77,27 @@ const getAllParkingLotsSaga = function* (action: AnyAction) {
       yield* put(logoutSuccessAction());
       throw new Error('Please log in again.');
     }
+    const prevCurrentPark = yield* select(state =>
+      currentParkingLotSelector(state),
+    );
+
+    const prevParkList = yield* select(state => parkIdsSelector(state));
 
     const data = parseRawDataResponse(response, true);
     if (data) {
       yield* put(getAllParkingLotsSuccessAction(data));
 
       const {myParkingLot, workingParkingLot} = data;
-      const prevCurrentPark = yield* select(state =>
-        currentParkingLotSelector(state),
-      );
+      const newParkList = yield* select(state => parkIdsSelector(state));
 
-      const currentPark = prevCurrentPark
-        ? prevCurrentPark
-        : myParkingLot && myParkingLot.length > 0
-        ? myParkingLot[0]
-        : workingParkingLot && workingParkingLot.length > 0
-        ? workingParkingLot[0]
-        : undefined;
+      const currentPark =
+        prevCurrentPark && prevParkList != newParkList
+          ? prevCurrentPark
+          : myParkingLot && myParkingLot.length > 0
+          ? myParkingLot[0]
+          : workingParkingLot && workingParkingLot.length > 0
+          ? workingParkingLot[0]
+          : undefined;
 
       if (currentPark) {
         yield* put(getParkAction(currentPark.Id));

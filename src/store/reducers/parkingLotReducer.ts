@@ -47,6 +47,11 @@ export default function parkingLotReducer(
   action: AnyAction,
 ): ParkingLotState {
   switch (action.type) {
+    case 'LOGOUT_SUCCESS':
+      return {
+        ...state,
+        currentParkingLot: undefined,
+      };
     case 'RESET_PARKS':
       return {
         ...state,
