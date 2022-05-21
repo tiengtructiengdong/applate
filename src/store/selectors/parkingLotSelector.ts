@@ -10,6 +10,11 @@ export const vehicleCountSelector = (state: RootState) =>
 export const workingParkingLotSelector = (state: RootState) =>
   state.parkingLot?.workingParkingLot || [];
 
+export const parkIdsSelector = (state: RootState) =>
+  (state.parkingLot?.myParkingLot || [])
+    .map(x => x.Id)
+    .concat((state.parkingLot?.workingParkingLot || []).map(x => x.Id));
+
 export const currentParkingLotSelector = (state: RootState) =>
   state.parkingLot?.currentParkingLot;
 
